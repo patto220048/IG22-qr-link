@@ -12,5 +12,9 @@ app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded());
 
+//route
 route(app)
+
+
+//app
 app.listen(port, () => console.log(`Listening on port ${port} : http://127.0.0.1:${port}`));
