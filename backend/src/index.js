@@ -3,6 +3,8 @@ import * as dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
 import morgan from 'morgan';
 import route from './route/index.js';
+import db from './database/index.js'
+dotenv.config()
 const port = 4000 || process.env.PORT
 const app = express();
 
@@ -11,7 +13,8 @@ app.use(cookieParser());
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded());
-
+// connect to db
+db.connect()
 //route
 route(app)
 
