@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const UserModel = new Schema(
     {
+        email: {
+            type: String,
+            require: true,
+        },
         username: {
             type: String,
             require: true,
