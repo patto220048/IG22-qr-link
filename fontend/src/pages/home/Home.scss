@@ -1,5 +1,9 @@
+@import "../../base/color";
+
+
 .home {
-    background-color: aqua;
+    background-color: $background_color;
+    color: $text_color_soft_2;
     height: 100vh;
     &::-webkit-scrollbar {
         display: none;
