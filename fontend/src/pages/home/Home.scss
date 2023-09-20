@@ -1,0 +1,10 @@
+.home {
+    background-color: aqua;
+    height: 100vh;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .home-container {
+        padding-top: 80px;
+    }
+}
