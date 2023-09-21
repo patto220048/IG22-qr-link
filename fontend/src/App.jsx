@@ -5,6 +5,7 @@ import { Outlet, Route, RouterProvider, createBrowserRouter } from 'react-router
 import Home from './pages/home/Home';
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
+import Footer from './layouts/footer/Footer';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
             </nav>
             <Outlet/>
             <footer>
-
+                <Footer/>
             </footer>
         </div>
     );

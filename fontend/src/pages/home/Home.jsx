@@ -1,6 +1,9 @@
+import { Link } from 'react-router-dom';
 import './Home.scss';
+import { useState } from 'react';
 
 function Home() {
+    const [homeInput, setHomeInput] = useState("")
     return (
         <div className="home">
             <div className="home-container">
@@ -8,7 +11,7 @@ function Home() {
                     <h1 className='home-text'>Everything you are. In one, simple link in bio. </h1>
                     <section className="home-section">
                         <input className='home-input' placeholder='123' type="text" />
-                        <button className='home-btn'>Click make your link</button>
+                      <Link to="/register/signup"><button className='home-btn'>Click make your link</button></Link>
                     </section>
                 </div>
                 <div className="home-right">

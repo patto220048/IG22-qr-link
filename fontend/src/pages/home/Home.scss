@@ -28,20 +28,20 @@
                     padding: 18px;
                     width: 40%;
                     border-radius: 25px;
-                    // border: 2px solid transparent;
-                    transition: ease 0.2s;
+                    border: 2px solid transparent;
+            
                     &:focus{
                         border: 2px solid rgb(0, 0, 0);
                         outline: 2px solid rgba(255, 255, 255);
                     }
                 }
                 .home-btn{
-                    padding: 0 20px;
+                    padding: 20px;
                     border-radius: 25px;
                     background-color: black;
                     color:  white;
                     &:hover{
-                    background-color: rgba($color: #000000, $alpha: 0.6)
+                        background-color: rgba($color: #000000, $alpha: 0.6)
                     }
                    
                 }
