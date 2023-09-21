@@ -1,10 +1,54 @@
+@import '../../base/color';
+
 .home {
-    background-color: aqua;
-    height: 100vh;
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    background-color: $background_color;
+    color: $text_color_soft_2;
+    // height: 100vh;
+    // padding-top: 80px;
+
     .home-container {
-        padding-top: 80px;
-    }
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .home-left {
+            flex: 1;
+            .home-text {
+                padding-left: 160px;
+                font-size: 90px;
+                font-weight: 800;
+            }
+            .home-section {
+                display: flex;
+                gap: 20px;
+                padding-left: 160px;
+                margin-top: 30px;
+                .home-input{
+                    padding: 18px;
+                    width: 40%;
+                    border-radius: 25px;
+                    border: 2px solid transparent;
+            
+                    &:focus{
+                        border: 2px solid rgb(0, 0, 0);
+                        outline: 2px solid rgba(255, 255, 255);
+                    }
+                }
+                .home-btn{
+                    padding: 20px;
+                    border-radius: 25px;
+                    background-color: black;
+                    color:  white;
+                    &:hover{
+                        background-color: rgba($color: #000000, $alpha: 0.6)
+                    }
+                   
+                }
+            }
+        }
+        .home-right {
+            flex: 1;
+        }
+    }   
 }
