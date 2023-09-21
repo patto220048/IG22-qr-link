@@ -1,4 +1,4 @@
-import './Signup.module.scss'
+import './Signup.scss'
 
 
 function Signup() {
