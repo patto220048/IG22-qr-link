@@ -7,7 +7,7 @@ function Home() {
                 <div className="home-left">
                     <h1 className='home-text'>Everything you are. In one, simple link in bio. </h1>
                     <section className="home-section">
-                        <input className='home-input' placeholder='' type="text" />
+                        <input className='home-input' placeholder='123' type="text" />
                         <button className='home-btn'>Click make your link</button>
                     </section>
                 </div>
