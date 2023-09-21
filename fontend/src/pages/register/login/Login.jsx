@@ -6,7 +6,7 @@ function Login() {
         <div className="login">
             <div className="login-container">
                 <div className="login-title">
-                    <h1>Wellcome back</h1>
+                    <h1>Welcome back</h1>
                     <p>Login in your bio !!!</p>
                 </div>
 
