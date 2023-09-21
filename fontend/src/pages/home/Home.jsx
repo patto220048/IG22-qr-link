@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import './Home.scss';
 import { useState } from 'react';
+import Info from './info/Info';
 
 function Home() {
     const [homeInput, setHomeInput] = useState("")
@@ -18,6 +19,9 @@ function Home() {
                
                     <img src="" alt="" />
                 </div>
+            </div>
+            <div className="info-container">
+                <Info/>
             </div>
         </div>
     );
