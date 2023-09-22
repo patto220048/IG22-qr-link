@@ -1,19 +1,23 @@
-@import "../../../base/color";
+@import '../../../base/color';
+@import '../../../base/variable';
 
 .questions {
-    background-color: #FFB000;
+    background-color: #ffb000;
     color: black;
     height: 100vh;
     .questions-container {
         width: 100%;
         height: 100vh;
         display: flex;
-        justify-content: center;   
-        .questions-title {
-           margin-top: 100px;
-           font-size: 40px;
+        justify-content: center;
+        scroll-snap-align: center;
 
+        .questions-title {
+            padding-top: 200px;
+            font-size: $fontSize_home;
+            font-weight: $fontWeight_home;
+            text-shadow: 4px 3px 0px #7A7A7A, -3px -2px 4px rgba(206,89,55,0);
+            
         }
     }
-
 }

@@ -1,23 +1,26 @@
-import "./Info.scss"
+import './Info.scss';
 import { Link } from 'react-router-dom';
-function  Info() {
-    return ( 
+function Info() {
+    return (
         <div className="info">
             <div className="info-container">
                 <div className="info-left">
+                    <h1 className="info-text">Everything you are. In one, simple link in bio. </h1>
+                    <p className='info-decs'>Create your own information link with your name</p>
+                    <section className="info-section">
+                        <input className="info-input" placeholder="123" type="text" />
 
-                    <img src="" alt="" />
+                        <Link to="/register/signup">
+                            <button className="info-btn">Click make your link</button>
+                        </Link>
+                    </section>
                 </div>
                 <div className="info-right">
-                    <h1 className='info-text'>Create and customize your own information card in just a few minutes."</h1>
-                    <h3 className='info-text1'>Connect your TikTok, Instagram, Twitter, website, store, videos,
-                     music and more. All in one click.</h3>
-                    
-                     <Link to="/register/signup"><button className='info-btn'>Get started for free</button></Link>
+                    <img src="" alt="" />
                 </div>
             </div>
         </div>
     );
 }
 
-export default  Info;
+export default Info;

@@ -1,9 +1,11 @@
 @import '../../base/color';
+@import '../../base/variable';
 
 .navbar {
     position: fixed;
     top: 60px;
     width: 100%;
+   
 
     .navbar-container {
         display: flex;
@@ -12,10 +14,14 @@
         margin: 0 auto;
         width: 80%;
         background-color: rgb(255, 255, 255);
-        height: 70px;
+        height: $navHight;
         padding: 5px 20px;
         border-radius: 50px;
         position: relative;
+         // boxshadow
+        box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
+        -webkit-box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
+        -moz-box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
         .logo {
             flex: 3;
             font-size: 30px;
