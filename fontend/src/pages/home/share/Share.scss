@@ -1,0 +1,48 @@
+@import "../../../base/color";
+
+.share {
+    background-color: #F5F5DC;
+    color: black;
+    height: 100vh;
+    .share-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .share-left {    
+            
+            flex: 1;
+            .share-text {
+                padding-left: 160px;
+                font-size: 90px;
+                font-weight: 800;
+                color: #4d4d23;
+               
+            }
+            .share-text1 {
+                margin-top: 20px;
+                padding-left: 160px;
+                font-weight: 600;
+                color: #4d4d23;
+            }
+            .share-btn{
+                margin-top: 20px;
+                margin-left: 160px;
+                padding: 20px;
+                border-radius: 60px;
+                background-color: white;
+                font-size: 25px;
+                &:hover{
+                    background-color: rgba($color:white , $alpha: 0.5)
+                }
+            }
+            
+        }
+        .share-right {
+            flex: 1;
+        }
+    }
+
+}
