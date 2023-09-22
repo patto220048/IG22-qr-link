@@ -1,48 +1,53 @@
-@import "../../../base/color";
+@import '../../../base/color';
+@import '../../../base/variable';
 
 .info {
-    background-color: skyblue;
-    color: black;
-    height: 100vh;
-
-
-
+    background-color: $background_color;
+    color: $text_color_soft_2;
     .info-container {
         width: 100%;
-        height: 100vh;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        scroll-snap-align: center;
 
-        .info-left {    
+        .info-left {
             flex: 1;
-            
-        }
-        .info-right {
-            flex: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             .info-text {
-                padding-right: 160px;
-                font-size: 90px;
-                font-weight: 800;
-                color: rgb(2, 40, 54);
+                padding-left: 160px;
+                font-size: $fontSize_home;
+                font-weight: $fontWeight_home;
             }
-            .info-text1 {
-                padding-top: 30px;
-                padding-right: 160px;
-                font-weight: 600;
-                color: rgb(2, 40, 54);
-            }
-            .info-btn{
-                margin-top: 20px;
-                padding: 20px;
-                border-radius: 60px;
-                background-color: white;
-                font-size: 25px;
-                &:hover{
-                    background-color: rgba($color:white , $alpha: 0.5)
+            .info-section {
+                display: flex;
+                gap: 20px;
+                padding-left: 160px;
+                margin-top: 30px;
+                .info-input {
+                    padding: 18px;
+                    width: 40%;
+                    border-radius: 25px;
+                    border: 2px solid transparent;
+                    &:focus {
+                        border: 2px solid rgb(0, 0, 0);
+                        outline: 2px solid rgba(255, 255, 255);
+                    }
+                }
+                .info-btn {
+                    padding: 20px;
+                    border-radius: 25px;
+                    background-color: black;
+                    color: white;
+                    &:hover {
+                        background-color: rgba($color: #000000, $alpha: 0.6);
+                    }
                 }
             }
         }
-
+        .info-right {
+            flex: 1;
+        }
     }
 }

@@ -1,15 +1,20 @@
 @import '../../../base/color';
 @import '../../../base/variable';
 
-.share {
-    background-color: #f5f5dc;
+.card {
+    background-color: skyblue;
     color: black;
-    .share-container {
+
+    .card-container {
         width: 100%;
         display: flex;
         scroll-snap-align: center;
-
-        .share-left {
+  
+        .card-left {
+            flex: 1;
+            
+        }
+        .card-right {
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -17,20 +22,19 @@
             gap: 20px;
             height: 100vh;
             width: 40%;
-            .share-text {
-                margin-left: 160px;
+            .card-text {
                 font-size: $fontSize_home;
                 font-weight: $fontWeight_home;
-                color: #4d4d23;
+                color: rgb(2, 40, 54);
             }
-            .share-desc {
-                margin-top: 20px;
-                padding-left: 160px;
+            .card-desc {
                 font-weight: 600;
-                color: #4d4d23;
+                color: rgb(2, 40, 54);
+                opacity: 0.7;
+                font-weight: 500;
             }
-            .share-btn {
-                margin-left: 160px;
+            
+            .card-btn {
                 text-align: center;
                 padding: 20px;
                 border-radius: 25px;
@@ -38,20 +42,18 @@
                 font-weight: 600;
                 width: 20%;
                 cursor: pointer;
-                a {
-                    text-decoration: none;
+                a{
+                    text-decoration: none ;
                     color: $white;
                 }
                 &:hover {
                     background-color: rgba($color: white, $alpha: 0.5);
-                    a {
+                    a{
                         color: black;
                     }
+                    
                 }
             }
-        }
-        .share-right {
-            flex: 1;
         }
     }
 }
