@@ -1,0 +1,48 @@
+@import "../../../base/color";
+
+.info {
+    background-color: skyblue;
+    color: black;
+    height: 100vh;
+
+
+
+    .info-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .info-left {    
+            flex: 1;
+            
+        }
+        .info-right {
+            flex: 1;
+            .info-text {
+                padding-right: 160px;
+                font-size: 60px;
+                font-weight: 800;
+                color: rgb(2, 40, 54);
+            }
+            .info-text1 {
+                padding-top: 30px;
+                padding-right: 160px;
+                font-weight: 600;
+                color: rgb(2, 40, 54);
+            }
+            .info-btn{
+                margin-top: 20px;
+                padding: 20px;
+                border-radius: 60px;
+                background-color: white;
+                font-size: 25px;
+                &:hover{
+                    background-color: rgba($color:white , $alpha: 0.5)
+                }
+            }
+        }
+
+    }
+}
