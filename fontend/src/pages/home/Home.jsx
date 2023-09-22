@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import './Home.scss';
 import { useState } from 'react';
 import Info from './info/Info';
+import Share from './share/Share';
+import Questions from './questions/Questions';
+
+
+
 
 function Home() {
     const [homeInput, setHomeInput] = useState("")
@@ -23,7 +28,16 @@ function Home() {
             <div className="info-container">
                 <Info/>
             </div>
+            <div className="share-container">
+                <Share/>
+            </div>
+            <div className="questions-container">
+                <Questions/>
+            </div>
+        
         </div>
+       
+        
     );
 }
 

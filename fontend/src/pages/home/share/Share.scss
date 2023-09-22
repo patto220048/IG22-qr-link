@@ -1,39 +1,35 @@
 @import "../../../base/color";
 
-.info {
-    background-color: skyblue;
+.share {
+    background-color: #F5F5DC;
     color: black;
     height: 100vh;
-
-
-
-    .info-container {
+    .share-container {
         width: 100%;
         height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        .info-left {    
-            flex: 1;
+        .share-left {    
             
-        }
-        .info-right {
             flex: 1;
-            .info-text {
-                padding-right: 160px;
+            .share-text {
+                padding-left: 160px;
                 font-size: 90px;
                 font-weight: 800;
-                color: rgb(2, 40, 54);
+                color: #4d4d23;
+               
             }
-            .info-text1 {
-                padding-top: 30px;
-                padding-right: 160px;
-                font-weight: 600;
-                color: rgb(2, 40, 54);
-            }
-            .info-btn{
+            .share-text1 {
                 margin-top: 20px;
+                padding-left: 160px;
+                font-weight: 600;
+                color: #4d4d23;
+            }
+            .share-btn{
+                margin-top: 20px;
+                margin-left: 160px;
                 padding: 20px;
                 border-radius: 60px;
                 background-color: white;
@@ -42,7 +38,11 @@
                     background-color: rgba($color:white , $alpha: 0.5)
                 }
             }
+            
         }
-
+        .share-right {
+            flex: 1;
+        }
     }
+
 }

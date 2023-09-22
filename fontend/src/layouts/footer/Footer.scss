@@ -1,0 +1,23 @@
+.footer {
+    .footer-container {
+        padding: 20px;
+        .footer-container_item {
+            border-radius: 10px solid black;
+            display: flex;
+            justify-content: space-between;
+            .footer-sub {
+                h3 {
+                    padding-left: 20px;
+                    padding-bottom: 20px;
+                }
+                li {
+                    padding-left: 20px;
+                    padding-bottom: 20px;
+                }
+                ul {
+                    padding-bottom: 20px;
+                }
+            }
+        }
+    }
+}
