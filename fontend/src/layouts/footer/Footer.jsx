@@ -1,7 +1,6 @@
 import './Footer.scss';
 
 function Footer() {
-<<<<<<< HEAD
     return ( 
     <div className = 'footer' >
         <div className = "footer-container" >
@@ -47,14 +46,7 @@ function Footer() {
                 </ul>
         </div> 
     </div>
-=======
-    return (
-        <div className='footer'>
-            <div className="footer-container">
-            <h1>hello</h1>
-            </div>
-        </div>
->>>>>>> 9e5bb326c70a2648f9bd064a3579897d26d642b9
+
     );
 }
 
