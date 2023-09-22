@@ -1,4 +1,4 @@
-@import "../../base/color";
+@import '../../base/color';
 
 .navbar {
     position: fixed;
@@ -23,90 +23,106 @@
         .nav-link {
             display: flex;
             gap: 40px;
-            color: $text_color_soft_3 ;
-            
-            .nav-link_items{
+            color: $text_color_soft_3;
+
+            .nav-link_items {
                 padding: 10px;
                 font-size: 18px;
                 cursor: pointer;
                 border-radius: 5px;
-                &:hover{
+                &:hover {
                     background-color: $text_hover_color;
                 }
             }
-           
         }
         .register {
             flex: 1;
             display: flex;
             justify-content: flex-end;
             gap: 20px;
-            .btn{
+            .btn {
                 font-weight: 500;
                 font-size: 18px;
                 padding: 15px;
                 border-radius: 25px;
                 background-color: black;
                 color: white;
-                
             }
             .login {
                 border-radius: 10px;
                 background-color: $text_hover_color;
                 color: black;
-                &:hover{
+                &:hover {
                     background-color: rgba($color: $text_hover_color, $alpha: 0.7);
                 }
             }
-            .signup{
-                &:hover{
+            .signup {
+                &:hover {
                     background-color: rgba($color: black, $alpha: 0.7);
                 }
             }
         }
-        .nav-user{
-            .avatar{
+        .nav-user {
+            .avatar {
                 padding-left: 20px;
-                img{
+                img {
                     padding: 2px;
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
                     cursor: pointer;
                     border: 1px solid transparent;
-                    &:hover{
+                    &:hover {
                         border: 1px solid black;
                     }
                 }
-                &:hover{
+                &:hover {
                     transform: scale(1.03);
                 }
             }
         }
     }
-    .nav-option{
+    .nav-option {
         position: absolute;
         background-color: $white;
         width: 20%;
         z-index: 999;
         right: 0%;
         top: 90%;
+        //box shadows
         border-radius: 25px;
-        padding: 20px;        
-        .account-option{
+        padding: 20px;
+        -moz-box-shadow: 0px 0px 18px 5px rgba(0, 0, 0, 0.22);
+        -webkit-box-shadow: 0px 0px 18px 5px rgba(0, 0, 0, 0.22);
+        -ms-box-shadow: 0px 0px 18px 5px rgba(0, 0, 0, 0.22);
+        box-shadow: 0px 0px 18px 5px rgba(0, 0, 0, 0.22);
+        .account-option {
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            h3{
+            gap: 20px;
+            h3 {
                 font-size: 16px;
                 color: $text_color_soft_3;
             }
-            .account-option-item{
-                padding-left: 20px;
+            .account-option-item {
+                padding: 8px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
                 cursor: pointer;
-
-            }   
+                border-radius: 10px;
+                p {
+                    font-size: 16px;
+                    opacity: 0.8;
+                }
+                .account-icon {
+                    text-align: center;
+                    padding-left: 20px;
+                }
+                &:hover {
+                    background-color: $text_hover_color;
+                }
+            }
         }
-        
     }
 }
