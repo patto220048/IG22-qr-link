@@ -20,8 +20,8 @@ class authController {
             const userName = await User.findOne({ username: req.body.username });
             if (!userEmail && !userName) {
                 // hash password
-                const salt = bcrypt.genSaltSync(10);
-                const hash = bcrypt.hashSync(req.body.password, salt);
+                const salt = await bcrypt.genSaltSync(10);
+                const hash = await bcrypt.hashSync(req.body.password, salt);
                 // save user into database
                 const newUser = new User({ ...req.body, password: hash });
                 await newUser.save();
@@ -39,7 +39,7 @@ class authController {
             const currentUser = await User.findOne({ email: req.body.email }); 
             if (!currentUser) return res.json(handleError(401, 'User not found !!!'));
             // compare hash password
-            const isCorrectPassword = bcrypt.compare(req.body.password, currentUser.password);
+            const isCorrectPassword = await bcrypt.compare(req.body.password, currentUser.password);
             if (!isCorrectPassword) {
                 return res.json(handleError(403, 'INVALID PASSWORD !'));
             }
@@ -49,7 +49,7 @@ class authController {
             const {password, ...other} = currentUser._doc
             // set cookie
             res
-            .cookie('access_token', accsessToken,{
+            .cookie('access_token', "Bearer " + accsessToken,{
                 httpOnly: true,
                 path: '/',
             })
