@@ -8,14 +8,22 @@ const CardModel = new Schema(
             type: String, 
             require: true, 
         },
-        link:{
-            type: String,
-        } ,
-        
+        themeId: {
+            type: String, 
+            
+        },      
         background:{
             type: String,
         } ,
         button_type: {
+            type :String,
+        }
+        ,
+        button_color: {
+            type :String,
+        }
+        ,
+        button_font_color: {
             type :String,
         }
         ,
@@ -25,6 +33,8 @@ const CardModel = new Schema(
         font_color:{
             type:String
         }
+
+        
     },
     { timestamps: true },
 );

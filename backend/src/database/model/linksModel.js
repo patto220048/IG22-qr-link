@@ -8,9 +8,14 @@ const LinkModel = new Schema(
             type: String, 
             require: true, 
         },
-        links:{
-            type:Array,
-            default:[]
+        userId: {
+            type: String, 
+            require: true,
+        },
+        link:{
+            type:String,
+            require: true, 
+            
         },
         title:{
             type: String,

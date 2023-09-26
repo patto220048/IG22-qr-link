@@ -60,6 +60,12 @@ class authController {
             res.json(handleError(500, error.message));
         }
     }
+    async logout(req, res) {
+        res
+        .clearCookie('access_token')
+        .status(200).json('Clear cookies successfully!!')
+    }
+    
     async resetPassword(req, res) {
         
     }
