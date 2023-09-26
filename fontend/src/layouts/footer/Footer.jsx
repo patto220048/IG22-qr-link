@@ -1,33 +1,39 @@
 import './Footer.scss';
-
+import facbook from '../../assets/facebook1.svg';
+import github from '../../assets/github.svg';
+import twitter from '../../assets/twitter.svg';
 function Footer() {
+	return (
+		<div className="footer">
+			<div className="footer-container">
+				<ul className="footer-container_item">
+					<ul className="footer-sub">
+						<h3>Group</h3>
+						<li>Blog</li>
+						<li>Engineering Blog</li>
+						<li>Marketplace</li>
+						<li>What's New</li>
+						<li>About</li>
+						<li>Press</li>
+						<li>Careers</li>
+						<li>Contact</li>
+					</ul>
+					<ul className="footer-sub">
+						<h3>Community</h3>
+						<li>Creator Services Program</li>
+						<li>Enterprise</li>
+						<li>Creator report</li>
+						<li>Charities</li>
+						<li>Creator Profile Directory</li>
+						<li>Explore Templates</li>
+					</ul>
+					<ul className="footer-icon">
+						<img className="footer-icon_items" src={facbook} alt="" />
+						<img className="footer-icon_items" src={github} alt="" />
+						<img className="footer-icon_items" src={twitter} alt="" />
+					</ul>
 
-    return ( 
-    <div className = 'footer' >
-        <div className = "footer-container" >
-                <ul className='footer-container_item'>
-                    <ul className='footer-sub'>
-                    <h3>Group</h3>
-                        <li>Blog</li>
-                        <li>Engineering Blog</li>
-                        <li>Marketplace</li>
-                        <li>What's New</li>
-                        <li>About</li>
-                        <li>Press</li>
-                        <li>Careers</li>
-                        <li>Contact</li>
-                    </ul>
-                    <ul className='footer-sub'>
-                        <h3>Community</h3>
-                        <li><>Creator Services Program</></li>
-                        <li>Enterprise</li>
-                        <li>Creator report</li>
-                        <li>Charities</li>
-                        <li>Creator Profile Directory</li>
-                        <li>Explore Templates</li>
-                    </ul>
-
-                    <ul className='footer-sub'>
+					{/* <ul className='footer-sub'>
                     <h3>Support</h3>
                         <li>Help Topics</li>
                         <li>Getting Started</li>
@@ -43,11 +49,11 @@ function Footer() {
                         <li>Cookie Notice</li>
                         <li>Trust Center</li>
                         <li>Cookie Preferences</li>
-                    </ul>
-                </ul>
-        </div> 
-    </div>
-    );
+                    </ul> */}
+				</ul>
+			</div>
+		</div>
+	);
 }
 
 export default Footer;
