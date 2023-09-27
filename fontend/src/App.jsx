@@ -12,9 +12,9 @@ function App() {
   function Layout (){
     return (
         <div>
-            <nav>
+            <header>
                 <Navbar/>
-            </nav>
+            </header>
             <Outlet/>
             <footer>
                 {/* <Footer/> */}

@@ -23,7 +23,7 @@ function Navbar() {
     }, []);
     return (
   
-        <div className="navbar">
+        <nav className="navbar">
             <div className="navbar-container">
                 <h2 className="logo">LOGO</h2>
                 <ul className="nav-link">
@@ -69,7 +69,7 @@ function Navbar() {
                     </ul>
                 </section>}
             </div>
-        </div>
+        </nav>
     );
 }
 
