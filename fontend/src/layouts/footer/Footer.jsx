@@ -28,7 +28,7 @@ function Footer() {
                 <div className="footer-right">
                     <div className="footer-info">
                         <h1 className="footer-logo">Logo</h1>
-                        <span>Copyright © 2023</span>
+                        <span>Copyright © 2023 PNxD Team</span>
                         <span>All rights reserved</span>
                         <div className="footer-input">
                             <input type="text" placeholder="Enter your email" />
