@@ -17,7 +17,7 @@ function App() {
             </nav>
             <Outlet/>
             <footer>
-                <Footer/>
+                {/* <Footer/> */}
             </footer>
         </div>
     );

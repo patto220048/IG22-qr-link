@@ -1,6 +1,8 @@
 .footer {
     .footer-container {
         padding: 20px;
+        scroll-snap-align: center;
+        height: 100%;
         .footer-container_item {
             border-radius: 10px solid black;
             display: flex;
