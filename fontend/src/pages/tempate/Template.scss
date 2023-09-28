@@ -1,0 +1,16 @@
+@import "../../base/color";
+@import "../../base/variable";
+.template{
+    display: flex;
+    padding-top: 110px + 40px;
+    background-color: $bg_template;
+    height: 100vh;
+    .template-left{
+        flex: 3;
+
+    }
+    .template-right{
+        flex: 1;
+    }
+
+}

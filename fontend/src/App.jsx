@@ -7,6 +7,7 @@ import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
 import Footer from './layouts/footer/Footer';
 import Profile from './pages/profile/Profile';
+import Template from './pages/tempate/Template';
 
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
             {
                 path: '/',
                 element: <Home />,
+            },
+            {
+                path: '/template',
+                element: <Template />,
             },
            
         ],

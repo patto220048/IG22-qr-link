@@ -67,12 +67,12 @@ export const facebookeIcon = (w, h) => (
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
         width={w}
         height={h}
         viewBox="0 0 512 512"
-        enable-background="new 0 0 512 512"
-        xml:space="preserve"
+        enableBackground="new 0 0 512 512"
+        xmlSpace="preserve"
     >
         <path
             d="M256,0C114.609,0,0,114.609,0,256s114.609,256,256,256s256-114.609,256-256S397.391,0,256,0z M256,472
@@ -93,12 +93,12 @@ export const youtubeIcon = (w, h) => (
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
         width={w}
         height={h}
         viewBox="0 0 512 512"
         enableBackground="new 0 0 512 512"
-        xml:space="preserve"
+        xmlSpace="preserve"
     >
         <path
             d="M256,0C114.609,0,0,114.609,0,256s114.609,256,256,256s256-114.609,256-256S397.391,0,256,0z M256,472
@@ -146,9 +146,9 @@ export const instagramIcon = (w, h) => (
         viewBox="0 0 32 32"
         id="Camada_1"
         version="1.1"
-        xml:space="preserve"
+        xmlSpace="preserve"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
     >
         <g>
             <path d="M22.3,8.4c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4C23.7,9,23.1,8.4,22.3,8.4z" />

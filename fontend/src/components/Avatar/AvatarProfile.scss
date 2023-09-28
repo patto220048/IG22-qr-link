@@ -1,22 +1,23 @@
 @import "../../base/color";
-.avatar {
+.avatarProfile {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
     padding-top: 50px;
-    .avatar-img {
+
+    .avatarProfile-img {
         width: 120px;
         height: 120px;
         border-radius: 50%;
         object-fit: cover;
     }
-    .avatar-name{
+    .avatarProfile-name{
         font-size: 30px;
         color: $white;
     }
-    .avatar-desc{
+    .avatarProfile-desc{
         color: $white;
         font-size: 20px;
 

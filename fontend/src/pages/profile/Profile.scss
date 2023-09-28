@@ -1,10 +1,19 @@
 .profile{
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
     .profile-info{
+        
         display: flex;
         flex-direction: column;
         gap: 30px;
         justify-content: center;
         align-items: center;
+    }
+    .profile-logo{
+        text-align: center;
+        margin-bottom: 10px;
     }
 }
