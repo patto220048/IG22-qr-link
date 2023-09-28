@@ -1,0 +1,45 @@
+@import '../../base/color';
+
+.linktree {
+    width: 25%;
+    border-radius: 30px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 0.5px solid transparent;
+    //box shadow
+    -moz-box-shadow: 12px 21px 15px -5px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 12px 21px 15px -5px rgba(0, 0, 0, 0.8);
+    -ms-box-shadow: 12px 21px 15px -5px rgba(0, 0, 0, 0.8);
+    box-shadow: 12px 21px 15px -5px rgba(0, 0, 0, 0.8);
+    .linktree-link {
+        text-decoration: none;
+        color: $black;
+        .linktree-item {
+            position: relative;
+            .linktree-title {
+                justify-content: center;
+                display: flex;
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+        .linktree-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(-20%);
+        }
+        .linktree-icon_menu {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    
+    }
+    &:hover{
+        transform: scale(1.03);
+        border: 1px solid rgba($color: #000000, $alpha: 0.5);
+
+    }
+}

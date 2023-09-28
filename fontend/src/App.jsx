@@ -6,6 +6,7 @@ import Home from './pages/home/Home';
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
 import Footer from './layouts/footer/Footer';
+import Profile from './pages/profile/Profile';
 
 
 function App() {
@@ -36,6 +37,10 @@ function App() {
            
         ],
        
+    },
+    {
+        path: 'profile/user/:id',
+        element: <Profile />,
     },
     {
         path: 'register/login',

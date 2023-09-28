@@ -1,0 +1,10 @@
+.profile{
+    height: 100vh;
+    .profile-info{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+    }
+}
