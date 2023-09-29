@@ -1,5 +1,6 @@
 import './TempProfile.scss';
-
+import { addIcon } from '../../svg/icon';
+import Dialog_UI from '../dialog/Dialog';
 function TempProfile() {
     return (
         <div className="tempProfile">
@@ -10,8 +11,8 @@ function TempProfile() {
                     alt=""
                 />
                 <div className="tempProfile-btn">
-                    <button className="tempProfile-btn_item">Pick Image</button>
-                    <button className="tempProfile-btn_item">Remove</button>
+                    <button className="tempProfile-btn_item pickup">Pick Image</button>
+                    <button className="tempProfile-btn_item remove">Remove</button>
                 </div>
             </div>
             <div className="tempProfile-input">
@@ -25,11 +26,14 @@ function TempProfile() {
                     rows="10"
                     className="tempProfile-textarea"
                     maxLength={80}
-                    placeholder='Your description here ...'
+                    placeholder="Your description here ..."
                 ></textarea>
             </div>
             <div className="tempProfileAddIcon">
-                <button className="tempProfileAddIcon-btn">Add Social icons</button>
+                <button className="tempProfileAddIcon-btn">{addIcon(20, 20)}Add Social icons</button>
+            </div>
+            <div>
+                <Dialog_UI/>
             </div>
         </div>
     );

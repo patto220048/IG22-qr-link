@@ -11,7 +11,7 @@ function Profile() {
             style={
                 bg_img
                     ? {
-                        backgroundImage: 'url(../../../src/assets/img/33.jpg)',
+                        backgroundImage: 'url(../../../src/assets/img/img1.jpg)',
                       }
                     : { backgroundColor: 'white',
                         }
@@ -24,7 +24,7 @@ function Profile() {
                 <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />
             </div>
             <div className="profile-logo">
-                <h1>logo</h1>
+                <img src="../../../src/assets/img/logo2.png" alt="" />
             </div>
         </div>
     );
