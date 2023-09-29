@@ -1,7 +1,9 @@
 import './TempProfile.scss';
 import { addIcon } from '../../svg/icon';
-import Dialog_UI from '../dialog/Dialog';
+import Dialog_UI from '../dialog/Dialog_IU';
+import { useState } from 'react';
 function TempProfile() {
+    const [openDialog, setOpenDialog] = useState(false)
     return (
         <div className="tempProfile">
             <div className="tempProfile-item">
@@ -11,8 +13,11 @@ function TempProfile() {
                     alt=""
                 />
                 <div className="tempProfile-btn">
-                    <button className="tempProfile-btn_item pickup">Pick Image</button>
+                    <button className="tempProfile-btn_item pickup" onClick={()=>setOpenDialog(true)}>Pick Image</button>
                     <button className="tempProfile-btn_item remove">Remove</button>
+                </div>
+                <div>
+                    <Dialog_UI openDialog={openDialog} setOpenDialog={setOpenDialog}   />
                 </div>
             </div>
             <div className="tempProfile-input">
@@ -30,11 +35,10 @@ function TempProfile() {
                 ></textarea>
             </div>
             <div className="tempProfileAddIcon">
+                {/* <button className="tempProfileAddIcon-btn btn-save">Save </button> */}
                 <button className="tempProfileAddIcon-btn">{addIcon(20, 20)}Add Social icons</button>
             </div>
-            <div>
-                <Dialog_UI/>
-            </div>
+           
         </div>
     );
 }
