@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
 import './navbav.scss';
 import { useEffect, useState } from 'react';
 import DropdownItem from '../../components/DropdownItem/DropdownItem';
+import navLogo from '../../assets/img/logo-link.png'
 // import './navbar.css'
 function Navbar() {
     const [openMenu, setOpenMenu] = useState(false);
@@ -24,24 +25,28 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-container">
-                <h2 className="logo">LOGO</h2>
+                <h2 className="logo"><img className="navbar-logo" src={navLogo} alt="" /></h2>
                 <ul className="nav-link">
-                    <li className="nav-link_items">Home</li>
-                    <li className="nav-link_items">Templates</li>
+                    <NavLink to={'/'} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Home</li>
+                    </NavLink>
+                    <NavLink to={'/template'} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Templates</li>
+                    </NavLink>
                     <li className="nav-link_items">About</li>
                 </ul>
-                {/* <div className="register">  
+                <div className="register">  
                     <Link to="/register/login"><button className="btn login ">Login</button></Link>
                     <Link to="/register/signup"><button className="btn signup">Sign Up</button></Link>
-                </div> */}
-                <div className="nav-user">
+                </div>
+                {/* <div className="nav-user">
                     <div className="avatar" onClick={handleOpenMenu}>
                         <img
                             src="https://images.unsplash.com/photo-1682695799561-033f55f75b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                             alt=""
                         />
                     </div>
-                </div>
+                </div> */}
 
                 {openMenu && (
                     <section className="nav-option">

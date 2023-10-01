@@ -1,18 +1,20 @@
 .profile{
+
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     // background-repeat: round;
     background-size: cover;
-    background-clip: border-box;
     .profile-info{
-        
         display: flex;
         flex-direction: column;
         gap: 30px;
         justify-content: center;
         align-items: center;
+        &:-webkit-scrollbar{
+            display: none;
+        } 
     }
     .profile-logo{
         text-align: center;
@@ -21,6 +23,22 @@
             width: 150px;
             height: 150px;
             
+        }
+    }
+}
+
+
+//mobile browser
+@media only screen and (max-width: 768px) {
+    .profile{
+        .profile-info{
+
+        }
+        .profile-logo{
+            img{
+                width: 50px;
+                height: 50px;
+            }
         }
     }
 }

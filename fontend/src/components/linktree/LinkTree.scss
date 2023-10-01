@@ -29,6 +29,7 @@
             top: 0;
             left: 0;
             transform: translateY(-20%);
+            
         }
         .linktree-icon_menu {
             position: absolute;
@@ -41,5 +42,23 @@
         transform: scale(1.03);
         border: 1px solid rgba($color: #000000, $alpha: 0.5);
 
+    }
+}
+//mobile browser
+@media only screen and (max-width: 768px) {
+    .linktree{
+        width: 75%;
+        padding: 12px;
+        .linktree-link{
+            .linktree-item{
+                .linktree-title{}
+            }
+            .linktree-icon{
+
+            }
+            .linktree-icon_menu{
+
+            }
+        }
     }
 }

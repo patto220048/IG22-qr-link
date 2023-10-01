@@ -1,0 +1,11 @@
+@import '../../base/color';
+@import '../../base/variable';
+
+.tempTheme{
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 25px;
+    width: 60%;
+    margin: 0 auto;
+}

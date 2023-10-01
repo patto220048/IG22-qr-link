@@ -22,10 +22,13 @@ function Profile() {
                 <LinkTree title={'Facebook'} icon={facebookeIcon(35, 35)} />
                 <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} />
                 <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />
+           
+                
+       
             </div>
-            <div className="profile-logo">
+            {/* <div className="profile-logo">
                 <img src="../../../src/assets/img/logo2.png" alt="" />
-            </div>
+            </div> */}
         </div>
     );
 }

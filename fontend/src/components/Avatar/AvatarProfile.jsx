@@ -11,7 +11,7 @@ function AvatarProfile(props, bg_img) {
                 @DINH HUU PHAT
             </h3>
             <p className="avatarProfile-desc" style={bg_img && { color: 'black' }}>
-                Des2312312c
+                Des2312312c123 1231231231231 231 23123 123 123
             </p>
         </div>
     );
