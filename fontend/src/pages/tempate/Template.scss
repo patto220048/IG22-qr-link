@@ -4,7 +4,8 @@
     display: flex;
     padding-top: 110px + 40px;
     background-color: $bg_template;
-    height: 100vh;
+    height: 100%;
+    padding-bottom: 50px;
     .template-left{
         flex: 3;
         .template-item{

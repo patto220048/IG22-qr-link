@@ -1,4 +1,4 @@
-import AvatarProfile from '../../components/avatar/AvatarProfile';
+import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
 import LinkTree from '../../components/linktree/LinkTree';
 import { facebookeIcon, youtubeIcon, instagramIcon } from '../../svg/icon';
 import './Profile.scss';

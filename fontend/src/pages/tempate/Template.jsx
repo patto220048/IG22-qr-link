@@ -15,7 +15,7 @@ function Template() {
                 </section>
             </div>
             <div className="template-right">
-                <iframe className='template-preview' src="http://localhost:5173/profile/user/123" frameborder="0">
+                <iframe className='template-preview' src="http://localhost:5173/profile/user/123" frameBorder="0">
                     
                 </iframe>
             </div>
