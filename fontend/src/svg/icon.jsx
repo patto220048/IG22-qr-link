@@ -185,8 +185,8 @@ export const plusIcon = (w, h) => (
         <path
             d="M12.0001 4.7998L12 19.1998M19.2 11.9998L4.80005 11.9998"
             stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
+            strokeWidth="2"
+            strokeLinecap="round"
         />
     </svg>
 );
