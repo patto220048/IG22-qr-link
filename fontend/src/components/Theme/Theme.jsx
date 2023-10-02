@@ -1,6 +1,8 @@
 import { plusIcon } from '../../svg/icon';
 import './Theme.scss';
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import PlaceholderImage from "../../assets/img/bg/4-4.jpg";
+import 'react-lazy-load-image-component/src/effects/blur.css';
 function Theme({ themeBg, themeOpacity, themeBoderRadius, isTheme }) {
     const handleOnclick = () => {
         console.log(themeBg, themeOpacity, themeBoderRadius);
@@ -9,10 +11,14 @@ function Theme({ themeBg, themeOpacity, themeBoderRadius, isTheme }) {
         <>
             {isTheme ? (
                 <section className="theme" onClick={handleOnclick}>
-                    <img
+                    <LazyLoadImage
                         className="theme-img"
+                        width={160}
+                        height={260}
                         src={themeBg}
                         alt={themeBg}
+                        placeholdersrc={PlaceholderImage}
+                        effect="blur"
                         style={{
                             opacity: `${themeOpacity}`,
                         }}

@@ -4,7 +4,7 @@ import Theme from '../Theme/Theme';
 function TempTheme() {
     console.log(themes);
 
-    return (
+    return (    
         <div className="tempTheme">
 
             <div className="tempTheme-items">
@@ -12,7 +12,7 @@ function TempTheme() {
                 {themes.map((theme, i) => (
                     <Theme 
                     isTheme={true}
-                    themeBg={theme.bg_img} 
+                    themeBg={theme.bg_img}  
                     themeOpacity={theme.bg_opacity} 
                     themeBoderRadius={theme.bnt_radius}
                     key={i} />

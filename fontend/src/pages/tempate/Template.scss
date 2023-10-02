@@ -10,7 +10,7 @@
         flex: 3;
         .template-item{
             display: flex;  
-            flex-direction: column ;
+            flex-direction: column;
             align-items: center;
            
             .tempProfile_title{
@@ -23,11 +23,16 @@
     }
     .template-right{
         flex: 1.5;
-        height: 100%;
-        border-left: 0.5px solid rgba($color: $black, $alpha: 0.3);
+       
+        // border-left: 0.5px solid rgba($color: $black, $alpha: 0.3);
         display: flex;
         justify-content: center;
-        
+        position: sticky;
+        top: 0;
+        height: 110px;
+        padding-top: 110px + 40px;
+
+       
           
         .template-preview{
             width: 280px;
