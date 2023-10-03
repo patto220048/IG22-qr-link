@@ -33,6 +33,10 @@ function Footer() {
 						<img className="footer-icon_items" src={twitter} alt="" />
 					</ul>
 
+					<div>
+						
+					</div>
+
 					{/* <ul className='footer-sub'>
                     <h3>Support</h3>
                         <li>Help Topics</li>
