@@ -1,0 +1,43 @@
+@import '../../base/color';
+.avatarProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 50px;
+
+    .avatarProfile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .avatarProfile-name {
+        font-size: 30px;
+        color: $white;
+    }
+    .avatarProfile-desc {
+        color: $white;
+        font-size: 20px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .avatarProfile {
+        padding-top: 30px;
+        gap: 10px;
+        .avatarProfile-img {
+            width: 80px;
+            height: 80px;
+        }
+        .avatarProfile-name {
+            font-size: 18px;
+        }
+        .avatarProfile-desc {
+            font-size: 13px;
+            font-weight: 400;
+            padding: 0px 10px;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+@import '../../base/color';
+@import '../../base/variable';
+
+.tempTheme {
+    background-color: $white;
+    border-radius: 25px;
+    width: 60%;
+    margin: 0 auto;
+    // padding: 10px;
+}
+.tempTheme-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 30px ;
+    // justify-content: center;
+}

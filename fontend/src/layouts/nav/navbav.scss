@@ -3,10 +3,16 @@
 
 .navbar {
     position: fixed;
-    top: 60px;
-    width: 100%;
-   
-
+    top: 40px;
+    width: 100%; 
+    z-index: 999;
+    .navbar-logo{
+        height: 70px;
+        width: 70px;
+        object-fit: cover;
+        background-color: rgb(255, 255, 255);
+        border-radius: 50%;
+    }
     .navbar-container {
         display: flex;
         align-items: center;

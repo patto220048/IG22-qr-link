@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
 import './navbav.scss';
 import { useEffect, useState } from 'react';
+import DropdownItem from '../../components/DropdownItem/DropdownItem';
+import navLogo from '../../assets/img/logo-link.png'
 // import './navbar.css'
 function Navbar() {
-
-    const [openMenu, setOpenMenu] = useState(false)
+    const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (e) => {
         e.stopPropagation();
         setOpenMenu(!openMenu);
-    }
+    };
     useEffect(() => {
         const handleClickOutside = () => {
             setOpenMenu(false);
@@ -22,13 +23,16 @@ function Navbar() {
         };
     }, []);
     return (
-  
-        <div className="navbar">
+        <nav className="navbar">
             <div className="navbar-container">
-                <h2 className="logo">LOGO</h2>
+                <h2 className="logo"><img className="navbar-logo" src={navLogo} alt="" /></h2>
                 <ul className="nav-link">
-                    <li className="nav-link_items">Home</li>
-                    <li className="nav-link_items">Templates</li>
+                    <NavLink to={'/'} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Home</li>
+                    </NavLink>
+                    <NavLink to={'/template'} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Templates</li>
+                    </NavLink>
                     <li className="nav-link_items">About</li>
                 </ul>
                 {/* <div className="register">  
@@ -44,32 +48,20 @@ function Navbar() {
                     </div>
                 </div>
 
-
-               {openMenu &&
-                <section className="nav-option">
-                    <ul className="account-option">
-                        <h3 className="account">Account</h3>
-                        <li className="account-option-item">
-                            <span className="account-icon">{userIcon()}</span>
-                            <p>My account</p>
-                        </li>
-                        <li className="account-option-item">
-                            <span className="account-icon">{cutomIcon()}</span>
-                            <p>Cutoms my page</p>
-                        </li>
-                        <h3 className="support">Support</h3>
-                        <li className="account-option-item">
-                            <span className="account-icon">{alertIcon()}</span>
-                            <p>Ask a question</p>
-                        </li>
-                        <li className="account-option-item">
-                            <span className="account-icon">{logoutIcon()}</span>
-                            <p>Sign out</p>
-                        </li>
-                    </ul>
-                </section>}
+                {openMenu && (
+                    <section className="nav-option">
+                        <ul className="account-option">
+                            <h3 className="account">Account</h3>
+                            <DropdownItem icon={userIcon()} text={'My account'} />
+                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} />
+                            <h3 className="support">Support</h3>
+                            <DropdownItem icon={alertIcon()} text={'Ask a question'} />
+                            <DropdownItem icon={logoutIcon()} text={'Sign out'} />
+                        </ul>
+                    </section>
+                )}
             </div>
-        </div>
+        </nav>
     );
 }
 

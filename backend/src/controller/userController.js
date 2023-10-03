@@ -8,7 +8,7 @@ class UserController {
             const users = await User.find();
             res.status(200).json(users);
         } catch (error) {
-            res.json(handleError(500, error));
+            res.json(handleError(500, error.message));
         }
     }
     //get 1 user
@@ -18,7 +18,7 @@ class UserController {
             const user = await User.findById(userId);
             res.status(200).json(user);
         } catch (error) {
-            res.json(handleError(500, error));
+            res.json(handleError(500, error.message));
         }
     }
     // edit user
@@ -40,8 +40,11 @@ class UserController {
                 );
                 res.status(200).json(newUser);
             } catch (error) {
-                res.json(handleError(500, error));
+                res.json(handleError(500, error.message));
             }
+        }
+        else {
+            res.json(handleError(403, "Oop!!! You just edit only your account."))
         }
     }
     // delete user
@@ -52,7 +55,7 @@ class UserController {
                 await User.findByIdAndDelete(userId)
                 res.status(200).json("Delete successfuly!!")
             } catch (error) {
-                res.json(handleError(500, error));
+                res.json(handleError(500, error.message));
             }
             
         }

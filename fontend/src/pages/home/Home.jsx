@@ -6,6 +6,7 @@ import Info from './info/Info';
 import Share from './share/Share';
 import Questions from './questions/Questions';
 import Card from './card/Card';
+import Footer from '../../layouts/footer/Footer';
 
 function Home() {
     const [homeInput, setHomeInput] = useState('');
@@ -16,6 +17,7 @@ function Home() {
                 <Card/>
                 <Share/>
                 <Questions/>
+                <Footer/>
             </div>
         </div>
     );

@@ -1,0 +1,101 @@
+@import '../../base/color';
+@import '../../base/variable';
+.tempProfile {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 25px;
+    width: 60%;
+    margin: 0 auto;
+    .tempProfile-item {
+        display: flex;
+        padding: 30px;
+        justify-content: flex-start;
+        gap: 30px;
+        .tempProfile_img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .tempProfile-btn {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.5 ease;
+            .tempProfile-btn_item {
+                border-radius: 25px;
+                padding: 15px;
+            }
+        }
+        .pickup {
+            border: 1px solid rgba($color: $black, $alpha: 0.9);
+            background-color: $black;
+            color: $white;
+            font-size: 18px;
+            font-weight: 600;
+            &:hover {
+                background-color: rgba($color: $black, $alpha: 0.8);
+            }
+        }
+        .remove {
+            background-color: $white;
+            border: 1px solid rgba($color: $black, $alpha: 0.9);
+            font-size: 18px;
+            font-weight: 600;
+            &:hover {
+                background-color: rgba($color: $bg_template, $alpha: 0.9);
+            }
+        }
+    }
+    .tempProfile-input {
+        display: flex;
+        flex-direction: column;
+        // gap: 5px;
+        padding: 0 30px;
+        .tempProfile-input_title {
+            padding-bottom: 5px;
+        }
+        .tempProfile-input {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: $bg_template;
+        }
+        .tempProfile-textarea {
+            border-radius: 5px;
+            background-color: $bg_template;
+            resize: vertical;
+            min-height: 100px;
+            padding: 10px;
+            // min-height: 100px;
+        }
+    }
+    .tempProfileAddIcon {
+        padding: 10px 30px;
+        // padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+         .tempProfileAddIcon-btn {
+            @include btn;
+            font-size: 18px;
+            width: 100%;
+            gap: 5px;
+            padding: 15px;
+            background-color: transparent;
+            &:hover {
+                background-color: rgba($color: $bg_template, $alpha: 0.9);
+            }
+        }
+        .btn-save{
+            background-color: $black;
+            color: $white;
+            &:hover {
+                background-color: rgba($color: $bg_template, $alpha: 0.9);
+                color: $black;
+
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+@import "../../base/color";
+@import "../../base/variable";
+.template{
+    display: flex;
+    padding-top: 110px + 40px;
+    background-color: $bg_template;
+    height: 100%;
+    padding-bottom: 50px;
+    .template-left{
+        flex: 3;
+        .template-item{
+            display: flex;  
+            flex-direction: column ;
+            align-items: center;
+           
+            .tempProfile_title{
+                padding-top: 10px;
+                margin-bottom: 20px;
+                font-size: 30px;
+                font-weight: 800;
+            }
+        }
+    }
+    .template-right{
+        flex: 1.5;
+        height: 100%;
+        border-left: 0.5px solid rgba($color: $black, $alpha: 0.3);
+        display: flex;
+        justify-content: center;
+        
+          
+        .template-preview{
+            width: 280px;
+            height: 600px;
+            border: 12px solid rgba($color: $black, $alpha:1);
+            border-radius: 60px;
+        
+        }
+       
+    }
+
+}
