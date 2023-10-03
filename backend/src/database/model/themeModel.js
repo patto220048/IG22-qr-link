@@ -6,15 +6,12 @@ const ThemeModel = new Schema(
     {
         cardId: {
             type: String,
-            require
+            require,
         },
         link: {
             type: String,
-            require
+            require,
         },
-      
-
-
     },
     { timestamps: true },
 );

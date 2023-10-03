@@ -17,7 +17,5 @@ app.use(express.urlencoded());
 db.connect()
 //route
 route(app)
-
-
 //app
-app.listen(port, () => console.log(`Listening on port ${port} : http://127.0.0.1:${port}`));
+app.listen(port, () => console.log(`Listening on port ${port} : ${process.env.HOST}:${port}`));

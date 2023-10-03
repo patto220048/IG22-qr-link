@@ -24,11 +24,11 @@ class UserController {
     // edit user
     async editUser(req, res) {
         const userId = req.params.id;
-        if (userId === req.user.id) {
+        if (userId === req.user.id || req.user.admin) {
             // hash password again
             if (req.body.password) {
-                const salt =  await bcrypt.genSalt(10);
-                req.body.password = await  bcrypt.hash(req.body.password, salt);
+                const salt = await bcrypt.genSalt(10);
+                req.body.password = await bcrypt.hash(req.body.password, salt);
             }
             try {
                 const newUser = await User.findByIdAndUpdate(
@@ -42,25 +42,22 @@ class UserController {
             } catch (error) {
                 res.json(handleError(500, error.message));
             }
-        }
-        else {
-            res.json(handleError(403, "Oop!!! You just edit only your account."))
+        } else {
+            res.json(handleError(403, 'Oop!!! You just edit only your account.'));
         }
     }
     // delete user
     async deteleUser(req, res) {
         const userId = req.params.id;
-        if (userId === req.user.id) {
+        if (userId === req.user.id || req.user.admin) {
             try {
-                await User.findByIdAndDelete(userId)
-                res.status(200).json("Delete successfuly!!")
+                await User.findByIdAndDelete(userId);
+                res.status(200).json('Delete successfuly!!');
             } catch (error) {
                 res.json(handleError(500, error.message));
             }
-            
-        }
-        else {
-            res.json(handleError(403, "Oop!!! You just delete only your account."))
+        } else {
+            res.json(handleError(403, 'Oop!!! You just delete only your account.'));
         }
     }
 }
