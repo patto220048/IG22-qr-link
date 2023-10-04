@@ -69,7 +69,21 @@ class authController {
         }
     }
     async logout(req, res) {
-        res.clearCookie('access_token').status(200).json('Clear cookies successfully!!');
+        const refreshToken = req.body.token;
+        // const currentUser = req.body.id;
+        try {
+            const user = await User.findOneAndUpdate(
+                { refreshToken: refreshToken },
+                {
+                    $set: { refreshToken: null },
+                },
+                { new: true },
+            );
+
+            res.clearCookie('access_token').status(200).json('Logged out successfully !!');
+        } catch (error) {
+            res.json(handleError(500, error.message));
+        }
     }
     async refreshTokenApi(req, res) {
         const refreshToken = req.body.token;
@@ -94,17 +108,14 @@ class authController {
                         },
                         { new: true },
                     );
-                    return res
-                    .status(200)
-                    .json({
-                      access_token: newAccessToken,
-                      refresh_token: newRefreshToken,
+                    return res.status(200).json({
+                        access_token: newAccessToken,
+                        refresh_token: newRefreshToken,
                     });
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
             });
-         
         } catch (error) {
             res.json(handleError(500, error.message));
         }
