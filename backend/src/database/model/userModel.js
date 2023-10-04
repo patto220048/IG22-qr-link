@@ -15,6 +15,21 @@ const UserModel = new Schema(
             type: String,
             require: true,
         },
+        admin: {
+            type: Boolean,
+            default: false,
+        },
+        customer: {
+            type: Boolean,
+            default: false,
+        },
+        adress: {
+            type: String,
+        },
+        refreshToken: {
+            type: String,
+            default: null,
+        },
     },
     { timestamps: true },
 );
