@@ -6,7 +6,6 @@ import { Outlet, Route, RouterProvider, createBrowserRouter } from 'react-router
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
 import Footer from './layouts/footer/Footer';
-<<<<<<< HEAD
 // import Profile from './pages/profile/Profile';
 // import Template from './pages/tempate/Template';
 import { lazy, Suspense } from 'react';
@@ -15,10 +14,7 @@ const Home = lazy(() => import('./pages/home/Home'));
 const Template = lazy(() => import('./pages/tempate/Template'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
-=======
-import Profile from './pages/profile/Profile';
-import Template from './pages/tempate/Template';
->>>>>>> 3ca968a277c926518bbb7744b570bd4cfdfbc82f
+
 function App() {
     function Layout() {
         return (
@@ -31,10 +27,7 @@ function App() {
             </div>
         );
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 3ca968a277c926518bbb7744b570bd4cfdfbc82f
     const router = createBrowserRouter([
         {
             path: '/',
@@ -42,7 +35,6 @@ function App() {
             children: [
                 {
                     path: '/',
-<<<<<<< HEAD
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
                             <Home />
@@ -56,27 +48,17 @@ function App() {
                             <Template />
                         </Suspense>
                     ),
-=======
-                    element: <Home />,
-                },
-                {
-                    path: '/template',
-                    element: <Template />,
->>>>>>> 3ca968a277c926518bbb7744b570bd4cfdfbc82f
+
                 },
             ],
         },
         {
             path: 'profile/user/:id',
-<<<<<<< HEAD
             element: (
                 <Suspense fallback={<div>Loading....</div>}>
                     <Profile />
                 </Suspense>
             ),
-=======
-            element: <Profile />,
->>>>>>> 3ca968a277c926518bbb7744b570bd4cfdfbc82f
         },
         {
             path: 'register/login',
