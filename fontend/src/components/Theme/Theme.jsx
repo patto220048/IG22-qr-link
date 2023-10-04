@@ -12,10 +12,10 @@ function Theme({ themeBg, themeOpacity, themeBoderRadius, isTheme }) {
             {isTheme ? (
                 <section className="theme" onClick={handleOnclick}>
                     <LazyLoadImage
+                        src={themeBg}
                         className="theme-img"
                         width={160}
                         height={260}
-                        src={themeBg}
                         alt={themeBg}
                         placeholdersrc={PlaceholderImage}
                         effect="blur"
