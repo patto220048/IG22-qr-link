@@ -6,7 +6,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 40px;
+        gap: 20px;
 
         .signup-title {
             text-align: center;
@@ -18,6 +18,10 @@
             align-items: center;
             gap: 20px;
             // background-color: aqua;
+            .err_from_sever{
+                color: red;
+
+            }
             .signup-input {
                 display: flex;
                 flex-direction: column;
@@ -41,7 +45,7 @@
                         border: 1px solid red;
                     }
                 }
-                .input-err {
+                .valid-err {
                     color: red;
                     display: none;
                 }

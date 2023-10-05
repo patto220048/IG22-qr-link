@@ -8,7 +8,7 @@ function Signup() {
     const [isLoading, setIsLoading] = useState(true);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
-    console.log(err)
+    console.log({'err' : err})
     const navigate = useNavigate();
     const [values, setValues] = useState({
         username: '',
@@ -46,11 +46,19 @@ function Signup() {
                 });
                 // isloading -> false
                 setIsLoading(false);
-                console.log(res.data);
-                navigate('/register/login');
+                if(res.data.status === 402){
+                    setErr(res.data.message)
+                }
+                else{
+                    return navigate('/register/login');
+                }
+
+            }
+            else{
+                setErr("Please enter your input")
             }
         } catch (error) {
-            setErr(error)
+            // setErr(error)
             console.log(error.message);
         }
         if (isLoading) {
@@ -73,6 +81,7 @@ function Signup() {
                 </div>
 
                 <form className="form-group">
+                    <p className='err_from_sever' >{err}</p>
                     <div className="signup-input">
                         <input
                             className="email-input"
@@ -86,7 +95,7 @@ function Signup() {
                             onChange={onChange}
                             required
                         />
-                        <p className="input-err">Email not valid ( @,"." )</p>
+                        <p className="valid-err">Email not valid ( @,"." )</p>
                     </div>
                     <div className="signup-input">
                         <input
@@ -102,7 +111,7 @@ function Signup() {
                             placeholder="Username"
                             onChange={onChange}
                         />
-                        <p className="input-err">Username not valid ( min "3" characters)</p>
+                        <p className="valid-err">Username not valid ( min "3" characters)</p>
                     </div>
                     <div className="signup-input">
                         <input
@@ -116,7 +125,7 @@ function Signup() {
                             placeholder="Password"
                             onChange={onChange}
                         />
-                        <p className="input-err">Password not valid (min "8" character ) </p>
+                        <p className="valid-err">Password not valid (min "8" character ) </p>
                     </div>
                     <div className="signup-input">
                         <input
@@ -130,7 +139,7 @@ function Signup() {
                             placeholder="Comfirm Password"
                             onChange={onChange}
                         />
-                        <p className="input-err">Password incorrect !</p>
+                        <p className="valid-err">Password incorrect !</p>
                     </div>
 
                     <button className="signup-btn" type="submit" onClick={handleSubmit}>

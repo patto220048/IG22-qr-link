@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 //cors
 app.use(cors({
-    origin:'http://localhost:5173/', //or whatever port your frontend is using
+    origin:process.env.CLIENT_URL_ORIGIN, //or whatever port your frontend is using
     credentials:true,            
     optionSuccessStatus:200,
 }))
