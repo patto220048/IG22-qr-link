@@ -1,33 +1,53 @@
-@import "../../../base/color";
-.signup{
-    .signup-container{
-        height: 700px;
+@import '../../../base/color';
+.signup {
+    .signup-container {
+        height: 800px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 50px;
-        .signup-title{
+        gap: 40px;
+
+        .signup-title {
             text-align: center;
         }
-        .form-group{
+        .form-group {
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             gap: 20px;
-            width: 30%;
-            .signup-input{
-                padding: 15px;
-                border-radius: 5px;
-                background-color: $text_hover_color;
-                border: 2px solid transparent;
-                &:hover{
-                    border: 2px solid $text_color_soft_2;
+            // background-color: aqua;
+            .signup-input {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                input {
+                    background-color: $text_hover_color;
+                    width: 500px;
+                    padding: 15px;
+                    border: 2px solid transparent;
+                    border-radius: 5px;
+                    &:hover{
+                        border: 2px solid $text_color_soft_2;
+                    }
+                    &:focus{    
+                        border: 2px solid black;
+                    }
+                    &:invalid[focused="true"] ~ p {
+                        display: block;
+                    }
+                    &:invalid[focused="true"]{
+                        border: 1px solid red;
+                    }
                 }
-                &:focus{    
-                    border: 2px solid black;
+                .input-err {
+                    color: red;
+                    display: none;
                 }
             }
-            .signup-btn{
+            .signup-btn {
+                width: 100%;
                 padding: 15px;
                 font-size: 20px;
                 font-weight: 900;
@@ -35,19 +55,19 @@
                 color: $white;
                 border-radius: 25px;
                 transition: all 0.3s ease;
-                &:hover{
-                    background-color: rgba($color:$background_color , $alpha: 0.9);
+                &:hover {
+                    background-color: rgba($color: $background_color, $alpha: 0.9);
                     transform: scale(1.01);
                 }
             }
-            .input-err{
-                color: red;
+           
+            span {
+                display: none;
             }
         }
-        .signup-direct{
-
+        .signup-direct {
         }
-        .signup-protected{
+        .signup-protected {
             font-size: 13px;
             opacity: 0.7;
         }

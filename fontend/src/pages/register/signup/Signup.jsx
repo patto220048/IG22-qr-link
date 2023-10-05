@@ -7,13 +7,16 @@ import axiosInstance from '../../../instance/axiosInstance';
 function Signup() {
     const [isLoading, setIsLoading] = useState(true);
     const [err, setErr] = useState('');
-    console.log(err);
-    const navigate = useNavigate()
+    const [focused, setFocused] = useState(false);
+    console.log(err)
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         username: '',
         email: '',
         password: '',
+        confirmPassword: '',
     });
+    console.log(values);
     const validatePassword = (password) => {
         // Define validation rules for password
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
@@ -23,46 +26,43 @@ function Signup() {
         const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
         return emailRegex.test(email);
     };
-    const handleSubmit = (e) => {
+    const validateUsername = (username) => {
+        const usernameRegex = /[A-Za-z0-9]{3,}/;
+        return usernameRegex.test(username);
+    };
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const signup = async () => {
-            // valid email and password
-            const validPassword = validatePassword(password);
-            const validEmail = validateEmail(email);
-            try {
-                if (validPassword && validEmail === true) {
-                    const res = await axiosInstance.post(`/auth/signup`, {
-                        username: values.username,
-                        email: values.email,
-                        password: values.password,
-                    });
-                    // isloading -> false
-                    setIsLoading(false);
-                    console.log(res.data);
-                    navigate('/register/login')
-                  
-                }
-                else if(validEmail===false){
-                    setErr("Email incorrect!")
-                }
-                else if(validPassword===false){
-                    setErr("Password min 8 chars!")
-                }
-               
-                
-            } catch (error) 
-            {
-                console.log(error.message)
+        try {
+            const emailValid = validateEmail(values.email);
+            const passValid = validatePassword(values.password);
+            const usernameValid = validateUsername(values.username);
+            const comfirmPassValid = values.password === values.confirmPassword;
+            console.log(emailValid, passValid, usernameValid, comfirmPassValid);
+            if (emailValid && passValid && usernameValid && comfirmPassValid === true) {
+                const res = await axiosInstance.post(`/auth/signup`, {
+                    username: values.username,
+                    email: values.email,
+                    password: values.password,
+                });
+                // isloading -> false
+                setIsLoading(false);
+                console.log(res.data);
+                navigate('/register/login');
             }
-            if(isLoading){
-                return <>Loading....</>
-            }
-        };
-        signup();
+        } catch (error) {
+            setErr(error)
+            console.log(error.message);
+        }
+        if (isLoading) {
+            return <>Loading....</>;
+        }
     };
     // onchange input
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
+    };
+    const handleFocused = (e) => {
+        setFocused(true);
     };
     return (
         <div className="signup">
@@ -73,34 +73,65 @@ function Signup() {
                 </div>
 
                 <form className="form-group">
-                    <input
-                        className="signup-input"
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Email"
-                        onChange={onChange}
-                    />
-
-                   {err ? <p className="input-err">{err}</p>: <></>}
-                    <input
-                        className="signup-input"
-                        type="text"
-                        name="username"
-                        id="username"
-                        placeholder="Username"
-                        onChange={onChange}
-                    />
-                    {/* <p className="input-err">12</p> */}
-                    <input
-                        className="signup-input"
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Password"
-                        onChange={onChange}
-                    />
-                    {/* <p className="input-err">12</p> */}
+                    <div className="signup-input">
+                        <input
+                            className="email-input"
+                            type="email"
+                            name="email"
+                            id="email"
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                            onBlur={handleFocused}
+                            focused={focused.toString()}
+                            placeholder="Email"
+                            onChange={onChange}
+                            required
+                        />
+                        <p className="input-err">Email not valid ( @,"." )</p>
+                    </div>
+                    <div className="signup-input">
+                        <input
+                            className="username-input"
+                            type="text"
+                            pattern="[A-Za-z0-9]{3,}"
+                            name="username"
+                            id="username"
+                            minLength={3}
+                            maxLength={16}
+                            onBlur={handleFocused}
+                            focused={focused.toString()}
+                            placeholder="Username"
+                            onChange={onChange}
+                        />
+                        <p className="input-err">Username not valid ( min "3" characters)</p>
+                    </div>
+                    <div className="signup-input">
+                        <input
+                            className="password-input"
+                            type="password"
+                            name="password"
+                            id="password"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            onBlur={handleFocused}
+                            focused={focused.toString()}
+                            placeholder="Password"
+                            onChange={onChange}
+                        />
+                        <p className="input-err">Password not valid (min "8" character ) </p>
+                    </div>
+                    <div className="signup-input">
+                        <input
+                            className="confirmPassword-input"
+                            type="password"
+                            pattern={values.password}
+                            name="confirmPassword"
+                            id="confirmPassword"
+                            onBlur={handleFocused}
+                            focused={focused.toString()}
+                            placeholder="Comfirm Password"
+                            onChange={onChange}
+                        />
+                        <p className="input-err">Password incorrect !</p>
+                    </div>
 
                     <button className="signup-btn" type="submit" onClick={handleSubmit}>
                         Create account

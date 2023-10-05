@@ -16,11 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded());
 //cors
 app.use(cors({
-    origin : process.env.CLIENT_URL_ORIGIN,
-    credentials: true,
+    origin:'http://localhost:5173/', //or whatever port your frontend is using
+    credentials:true,            
+    optionSuccessStatus:200,
 }))
 // connect to db
-db.connect()
+db.connect()    
 //route
 route(app)
 //app
