@@ -11,7 +11,8 @@ function Profile() {
             style={
                 bg_img
                     ? {
-                        backgroundImage: 'url(../../../src/assets/img/bg/9.gif)',
+                        backgroundImage: 'url(../../../src/assets/img/bg/9-1.gif)',
+                       
                       }
                     : { backgroundColor: 'white',
                         }
