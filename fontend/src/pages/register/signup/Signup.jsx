@@ -40,6 +40,8 @@ function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        e.stopPropagation();
+
         const emailValid = validateEmail(values.email);
         const passValid = validatePassword(values.password);
         const usernameValid = validateUsername(values.username);
@@ -62,11 +64,11 @@ function Signup() {
             } catch (error) {
                 setErr(error.message);
             }
-            if (isLoading) {
-                console.log(isLoading);
-            }
+            // if (isLoading) {
+            //     console.log(isLoading);
+            // }
         } else {
-            setErr('Please enter your input');
+            setErr('Please enter your input !');
         }
     };
     // onchange input

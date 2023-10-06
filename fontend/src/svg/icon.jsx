@@ -4,7 +4,7 @@ export const userIcon = (w, h, f) => (
             d="M3.23779 19.5C4.5632 17.2892 7.46807 15.7762 12.0001 15.7762C16.5321 15.7762 19.4369 17.2892 20.7623 19.5M15.6001 8.1C15.6001 10.0882 13.9883 11.7 12.0001 11.7C10.0118 11.7 8.40007 10.0882 8.40007 8.1C8.40007 6.11177 10.0118 4.5 12.0001 4.5C13.9883 4.5 15.6001 6.11177 15.6001 8.1Z"
             stroke="black"
             strokeWidth="1"
-            strokeWinecap="round"
+            strokewinecap="round"
         />
     </svg>
 );
@@ -24,8 +24,8 @@ export const logoutIcon = (w, h, f) => (
             d="M8.78007 3.6001H5.07419C4.51256 3.6001 3.97392 3.82135 3.57679 4.21517C3.17965 4.609 2.95654 5.14314 2.95654 5.7001V18.3001C2.95654 18.8571 3.17965 19.3912 3.57679 19.785C3.97392 20.1788 4.51256 20.4001 5.07419 20.4001H8.78007M9.04326 12.0001H21.0433M21.0433 12.0001L16.4581 7.2001M21.0433 12.0001L16.4581 16.8001"
             stroke="black"
             strokeWidth="1"
-            strokeWinecap="round"
-            strokeWinejoin="round"
+            strokewinecap="round"
+            strokewinejoin="round"
         />
     </svg>
 );
@@ -36,8 +36,8 @@ export const alertIcon = (w, h, f) => (
             d="M10 10V5.5M10 13.3354V13.375M19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1C14.9706 1 19 5.02944 19 10Z"
             stroke="black"
             strokeWidth="1"
-            strokeWinecap="round"
-            strokeWinejoin="round"
+            strokewinecap="round"
+            strokewinejoin="round"
         />
     </svg>
 );

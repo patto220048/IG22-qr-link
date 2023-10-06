@@ -1,19 +1,14 @@
-import { useState } from 'react';
 import './App.scss';
 import Navbar from './layouts/nav/Navbar';
 import { Outlet, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
-// import Home from './pages/home/Home';
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
 import Footer from './layouts/footer/Footer';
-// import Profile from './pages/profile/Profile';
-// import Template from './pages/tempate/Template';
 import { lazy, Suspense } from 'react';
-
+//lazy loading
 const Home = lazy(() => import('./pages/home/Home'));
 const Template = lazy(() => import('./pages/tempate/Template'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
-
 
 function App() {
     function Layout() {
@@ -48,7 +43,6 @@ function App() {
                             <Template />
                         </Suspense>
                     ),
-
                 },
             ],
         },

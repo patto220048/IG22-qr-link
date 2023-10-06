@@ -1,6 +1,7 @@
 @import '../../../base/color';
 .login {
     height: 100vh;
+    // margin:auto;
     background-attachment: fixed;
     background-size: cover;
     background-image: 'url(../../../../src/assets/img/bg/login-bg.jpg)';
@@ -62,6 +63,7 @@
                 }
             }
             .login-btn {
+                position: relative;
                 width: 100%;
                 padding: 15px;
                 font-size: 20px;

@@ -3,14 +3,19 @@ import './Login.scss';
 import { useEffect, useState } from 'react';
 import { openEyeIcon, closeEyeIcon } from '../../../svg/icon';
 import axiosInstance from '../../../instance/axiosInstance';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginFail, loginStart, loginSuccess } from '../../../redux-toolkit/userSlice';
+import Loading from '../../../components/dialog/loading/Loading';
 
 function Login() {
-    const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch();
+    // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
-
+    // const isLoading = useSelector((state)=>state.user.loading)
+    const isLoading = true
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -31,6 +36,8 @@ function Login() {
     //sumbit form
     const handleSubmit = async (e) => {
         e.preventDefault();
+        e.stopPropagation();
+        dispatch(loginStart());
         try {
             //valid email
             const emailValid = validateEmail(values.email);
@@ -41,21 +48,27 @@ function Login() {
                     password: values.password,
                 });
                 console.log(res.data);
+                //dispatch
+                dispatch(loginSuccess(res.data));
                 // isloading -> false
-                setIsLoading(false);
+                // setIsLoading(false);
 
                 if (res.data.status === 401) {
                     setErr(res.data.message);
+                    dispatch(loginFail());
                 } else if (res.data.status === 403) {
                     setErr(res.data.message);
+                    dispatch(loginFail());
                 } else {
-                    return navigate('/register/login');
+                    return navigate('/template');
                 }
             } else {
-                return setErr('Oops! Email is not correct! Please try again.');
+                setErr('Oops! Email is not correct! Please try again.');
+                dispatch(loginFail());
             }
         } catch (error) {
             setErr(error.message);
+            dispatch(loginFail());
         }
     };
 
@@ -67,6 +80,7 @@ function Login() {
     };
     return (
         <div className="login">
+            
             <div className="login-container">
                 <div className="login-title">
                     <h1>Welcome back</h1>
@@ -106,7 +120,8 @@ function Login() {
                     </div>
 
                     <button className="login-btn" type="sumit" onClick={handleSubmit}>
-                        Login
+                    {isLoading ? <Loading isLoading={isLoading}/> :<>Login</>}
+                        
                     </button>
                 </form>
                 <p className="login-direct">
