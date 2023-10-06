@@ -1,33 +1,68 @@
-@import "../../../base/color";
-.login{
-    .login-container{
-        height: 700px;
+@import '../../../base/color';
+.login {
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+    background-image: 'url(../../../../src/assets/img/bg/login-bg.jpg)';
+    .login-container {
+        height: 800px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 50px;
-        .login-title{
+        gap: 20px;
+        .login-title {
             text-align: center;
         }
-        .form-group{
+        .form-group {
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             gap: 20px;
-            width: 30%;
-            .login-input{
-                padding: 15px;
-                border-radius: 5px;
-                background-color: $text_hover_color;
-                border: 2px solid transparent;
-                &:hover{
-                    border: 2px solid $text_color_soft_2;
+            .err_from_sever {
+                color: red;
+                font-size: 18px;
+                font-weight: 500;
+            }
+            .login-input {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                position: relative;
+                input {
+                    background-color: $text_hover_color;
+                    width: 500px;
+                    padding: 15px;
+                    border: 2px solid transparent;
+                    border-radius: 5px;
+                    &:hover {
+                        border: 2px solid $text_color_soft_2;
+                    }
+                    &:focus {
+                        border: 2px solid black;
+                    }
+                    &:invalid[focused='true'] ~ p {
+                        display: block;
+                    }
+                    &:invalid[focused='true'] {
+                        border: 1px solid red;
+                    }
                 }
-                &:focus{    
-                    border: 2px solid black;
+                .valid-err {
+                    color: red;
+                    display: none;
+                }
+                .showPass {
+                    // height: 100%;
+                    position: absolute;
+                    right: 3%;
+                    bottom: 15%;
+                    cursor: pointer;
                 }
             }
-            .login-btn{
+            .login-btn {
+                width: 100%;
                 padding: 15px;
                 font-size: 20px;
                 font-weight: 900;
@@ -35,20 +70,15 @@
                 color: $white;
                 border-radius: 25px;
                 transition: all 0.3s ease;
-                &:hover{
-                    background-color: rgba($color:$background_color , $alpha: 0.9);
+                &:hover {
+                    background-color: rgba($color: $background_color, $alpha: 0.9);
                     transform: scale(1.01);
                 }
-                
-            }
-            .input-err{
-                color: red;
             }
         }
-        .login-direct{
-
+        .login-direct {
         }
-        .login-protected{
+        .login-protected {
             font-size: 13px;
             opacity: 0.7;
         }

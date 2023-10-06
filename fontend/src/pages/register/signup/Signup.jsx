@@ -8,7 +8,6 @@ function Signup() {
     const [isLoading, setIsLoading] = useState(true);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
-    console.log({'err' : err})
     const navigate = useNavigate();
     const [values, setValues] = useState({
         username: '',
@@ -16,7 +15,6 @@ function Signup() {
         password: '',
         confirmPassword: '',
     });
-    console.log(values);
     const validatePassword = (password) => {
         // Define validation rules for password
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
@@ -30,15 +28,25 @@ function Signup() {
         const usernameRegex = /[A-Za-z0-9]{3,}/;
         return usernameRegex.test(username);
     };
+    useEffect(() => {
+        const handleClickOutside = () => {
+            setErr('');
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const emailValid = validateEmail(values.email);
-            const passValid = validatePassword(values.password);
-            const usernameValid = validateUsername(values.username);
-            const comfirmPassValid = values.password === values.confirmPassword;
-            console.log(emailValid, passValid, usernameValid, comfirmPassValid);
-            if (emailValid && passValid && usernameValid && comfirmPassValid === true) {
+        const emailValid = validateEmail(values.email);
+        const passValid = validatePassword(values.password);
+        const usernameValid = validateUsername(values.username);
+        const comfirmPassValid = values.password === values.confirmPassword;
+        console.log(emailValid, passValid, usernameValid, comfirmPassValid);
+        if (emailValid && passValid && usernameValid && comfirmPassValid === true) {
+            try {
                 const res = await axiosInstance.post(`/auth/signup`, {
                     username: values.username,
                     email: values.email,
@@ -46,23 +54,19 @@ function Signup() {
                 });
                 // isloading -> false
                 setIsLoading(false);
-                if(res.data.status === 402){
-                    setErr(res.data.message)
-                }
-                else{
+                if (res.data.status === 402) {
+                    setErr(res.data.message);
+                } else {
                     return navigate('/register/login');
                 }
-
+            } catch (error) {
+                setErr(error.message);
             }
-            else{
-                setErr("Please enter your input")
+            if (isLoading) {
+                console.log(isLoading);
             }
-        } catch (error) {
-            // setErr(error)
-            console.log(error.message);
-        }
-        if (isLoading) {
-            return <>Loading....</>;
+        } else {
+            setErr('Please enter your input');
         }
     };
     // onchange input
@@ -79,9 +83,8 @@ function Signup() {
                     <h1>Join with us</h1>
                     <p>Sign up for free !!!</p>
                 </div>
-
                 <form className="form-group">
-                    <p className='err_from_sever' >{err}</p>
+                    <p className="err_from_sever">{err}</p>
                     <div className="signup-input">
                         <input
                             className="email-input"
