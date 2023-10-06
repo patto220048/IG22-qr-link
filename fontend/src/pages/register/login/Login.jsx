@@ -14,8 +14,8 @@ function Login() {
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
-    // const isLoading = useSelector((state)=>state.user.loading)
-    const isLoading = true
+    const isLoading = useSelector((state)=>state.user.loading)
+    // const isLoading = true;
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -80,7 +80,7 @@ function Login() {
     };
     return (
         <div className="login">
-            
+            {isLoading && <Loading isLoading={isLoading} />}    
             <div className="login-container">
                 <div className="login-title">
                     <h1>Welcome back</h1>
@@ -120,8 +120,7 @@ function Login() {
                     </div>
 
                     <button className="login-btn" type="sumit" onClick={handleSubmit}>
-                    {isLoading ? <Loading isLoading={isLoading}/> :<>Login</>}
-                        
+                        Login
                     </button>
                 </form>
                 <p className="login-direct">
