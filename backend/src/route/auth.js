@@ -11,7 +11,7 @@ router.post('/signup', auth.signUp)
 router.post('/login', auth.login)
 router.post('/logout', auth.logout)
 router.post('/reset',auth.resetPassword)
-router.post('/refresh-token', userVerify.verifyUser, auth.refreshTokenApi)
+router.post('/refresh-token', auth.refreshTokenApi)
 
 
 export default router

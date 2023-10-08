@@ -6,15 +6,17 @@ import axiosInstance from '../../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginFail, loginStart, loginSuccess } from '../../../redux-toolkit/userSlice';
 import Loading from '../../../components/dialog/loading/Loading';
-
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 function Login() {
     const dispatch = useDispatch();
     // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
+    const [user, setUser] = useState(null);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
-    const isLoading = useSelector((state)=>state.user.loading)
+    const isLoading = useSelector((state) => state.user.loading);
     // const isLoading = true;
     const [values, setValues] = useState({
         email: '',
@@ -33,6 +35,34 @@ function Login() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+    // refresh token
+    const refreshToken = async () => {
+        try {
+            const res = await axiosInstance.post(`/auth/refresh-token`, { token: user.refreshToken });
+            setUser({
+                ...user,
+                refreshToken: res.data.refresh_token,
+                accsessToken: res.data.access_token,
+            });
+            return res.data;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+    axios.interceptors.request.use(
+        async (config) => {
+            let currentDate = new Date();
+            const decodedToken = jwt_decode(user.refreshToken);
+            if (decodedToken.exp * 1000 < currentDate.getTime()) {
+                const data = await refreshToken();
+                config.headers['authorization'] = 'Bearer ' + data.access_token;
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        },
+    );
     //sumbit form
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,6 +78,7 @@ function Login() {
                     password: values.password,
                 });
                 console.log(res.data);
+                setUser(res.data);
                 //dispatch
                 dispatch(loginSuccess(res.data));
                 // isloading -> false
@@ -80,7 +111,7 @@ function Login() {
     };
     return (
         <div className="login">
-            {isLoading && <Loading isLoading={isLoading} />}    
+            {isLoading && <Loading isLoading={isLoading} />}
             <div className="login-container">
                 <div className="login-title">
                     <h1>Welcome back</h1>

@@ -1,16 +1,25 @@
 import './App.scss';
 import Navbar from './layouts/nav/Navbar';
-import { Outlet, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, Outlet, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
 import Footer from './layouts/footer/Footer';
 import { lazy, Suspense } from 'react';
+import { useSelector } from 'react-redux';
 //lazy loading
 const Home = lazy(() => import('./pages/home/Home'));
 const Template = lazy(() => import('./pages/tempate/Template'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
+    const  {currentUser} = useSelector((state) => state.user)
+    // protect page
+    const ProtectRoute = ({children}) =>{
+        if(!currentUser){
+          return <Navigate to ="/register/login"/>   
+        }
+        return children
+      }
     function Layout() {
         return (
             <div>
@@ -26,7 +35,7 @@ function App() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Layout />,
+            element:<Layout /> ,
             children: [
                 {
                     path: '/',
@@ -40,7 +49,7 @@ function App() {
                     path: '/template',
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
-                            <Template />
+                           <ProtectRoute> <Template /></ProtectRoute>
                         </Suspense>
                     ),
                 },

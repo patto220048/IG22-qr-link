@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '2h',
+        expiresIn: '10s',
     });
 };
 const generateRefeshToken = (user) => {
@@ -71,7 +71,7 @@ class authController {
     async logout(req, res) {
         const refreshToken = req.body.token;
         // const currentUser = req.body.id;
-        // find user from refreshToken 
+        // find user from refreshToken
         try {
             const user = await User.findOneAndUpdate(
                 { refreshToken: refreshToken },
@@ -79,14 +79,12 @@ class authController {
                     $set: { refreshToken: null },
                 },
                 { new: true },
-                
             );
-            // user not have -> token invalid!! 
-            if(user != null){
+            // user not have -> token invalid!!
+            if (user != null) {
                 res.clearCookie('access_token').status(200).json('Logged out successfully !!');
-            }
-            else {
-                res.json(handleError(404,"Token not valid !!"))
+            } else {
+                res.json(handleError(404, 'Token not valid !!'));
             }
         } catch (error) {
             res.json(handleError(500, error.message));
