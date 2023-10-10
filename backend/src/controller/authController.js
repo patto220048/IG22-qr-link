@@ -59,9 +59,11 @@ class authController {
             );
             try {
                transport.sendMail({
-                    from: "super-card.library-v1.online", // sender address
+                    from: "info@library-v1.online", // sender address
                     to: currentUser.email, // list of receivers
+                    subject: "Hello ✔",
                })
+               console.log("Send mail successfully!!!")
             } catch (error) {
                 console.log(error.message);
             }
