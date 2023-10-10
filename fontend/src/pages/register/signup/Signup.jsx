@@ -103,20 +103,23 @@ function Signup() {
                         <p className="valid-err">Email not valid ( @,"." )</p>
                     </div>
                     <div className="signup-input">
-                        <input
-                            className="username-input"
-                            type="text"
-                            pattern="[A-Za-z0-9]{3,}"
-                            name="username"
-                            id="username"
-                            minLength={3}
-                            maxLength={16}
-                            onBlur={handleFocused}
-                            focused={focused.toString()}
-                            placeholder="Username"
-                            onChange={onChange}
-                        />
+                        <div className="username">
+                            <label htmlFor='username' aria-disabled>super-card/</label>
+                            <input
+                                className="username-input"
+                                type="text"
+                                pattern="[A-Za-z0-9]{3,}"
+                                name="username"
+                                id="username"
+                                minLength={3}
+                                maxLength={16}
+                                onBlur={handleFocused}
+                                focused={focused.toString()}
+                                placeholder="Username"
+                                onChange={onChange}
+                            />
                         <p className="valid-err">Username not valid ( min "3" characters)</p>
+                        </div>
                     </div>
                     <div className="signup-input">
                         <input

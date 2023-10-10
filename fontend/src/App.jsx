@@ -46,7 +46,7 @@ function App() {
                     ),
                 },
                 {
-                    path: '/template',
+                    path: '/template/:username',
                     element: (
                         <ProtectRoute>
                             <Template />

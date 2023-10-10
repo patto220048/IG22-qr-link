@@ -50,7 +50,7 @@ function Navbar() {
                     <NavLink to={'/'} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Home</li>
                     </NavLink>
-                    <NavLink to={'/template'} style={{ color: '#696d61' }}>
+                    <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Templates</li>
                     </NavLink>
                     <li className="nav-link_items">About</li>

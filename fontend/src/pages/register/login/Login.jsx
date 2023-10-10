@@ -66,7 +66,7 @@ function Login() {
     //sumbit form
     const handleSubmit = async (e) => {
         e.preventDefault();
-        e.stopPropagation();
+        // e.stopPropagation();
         dispatch(loginStart());
         try {
             //valid email
@@ -81,18 +81,16 @@ function Login() {
                 setUser(res.data);
                 //dispatch
                 dispatch(loginSuccess(res.data));
-                // isloading -> false
-                // setIsLoading(false);
 
-                if (res.data.status === 401) {
+                if(res.data){
+                    navigate(`/template/${res.data.username}`);
+                }
+                else if (res.data.status === 401) {
                     setErr(res.data.message);
                     dispatch(loginFail());
                 } else if (res.data.status === 403) {
                     setErr(res.data.message);
                     dispatch(loginFail());
-                } else {
-                    navigate('/template');
-                    console.log("222");
                 }
             } else {
                 setErr('Oops! Email is not correct! Please try again.');
@@ -119,7 +117,7 @@ function Login() {
                     <p>Login in your bio !!!</p>
                 </div>
 
-                <form method="post" className="form-group">
+                <form  method='post' className="form-group">
                     <p className="err_from_sever">{err}</p>
                     <div className="login-input">
                         <input

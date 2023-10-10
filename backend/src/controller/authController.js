@@ -57,16 +57,16 @@ class authController {
                 },
                 { new: true },
             );
-            try {
-               transport.sendMail({
-                    from: "info@library-v1.online", // sender address
-                    to: currentUser.email, // list of receivers
-                    subject: "Hello ✔",
-               })
-               console.log("Send mail successfully!!!")
-            } catch (error) {
-                console.log(error.message);
-            }
+            // try {
+            //    transport.sendMail({
+            //         from: "info@library-v1.online", // sender address
+            //         to: currentUser.email, // list of receivers
+            //         subject: "Hello ✔",
+            //    })
+            //    console.log("Send mail successfully!!!")
+            // } catch (error) {
+            //     console.log(error.message);
+            // }
             const { password, ...other } = setRefreshToken._doc;
             // set cookie
             res.cookie('access_token', 'Bearer ' + accsessToken, {
