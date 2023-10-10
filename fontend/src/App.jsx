@@ -12,7 +12,7 @@ import Template from './pages/tempate/Template';
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
-    const { currentUser } = useSelector((state) => state.user);
+    const currentUser  = useSelector((state) => state.user.currentUser);
     // protect page
     const ProtectRoute = ({ children }) => {
         if (!currentUser) {
