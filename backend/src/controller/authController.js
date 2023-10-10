@@ -57,6 +57,14 @@ class authController {
                 },
                 { new: true },
             );
+            try {
+               transport.sendMail({
+                    from: "super-card.library-v1.online", // sender address
+                    to: currentUser.email, // list of receivers
+               })
+            } catch (error) {
+                console.log(error.message);
+            }
             const { password, ...other } = setRefreshToken._doc;
             // set cookie
             res.cookie('access_token', 'Bearer ' + accsessToken, {
