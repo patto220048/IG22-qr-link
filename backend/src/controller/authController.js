@@ -2,6 +2,7 @@ import User from '../database/model/userModel.js';
 import handleError from '../error/handleError.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import transport from '../mail-service/index.js';
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {

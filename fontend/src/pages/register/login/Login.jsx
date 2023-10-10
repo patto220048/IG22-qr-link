@@ -91,7 +91,7 @@ function Login() {
                     setErr(res.data.message);
                     dispatch(loginFail());
                 } else {
-                    navigate('/v1/template');
+                    navigate('/template');
                     console.log("222");
                 }
             } else {

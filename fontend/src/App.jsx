@@ -46,7 +46,7 @@ function App() {
                     ),
                 },
                 {
-                    path: '/v1/template',
+                    path: '/template',
                     element: (
                         <ProtectRoute>
                             <Template />
