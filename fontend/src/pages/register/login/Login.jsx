@@ -91,7 +91,8 @@ function Login() {
                     setErr(res.data.message);
                     dispatch(loginFail());
                 } else {
-                    return navigate('/template');
+                    navigate('/v1/template');
+                    console.log("222");
                 }
             } else {
                 setErr('Oops! Email is not correct! Please try again.');

@@ -1,12 +1,19 @@
-import { Link, NavLink } from 'react-router-dom';
-import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
-import './navbav.scss';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import axiosInstance from '../../instance/axiosInstance';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux-toolkit/userSlice';
+// component
+import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
 import DropdownItem from '../../components/DropdownItem/DropdownItem';
-import navLogo from '../../assets/img/logo-link.png'
+import navLogo from '../../assets/img/logo-link.png';
 // import './navbar.css'
+import './navbav.scss';
 function Navbar() {
+    const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleOpenMenu = (e) => {
         e.stopPropagation();
         setOpenMenu(!openMenu);
@@ -22,10 +29,23 @@ function Navbar() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+    // sign out
+    const handleSignOut = async () => {
+        try {
+            const res = await axiosInstance.post('/auth/logout', { token: currentUser.refreshToken });
+            console.log(res.data);
+            navigate('/register/login');
+            dispatch(logout());
+        } catch (error) {
+            console(error.message);
+        }
+    };
     return (
         <nav className="navbar">
             <div className="navbar-container">
-                <h2 className="logo"><img className="navbar-logo" src={navLogo} alt="" /></h2>
+                <h2 className="logo">
+                    <img className="navbar-logo" src={navLogo} alt="" />
+                </h2>
                 <ul className="nav-link">
                     <NavLink to={'/'} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Home</li>
@@ -56,7 +76,9 @@ function Navbar() {
                             <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} />
                             <h3 className="support">Support</h3>
                             <DropdownItem icon={alertIcon()} text={'Ask a question'} />
-                            <DropdownItem icon={logoutIcon()} text={'Sign out'} />
+                            <div onClick={handleSignOut}>
+                                <DropdownItem icon={logoutIcon()} text={'Sign out'} />
+                            </div>
                         </ul>
                     </section>
                 )}

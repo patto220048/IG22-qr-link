@@ -8,18 +8,18 @@ import { lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 //lazy loading
 const Home = lazy(() => import('./pages/home/Home'));
-const Template = lazy(() => import('./pages/tempate/Template'));
+import Template from './pages/tempate/Template';
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
-    const  {currentUser} = useSelector((state) => state.user)
+    const { currentUser } = useSelector((state) => state.user);
     // protect page
-    const ProtectRoute = ({children}) =>{
-        if(!currentUser){
-          return <Navigate to ="/register/login"/>   
+    const ProtectRoute = ({ children }) => {
+        if (!currentUser) {
+            return <Navigate to="/register/login" />;
         }
-        return children
-      }
+        return children;
+    };
     function Layout() {
         return (
             <div>
@@ -35,7 +35,7 @@ function App() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element:<Layout /> ,
+            element: <Layout />,
             children: [
                 {
                     path: '/',
@@ -46,11 +46,11 @@ function App() {
                     ),
                 },
                 {
-                    path: '/template',
+                    path: '/v1/template',
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
-                           <ProtectRoute> <Template /></ProtectRoute>
-                        </Suspense>
+                        <ProtectRoute>
+                            <Template />
+                        </ProtectRoute>
                     ),
                 },
             ],
