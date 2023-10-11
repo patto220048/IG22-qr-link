@@ -17,24 +17,28 @@ const generateRefeshToken = (user) => {
 };
 class authController {
     async signUp(req, res) {
-        try {
-            // check user already existed
-            const userEmail = await User.findOne({ email: req.body.email });
-            const userName = await User.findOne({ username: req.body.username });
-            if (!userEmail && !userName) {
-                // hash password
-                const salt = await bcrypt.genSaltSync(10);
-                const hash = await bcrypt.hashSync(req.body.password, salt);
-                // save user into database
-                const newUser = new User({ ...req.body, password: hash });
-                await newUser.save();
-                return res.status(200).json(newUser);
-            } else {
-                return res.json(handleError(402, 'Username or email has already existed !'));
+        crypto.randomBytes(64, async (err, buffer) => {
+            if (err) return res.json(handleError(501, err.message));
+            const verifyMailCode = buffer.toString('hex');
+            try {
+                // check user already existed
+                const userEmail = await User.findOne({ email: req.body.email });
+                const userName = await User.findOne({ username: req.body.username });
+                if (!userEmail && !userName) {
+                    // hash password
+                    const salt = await bcrypt.genSaltSync(10);
+                    const hash = await bcrypt.hashSync(req.body.password, salt);
+                    // save user into database
+                    const newUser = new User({ ...req.body, password: hash, verifyMailCode: verifyMailCode });
+                    await newUser.save();
+                    return res.status(200).json(newUser);
+                } else {
+                    return res.json(handleError(402, 'Username or email has already existed !'));
+                }
+            } catch (error) {
+                res.json(handleError(500, error.message));
             }
-        } catch (error) {
-            res.json(handleError(500, error.message));
-        }
+        });
     }
     async login(req, res) {
         try {
@@ -182,7 +186,7 @@ class authController {
                         }
                     }
 
-                    res.status(200).json({newUser, token});
+                    res.status(200).json(newUser);
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
@@ -214,6 +218,66 @@ class authController {
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
+            }
+        } catch (error) {
+            res.json(handleError(500, error.message));
+        }
+    }
+    async sendVerifyEmail(req, res) {
+        const email = req.body.email;
+        try {
+            const user = await User.findOne({ email: email });
+            if (user === null) return res.json(handleError(404, 'User not found !'));
+            try {
+                transport.sendMail({
+                    from: 'info@library-v1.online', // sender address
+                    to: email, // list of receivers
+                    subject: 'Verify mail',
+                    html: `
+                        <div>
+                        <h1>Hello, click button below to verify your mail</h1>
+                        <button style="padding: 10px;">
+                          <a
+                            href="http://localhost:3000/api/auth/verify?${email}&code=${user.verifyMailCode}"
+                            style="text-decoration: none; color: black;"
+                          >
+                            Cick Here
+                          </a>
+                        </button>
+                      </div>
+                        `,
+                });
+                res.status(200).json({ user, mess: 'Send verify mail successful!' });
+            } catch (error) {
+                res.json(handleError(500, error.message));
+            }
+        } catch (error) {
+            res.json(handleError(500, error.message));
+        }
+    }
+    async verifyEmail(req, res) {
+        const userEmail = req.query.email;
+        const code = req.query.code;
+        try {
+            const user = await User.findOne({ email: userEmail });
+            if (user === null) return res.json(handleError(404, 'User not found !'));
+            if (user.verifyMailCode === code) {
+                try {
+                    const newUser = await User.findByIdAndUpdate(
+                        user._id,
+                        {
+                            verifySuccess: true,
+                            verifyMailCode: null,
+                        },
+                        { new: true },
+                    );
+                    res.status(200).json({newUser, "Status": "Email verify success"});
+                } catch (error) {
+                    res.json(handleError(500, error.message));
+                }
+            }
+            else{
+                return res.json(handleError(403, "Something errors"));
             }
         } catch (error) {
             res.json(handleError(500, error.message));

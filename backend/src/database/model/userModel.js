@@ -37,6 +37,14 @@ const UserModel = new Schema(
         resetPassExpiration:{
             type: String,
             default: null,
+        },
+        verifyMailCode:{
+            type: String,
+            default: null
+        },
+        verifySuccess:{
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true },
