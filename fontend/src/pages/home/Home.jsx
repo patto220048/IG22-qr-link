@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import './Home.scss';
 import { useState } from 'react';
 //pages
+import Intro from './Intro/Intro'
 import Info from './info/Info';
 import Share from './share/Share';
 import Questions from './questions/Questions';
@@ -13,6 +14,7 @@ function Home() {
     return (
         <div className="home">
             <div className="home-container">
+                <Intro/>
                 <Info/>
                 <Card/>
                 <Share/>

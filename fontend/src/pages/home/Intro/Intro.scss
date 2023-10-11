@@ -1,0 +1,56 @@
+@import '../../../base/color';
+@import '../../../base/variable';
+
+.intro {
+    background-color: $Intro_background_color;
+    color: $Intro_color;
+   
+    .intro-container {
+        height: 100vh;
+        scroll-snap-align: center;
+        height: $heightPage;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        
+        .intro-img{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            p {
+                opacity: 0.5;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+
+            }
+        }
+
+        .intro-text {
+          
+            font-size: $fontSize_home;
+            font-weight: $fontWeight_home;
+            text-shadow: 4px 3px 0px #7a7a7a, -3px -2px 4px rgba(206, 89, 55, 0);
+        }
+
+        .intro-decs {
+            // padding-left: 160px;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+    }
+    .intro_button {
+        background-color: black;
+        color: white;
+        @include btn;
+        padding: 20px 50px;
+        // justify-content: center;
+    }
+}
