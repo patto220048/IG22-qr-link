@@ -30,6 +30,14 @@ const UserModel = new Schema(
             type: String,
             default: null,
         },
+        resetPassToken: {
+            type: String,
+            default: null,
+        },
+        resetPassExpiration:{
+            type: String,
+            default: null,
+        }
     },
     { timestamps: true },
 );
