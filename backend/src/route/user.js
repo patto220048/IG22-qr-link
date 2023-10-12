@@ -12,5 +12,7 @@ router.get('/:id', userController.getUser)
 router.put('/:id', userVerify.verifyUser, userController.editUser)
 // delete user
 router.delete('/:id', userVerify.verifyUser, userController.deteleUser)
+// delete all user
+router.delete('/', userController.deteleAllUser)
 
 export default router

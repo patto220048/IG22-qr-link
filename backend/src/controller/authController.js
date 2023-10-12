@@ -5,6 +5,9 @@ import jwt from 'jsonwebtoken';
 import transport from '../mail-service/index.js';
 import crypto from 'crypto';
 import sha256 from 'crypto-js/sha256.js';
+import verifyHtml from "../mail-service/mail-html/verify-html.js"
+import verifyPassHtml from "../mail-service/mail-html/resetpass-html.js"
+
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
         expiresIn: '10s',
@@ -166,19 +169,7 @@ class authController {
                                 from: 'info@library-v1.online', // sender address
                                 to: newUser.email, // list of receivers
                                 subject: 'Reset password',
-                                html: `
-                                    <div>
-                                    <h1>Hello, click button below to reset your password</h1>
-                                    <button style="padding: 10px;">
-                                      <a
-                                        href="http://localhost:3000/api/auth/reset/${token}"
-                                        style="text-decoration: none; color: black;"
-                                      >
-                                        Cick Here
-                                      </a>
-                                    </button>
-                                  </div>
-                                    `,
+                                html: verifyPassHtml(token)
                             });
                             console.log('Send mail successfully!!!');
                         } catch (error) {
@@ -186,7 +177,7 @@ class authController {
                         }
                     }
 
-                    res.status(200).json(newUser);
+                    res.status(200).json({newUser, "Message": "Send mail reset passwrod successfull"});
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
@@ -233,19 +224,8 @@ class authController {
                     from: 'info@library-v1.online', // sender address
                     to: email, // list of receivers
                     subject: 'Verify mail',
-                    html: `
-                        <div>
-                        <h1>Hello, click button below to verify your mail</h1>
-                        <button style="padding: 10px;">
-                          <a
-                            href="http://localhost:3000/api/auth/verify?${email}&code=${user.verifyMailCode}"
-                            style="text-decoration: none; color: black;"
-                          >
-                            Cick Here
-                          </a>
-                        </button>
-                      </div>
-                        `,
+                    html: verifyHtml(email, user.verifyMailCode)
+                        
                 });
                 res.status(200).json({ user, mess: 'Send verify mail successful!' });
             } catch (error) {
@@ -260,7 +240,7 @@ class authController {
         const code = req.query.code;
         try {
             const user = await User.findOne({ email: userEmail });
-            if (user === null) return res.json(handleError(404, 'User not found !'));
+            if (user === null) return res.json(handleError(404, 'User not found!'));
             if (user.verifyMailCode === code) {
                 try {
                     const newUser = await User.findByIdAndUpdate(
@@ -277,7 +257,7 @@ class authController {
                 }
             }
             else{
-                return res.json(handleError(403, "Something errors"));
+                return res.json(handleError(403, "Your mail verifyed"));
             }
         } catch (error) {
             res.json(handleError(500, error.message));

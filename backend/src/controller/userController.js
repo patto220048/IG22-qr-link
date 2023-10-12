@@ -60,5 +60,14 @@ class UserController {
             res.json(handleError(403, 'Oop!!! You just delete only your account.'));
         }
     }
+    async deteleAllUser(req, res) {
+        try {
+            const user = await User.deleteMany();
+            res.status(200).json('Delete successfuly!!');
+        } catch (error) {
+            res.json(handleError(500, error.message));
+            
+        }
+    }
 }
 export default new UserController();

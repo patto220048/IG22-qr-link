@@ -13,7 +13,7 @@ router.post('/logout', auth.logout)
 router.post('/reset-pass',auth.resetPassword)
 router.post('/refresh-token', auth.refreshTokenApi)
 router.post("/reset-pass/:token", auth.newPassword);
-//
+
 router.post("/verify-mail", auth.sendVerifyEmail);
 router.get("/verify", auth.verifyEmail);
 
