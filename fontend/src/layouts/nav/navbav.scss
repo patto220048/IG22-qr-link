@@ -24,6 +24,7 @@
         padding: 5px 20px;
         border-radius: 50px;
         position: relative;
+        gap: 20px;
          // boxshadow
         box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
         -webkit-box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
@@ -36,7 +37,7 @@
             display: flex;
             gap: 40px;
             color: $text_color_soft_3;
-
+           
             .nav-link_items {
                 padding: 10px;
                 font-size: 18px;
@@ -50,9 +51,9 @@
         .register {
             flex: 1;
             display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            .btn {
+            justify-content: center;
+            gap: 30px;
+            .nav-btn {
                 font-weight: 500;
                 font-size: 18px;
                 padding: 15px;
@@ -60,7 +61,7 @@
                 background-color: black;
                 color: white;
             }
-            .login {
+            .nav-login {
                 border-radius: 10px;
                 background-color: $text_hover_color;
                 color: black;
@@ -68,7 +69,7 @@
                     background-color: rgba($color: $text_hover_color, $alpha: 0.7);
                 }
             }
-            .signup {
+            .nav-signup {
                 &:hover {
                     background-color: rgba($color: black, $alpha: 0.7);
                 }

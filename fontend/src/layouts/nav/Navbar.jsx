@@ -9,6 +9,8 @@ import DropdownItem from '../../components/DropdownItem/DropdownItem';
 import navLogo from '../../assets/img/logo-link.png';
 // import './navbar.css'
 import './navbav.scss';
+import AvatarProfile from '../../components/AvatarProfile/AvatarProfile';
+import NavAvatar from '../../components/nav-avatar/NavAvatar';
 function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
@@ -46,7 +48,7 @@ function Navbar() {
                 <h2 className="logo">
                     <img className="navbar-logo" src={navLogo} alt="" />
                 </h2>
-                <ul className="nav-link">
+                <ul className="nav-link" style={ currentUser ? {width:"100%"} : {flex:"1"}}>
                     <NavLink to={'/'} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Home</li>
                     </NavLink>
@@ -55,21 +57,29 @@ function Navbar() {
                     </NavLink>
                     <li className="nav-link_items">About</li>
                 </ul>
-                {/* <div className="register">  
-                    <Link to="/register/login"><button className="btn login ">Login</button></Link>
-                    <Link to="/register/signup"><button className="btn signup">Sign Up</button></Link>
-                </div> */}
-                <div className="nav-user">
-                    <div className="avatar" onClick={handleOpenMenu}>
-                        <img
-                            src="https://images.unsplash.com/photo-1682695799561-033f55f75b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                            alt=""
-                        />
+                {!currentUser ? (
+                    <div className="register">
+                        <Link to="/register/login">
+                            <button className="nav-btn nav-login ">Login</button>
+                        </Link>
+                        <Link to="/register/signup">
+                            <button className="nav-btn nav-signup">Sign Up</button>
+                        </Link>
                     </div>
-                </div>
+                ) : (
+                    <div className="nav-user">
+                        <div className="avatar" onClick={handleOpenMenu}>
+                            <img
+                                src="https://images.unsplash.com/photo-1682695799561-033f55f75b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                                alt=""
+                            />
+                        </div>
+                    </div>
+                )}
 
                 {openMenu && (
                     <section className="nav-option">
+                        <NavAvatar />
                         <ul className="account-option">
                             <h3 className="account">Account</h3>
                             <DropdownItem icon={userIcon()} text={'My account'} />

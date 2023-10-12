@@ -26,20 +26,7 @@ const themes = [
         btn_color:"",
 
     },
-    {
-        bg_img: bg4,
-        bg_opacity: 0.7,
-        bnt_radius: 25,
-        btn_color:"",
-
-    }
-    ,  {
-        bg_img: bg5,
-        bg_opacity: 0.7,
-        bnt_radius: 25,
-        btn_color:"",
-
-    }
+ 
 ];
 
 export default themes;
