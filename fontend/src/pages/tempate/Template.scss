@@ -2,11 +2,11 @@
 @import "../../base/variable";
 .template{
     display: flex;
-    padding-top: 110px + 40px;
     background-color: $bg_template;
     height: 100%;
     padding-bottom: 50px;
     .template-left{
+        padding-top: 110px + 40px;
         flex: 3;
         .template-item{
             display: flex;  
@@ -30,7 +30,7 @@
         position: sticky;
         top: 0;
         height: 110px;
-        padding-top: 110px + 40px;
+        padding-top: 220px;
 
        
           
