@@ -7,11 +7,12 @@
     width: 100%; 
     z-index: 999;
     .navbar-logo{
-        height: 70px;
-        width: 70px;
+        height: 40px;
+        width: 40px;
         object-fit: cover;
-        background-color: rgb(255, 255, 255);
         border-radius: 50%;
+        padding: 10px;
+        
     }
     .navbar-container {
         display: flex;

@@ -8,6 +8,7 @@ import { loginFail, loginStart, loginSuccess } from '../../../redux-toolkit/user
 import Loading from '../../../components/dialog/loading/Loading';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import bg_login from "../../../assets/img/bg_login.jpg";
 function Login() {
     const dispatch = useDispatch();
     // const [isLoading, setIsLoading] = useState(true);
@@ -109,7 +110,7 @@ function Login() {
         setFocused(true);
     };
     return (
-        <div className="login">
+        <div className="login" style={{backgroundImage:`url(${bg_login})`}}>
             {isLoading && <Loading isLoading={isLoading} />}
             <div className="login-container">
                 <div className="login-title">

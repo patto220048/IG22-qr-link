@@ -6,10 +6,10 @@ import { logout } from '../../redux-toolkit/userSlice';
 // component
 import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
 import DropdownItem from '../../components/DropdownItem/DropdownItem';
-import navLogo from '../../assets/img/logo-link.png';
+import navLogo from '../../assets/img/logo21.png';
 // import './navbar.css'
 import './navbav.scss';
-import AvatarProfile from '../../components/AvatarProfile/AvatarProfile';
+
 import NavAvatar from '../../components/nav-avatar/NavAvatar';
 function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);

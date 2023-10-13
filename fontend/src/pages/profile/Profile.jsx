@@ -6,7 +6,7 @@ import './Profile.scss';
 function Profile() {
     const bg_img = true;
     return (
-        <div
+        <section
             className="profile"
             style={
                 bg_img
@@ -20,17 +20,16 @@ function Profile() {
         >
             <div className="profile-info">
                 <AvatarProfile bg_img = {bg_img} />
+                
                 <LinkTree title={'Facebook'} icon={facebookeIcon(35, 35)} />
                 <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} />
                 <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />
            
-                
-       
             </div>
             {/* <div className="profile-logo">
                 <img src="../../../src/assets/img/logo2.png" alt="" />
             </div> */}
-        </div>
+        </section>
     );
 }
 
