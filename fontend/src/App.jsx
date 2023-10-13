@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 //lazy loading
 const Home = lazy(() => import('./pages/home/Home'));
 import Template from './pages/tempate/Template';
+import ResetPass from './pages/register/resetPass/ResetPass';
+import Newpass from './pages/register/newPass/NewPass';
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
@@ -71,6 +73,15 @@ function App() {
             path: 'register/signup',
             element: <Signup />,
         },
+        {
+            path: 'register/reset',
+            element: <ResetPass />,
+        }
+        ,
+        {
+            path: 'register/newpass/:token',
+            element: <Newpass/>
+        }
     ]);
     return <RouterProvider router={router} />;
 }

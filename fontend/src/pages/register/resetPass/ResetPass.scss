@@ -1,0 +1,88 @@
+@import '../../../base/color';
+.resetPass {
+    height: 100vh;
+    // margin:auto;
+    // background-attachment: fixed;
+    background-size: cover;
+    // background-image: url('../../../../../assets/img/bg_resetPass.jpg');
+    .resetPass-container {
+        height: 800px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        .resetPass-title {
+            text-align: center;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            .err_from_sever {
+                color: red;
+                font-size: 18px;
+                font-weight: 500;
+            }
+            .resetPass-input {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                position: relative;
+                input {
+                    background-color: $text_hover_color;
+                    width: 500px;
+                    padding: 15px;
+                    border: 2px solid transparent;
+                    border-radius: 5px;
+                    &:hover {
+                        border: 2px solid $text_color_soft_2;
+                    }
+                    &:focus {
+                        border: 2px solid black;
+                    }
+                    &:invalid[focused='true'] ~ p {
+                        display: block;
+                    }
+                    &:invalid[focused='true'] {
+                        border: 1px solid red;
+                    }
+                }
+                .valid-err {
+                    color: red;
+                    display: none;
+                }
+                .showPass {
+                    // height: 100%;
+                    position: absolute;
+                    right: 3%;
+                    bottom: 15%;
+                    cursor: pointer;
+                }
+            }
+            .resetPass-btn {
+                // position: relative;
+                width: 100%;
+                padding: 15px;
+                font-size: 20px;
+                font-weight: 900;
+                background-color: $background_color;
+                color: $white;
+                border-radius: 25px;
+                transition: all 0.3s ease;
+                &:hover {
+                    background-color: rgba($color: $background_color, $alpha: 0.9);
+                    transform: scale(1.01);
+                }
+            }
+        }
+        .resetPass-direct {
+        }
+        .resetPass-protected {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+    }
+}

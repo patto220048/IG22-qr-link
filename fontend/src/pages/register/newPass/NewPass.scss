@@ -1,0 +1,100 @@
+@import '../../../base/color';
+.newpass {
+    .newpass-container {
+        height: 800px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+
+        .newpass-title {
+            text-align: center;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            // background-color: aqua;
+            .err_from_sever {
+                color: red;
+                font-size: 18px;
+                font-weight: 500;
+            }
+            .newpass-input {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                // position: relative;
+                input {
+                    background-color: $text_hover_color;
+                    width: 600px;
+                    padding: 15px;
+                    border: 2px solid transparent;
+                    border-radius: 5px;
+                    &:hover {
+                        border: 2px solid $text_color_soft_2;
+                    }
+                    &:focus {
+                        border: 2px solid black;
+                    }
+                    &:invalid[focused='true'] ~ p {
+                        transition: all 1s ease;
+                        display: block;
+                    }
+                    &:invalid[focused='true'] {
+                        border: 1px solid red;
+                    }
+                }
+
+                .valid-err {
+                    color: red;
+                    display: none;
+            
+                }
+                .username{
+                    position: relative;
+                    // display: flex;
+                 
+                    .username-input{
+                        max-width:481px;
+                    }
+                    label {
+                        // display: block;
+                        // left:10%;
+                        // // top:50%;
+                        // transform:translate(-50%,-50%);
+                        // position: absolute;
+                        background-color: $text_hover_color;
+                        padding: 15px;
+                        // border-radius: 5px;
+                    }
+                }
+               
+            }
+            .newpass-btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 20px;
+                font-weight: 900;
+                background-color: $background_color;
+                color: $white;
+                border-radius: 25px;
+                transition: all 0.3s ease;
+                &:hover {
+                    background-color: rgba($color: $background_color, $alpha: 0.9);
+                    transform: scale(1.01);
+                }
+            }
+        }
+        .newpass-direct {
+        }
+        .newpass-protected {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+    }
+}

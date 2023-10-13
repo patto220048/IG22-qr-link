@@ -269,7 +269,7 @@
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto; padding: 20px;">
           <tr>
             <td class="button-td button-td-primary" style="border-radius: 4px; background: #2e66ff;">
-              <a class="button-a button-a-primary" href="http://localhost:4000/api/auth/reset-pass/${code}" style="background: #2e66ff; border: 1px solid #2e66ff; font-family: Open Sans; font-size: 16px; line-height: inherit; text-decoration: none; padding: 16px; color: #ffffff; display: block; border-radius: 4px;">
+              <a class="button-a button-a-primary" href="${process.env.CLIENT_URL_ORIGIN}/register/newpass/${code}" style="background: #2e66ff; border: 1px solid #2e66ff; font-family: Open Sans; font-size: 16px; line-height: inherit; text-decoration: none; padding: 16px; color: #ffffff; display: block; border-radius: 4px;">
                Click here
               </a>
             </td>

@@ -6,7 +6,6 @@ function TempTheme() {
 
     return (    
         <div className="tempTheme">
-
             <div className="tempTheme-items">
                 <Theme isTheme= {false}/>
                 {themes.map((theme, i) => (

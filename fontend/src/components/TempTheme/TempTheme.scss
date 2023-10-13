@@ -5,13 +5,14 @@
     background-color: $white;
     border-radius: 25px;
     width: 60%;
-    margin: 0 auto;
-    // padding: 10px;
-}
-.tempTheme-items {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 30px ;
-    // justify-content: center;
+    
+    .tempTheme-items {
+        flex-wrap: wrap; 
+        justify-content: space-around   ;
+        padding: 30px 30px;
+        gap: 20px;
+        display: flex;
+        margin: 0 auto;
+    }
 }
