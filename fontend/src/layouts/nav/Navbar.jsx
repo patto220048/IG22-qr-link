@@ -1,4 +1,4 @@
-    import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,13 +48,15 @@ function Navbar() {
                 <h2 className="logo">
                     <img className="navbar-logo" src={navLogo} alt="" />
                 </h2>
-                <ul className="nav-link" style={ currentUser ? {width:"100%"} : {flex:"1"}}>
+                <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
                     <NavLink to={'/'} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Home</li>
                     </NavLink>
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Templates</li>
                     </NavLink>
+                    <li className="nav-link_items">Link</li>
+                    <li className="nav-link_items">Create QR</li>
                     <li className="nav-link_items">About</li>
                 </ul>
                 {!currentUser ? (
@@ -68,13 +70,18 @@ function Navbar() {
                     </div>
                 ) : (
                     <div className="nav-user">
+                         <ul>
+                            <li>somthings</li>
+                        </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
                             <img
                                 src="https://images.unsplash.com/photo-1682695799561-033f55f75b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                                 alt=""
                             />
                         </div>
+                       
                     </div>
+
                 )}
 
                 {openMenu && (

@@ -77,15 +77,19 @@
             }
         }
         .nav-user {
+            display: flex;
+            align-items: center;
             .avatar {
                 padding-left: 20px;
+                // padding: 2px;
                 img {
-                    padding: 2px;
+                    // padding: 2px;
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
                     cursor: pointer;
                     border: 1px solid transparent;
+                    object-fit: cover;
                     &:hover {
                         border: 1px solid black;
                     }
