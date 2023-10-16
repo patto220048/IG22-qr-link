@@ -46,7 +46,9 @@ function Navbar() {
         <nav className="navbar">
             <div className="navbar-container">
                 <h2 className="logo">
-                    <img className="navbar-logo" src={navLogo} alt="" />
+                    <NavLink to={'/'}>
+                    <img className="navbar-logo" src={navLogo} alt={"super-card-logo"} />
+                    </NavLink>
                 </h2>
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
                     <NavLink to={'/'} style={{ color: '#696d61' }}>
