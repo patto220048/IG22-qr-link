@@ -6,7 +6,7 @@ import { logout } from '../../redux-toolkit/userSlice';
 // component
 import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
 import DropdownItem from '../../components/DropdownItem/DropdownItem';
-import navLogo from '../../assets/img/logo21.png';
+import navLogo from '../../assets/img/main-logo.png';
 // import './navbar.css'
 import './navbav.scss';
 
