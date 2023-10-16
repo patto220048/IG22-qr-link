@@ -1,3 +1,4 @@
+import Background from '../../components/Background/Background';
 import TempProfile from '../../components/TempProfile/TempProfile';
 import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
@@ -16,7 +17,7 @@ function Template() {
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Background</h2>
-
+                    <Background/>
                 </section>
             </div>
             <div className="template-right">

@@ -1,0 +1,20 @@
+@import '../../base/color';
+@import '../../base/variable';
+
+.bgTheme {
+    background-color: $white;
+    border-radius: 25px;
+    width: 60%;
+    display: flex;
+    
+    .bgTheme-items {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        padding: 40px;
+
+        gap: 20px;
+        
+    }
+}

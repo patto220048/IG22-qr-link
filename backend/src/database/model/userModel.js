@@ -45,7 +45,16 @@ const UserModel = new Schema(
         verifySuccess:{
             type: Boolean,
             default: false
+        },
+        avtImg:{
+            type: String,
+            default: null
+        },
+        groupImg:{
+            type: Array,
+            default:[]
         }
+        
     },
     { timestamps: true },
 );

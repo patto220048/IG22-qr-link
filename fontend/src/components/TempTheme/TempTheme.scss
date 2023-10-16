@@ -8,11 +8,11 @@
     display: flex;
     
     .tempTheme-items {
-        flex-wrap: wrap; 
-        justify-content: space-around   ;
-        padding: 30px 30px;
-        gap: 20px;
-        display: flex;
-        margin: 0 auto;
+       display: grid;
+       width: 100%;
+       grid-template-columns: 1fr 1fr 1fr;
+       justify-items: center;
+       padding: 40px;
+       gap: 20px;
     }
 }
