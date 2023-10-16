@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import { useEffect, useState } from 'react';
-import { openEyeIcon, closeEyeIcon } from '../../../svg/icon';
+import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
 import axiosInstance from '../../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginFail, loginStart, loginSuccess } from '../../../redux-toolkit/userSlice';
@@ -9,6 +9,7 @@ import Loading from '../../../components/dialog/loading/Loading';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import bg_login from '../../../assets/img/bg_login.jpg';
+
 function Login() {
     const dispatch = useDispatch();
     // const [isLoading, setIsLoading] = useState(true);
@@ -107,6 +108,10 @@ function Login() {
     const handleFocused = (e) => {
         setFocused(true);
     };
+    //handle login with google
+    const handleLoginWithGG = () =>{
+        console.log('google')
+    }
     return (
         <div className="login" style={{ backgroundImage: `url(${bg_login})` }}>
             {isLoading && <Loading isLoading={isLoading} />}
@@ -148,16 +153,18 @@ function Login() {
                         </span>
                     </div>
 
-                    <button className="login-btn" type="submit" onClick={handleSubmit}>
+                    <button className="login-btn"  onClick={handleSubmit}>
                         Login
                     </button>
+                    <p className="login-direct">
+                        Don't have an account? <Link to="/register/signup">Sign up</Link>
+                    </p>
+                    <p className="login-direct">
+                        I don't remember the password? <Link to="/register/reset"> Reset passwrord</Link>
+                    </p>
+                    <span style={{opacity:"0.5"}}>OR</span>
+                    <span className="login-btn-google" onClick={handleLoginWithGG}>{googleIcon(24, 24)} Login with Google</span>
                 </form>
-                <p className="login-direct">
-                    Don't have an account? <Link to="/register/signup">Sign up</Link>
-                </p>
-                <p className="login-resetpass">
-                    I don't remember the password? <Link to="/register/reset"> Reset passwrord</Link>
-                </p>
                 <p className="login-protected">
                     This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply
                 </p>

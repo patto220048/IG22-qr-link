@@ -3,6 +3,7 @@ import './Signup.scss';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import axiosInstance from '../../../instance/axiosInstance';
+import { googleIcon } from '../../../svg/icon';
 
 function Signup() {
     const [isLoading, setIsLoading] = useState(true);
@@ -78,6 +79,8 @@ function Signup() {
     const handleFocused = (e) => {
         setFocused(true);
     };
+    // handle sign up with google
+    const handleSignupWithGG = () => {};
     return (
         <div className="signup">
             <div className="signup-container">
@@ -104,7 +107,9 @@ function Signup() {
                     </div>
                     <div className="signup-input">
                         <div className="username">
-                            <label htmlFor='username' aria-disabled>super-card/</label>
+                            <label htmlFor="username" aria-disabled>
+                                super-card/
+                            </label>
                             <input
                                 className="username-input"
                                 type="text"
@@ -118,7 +123,7 @@ function Signup() {
                                 placeholder="Username"
                                 onChange={onChange}
                             />
-                        <p className="valid-err">Username not valid ( min "3" characters)</p>
+                            <p className="valid-err">Username not valid ( min "3" characters)</p>
                         </div>
                     </div>
                     <div className="signup-input">
@@ -149,14 +154,17 @@ function Signup() {
                         />
                         <p className="valid-err">Password incorrect !</p>
                     </div>
-
                     <button className="signup-btn" type="submit" onClick={handleSubmit}>
                         Create account
                     </button>
+                    <p className="signup-direct">
+                        Already have an account? <Link to="/register/login">Log in</Link>
+                    </p>
+                    <span style={{opacity:"0.5"}}>OR</span>
+                    <span className="login-btn-google" onClick={handleSignupWithGG}>
+                        {googleIcon(24, 24)} Sign up with Google
+                    </span>
                 </form>
-                <p className="signup-direct">
-                    Already have an account? <Link to="/register/login">Log in</Link>
-                </p>
                 <p className="signup-protected">
                     This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply
                 </p>
