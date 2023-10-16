@@ -11,3 +11,6 @@ https://www.figma.com/file/UWmKwNgPJSs7AxQIIp51mW/Stratis-UI-Icons---1000%2B-Fre
 
 # Social icon
 https://www.iconfinder.com/icons/2644990/media_social_twitter_icon?coming-from=related-results
+
+# Social svg
+https://www.svgrepo.com/
