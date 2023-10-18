@@ -34,12 +34,12 @@ function Navbar() {
     // sign out
     const handleSignOut = async () => {
         try {
-            const res = await axiosInstance.post('/auth/logout', { token: currentUser.refreshToken });
+            const res = await axiosInstance.post('/auth/logout', { token: currentUser.refreshToken});
             console.log(res.data);
             navigate('/register/login');
             dispatch(logout());
         } catch (error) {
-            console(error.message);
+            console.log(error.message);
         }
     };
     return (

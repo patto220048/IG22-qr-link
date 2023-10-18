@@ -13,39 +13,13 @@ import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
 import axiosInstance from './instance/axiosInstance';
 import axios from 'axios';
+
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
     const currentUser  = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState()
-    // refresh token
-    const refreshToken = async () => {
-        try {
-            const res = await axiosInstance.post(`/auth/refresh-token`, { token: currentUser.refreshToken});
-            setUser({
-                ...user,
-                refreshToken: res.data.refresh_token,
-                accsessToken: res.data.access_token,
-            });
-            return res.data;
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-    axios.interceptors.request.use(
-        async (config) => {
-            let currentDate = new Date();
-            const decodedToken = jwt_decode(user.refreshToken);
-            if (decodedToken.exp * 1000 < currentDate.getTime()) {
-                const data = await refreshToken();
-                config.headers['authorization'] = 'Bearer ' + data.access_token;
-            }
-            return config;
-        },
-        (error) => {
-            return Promise.reject(error);
-        },
-    );
+   
     // protect page
     const ProtectRoute = ({ children }) => {
         if (!currentUser) {

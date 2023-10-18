@@ -3,11 +3,13 @@ import { addIcon } from '../../svg/icon';
 import Dialog_UI from '../dialog/Dialog_IU';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../../redux-toolkit/userSlice';
 function TempProfile() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
+    const dispatch = useDispatch();
     console.log(values);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -16,23 +18,25 @@ function TempProfile() {
         e.preventDefault();
         const updateUser = async () => {
             try {
-                const res = await axiosInstance.put(`users/${currentUser._id}`, {
-                    usernameTitle: values.username,
-                    decs: values.decs,
-                },
-                {
-                    headers : {authorization: "Bearer " + currentUser.accsessToken} 
-                }
+                const res = await axiosInstance.put(
+                    `users/${currentUser._id}`,
+                    {
+                        usernameTitle: values.username,
+                        decs: values.decs,
+                    },
+                    {
+                        headers: { authorization: 'Bearer ' + currentUser.accsessToken },
+                    },
                 );
-                
+             
                 console.log(res.data);
             } catch (error) {
                 console.log(error.message);
             }
         };
         updateUser();
-    }
- 
+    };
+
     return (
         <div className="tempProfile">
             <div className="tempProfile-item">
@@ -57,7 +61,7 @@ function TempProfile() {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@`+ currentUser.usernameTitle}
+                    placeholder={`@` + currentUser.usernameTitle}
                     className="tempProfile-input"
                     onChange={onChange}
                 />
@@ -76,7 +80,9 @@ function TempProfile() {
             <div className="tempProfileAddIcon">
                 {/* <button className="tempProfileAddIcon-btn btn-save">Save </button> */}
                 <button className="tempProfileAddIcon-btn">{addIcon(20, 20)}Add Social icons</button>
-                <button className="tempProfileAddIcon-btn" onClick={handleSubmit}>Submit</button>
+                <button className="tempProfileAddIcon-btn" onClick={handleSubmit}>
+                    Submit
+                </button>
             </div>
         </div>
     );

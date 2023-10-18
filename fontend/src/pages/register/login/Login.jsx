@@ -10,6 +10,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import bg_login from '../../../assets/img/bg_login.jpg';
 
+
 function Login() {
     const dispatch = useDispatch();
     // const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +39,35 @@ function Login() {
         };
     }, []);
     
+     // refresh token
+     const refreshToken = async () => {
+        try {
+            const res = await axiosInstance.post(`/auth/refresh-token`, { token: user.refreshToken});
+            setUser({
+                ...user,
+                refreshToken: res.data.refresh_token,
+                accsessToken: res.data.access_token,
+            });
+            return res.data;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+    const axiosJWT =  axios.create()
+    axiosJWT.interceptors.request.use(
+        async (config) => {
+            let currentDate = new Date();
+            const decodedToken = jwt_decode(user.refreshToken);
+            if (decodedToken.exp * 1000 < currentDate.getTime()) {
+                const data = await refreshToken();
+                config.headers['authorization'] = 'Bearer ' + data.access_token;
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        },
+    );
     //sumbit form
     const handleSubmit = async (e) => {
         e.preventDefault();

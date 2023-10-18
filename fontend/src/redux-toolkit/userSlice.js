@@ -24,11 +24,11 @@ export const userSlice = createSlice({
         },
         logout: () => {
             return initialState;
-        },
+        }
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { loginStart, loginSuccess, loginFail, logout } = userSlice.actions;
+export const { loginStart, loginSuccess, loginFail, logout , updateUser} = userSlice.actions;
 
 export default userSlice.reducer;
