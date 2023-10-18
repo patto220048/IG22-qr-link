@@ -13,9 +13,9 @@ class UserController {
     }
     //get 1 user
     async getUser(req, res) {
-        const userId = req.params.id;
+        const username = req.params.username;
         try {
-            const user = await User.findById(userId);
+            const user = await User.findOne({username:username});
             res.status(200).json(user);
         } catch (error) {
             res.json(handleError(500, error.message));

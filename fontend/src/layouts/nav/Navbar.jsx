@@ -73,12 +73,12 @@ function Navbar() {
                 ) : (
                     <div className="nav-user">
                          <ul>
-                            <li>somthings</li>
+                            <li>Buy Card</li>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
                             <img
-                                src="https://images.unsplash.com/photo-1682695799561-033f55f75b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                                alt=""
+                                src={currentUser.avtImg}
+                                alt={currentUser.avtImg}
                             />
                         </div>
                        
@@ -88,7 +88,7 @@ function Navbar() {
 
                 {openMenu && (
                     <section className="nav-option">
-                        <NavAvatar />
+                        <NavAvatar usernameTitle={currentUser.usernameTitle} userImg={currentUser.avtImg} username={currentUser.username} />
                         <ul className="account-option">
                             <h3 className="account">Account</h3>
                             <DropdownItem icon={userIcon()} text={'My account'} />

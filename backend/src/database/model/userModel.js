@@ -6,14 +6,23 @@ const UserModel = new Schema(
         email: {
             type: String,
             require: true,
+            unique : true,
         },
         username: {
             type: String,
             require: true,
+            unique : true,
+        },
+        usernameTitle:{
+            type: String,
+
         },
         password: {
             type: String,
             require: true,
+        },
+        decs:{
+            type: String,
         },
         admin: {
             type: Boolean,

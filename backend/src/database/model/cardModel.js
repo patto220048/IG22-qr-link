@@ -32,10 +32,6 @@ const CardModel = new Schema(
         },
         font_color:{
             type:String
-        },
-        icon:{
-            type: Array,
-            default:[]
         }
         
 

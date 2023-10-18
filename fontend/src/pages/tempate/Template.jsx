@@ -1,8 +1,10 @@
+import { useSelector } from 'react-redux';
 import Background from '../../components/Background/Background';
 import TempProfile from '../../components/TempProfile/TempProfile';
 import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
 function Template() {
+    const currentUser = useSelector((state) => state.user.currentUser);
 
     return (
         <div className="template">
@@ -21,7 +23,7 @@ function Template() {
                 </section>
             </div>
             <div className="template-right">
-                <iframe className='template-preview' src="http://localhost:5173/profile/user/123" frameBorder="0" loading="lazy" >
+                <iframe className='template-preview' src={`http://localhost:5173/profile/user/${currentUser.username}`} frameBorder="0" loading="lazy" >
                     
                 </iframe>
             </div>

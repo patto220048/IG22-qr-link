@@ -10,7 +10,7 @@ import verifyPassHtml from "../mail-service/mail-html/resetpass-html.js"
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '10s',
+        expiresIn: '15m',
     });
 };
 const generateRefeshToken = (user) => {
