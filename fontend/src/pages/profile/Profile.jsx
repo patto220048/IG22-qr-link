@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 function Profile() {
     const currentUser = useSelector((state)=> state.user.currentUser)
-
+    console.log(currentUser)
     return (
         <section className="profile">
             <div className="profile-info">

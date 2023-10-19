@@ -5,7 +5,7 @@ import PlaceholderImage from '../../assets/img/bg/4-4.jpg';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 function Theme({ themeBg, themeOpacity, themeBoderRadius, isTheme, backgoundMode, isBg, bgColor }) {
     const handleOnclick = () => {
-        console.log(bgColor, themeOpacity, themeBoderRadius);
+        console.log(themeBg, themeOpacity, themeBoderRadius);
     };
 
     return (

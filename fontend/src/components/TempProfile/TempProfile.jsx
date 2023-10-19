@@ -4,7 +4,7 @@ import Dialog_UI from '../dialog/Dialog_IU';
 import { useEffect, useState } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '../../redux-toolkit/userSlice';
+import { updateData } from '../../redux-toolkit/userSlice';
 function TempProfile() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openDialog, setOpenDialog] = useState(false);
@@ -25,10 +25,10 @@ function TempProfile() {
                         decs: values.decs,
                     },
                     {
-                        headers: { authorization: 'Bearer ' + currentUser.accsessToken },
+                        headers: { authorization: 'Bearer ' + currentUser.accsessToken},
                     },
                 );
-             
+                dispatch(updateData(res.data))
                 console.log(res.data);
             } catch (error) {
                 console.log(error.message);
