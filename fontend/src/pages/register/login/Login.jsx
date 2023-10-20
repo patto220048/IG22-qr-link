@@ -10,7 +10,6 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import bg_login from '../../../assets/img/bg_login.jpg';
 
-
 function Login() {
     const dispatch = useDispatch();
     // const [isLoading, setIsLoading] = useState(true);
@@ -38,36 +37,8 @@ function Login() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+
     
-     // refresh token
-     const refreshToken = async () => {
-        try {
-            const res = await axiosInstance.post(`/auth/refresh-token`, { token: user.refreshToken});
-            setUser({
-                ...user,
-                refreshToken: res.data.refresh_token,
-                accsessToken: res.data.access_token,
-            });
-            return res.data;
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-    const axiosJWT =  axios.create()
-    axiosJWT.interceptors.request.use(
-        async (config) => {
-            let currentDate = new Date();
-            const decodedToken = jwt_decode(user.refreshToken);
-            if (decodedToken.exp * 1000 < currentDate.getTime()) {
-                const data = await refreshToken();
-                config.headers['authorization'] = 'Bearer ' + data.access_token;
-            }
-            return config;
-        },
-        (error) => {
-            return Promise.reject(error);
-        },
-    );
     //sumbit form
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -112,9 +83,9 @@ function Login() {
         setFocused(true);
     };
     //handle login with google
-    const handleLoginWithGG = () =>{
-        console.log('google')
-    }
+    const handleLoginWithGG = () => {
+        console.log('google');
+    };
     return (
         <div className="login" style={{ backgroundImage: `url(${bg_login})` }}>
             {isLoading && <Loading isLoading={isLoading} />}
@@ -156,7 +127,7 @@ function Login() {
                         </span>
                     </div>
 
-                    <button className="login-btn"  onClick={handleSubmit}>
+                    <button className="login-btn" onClick={handleSubmit}>
                         Login
                     </button>
                     <p className="login-direct">
@@ -165,8 +136,10 @@ function Login() {
                     <p className="login-direct">
                         I don't remember the password? <Link to="/register/reset"> Reset passwrord</Link>
                     </p>
-                    <span style={{opacity:"0.5"}}>OR</span>
-                    <span className="login-btn-google" onClick={handleLoginWithGG}>{googleIcon(24, 24)} Login with Google</span>
+                    <span style={{ opacity: '0.5' }}>OR</span>
+                    <span className="login-btn-google" onClick={handleLoginWithGG}>
+                        {googleIcon(24, 24)} Login with Google
+                    </span>
                 </form>
                 <p className="login-protected">
                     This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply
