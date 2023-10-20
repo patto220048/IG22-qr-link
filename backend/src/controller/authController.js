@@ -80,6 +80,7 @@ class authController {
             res.cookie('access_token', 'Bearer ' + accsessToken, {
                 httpOnly: true,
                 path: '/',
+                
             })
                 .status(200)
                 .json({ ...other, accsessToken });

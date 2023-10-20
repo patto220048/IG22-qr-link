@@ -23,10 +23,7 @@ function TempProfile() {
                     {
                         usernameTitle: values.username,
                         decs: values.decs,
-                    },
-                    {
-                        headers: { authorization: 'Bearer ' + currentUser.accsessToken},
-                    },
+                    }
                 );
                 dispatch(updateData(res.data))
                 console.log(res.data);
