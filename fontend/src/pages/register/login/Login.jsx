@@ -53,29 +53,29 @@ function Login() {
     //     // Các xử lý khác....
     //     return config;
     // };
-    const axiosJWT = axios.create();
-    axiosInstance.interceptors.request.use(
-        async (config) => {
-            config.timeout = 10000;
+    // const axiosJWT = axios.create();
+    // axiosInstance.interceptors.request.use(
+    //     async (config) => {
+    //         config.timeout = 10000;
 
-            let currentDate = new Date().getTime();
-            console.log(currentDate);
-            const decodedToken = jwt_decode(currentUser.refreshToken);
-            console.log(decodedToken.exp);
-            if (decodedToken.exp *1000 > currentDate) {
-                const data = await refreshToken();
-                dispatch(updateData(data))  
-            }
-            return config;
-        },
-        (error) => {
-            return Promise.reject(error);
-        },
-    );
+    //         let currentDate = new Date().getTime();
+    //         console.log(currentDate);
+    //         const decodedToken = jwt_decode(currentUser.refreshToken);
+    //         console.log(decodedToken.exp);
+    //         if (decodedToken.exp *1000 > currentDate) {
+    //             const data = await refreshToken();
+    //             dispatch(updateData(data))  
+    //         }
+    //         return config;
+    //     },
+    //     (error) => {
+    //         return Promise.reject(error);
+    //     },
+    // );
     //refresh token
     const refreshToken = async () => {
         try {
-            const res = await axios.post(`http://127.0.0.1:4000/api/auth/refresh-token`, {
+            const res = await axiosInstance.post(`/auth/refresh-token`, {
                 token: currentUser.refreshToken,
             });
             setUser({
@@ -97,7 +97,7 @@ function Login() {
             //valid email
             const emailValid = validateEmail(values.email);
             if (emailValid === true) {
-                const res = await axios.post(`http://127.0.0.1:4000/api/auth/login`, {
+                const res = await axiosInstance.post(`/auth/login`, {
                     username: values.username,
                     email: values.email,
                     password: values.password,

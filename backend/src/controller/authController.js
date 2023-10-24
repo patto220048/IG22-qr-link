@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken';
 import transport from '../mail-service/index.js';
 import crypto from 'crypto';
 import sha256 from 'crypto-js/sha256.js';
-import verifyHtml from "../mail-service/mail-html/verify-html.js"
-import verifyPassHtml from "../mail-service/mail-html/resetpass-html.js"
+import verifyHtml from '../mail-service/mail-html/verify-html.js';
+import verifyPassHtml from '../mail-service/mail-html/resetpass-html.js';
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
@@ -61,7 +61,7 @@ class authController {
             const setRefreshToken = await User.findByIdAndUpdate(
                 currentUser._id,
                 {
-                    $set: { refreshToken: refreshToken , accsessToken: accsessToken},
+                    $set: { refreshToken: refreshToken, accsessToken: accsessToken },
                 },
                 { new: true },
             );
@@ -77,7 +77,12 @@ class authController {
             // }
             const { password, ...other } = setRefreshToken._doc;
             // set cookie
-            res.status(200).json({ ...other});
+            res.cookie('access_token', 'Bearer ' + accsessToken, {
+                httpOnly: true,
+                path: '/',
+            })
+                .status(200)
+                .json({ ...other });
         } catch (error) {
             res.json(handleError(500, error.message));
         }
@@ -120,15 +125,15 @@ class authController {
                 const newRefreshToken = generateRefeshToken(userRefresh);
                 // assign new AccessToken and refreshToken in db
                 try {
-                   const newUser =  await User.findByIdAndUpdate(
+                    const newUser = await User.findByIdAndUpdate(
                         userRefresh._id,
                         {
-                            $set: { refreshToken: newRefreshToken, accsessToken: newAccessToken},
+                            $set: { refreshToken: newRefreshToken, accsessToken: newAccessToken },
                         },
                         { new: true },
                     );
                     const { password, ...other } = newUser._doc;
-                    
+
                     return res.status(200).json({
                         other,
                         accessToken: newAccessToken,
@@ -167,7 +172,7 @@ class authController {
                                 from: 'info@library-v1.online', // sender address
                                 to: newUser.email, // list of receivers
                                 subject: 'Reset password',
-                                html: verifyPassHtml(token)
+                                html: verifyPassHtml(token),
                             });
                             console.log('Send mail successfully!!!');
                         } catch (error) {
@@ -175,7 +180,7 @@ class authController {
                         }
                     }
                     const { password, ...other } = newUser._doc;
-                    res.status(200).json({other, "Message": "Send mail reset passwrod successfull"});
+                    res.status(200).json({ other, Message: 'Send mail reset passwrod successfull' });
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
@@ -224,8 +229,7 @@ class authController {
                     from: 'info@library-v1.online', // sender address
                     to: email, // list of receivers
                     subject: 'Verify mail',
-                    html: verifyHtml(email, user.verifyMailCode)
-                        
+                    html: verifyHtml(email, user.verifyMailCode),
                 });
                 res.status(200).json({ user, mess: 'Send verify mail successful!' });
             } catch (error) {
@@ -251,14 +255,13 @@ class authController {
                         },
                         { new: true },
                     );
-                    
-                    res.status(200).json({newUser, "Status": "Email verify success"});
+
+                    res.status(200).json({ newUser, Status: 'Email verify success' });
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
-            }
-            else{
-                return res.json(handleError(403, "Your mail verifyed"));
+            } else {
+                return res.json(handleError(403, 'Your mail verifyed'));
             }
         } catch (error) {
             res.json(handleError(500, error.message));
