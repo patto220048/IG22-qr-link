@@ -10,7 +10,7 @@ import verifyPassHtml from "../mail-service/mail-html/resetpass-html.js"
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '15s',
+        expiresIn: '1m',
     });
 };
 const generateRefeshToken = (user) => {
@@ -56,12 +56,12 @@ class authController {
 
             //sign jwt for user
             const accsessToken = generateAccessToken(currentUser);
-            const refresh_token = generateRefeshToken(currentUser);
+            const refreshToken = generateRefeshToken(currentUser);
             // set refresh token for user
             const setRefreshToken = await User.findByIdAndUpdate(
                 currentUser._id,
                 {
-                    $set: { refreshToken: refresh_token },
+                    $set: { refreshToken: refreshToken , accsessToken: accsessToken},
                 },
                 { new: true },
             );
@@ -77,13 +77,7 @@ class authController {
             // }
             const { password, ...other } = setRefreshToken._doc;
             // set cookie
-            res.cookie('access_token', 'Bearer ' + accsessToken, {
-                httpOnly: true,
-                path: '/',
-                
-            })
-                .status(200)
-                .json({ ...other, accsessToken });
+            res.status(200).json({ ...other});
         } catch (error) {
             res.json(handleError(500, error.message));
         }
@@ -126,16 +120,19 @@ class authController {
                 const newRefreshToken = generateRefeshToken(userRefresh);
                 // assign new AccessToken and refreshToken in db
                 try {
-                    await User.findByIdAndUpdate(
+                   const newUser =  await User.findByIdAndUpdate(
                         userRefresh._id,
                         {
-                            $set: { refreshToken: newRefreshToken },
+                            $set: { refreshToken: newRefreshToken, accsessToken: newAccessToken},
                         },
                         { new: true },
                     );
+                    const { password, ...other } = newUser._doc;
+                    
                     return res.status(200).json({
-                        access_token: newAccessToken,
-                        refresh_token: newRefreshToken,
+                        other,
+                        accessToken: newAccessToken,
+                        refreshToken: newRefreshToken,
                     });
                 } catch (error) {
                     res.json(handleError(500, error.message));
@@ -177,8 +174,8 @@ class authController {
                             console.log(error.message);
                         }
                     }
-
-                    res.status(200).json({newUser, "Message": "Send mail reset passwrod successfull"});
+                    const { password, ...other } = newUser._doc;
+                    res.status(200).json({other, "Message": "Send mail reset passwrod successfull"});
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
@@ -206,7 +203,9 @@ class authController {
                         },
                         { new: true },
                     );
-                    res.status(200).json(newUser);
+                    const { password, ...other } = newUser;
+
+                    res.status(200).json(other);
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
@@ -252,6 +251,7 @@ class authController {
                         },
                         { new: true },
                     );
+                    
                     res.status(200).json({newUser, "Status": "Email verify success"});
                 } catch (error) {
                     res.json(handleError(500, error.message));

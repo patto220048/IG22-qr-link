@@ -22,49 +22,7 @@ function App() {
  
     const currentUser  = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState()
-    console.log(Cookies.get("access_token"))
-   // refresh token
-   const refreshToken = async () => {
-    try {
-        const res = await axiosInstance.post(`/auth/refresh-token`, { token: currentUser.refreshToken });
-        setUser({
-            refreshToken: res.data.refresh_token,
-            accsessToken: res.data.access_token,
-        });
-        return res.data;
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-const onRequestSuccess = (config) => {
-    const auth = getCookie();
-    config.timeout = 10000;
-    if (auth) {
-      config.headers = {
-        Authorization: "Bearer " + auth,
-        "x-api-key": keyHearder
-      };
-    }
-    // Các xử lý khác....
-    return config;
-  };
-    const axiosJWT = axios.create();
-    axiosJWT.interceptors.request.use(
-        async (config) => {
-        let currentDate = new Date();
-        console.log(currentDate)
-        const decodedToken = jwt_decode(user.refreshToken);
-        if (decodedToken.exp * 1000 < currentDate.getTime()) {
-            const data = await refreshToken();
-            console.log(data)
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    },
-);
-
+   //
     // protect page
     const ProtectRoute = ({ children }) => {
         if (!currentUser) {

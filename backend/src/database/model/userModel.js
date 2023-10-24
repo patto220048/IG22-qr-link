@@ -39,6 +39,10 @@ const UserModel = new Schema(
             type: String,
             default: null,
         },
+        accsessToken:{
+            type: String,
+            default: null,
+        },
         resetPassToken: {
             type: String,
             default: null,

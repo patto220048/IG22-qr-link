@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
 import axiosInstance from '../../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginFail, loginStart, loginSuccess } from '../../../redux-toolkit/userSlice';
+import { loginFail, loginStart, loginSuccess, updateData } from '../../../redux-toolkit/userSlice';
 import Loading from '../../../components/dialog/loading/Loading';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
@@ -12,9 +12,12 @@ import bg_login from '../../../assets/img/bg_login.jpg';
 
 function Login() {
     const dispatch = useDispatch();
+    const currentUser = useSelector((state) => state.user.currentUser);
+
     // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
     const [user, setUser] = useState(null);
+    console.log(user);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
@@ -38,7 +41,53 @@ function Login() {
         };
     }, []);
 
-    
+    // const onRequestSuccess = (config) => {
+    //     const auth = getCookie();
+    //     config.timeout = 10000;
+    //     if (auth) {
+    //         config.headers = {
+    //             Authorization: 'Bearer ' + auth,
+    //             'x-api-key': keyHearder,
+    //         };
+    //     }
+    //     // Các xử lý khác....
+    //     return config;
+    // };
+    const axiosJWT = axios.create();
+    axiosInstance.interceptors.request.use(
+        async (config) => {
+            config.timeout = 10000;
+
+            let currentDate = new Date().getTime();
+            console.log(currentDate);
+            const decodedToken = jwt_decode(currentUser.refreshToken);
+            console.log(decodedToken.exp);
+            if (decodedToken.exp *1000 > currentDate) {
+                const data = await refreshToken();
+                dispatch(updateData(data))  
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        },
+    );
+    //refresh token
+    const refreshToken = async () => {
+        try {
+            const res = await axios.post(`http://127.0.0.1:4000/api/auth/refresh-token`, {
+                token: currentUser.refreshToken,
+            });
+            setUser({
+                refreshToken: res.data.refresh_token,
+                accsessToken: res.data.access_token,
+            });
+            return res.data;
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     //sumbit form
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -48,7 +97,7 @@ function Login() {
             //valid email
             const emailValid = validateEmail(values.email);
             if (emailValid === true) {
-                const res = await axiosInstance.post(`/auth/login`, {
+                const res = await axios.post(`http://127.0.0.1:4000/api/auth/login`, {
                     username: values.username,
                     email: values.email,
                     password: values.password,
