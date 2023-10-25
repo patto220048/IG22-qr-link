@@ -5,7 +5,7 @@ import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
-
+    
     return (
         <div className="template">
             <div className="template-left">

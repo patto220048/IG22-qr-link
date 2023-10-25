@@ -30,14 +30,11 @@ class cardController {
     }
     //get card
     async getCard(req, res) {
-        const cardId = req.params.id;
         const curentUser = req.user.id;
-
         try {
-            const card = await Card.findById(cardId);
-            if (card.userId === curentUser) {
+            if (curentUser) {
                 try {
-                    const allCard = await Card.find({ userId: curentUser });
+                    const allCard = await Card.findOne({ userId: curentUser });
                     res.status(200).json(allCard);
                 } catch (error) {
                     res.json(handleErorr(500, error.message));
@@ -54,21 +51,19 @@ class cardController {
         const cardId = req.params.id;
         try {
             const cards = await Card.find();
-            res.status(200).json(cards);
+            res.status(200).json(...cards);
         } catch (error) {
             res.json(handleErorr(500, error.message));
         }
     }
     //edit card
     async editCard(req, res) {
-        const cardId = req.params.id;
         const curentUser = req.user.id;
         try {
-            const card = await Card.findById(cardId);
-            if (card.userId === curentUser) {
+            if (curentUser || req.user.admin) {
                 try {
-                    const newCard = await Card.findByIdAndUpdate(
-                        cardId,
+                    const newCard = await Card.findOneAndUpdate(
+                        {userId: curentUser},
                         {
                             $set: req.body,
                         },
@@ -83,6 +78,16 @@ class cardController {
             }
         } catch (error) {
             res.json(handleErorr(500, error.message));
+        }
+    }
+    //detele cards
+    async deleteCards(req, res) {
+        try {
+            const card = await Card.deleteMany();
+            res.status(200).json('Delete successfuly!!');
+        } catch (error) {
+            res.json(handleError(500, error.message));
+            
         }
     }
 }

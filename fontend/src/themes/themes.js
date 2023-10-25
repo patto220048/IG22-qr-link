@@ -1,12 +1,12 @@
-// import bg1 from '../assets/img/bg/1-1.jpg';
-// import bg2 from '../assets/img/bg/1-2.jpg';
-// import bg3 from '../assets/img/bg/1-3.jpg';
-// import bg5 from '../assets/img/bg/2-1.jpg';
+import bg1 from '../assets/img/bg/1-1.jpg';
+import bg2 from '../assets/img/bg/1-2.jpg';
+import bg3 from '../assets/img/bg/1-3.jpg';
+import bg5 from '../assets/img/bg/2-1.jpg';
 
 
 const themes = [
     {   
-        bg_img: "https://firebasestorage.googleapis.com/v0/b/social-d1456.appspot.com/o/1688302175972avatar.jpg?alt=media&token=4e7f09c4-2c18-4248-9153-6b4b1e01a2dc&_gl=1*c1uo35*_ga*NTcxOTUzNjQyLjE2OTcxNjgzNDc.*_ga_CW55HF8NVT*MTY5NzE2ODM0Ny4xLjEuMTY5NzE2ODYwNS4zOS4wLjA.",
+        bg_img: bg1,
         bg_opacity: 1,
         bnt_radius: 0,
         btn_color:"",

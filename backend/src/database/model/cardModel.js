@@ -6,13 +6,12 @@ const CardModel = new Schema(
     {
         userId: {
             type: String, 
-            require: true, 
         },
         themeId: {
             type: String, 
             
         },      
-        background:{
+        backgroundImg:{
             type: String,
         } ,
         button_type: {
@@ -32,7 +31,11 @@ const CardModel = new Schema(
         },
         font_color:{
             type:String
+        },
+        btn:{
+            type:String
         }
+
         
 
         

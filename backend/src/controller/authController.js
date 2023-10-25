@@ -7,10 +7,11 @@ import crypto from 'crypto';
 import sha256 from 'crypto-js/sha256.js';
 import verifyHtml from '../mail-service/mail-html/verify-html.js';
 import verifyPassHtml from '../mail-service/mail-html/resetpass-html.js';
+import Card from '../database/model/cardModel.js';
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '1m',
+        expiresIn: '365d',
     });
 };
 const generateRefeshToken = (user) => {
@@ -31,9 +32,13 @@ class authController {
                     // hash password
                     const salt = await bcrypt.genSaltSync(10);
                     const hash = await bcrypt.hashSync(req.body.password, salt);
+                    //create card for user
+                  
                     // save user into database
                     const newUser = new User({ ...req.body, password: hash, verifyMailCode: verifyMailCode });
                     await newUser.save();
+                    const newCard = new Card({...req.body, userId: newUser._id});
+                    await newCard.save();
                     return res.status(200).json(newUser);
                 } else {
                     return res.json(handleError(402, 'Username or email has already existed !'));

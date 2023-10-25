@@ -14,8 +14,11 @@ function TempProfile() {
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+  
+    // };
+    useEffect(()=>{
         const updateUser = async () => {
             try {
                 const res = await axiosInstance.put(
@@ -23,10 +26,7 @@ function TempProfile() {
                     {
                         usernameTitle: values.username,
                         decs: values.decs,
-                    },
-                    {
-                        headers: { authorization: 'Bearer ' + currentUser.accsessToken},
-                    },
+                    }
                 );
                 dispatch(updateData(res.data))
                 console.log(res.data);
@@ -35,7 +35,7 @@ function TempProfile() {
             }
         };
         updateUser();
-    };
+    },[values])
 
     return (
         <div className="tempProfile">
@@ -61,7 +61,7 @@ function TempProfile() {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@` + currentUser.usernameTitle}
+                    placeholder={`@` + (currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
                     className="tempProfile-input"
                     onChange={onChange}
                 />
@@ -80,9 +80,9 @@ function TempProfile() {
             <div className="tempProfileAddIcon">
                 {/* <button className="tempProfileAddIcon-btn btn-save">Save </button> */}
                 <button className="tempProfileAddIcon-btn">{addIcon(20, 20)}Add Social icons</button>
-                <button className="tempProfileAddIcon-btn" onClick={handleSubmit}>
+                {/* <button className="tempProfileAddIcon-btn" onClick={handleSubmit}>
                     Submit
-                </button>
+                </button> */}
             </div>
         </div>
     );

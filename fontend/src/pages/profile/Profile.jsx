@@ -7,17 +7,22 @@ import './Profile.scss';
 import SocialIcon from '../../components/SocialIcon/socialIcon';
 import { useSelector } from 'react-redux';
 
-
 function Profile() {
-    const currentUser = useSelector((state)=> state.user.currentUser)
-    console.log(currentUser)
+    const currentUser = useSelector((state) => state.user.currentUser);
+    const currentTheme = useSelector((state) => state.theme.currentTheme);
+    // console.log(currentTheme)
     return (
-        <section className="profile">
+        <section className="profile" style={{ backgroundImage: `url(${currentTheme.backgroundImg})` }}>
             <div className="profile-info">
-                <AvatarProfile usernameTitle = {currentUser.usernameTitle} decs={currentUser.decs} avatar={currentUser.avtImg}/>
+                <AvatarProfile
+                    username={currentUser.username}
+                    usernameTitle={currentUser.usernameTitle}
+                    decs={currentUser.decs}
+                    avatar={currentUser.avtImg}
+                />
                 <SocialIcon />
-                <LinkTree title={'Facebook'} icon={facebookeIcon(35, 35)} />
-                <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} />
+                <LinkTree title={'Facebook'} icon={facebookeIcon(35, 35)} link="https://www.facebook.com/" />
+                <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
                 <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />
             </div>
             {/* <div className="profile-logo">

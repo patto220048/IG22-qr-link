@@ -1,5 +1,5 @@
 import './AvatarProfile.scss';
-function AvatarProfile({usernameTitle, decs , avatar}) {
+function AvatarProfile({usernameTitle, decs , avatar,username}) {
     return (
         <div className="avatarProfile">
             <img
@@ -8,7 +8,7 @@ function AvatarProfile({usernameTitle, decs , avatar}) {
                 alt={avatar}
             />
             <h3 className="avatarProfile-name" >
-                @{usernameTitle}
+                @{usernameTitle ? usernameTitle : username}
             </h3>
             <p className="avatarProfile-desc" >
                 {decs}
