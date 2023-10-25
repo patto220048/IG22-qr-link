@@ -19,23 +19,28 @@ function TempProfile() {
   
     // };
     useEffect(()=>{
-        const updateUser = async () => {
-            try {
-                const res = await axiosInstance.put(
-                    `users/${currentUser._id}`,
-                    {
-                        usernameTitle: values.username,
-                        decs: values.decs,
-                    }
-                );
-                dispatch(updateData(res.data))
-                console.log(res.data);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        updateUser();
-    },[values])
+        let timeoutId = setTimeout(() =>{
+            const updateUser = async () => {
+                try {
+                    const res = await axiosInstance.put(
+                        `users/${currentUser._id}`,
+                        {
+                            usernameTitle: values.username,
+                            decs: values.decs,
+                        }
+                    );
+                    dispatch(updateData(res.data))
+                    console.log(res.data);
+                } catch (error) {
+                    console.log(error.message);
+                }
+            };
+            updateUser();
+        },5000)
+      return () => {
+        clearTimeout(timeoutId)
+      }
+    },[values?.username, values?.decs])
 
     return (
         <div className="tempProfile">
