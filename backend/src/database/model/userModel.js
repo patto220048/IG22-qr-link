@@ -66,6 +66,10 @@ const UserModel = new Schema(
         groupImg:{
             type: Array,
             default:[]
+        },
+        bgImg:{
+            type: String,
+            default: null
         }
         
     },

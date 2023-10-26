@@ -10,37 +10,62 @@ function TempProfile() {
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const dispatch = useDispatch();
+    const [onFocus, setOnFocus] = useState(false);
     console.log(values);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
     // const handleSubmit = (e) => {
     //     e.preventDefault();
-  
+
     // };
-    useEffect(()=>{
-        let timeoutId = setTimeout(() =>{
+    useEffect(() => {
+        const handleClickOutside = () => {
+            setOnFocus(false);
             const updateUser = async () => {
                 try {
-                    const res = await axiosInstance.put(
-                        `users/${currentUser._id}`,
-                        {
-                            usernameTitle: values.username,
-                            decs: values.decs,
-                        }
-                    );
-                    dispatch(updateData(res.data))
+                    const res = await axiosInstance.put(`users/${currentUser._id}`, {
+                        usernameTitle: values.username,
+                        decs: values.decs,
+                    });
+                    dispatch(updateData(res.data));
                     console.log(res.data);
                 } catch (error) {
                     console.log(error.message);
                 }
             };
             updateUser();
-        },5000)
-      return () => {
-        clearTimeout(timeoutId)
-      }
-    },[values?.username, values?.decs])
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [values?.username, values?.decs]);
+    // useEffect(()=>{
+    //     let timeoutId = setTimeout(() =>{
+    //         const updateUser = async () => {
+    //             try {
+    //                 const res = await axiosInstance.put(
+    //                     `users/${currentUser._id}`,
+    //                     {
+    //                         usernameTitle: values.username,
+    //                         decs: values.decs,
+    //                     }
+    //                 );
+    //                 dispatch(updateData(res.data))
+    //                 console.log(res.data);
+    //             } catch (error) {
+    //                 console.log(error.message);
+    //             }
+    //         };
+    //         updateUser();
+    //     },5000)
+    //   return () => {
+    //     clearTimeout(timeoutId)
+    //   }
+    // },[values?.username, values?.decs])
 
     return (
         <div className="tempProfile">
@@ -63,6 +88,7 @@ function TempProfile() {
             <div className="tempProfile-input">
                 <h4 className="tempProfile-input_title">Profile name</h4>
                 <input
+                    onFocus={() => setOnFocus(true)}
                     name="username"
                     id="username"
                     type="text"
@@ -72,6 +98,7 @@ function TempProfile() {
                 />
                 <input />
                 <textarea
+                    onFocus={() => setOnFocus(true)}    
                     name="decs"
                     id="decs"
                     cols="30"

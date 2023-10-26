@@ -9,31 +9,43 @@ const CardModel = new Schema(
         },
         themeId: {
             type: String, 
-            
         },      
         backgroundImg:{
             type: String,
+            default:null
         } ,
         button_type: {
             type :String,
+            default:null
+
         }
         ,
         button_color: {
             type :String,
+            default:null
+
         }
         ,
         button_font_color: {
             type :String,
+            default:null
+
         }
         ,
         fonts:{
             type: String,
+            default:null
+
         },
         font_color:{
-            type:String
+            type:String,
+            default:null
+
         },
         btn:{
-            type:String
+            type:String,
+            default:null
+
         }
 
         

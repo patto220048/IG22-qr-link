@@ -9,7 +9,7 @@ router.post('/', userVerify.verifyUser, card.newCard);
 //get card
 router.get('/v1/', userVerify.verifyUser, card.getCard);
 //edit card
-router.put('/', userVerify.verifyUser, card.editCard);
+router.put('/:id', userVerify.verifyUser, card.editCard);
 //get cards
 router.get('/', userVerify.verifyUser, card.getCards);
 //delete cards

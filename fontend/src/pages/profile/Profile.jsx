@@ -6,11 +6,11 @@ import './Profile.scss';
 
 import SocialIcon from '../../components/SocialIcon/socialIcon';
 import { useSelector } from 'react-redux';
+import axiosInstance from '../../instance/axiosInstance';
 
 function Profile() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const currentTheme = useSelector((state) => state.theme.currentTheme);
-    // console.log(currentTheme)
+    const {currentTheme} = useSelector((state) => state.theme);
     return (
         <section className="profile" style={{ backgroundImage: `url(${currentTheme.backgroundImg})` }}>
             <div className="profile-info">

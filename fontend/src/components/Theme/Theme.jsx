@@ -4,24 +4,25 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import PlaceholderImage from '../../assets/img/bg/4-4.jpg';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import axiosInstance from '../../instance/axiosInstance';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {themeFail, themeStart, themeSuccess, updateTheme} from '../../redux-toolkit/themeSlice';
-function Theme({ themeBg, themeOpacity, themeBtn, isTheme, backgoundMode, isBg, bgColor }) {
+import { updateData } from '../../redux-toolkit/userSlice';
+function Theme({ themeBg, themeOpacity, themeBtn, isTheme, backgoundMode, isBg, bgColor ,cardId}) {
     const dispatch = useDispatch()
+    const currentUser = useSelector((state=>state.user.currentUser))
+    const currentTheme = useSelector((state=>state.user.currentTheme))
     const handleOnclick = () => {
-        dispatch(themeStart())
         try {
             const fetchTheme = async() => {
-                const res = await axiosInstance.put("/card", {
+                const res = await axiosInstance.put(`/card/${cardId}`, {
                     backgroundImg: themeBg,
-                    btn:themeBtn,
                 })
                 console.log(res.data)
                 dispatch(updateTheme(res.data))
+                window.location.reload();
             }
             fetchTheme()
         } catch (error) {
-            dispatch(themeFail(error))
             console.log(error.message);
         }
        
