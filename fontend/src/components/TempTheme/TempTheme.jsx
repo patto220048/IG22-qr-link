@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { themeStart, themeSuccess } from '../../redux-toolkit/themeSlice';
 import { useDispatch } from 'react-redux';
 import axiosInstance from '../../instance/axiosInstance';
-function TempTheme() {
+function TempTheme({setState}) {
     const [data, setData] = useState({});
     useEffect(() => {
         const getCard = async () => {
@@ -27,6 +27,7 @@ function TempTheme() {
                 <Theme isTheme={false} />
                 {themes.map((theme, i) => (
                     <Theme
+                    setState = {setState}
                         cardId = {data._id}
                         isTheme={true}
                         themeBg={theme.bg_img}

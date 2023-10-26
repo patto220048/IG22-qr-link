@@ -3,9 +3,11 @@ import Background from '../../components/Background/Background';
 import TempProfile from '../../components/TempProfile/TempProfile';
 import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
+import { useState } from 'react';
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    
+    const [state, setState] = useState({})
+    console.log(state)
     return (
         <div className="template">
             <div className="template-left">
@@ -15,7 +17,7 @@ function Template() {
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Themes</h2>
-                    <TempTheme />
+                    <TempTheme setState={setState} />
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Background</h2>
@@ -23,9 +25,10 @@ function Template() {
                 </section>
             </div>
             <div className="template-right">
-                <iframe className='template-preview' src={`http://localhost:5173/profile/user/${currentUser.username}`} frameBorder="0" loading="lazy" >
+                <img src={state.backgroundImg} alt="" />
+                {/* <iframe className='template-preview' src={`http://localhost:5173/profile/user/${currentUser.username}`} frameBorder="0" loading="lazy" >
                     
-                </iframe>
+                </iframe> */}
             </div>
         </div>
     );

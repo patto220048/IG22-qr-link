@@ -9,6 +9,7 @@ import Loading from '../../../components/dialog/loading/Loading';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import bg_login from '../../../assets/img/bg_login.jpg';
+import bg_login_page from '../../../assets/img/bg/bg_login_page.gif';
 
 function Login() {
     const dispatch = useDispatch();
@@ -136,9 +137,13 @@ function Login() {
         console.log('google');
     };
     return (
-        <div className="login" style={{ backgroundImage: `url(${bg_login})` }}>
+        <div className="login" >
             {isLoading && <Loading isLoading={isLoading} />}
-            <div className="login-container">
+            <div className='login-left'>
+                <img className='login-left-img' src={bg_login_page} alt="" />
+            </div>
+            
+            <div className="login-right">
                 <div className="login-title">
                     <h1>Welcome back</h1>
                     <p>Login in your bio !!!</p>

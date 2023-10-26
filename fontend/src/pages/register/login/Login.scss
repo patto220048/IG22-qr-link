@@ -1,12 +1,21 @@
 @import '../../../base/color';
 .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    // margin:auto;
-    // background-attachment: fixed;
-    background-size: cover;
-    // background-image: url('../../../../../assets/img/bg_login.jpg');
-    .login-container {
-        height: 800px;
+    
+    .login-left{
+        // border-right: 0.1px solid rgba($color: $black, $alpha: 0.3);
+        .login-left-img{
+            width: 700px;
+            height: 700px;
+            object-fit: cover;
+        }
+    }
+    .login-right {
+        
+        // height: 800px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -68,8 +77,8 @@
                 padding: 15px;
                 font-size: 20px;
                 font-weight: 900;
-                background-color: $background_color;
-                color: $white;
+                background-color: $btn_login_color;
+                color: $black;
                 border-radius: 25px;
                 transition: all 0.3s ease;
                 &:hover {

@@ -11,9 +11,10 @@ function TempProfile() {
     const [values, setValues] = useState(null);
     const dispatch = useDispatch();
     const [onFocus, setOnFocus] = useState(false);
-    console.log(values);
+    // console.log(values);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
+        setValues("")
     };
     // const handleSubmit = (e) => {
     //     e.preventDefault();
@@ -92,7 +93,7 @@ function TempProfile() {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@` + (currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
+                    placeholder={`@ ` +(currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
                     className="tempProfile-input"
                     onChange={onChange}
                 />

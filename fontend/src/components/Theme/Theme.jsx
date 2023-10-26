@@ -7,7 +7,7 @@ import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import {themeFail, themeStart, themeSuccess, updateTheme} from '../../redux-toolkit/themeSlice';
 import { updateData } from '../../redux-toolkit/userSlice';
-function Theme({ themeBg, themeOpacity, themeBtn, isTheme, backgoundMode, isBg, bgColor ,cardId}) {
+function Theme({ themeBg, themeOpacity, themeBtn, isTheme, backgoundMode, isBg, bgColor ,cardId,setState}) {
     const dispatch = useDispatch()
     const currentUser = useSelector((state=>state.user.currentUser))
     const currentTheme = useSelector((state=>state.user.currentTheme))
@@ -19,7 +19,7 @@ function Theme({ themeBg, themeOpacity, themeBtn, isTheme, backgoundMode, isBg, 
                 })
                 console.log(res.data)
                 dispatch(updateTheme(res.data))
-                window.location.reload();
+                setState(res.data)
             }
             fetchTheme()
         } catch (error) {
