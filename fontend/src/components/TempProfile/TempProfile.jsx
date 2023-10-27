@@ -9,10 +9,11 @@ import {useParams} from "react-router-dom"
 function TempProfile({setUsername,setDesc, userId}) {
     const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.user.currentUser);
-
+    const [maxLenght, setMaxLenght] = useState(80)
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const usernameParams = useParams().username
+    console.log(maxLenght)
     //set username
     setUsername(values?.username)
     setDesc(values?.decs)
@@ -78,16 +79,18 @@ function TempProfile({setUsername,setDesc, userId}) {
                     placeholder={`@`+(currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username )}
                     className="tempProfile-input"
                     onChange={onChange}
+                    maxLength={16}
+                    minLength={1}
                 />
                 <input />
                 <textarea
                     onFocus={() => setOnFocus(true)}    
                     name="decs"
                     id="decs"
-                    cols="30"
+                    cols="10"
                     rows="10"
                     className="tempProfile-textarea"
-                    maxLength={80}
+                    maxLength={maxLenght}
                     placeholder={currentUser.decs ? currentUser.decs : ("Your description here ...")}
                     onChange={onChange}
                 ></textarea>

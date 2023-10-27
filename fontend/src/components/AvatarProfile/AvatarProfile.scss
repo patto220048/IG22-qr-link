@@ -6,7 +6,7 @@
     flex-direction: column;
     gap: 20px;
     padding-top: 50px;
-
+    
     .avatarProfile-img {
         width: 120px;
         height: 120px;
@@ -16,19 +16,16 @@
     .avatarProfile-name {
         font-size: 30px;
         font-weight: 700;
-        max-width:  350px;
+        max-width:  330px;
         text-align: center;
         text-overflow: ellipsis;
-        
         overflow: hidden;
-        
-
     }
     .avatarProfile-desc {
         font-size: 17px;
-        max-width:  340px;
+        max-width:  320px;
         text-align: center;
-
+        // text-wrap: wrap;
     }
 }
 @media only screen and (max-width: 768px) {
