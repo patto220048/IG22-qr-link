@@ -33,6 +33,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
+      
             .template-bg {
                 border: 15px solid rgba($color: $black, $alpha: 1);
                 border-radius: 60px;
@@ -43,7 +44,12 @@
             }
             .template-profile {
                 position: absolute;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
             }
+            
         }
     }
 }

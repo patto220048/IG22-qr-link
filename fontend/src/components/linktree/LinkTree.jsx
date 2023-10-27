@@ -5,10 +5,11 @@ function LinkTree(props) {
     // const [isFocus, setIsFocus] = useState(false)
     // console.log(isFocus)
     return (
-    
+     
         <div className="linktree" style={{
             backgroundColor:"aliceblue",
-            borderRadius:"10px",
+            borderRadius:"10px",    
+            width:`${props.preview ? "75%": "25%"}`
             }}>
             <a href={props.link} className='linktree-link'>
                 <div className="linktree-item" >
@@ -18,7 +19,7 @@ function LinkTree(props) {
                 </div>
             </a>
         </div>
-      
+  
     );
 }
 
