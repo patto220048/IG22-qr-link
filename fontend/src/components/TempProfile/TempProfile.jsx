@@ -1,25 +1,42 @@
 import './TempProfile.scss';
 import { addIcon } from '../../svg/icon';
 import Dialog_UI from '../dialog/Dialog_IU';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux-toolkit/userSlice';
-function TempProfile() {
+import {useParams} from "react-router-dom"
+function TempProfile({setUsername,setDesc, userId}) {
+    const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.user.currentUser);
+    const [user, setUser] = useState({})
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
-    const dispatch = useDispatch();
+    const usernameParams = useParams().username
+    //set username
+    setUsername(values?.username)
+    setDesc(values?.decs)
     const [onFocus, setOnFocus] = useState(false);
     // console.log(values);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
-        setValues("")
     };
     // const handleSubmit = (e) => {
     //     e.preventDefault();
 
     // };
+    useEffect(() => {
+        const fectchUser = async()=>{
+            try {
+                const res = await axiosInstance.get(`/users/${usernameParams}`)
+                setUser(res.data)
+              
+            } catch (error) {
+                console.log(error)
+            }
+        }  
+        fectchUser()
+    },[usernameParams]);
     useEffect(() => {
         const handleClickOutside = () => {
             setOnFocus(false);
@@ -29,7 +46,7 @@ function TempProfile() {
                         usernameTitle: values.username,
                         decs: values.decs,
                     });
-                    dispatch(updateData(res.data));
+                    dispatch(updateData(res.data))
                     console.log(res.data);
                 } catch (error) {
                     console.log(error.message);
@@ -93,7 +110,7 @@ function TempProfile() {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@ ` +(currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
+                    placeholder={`@`+(user.usernameTitle ? user.usernameTitle : user.username )}
                     className="tempProfile-input"
                     onChange={onChange}
                 />
@@ -106,7 +123,7 @@ function TempProfile() {
                     rows="10"
                     className="tempProfile-textarea"
                     maxLength={80}
-                    placeholder="Your description here ..."
+                    placeholder={user.decs ? user.decs : ("Your description here ...")}
                     onChange={onChange}
                 ></textarea>
             </div>

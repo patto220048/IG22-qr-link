@@ -14,9 +14,21 @@ class UserController {
     //get 1 user
     async getUser(req, res) {
         const username = req.params.username;
+        const userId = req.params.id;
         try {
-            const user = await User.findOne({username:username});
-            res.status(200).json(user);
+            const user = username ? await User.findOne({ username: username }) : await User.findById(userId);
+            const {
+                password,
+                verifyMailCode,
+                admin,
+                customer,
+                refreshToken,
+                accsessToken,
+                resetPassToken,
+                resetPassExpiration,
+                ...other
+            } = user._doc;
+            res.status(200).json(other);
         } catch (error) {
             res.json(handleError(500, error.message));
         }
@@ -66,7 +78,6 @@ class UserController {
             res.status(200).json('Delete successfuly!!');
         } catch (error) {
             res.json(handleError(500, error.message));
-            
         }
     }
 }

@@ -8,6 +8,7 @@ const router = express.Router();
 router.get('/', userController.getUsers)
 // get user
 router.get('/:username', userController.getUser)
+router.get('/v1/:id', userController.getUser)
 // edit user
 router.put('/:id', userVerify.verifyUser, userController.editUser)
 // delete user
