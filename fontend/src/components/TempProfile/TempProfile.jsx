@@ -9,7 +9,7 @@ import {useParams} from "react-router-dom"
 function TempProfile({setUsername,setDesc, userId}) {
     const dispatch = useDispatch()
     const currentUser = useSelector((state) => state.user.currentUser);
-    const [user, setUser] = useState({})
+
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const usernameParams = useParams().username
@@ -25,18 +25,7 @@ function TempProfile({setUsername,setDesc, userId}) {
     //     e.preventDefault();
 
     // };
-    useEffect(() => {
-        const fectchUser = async()=>{
-            try {
-                const res = await axiosInstance.get(`/users/${usernameParams}`)
-                setUser(res.data)
-              
-            } catch (error) {
-                console.log(error)
-            }
-        }  
-        fectchUser()
-    },[usernameParams]);
+
     useEffect(() => {
         const handleClickOutside = () => {
             setOnFocus(false);
@@ -61,30 +50,6 @@ function TempProfile({setUsername,setDesc, userId}) {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [values?.username, values?.decs]);
-    // useEffect(()=>{
-    //     let timeoutId = setTimeout(() =>{
-    //         const updateUser = async () => {
-    //             try {
-    //                 const res = await axiosInstance.put(
-    //                     `users/${currentUser._id}`,
-    //                     {
-    //                         usernameTitle: values.username,
-    //                         decs: values.decs,
-    //                     }
-    //                 );
-    //                 dispatch(updateData(res.data))
-    //                 console.log(res.data);
-    //             } catch (error) {
-    //                 console.log(error.message);
-    //             }
-    //         };
-    //         updateUser();
-    //     },5000)
-    //   return () => {
-    //     clearTimeout(timeoutId)
-    //   }
-    // },[values?.username, values?.decs])
-
     return (
         <div className="tempProfile">
             <div className="tempProfile-item">
@@ -110,7 +75,7 @@ function TempProfile({setUsername,setDesc, userId}) {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@`+(user.usernameTitle ? user.usernameTitle : user.username )}
+                    placeholder={`@`+(currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username )}
                     className="tempProfile-input"
                     onChange={onChange}
                 />
@@ -123,7 +88,7 @@ function TempProfile({setUsername,setDesc, userId}) {
                     rows="10"
                     className="tempProfile-textarea"
                     maxLength={80}
-                    placeholder={user.decs ? user.decs : ("Your description here ...")}
+                    placeholder={currentUser.decs ? currentUser.decs : ("Your description here ...")}
                     onChange={onChange}
                 ></textarea>
             </div>

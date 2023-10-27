@@ -5,14 +5,15 @@ import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
 import { useState, memo, useEffect } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
+import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [card, setCard] = useState({});
     const [state, setState] = useState({});
     const [username, setUsername] = useState(null);
-    const [desc, setDesc] = useState(null)
-    console.log(desc)
+    const [desc, setDesc] = useState(null);
+    console.log(desc);
     useEffect(() => {
         const getCard = async () => {
             try {
@@ -42,13 +43,17 @@ function Template() {
                 </section>
             </div>
             <div className="template-right">
-                <h1>{username ? username:  currentUser?.usernameTitle}</h1>
-                <p>{desc ? desc : currentUser?.decs}</p>
-                <img src={currentTheme.backgroundImg} alt="" />
-                {/* <img src={state.backgroundImg} alt="" /> */}
-                {/* <iframe className='template-preview' src={`http://localhost:5173/profile/user/${currentUser.username}`} frameBorder="0" loading="lazy" >
-                    
-                </iframe> */}
+                <div className="template-right-wapper">
+                    <img className="template-bg" src={currentTheme.backgroundImg} alt="" />
+                    <div className="template-profile">
+                        <AvatarProfile
+                            username={currentUser.username}
+                            usernameTitle={currentUser.usernameTitle}
+                            decs={currentUser.decs}
+                            avatar={currentUser.avtImg}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

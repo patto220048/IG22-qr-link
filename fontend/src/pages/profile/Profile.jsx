@@ -10,7 +10,7 @@ import axiosInstance from '../../instance/axiosInstance';
 
 function Profile() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const {currentTheme} = useSelector((state) => state.theme);
+    const currentTheme = useSelector((state) => state.theme.currentTheme);
     return (
         <section className="profile" style={{ backgroundImage: `url(${currentTheme.backgroundImg})` }}>
             <div className="profile-info">

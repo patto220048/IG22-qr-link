@@ -15,10 +15,20 @@
     }
     .avatarProfile-name {
         font-size: 30px;
-    
+        font-weight: 700;
+        max-width:  350px;
+        text-align: center;
+        text-overflow: ellipsis;
+        
+        overflow: hidden;
+        
+
     }
     .avatarProfile-desc {
-        font-size: 20px;
+        font-size: 17px;
+        max-width:  340px;
+        text-align: center;
+
     }
 }
 @media only screen and (max-width: 768px) {
