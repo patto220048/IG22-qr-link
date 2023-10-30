@@ -1,0 +1,14 @@
+.updaloadImg {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    .updaloadImg-preview {
+        border: 1px solid rgba($color: #000000, $alpha: 0.3);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
