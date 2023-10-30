@@ -74,20 +74,20 @@ function Login() {
     //     },
     // );
     //refresh token
-    const refreshToken = async () => {
-        try {
-            const res = await axiosInstance.post(`/auth/refresh-token`, {
-                token: currentUser.refreshToken,
-            });
-            setUser({
-                refreshToken: res.data.refresh_token,
-                accsessToken: res.data.access_token,
-            });
-            return res.data;
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
+    // const refreshToken = async () => {
+    //     try {
+    //         const res = await axiosInstance.post(`/auth/refresh-token`, {
+    //             token: currentUser.refreshToken,
+    //         });
+    //         setUser({
+    //             refreshToken: res.data.refresh_token,
+    //             accsessToken: res.data.access_token,
+    //         });
+    //         return res.data;
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // };
 
     //sumbit form
     const handleSubmit = async (e) => {

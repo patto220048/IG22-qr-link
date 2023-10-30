@@ -4,12 +4,11 @@ import { imgIcon, closeIcon } from '../../../svg/icon';
 import { useEffect, useState } from 'react';
 import UploadImg from '../../UploadImg/UploadImg';
 // import Dialog_content from './dialog_contens/Dialog_contents';
-function Dialog_content({avatar,setAvatar,resultImg,setResultImg}) {
-
+function Dialog_content({ avatar, setAvatar, resultImg, setResultImg }) {
     return (
         <>
             {avatar ? (
-                <UploadImg avatarFile={avatar} resultImg={resultImg} setResultImg={setResultImg}/>
+                <UploadImg avatarFile={avatar} resultImg={resultImg} setResultImg={setResultImg} />
             ) : (
                 <>
                     <Dialog.Title className="DialogTitle">Add image</Dialog.Title>
