@@ -19,7 +19,7 @@ function Theme({ themeBg, themeOpacity, themeBtn, isTheme, backgoundMode, isBg, 
                 })
                 console.log(res.data)
                 dispatch(updateTheme(res.data))
-                setState(res.data)
+                // setState(res.data)
             }
             fetchTheme()
         } catch (error) {

@@ -13,10 +13,10 @@ function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [card, setCard] = useState({});
-    const [state, setState] = useState({});
-    const [username, setUsername] = useState(null);
-    const [desc, setDesc] = useState(null);
-    console.log(desc);
+    // const [state, setState] = useState({});
+    // const [username, setUsername] = useState(null);
+    // const [desc, setDesc] = useState(null);
+    // console.log(desc);
     useEffect(() => {
         const getCard = async () => {
             try {
@@ -34,11 +34,11 @@ function Template() {
             <div className="template-left">
                 <section className="template-item">
                     <h2 className="tempProfile_title">Profile</h2>
-                    <TempProfile setUsername={setUsername} userId={card.userId} setDesc={setDesc} />
+                    <TempProfile />
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Themes</h2>
-                    <TempTheme setState={setState} cardId={card._id} />
+                    <TempTheme cardId={card._id} />
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Background</h2>
@@ -47,7 +47,7 @@ function Template() {
             </div>
             <div className="template-right">
                 <div className="template-right-wapper">
-                    <img className="template-bg" src={currentTheme.backgroundImg} alt="" />
+                    <img className="template-bg" src={currentTheme.backgroundImg} alt={currentTheme.backgroundImg}/>
                     <div className="template-profile">
                         <AvatarProfile
                             preview ={true}

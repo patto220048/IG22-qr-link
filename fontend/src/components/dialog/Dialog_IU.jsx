@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Dialog_UI.scss';
 import * as Dialog from '@radix-ui/react-dialog';
 import axiosInstance from '../../instance/axiosInstance';
 import { imgIcon, closeIcon } from '../../svg/icon';
-import Dialog_content from './dialog_content/Dialog_file';
+import Dialog_file from './dialog_file//Dialog_file';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux-toolkit/userSlice';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
@@ -12,7 +12,7 @@ import app from '../../firebase/config';
 function Dialog_UI({ openDialog, setOpenDialog }) {
     const [resultImg, setResultImg] = useState(null);
     const [avatar, setAvatar] = useState(undefined);
-    console.log(avatar)
+    const [currentAvatar, setCurrentAvatar] = useState(null)
     const currentUser = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
 
@@ -33,14 +33,24 @@ function Dialog_UI({ openDialog, setOpenDialog }) {
         };
         updateUser();
     };
+    useEffect(() => {
+        const handleClickOutside = () => {
+            currentAvatar && deleteFile(currentAvatar);
+        
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, [currentAvatar]);
     const handleClose = () => {
-        avatar && deleteFile(avatar?.name);
+        currentAvatar && deleteFile(currentAvatar);
         setResultImg(null);
         setAvatar(undefined);
     };
     const deleteFile = (file) => {
         const storage = getStorage(app);
-        const desertRef = ref(storage,file);
+        const desertRef = ref(storage, file);
         deleteObject(desertRef)
             .then(() => {
                 console.log('successfully deleted');
@@ -56,11 +66,12 @@ function Dialog_UI({ openDialog, setOpenDialog }) {
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        <Dialog_content
+                        <Dialog_file
                             setAvatar={setAvatar}
                             avatar={avatar}
                             setResultImg={setResultImg}
                             resultImg={resultImg}
+                            setCurrentAvatar={setCurrentAvatar}
                         />
                         {/* ---------------------------------- */}
                         <Dialog.Close asChild>

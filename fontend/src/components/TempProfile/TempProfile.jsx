@@ -5,18 +5,13 @@ import { useEffect, useState, memo } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux-toolkit/userSlice';
-import {useParams} from "react-router-dom"
-function TempProfile({setUsername,setDesc, userId}) {
-    const dispatch = useDispatch()
+import { useParams } from 'react-router-dom';
+function TempProfile() {
+    const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
-    const [maxLenght, setMaxLenght] = useState(80)
+    const [maxLenght, setMaxLenght] = useState(80);
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
-    const usernameParams = useParams().username
-    console.log(maxLenght)
-    //set username
-    setUsername(values?.username)
-    setDesc(values?.decs)
     const [onFocus, setOnFocus] = useState(false);
     // console.log(values);
     const onChange = (e) => {
@@ -36,7 +31,7 @@ function TempProfile({setUsername,setDesc, userId}) {
                         usernameTitle: values.username,
                         decs: values.decs,
                     });
-                    dispatch(updateData(res.data))
+                    dispatch(updateData(res.data));
                     console.log(res.data);
                 } catch (error) {
                     console.log(error.message);
@@ -76,7 +71,7 @@ function TempProfile({setUsername,setDesc, userId}) {
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@`+(currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username )}
+                    placeholder={`@` + (currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
                     className="tempProfile-input"
                     onChange={onChange}
                     maxLength={16}
@@ -84,14 +79,14 @@ function TempProfile({setUsername,setDesc, userId}) {
                 />
                 <input />
                 <textarea
-                    onFocus={() => setOnFocus(true)}    
+                    onFocus={() => setOnFocus(true)}
                     name="decs"
                     id="decs"
                     cols="10"
                     rows="10"
                     className="tempProfile-textarea"
                     maxLength={maxLenght}
-                    placeholder={currentUser.decs ? currentUser.decs : ("Your description here ...")}
+                    placeholder={currentUser.decs ? currentUser.decs : 'Your description here ...'}
                     onChange={onChange}
                 ></textarea>
             </div>
