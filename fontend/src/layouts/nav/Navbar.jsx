@@ -11,6 +11,7 @@ import navLogo from '../../assets/img/main-logo.png';
 import './navbav.scss';
 
 import NavAvatar from '../../components/nav-avatar/NavAvatar';
+import useClickOutSide from '../../hooks/useClickOutSide';
 function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);

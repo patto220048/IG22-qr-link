@@ -101,4 +101,4 @@ function TempProfile() {
     );
 }
 
-export default TempProfile;
+export default memo(TempProfile);

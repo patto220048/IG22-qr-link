@@ -9,9 +9,11 @@ import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
 import SocialIcon from '../../components/SocialIcon/socialIcon';
 import LinkTree from '../../components/linktree/LinkTree';
 import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/icon';
+import useFetch from '../../hooks/useFetch';
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
+    const themeLoading = useSelector((state) => state.theme.loading);
     const [card, setCard] = useState({});
     // const [state, setState] = useState({});
     // const [username, setUsername] = useState(null);
@@ -47,20 +49,38 @@ function Template() {
             </div>
             <div className="template-right">
                 <div className="template-right-wapper">
-                    <img className="template-bg" src={currentTheme.backgroundImg} alt={currentTheme.backgroundImg}/>
-                    <div className="template-profile">
-                        <AvatarProfile
-                            preview ={true}
-                            username={currentUser.username}
-                            usernameTitle={currentUser.usernameTitle}
-                            decs={currentUser.decs}
-                            avatar={currentUser.avtImg}
-                        />
-                        <SocialIcon />
-                        <LinkTree preview = {true} title={'Facebook'} icon={facebookeIcon(35, 35)} link="https://www.facebook.com/" />
-                        <LinkTree preview = {true}title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
-                        <LinkTree preview = {true} title={'Instagram'} icon={instagramIcon(35, 35)} />
-                    </div>
+                    {themeLoading ? (
+                        <span className='template-loading'>
+                            loading
+                        </span>
+                    ) : (
+                        <>
+                            <img
+                                className="template-bg"
+                                src={currentTheme.backgroundImg}
+                                alt={currentTheme.backgroundImg}
+                            />
+                            <div className="template-profile">
+                                <AvatarProfile
+                                    preview={true}
+                                    username={currentUser.username}
+                                    usernameTitle={currentUser.usernameTitle}
+                                    decs={currentUser.decs}
+                                    avatar={currentUser.avtImg}
+                                    fontColor={currentTheme.font_color}
+                                />
+                                <SocialIcon />
+                                <LinkTree
+                                    preview={true}
+                                    title={'Facebook'}
+                                    icon={facebookeIcon(35, 35)}
+                                    link="https://www.facebook.com/"
+                                />
+                                <LinkTree preview={true} title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
+                                <LinkTree preview={true} title={'Instagram'} icon={instagramIcon(35, 35)} />
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </div>

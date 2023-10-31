@@ -5,52 +5,47 @@ const Schema = mongoose.Schema;
 const CardModel = new Schema(
     {
         userId: {
-            type: String, 
+            type: String,
         },
         themeId: {
-            type: String, 
-        },      
-        backgroundImg:{
             type: String,
-            default:null
-        } ,
-        button_type: {
-            type :String,
-            default:null
-
-        }
-        ,
-        button_color: {
-            type :String,
-            default:null
-
-        }
-        ,
-        button_font_color: {
-            type :String,
-            default:null
-
-        }
-        ,
-        fonts:{
+        },
+        backgroundImg: {
             type: String,
-            default:null
-
+            default: null,
         },
-        font_color:{
-            type:String,
-            default:null
-
+        backgroundColor: {
+            type: String,
+            default: null,
         },
-        btn:{
-            type:String,
-            default:null
-
-        }
-
-        
-
-        
+        backgroundOpacity: {
+            type: String,
+            default: null,
+        },
+        backgroundType: {
+            type: String,
+            default: null,
+        },
+        btn_type: {
+            type: String,
+            default: null,
+        },
+        btn_color: {
+            type: String,
+            default: null,
+        },
+        bnt_radius: {
+            type: String,
+            default: null,
+        },
+        font_famify: {
+            type: String,
+            default: null,
+        },
+        font_color: {
+            type: String,
+            default: null,
+        },
     },
     { timestamps: true },
 );

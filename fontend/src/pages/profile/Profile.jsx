@@ -19,6 +19,7 @@ function Profile() {
                     usernameTitle={currentUser.usernameTitle}
                     decs={currentUser.decs}
                     avatar={currentUser.avtImg}
+                    fontColor={currentTheme.font_color}
                 />
                 <SocialIcon />
                 <LinkTree title={'Facebook'} icon={facebookeIcon(35, 35)} link="https://www.facebook.com/" />

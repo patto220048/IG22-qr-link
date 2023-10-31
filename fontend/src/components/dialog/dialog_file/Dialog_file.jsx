@@ -12,7 +12,7 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
     //upload firebase storage
     const upload = (file, type) => {
         const storage = getStorage(app);
-        const fileName = new Date().getTime() + file.name;
+        const fileName = new Date().getTime() + file?.name;
         const storageRef = ref(storage, fileName);
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
@@ -50,7 +50,9 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
         );
     };
     useEffect(() => {
-        avatar && upload(avatar, 'avatar');
+       
+        avatar && (resultImg ? <></>: upload(avatar, 'avatar'));
+        
     }, [avatar]);
 
     return (

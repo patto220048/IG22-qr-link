@@ -1,7 +1,7 @@
 import "./Background.scss"
 import backgounds from "../../themes/background"
 import Theme from '../Theme/Theme';
-
+import { memo } from "react";
 function Background() {
 
 
@@ -20,4 +20,4 @@ function Background() {
     );
 }
 
-export default Background;
+export default memo(Background);
