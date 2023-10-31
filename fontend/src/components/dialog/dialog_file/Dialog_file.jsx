@@ -4,7 +4,8 @@ import { imgIcon, closeIcon } from '../../../svg/icon';
 import { useEffect, useState, memo } from 'react';
 import app from '../../../firebase/config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import UploadImg from '../../UploadImg/UploadImg';
+import UploadImgLoading from '../../UploadImgLoading/UploadImgLoading';
+
 // import Dialog_content from './dialog_contens/Dialog_contents';
 function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrentAvatar }) {
     // image processing upload
@@ -58,7 +59,7 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
     return (
         <>
             {avatar ? (
-                <UploadImg resultImg={resultImg} imgPercent={imgPercent} />
+                <UploadImgLoading resultImg={resultImg} imgPercent={imgPercent} />
             ) : (
                 <>
                     <Dialog.Title className="DialogTitle">Add image</Dialog.Title>
