@@ -7,7 +7,7 @@ const router = express.Router();
 //create a new card
 router.post('/', userVerify.verifyUser, card.newCard);
 //get card
-router.get('/v1/', userVerify.verifyUser, card.getCard);
+router.get('/v1/:userId', card.getCard);
 //edit card
 router.put('/:id', userVerify.verifyUser, card.editCard);
 //get cards

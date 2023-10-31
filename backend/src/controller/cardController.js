@@ -26,19 +26,19 @@ class cardController {
     }
     //get card
     async getCard(req, res) {
-        const curentUser = req.user.id;
+        const userId = req.params.userId;
         try {
-            if (curentUser) {
+            if (userId) {
                 try {
-                    const allCard = await Card.findOne({ userId: curentUser });
-                    res.status(200).json(allCard);
+                    const card = await Card.findOne({ userId: userId });
+                    res.status(200).json(card);
                 } catch (error) {
                     res.json(handleErorr(500, error.message));
                 }
             } else {
                 res.json(handleErorr(403, 'Oop!!! You just get only your card.'));
             }
-        } catch (error) {
+        } catch (error) {   
             res.json(handleErorr(500, error.message));
         }
     }

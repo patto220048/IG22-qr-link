@@ -8,7 +8,7 @@ function LinkTree(props) {
         <div className="linktree" style={{
             backgroundColor:"aliceblue",
             borderRadius:"10px",    
-            width:`${props.preview ? "90%": "25%"}`
+            width:`${props.preview ? "90%": "100%"}`
             }}>
             <a href={props.link} className='linktree-link'>
                 <div className="linktree-item" >

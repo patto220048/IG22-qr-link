@@ -18,7 +18,7 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview ,fontCol
             <p
                 className="avatarProfile-desc"
                 style={{
-                    fontSize: `${preview ? '14px' : '17px'}`,
+                    fontSize: `${preview ? '14px' : '20px'}`,
                     color:`${fontColor}`
 
                 }}

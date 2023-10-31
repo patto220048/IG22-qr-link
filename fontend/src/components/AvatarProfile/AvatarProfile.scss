@@ -14,7 +14,7 @@
         object-fit: cover;
     }
     .avatarProfile-name {
-        font-weight: 700;
+        font-weight: 800;
         max-width:  330px;
         text-align: center;
         text-overflow: ellipsis;
@@ -23,6 +23,7 @@
     .avatarProfile-desc {
         max-width:  320px;
         text-align: center;
+        font-weight: 500;
         // text-wrap: wrap;
     }
 }
