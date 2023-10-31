@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import './Dialog_UI.scss';
 import * as Dialog from '@radix-ui/react-dialog';
-import axiosInstance from '../../instance/axiosInstance';
 import { imgIcon, closeIcon } from '../../svg/icon';
 import Dialog_file from './dialog_file//Dialog_file';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux-toolkit/userSlice';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
+import http from '../../instance/axiosInstance';
 
 function Dialog_UI({ openDialog, setOpenDialog }) {
     //file default
@@ -22,7 +22,7 @@ function Dialog_UI({ openDialog, setOpenDialog }) {
         e.preventDefault();
         const updateUser = async () => {
             try {
-                const res = await axiosInstance.put(`/users/${currentUser._id}`, {
+                const res = await http.put(`/users/${currentUser._id}`, {
                     avtImg: resultImg.avatar,
                 });
                 console.log(res.data);

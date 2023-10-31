@@ -7,6 +7,7 @@ import { loginFail, loginStart, loginSuccess } from '../../../redux-toolkit/user
 import Loading from '../../../components/dialog/loading/Loading';
 
 import bg_login from '../../../assets/img/bg_login.jpg';
+import http from '../../../instance/axiosInstance';
 
 function ResetPass() {
     const dispatch = useDispatch();
@@ -45,7 +46,7 @@ function ResetPass() {
             //valid email
             const emailValid = validateEmail(values.email);
             if (emailValid === true) {
-                const res = await axiosInstance.post(`/auth/reset-pass`, {
+                const res = await http.post(`/auth/reset-pass`, {
                     email: values.email,
                 });
                 console.log(res.data);

@@ -4,13 +4,13 @@ import TempProfile from '../../components/TempProfile/TempProfile';
 import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
 import { useState, memo, useEffect } from 'react';
-import axiosInstance from '../../instance/axiosInstance';
 import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
 import SocialIcon from '../../components/SocialIcon/socialIcon';
 import LinkTree from '../../components/linktree/LinkTree';
 import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/icon';
 // import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/dialog/loading/Loading';
+import http from '../../instance/axiosInstance';
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
@@ -23,7 +23,7 @@ function Template() {
     useEffect(() => {
         const getCard = async () => {
             try {
-                const res = await axiosInstance.get('/card/v1/');
+                const res = await http.get(`/card/v1/${currentUser._id}`);
                 console.log(res.data);
                 setCard(res.data);
             } catch (error) {

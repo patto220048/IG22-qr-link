@@ -10,6 +10,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import bg_login from '../../../assets/img/bg_login.jpg';
 import bg_login_page from '../../../assets/img/bg/bg_login_page.gif';
+import http from '../../../instance/axiosInstance';
 
 function Login() {
     const dispatch = useDispatch();
@@ -98,7 +99,7 @@ function Login() {
             //valid email
             const emailValid = validateEmail(values.email);
             if (emailValid === true) {
-                const res = await axiosInstance.post(`/auth/login`, {
+                const res = await http.post(`/auth/login`, {
                     username: values.username,
                     email: values.email,
                     password: values.password,

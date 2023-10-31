@@ -1,6 +1,5 @@
 import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux-toolkit/userSlice';
 // component
@@ -11,7 +10,7 @@ import navLogo from '../../assets/img/main-logo.png';
 import './navbav.scss';
 
 import NavAvatar from '../../components/nav-avatar/NavAvatar';
-import useClickOutSide from '../../hooks/useClickOutSide';
+import http from '../../instance/axiosInstance';
 function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
@@ -35,7 +34,7 @@ function Navbar() {
     // sign out
     const handleSignOut = async () => {
         try {
-            const res = await axiosInstance.post('/auth/logout', { token: currentUser.refreshToken});
+            const res = await http.post('/auth/logout', { token: currentUser.refreshToken});
             console.log(res.data);
             navigate('/register/login');
             dispatch(logout());

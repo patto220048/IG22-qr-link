@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import axiosInstance from '../../../instance/axiosInstance';
 import { googleIcon } from '../../../svg/icon';
+import http from '../../../instance/axiosInstance';
 
 function Signup() {
     const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +51,7 @@ function Signup() {
         console.log(emailValid, passValid, usernameValid, comfirmPassValid);
         if (emailValid && passValid && usernameValid && comfirmPassValid === true) {
             try {
-                const res = await axiosInstance.post(`/auth/signup`, {
+                const res = await http.post(`/auth/signup`, {
                     username: values.username,
                     email: values.email,
                     password: values.password,

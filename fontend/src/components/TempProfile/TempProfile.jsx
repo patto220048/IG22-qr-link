@@ -6,6 +6,7 @@ import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux-toolkit/userSlice';
 import { useParams } from 'react-router-dom';
+import http from '../../instance/axiosInstance';
 function TempProfile() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -27,7 +28,7 @@ function TempProfile() {
             setOnFocus(false);
             const updateUser = async () => {
                 try {
-                    const res = await axiosInstance.put(`users/${currentUser._id}`, {
+                    const res = await http.put(`users/${currentUser._id}`, {
                         usernameTitle: values.username,
                         decs: values.decs,
                     });
