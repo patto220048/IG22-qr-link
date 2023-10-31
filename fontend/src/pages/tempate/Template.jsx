@@ -9,7 +9,8 @@ import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
 import SocialIcon from '../../components/SocialIcon/socialIcon';
 import LinkTree from '../../components/linktree/LinkTree';
 import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/icon';
-import useFetch from '../../hooks/useFetch';
+// import useFetch from '../../hooks/useFetch';
+import Loading from '../../components/dialog/loading/Loading';
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
@@ -50,9 +51,7 @@ function Template() {
             <div className="template-right">
                 <div className="template-right-wapper">
                     {themeLoading ? (
-                        <span className='template-loading'>
-                            loading
-                        </span>
+                        <Loading isLoading={themeLoading} templateLoading={true}/>
                     ) : (
                         <>
                             <img
