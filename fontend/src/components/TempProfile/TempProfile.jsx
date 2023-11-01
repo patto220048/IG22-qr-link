@@ -16,7 +16,7 @@ function TempProfile() {
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const [onFocus, setOnFocus] = useState(false);
-    const notifyToast = (message) =>  toast.success("🦄 "+ message)
+    const notifyToast = (message) =>  toast("🦄 "+ message)
 
     // console.log(values);
     const onChange = (e) => {
