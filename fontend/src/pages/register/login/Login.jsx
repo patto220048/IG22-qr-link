@@ -1,25 +1,28 @@
+// lirary import
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.scss';
 import { useEffect, useState } from 'react';
-import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
-import axiosInstance from '../../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginFail, loginStart, loginSuccess, updateData } from '../../../redux-toolkit/userSlice';
-import Loading from '../../../components/dialog/loading/Loading';
-import axios from 'axios';
+// toast lirary
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// project import
 import jwt_decode from 'jwt-decode';
-import bg_login from '../../../assets/img/bg_login.jpg';
 import bg_login_page from '../../../assets/img/bg/bg_login_page.gif';
 import http from '../../../instance/axiosInstance';
-
+import { loginFail, loginStart, loginSuccess, updateData } from '../../../redux-toolkit/userSlice';
+import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
+import Loading from '../../../components/dialog/loading/Loading';
 function Login() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
+    // toast message
+    const notifyToast = (err) =>
+        toast.error(err);
 
     // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
     const [user, setUser] = useState(null);
-    console.log(user);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
@@ -66,7 +69,7 @@ function Login() {
     //         console.log(decodedToken.exp);
     //         if (decodedToken.exp *1000 > currentDate) {
     //             const data = await refreshToken();
-    //             dispatch(updateData(data))  
+    //             dispatch(updateData(data))
     //         }
     //         return config;
     //     },
@@ -104,25 +107,25 @@ function Login() {
                     email: values.email,
                     password: values.password,
                 });
-                console.log(res.data);
                 setUser(res.data);
+                console.log(res.data);
                 //dispatch
                 dispatch(loginSuccess(res.data));
                 if (res.data.status === 401) {
-                    setErr(res.data.message);
+                    notifyToast(res.data.message);
                     dispatch(loginFail());
                 } else if (res.data.status === 403) {
-                    setErr(res.data.message);
+                    notifyToast(res.data.message);
                     dispatch(loginFail());
                 } else {
                     navigate(`/template/${res.data.username}`);
                 }
             } else {
-                setErr('Oops! Email is not correct! Please try again.');
                 dispatch(loginFail());
+                notifyToast('Oops! Email is not correct! Please try again.');
             }
         } catch (error) {
-            setErr(error.message);
+            notifyToast(error.message);
             dispatch(loginFail());
         }
     };
@@ -138,12 +141,24 @@ function Login() {
         console.log('google');
     };
     return (
-        <div className="login" >
+        <div className="login">
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            ></ToastContainer>
             {isLoading && <Loading isLoading={isLoading} />}
-            <div className='login-left'>
-                <img className='login-left-img' src={bg_login_page} alt="" />
+            <div className="login-left">
+                <img className="login-left-img" src={bg_login_page} alt="" />
             </div>
-            
+
             <div className="login-right">
                 <div className="login-title">
                     <h1>Welcome back</h1>
@@ -151,7 +166,7 @@ function Login() {
                 </div>
 
                 <form method="post" className="form-group">
-                    <p className="err_from_sever">{err}</p>
+                    {/* <p className="err_from_sever">{err}</p> */}
                     <div className="login-input">
                         <input
                             className="email-input"

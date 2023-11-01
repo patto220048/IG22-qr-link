@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateData } from '../../redux-toolkit/userSlice';
 import { useParams } from 'react-router-dom';
 import http from '../../instance/axiosInstance';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function TempProfile() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -14,6 +16,8 @@ function TempProfile() {
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const [onFocus, setOnFocus] = useState(false);
+    const notifyToast = (message) =>  toast.success("🦄 "+ message)
+
     // console.log(values);
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -49,6 +53,18 @@ function TempProfile() {
     }, [values?.username, values?.decs]);
     return (
         <div className="tempProfile">
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            ></ToastContainer>
             <div className="tempProfile-item">
                 <img
                     className="tempProfile_img"
@@ -62,7 +78,7 @@ function TempProfile() {
                     <button className="tempProfile-btn_item remove">Remove</button>
                 </div>
                 <div>
-                    <Dialog_UI openDialog={openDialog} setOpenDialog={setOpenDialog} />
+                    <Dialog_UI openDialog={openDialog} setOpenDialog={setOpenDialog} notifyToast={notifyToast} />
                 </div>
             </div>
             <div className="tempProfile-input">

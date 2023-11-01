@@ -11,11 +11,15 @@ import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/icon';
 // import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
+
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
     const [card, setCard] = useState({});
+        
+     
+    
     // const [state, setState] = useState({});
     // const [username, setUsername] = useState(null);
     // const [desc, setDesc] = useState(null);
@@ -34,10 +38,11 @@ function Template() {
     }, []);
     return (
         <div className="template">
+        
             <div className="template-left">
                 <section className="template-item">
                     <h2 className="tempProfile_title">Profile</h2>
-                    <TempProfile />
+                    <TempProfile/>
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Themes</h2>
@@ -51,7 +56,7 @@ function Template() {
             <div className="template-right">
                 <div className="template-right-wapper">
                     {themeLoading ? (
-                        <Loading isLoading={themeLoading} templateLoading={true}/>
+                        <Loading isLoading={themeLoading} templateLoading={true} />
                     ) : (
                         <>
                             <img

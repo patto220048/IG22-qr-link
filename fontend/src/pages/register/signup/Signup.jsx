@@ -5,12 +5,16 @@ import axios from 'axios';
 import axiosInstance from '../../../instance/axiosInstance';
 import { googleIcon } from '../../../svg/icon';
 import http from '../../../instance/axiosInstance';
-
+// toast lirary
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../../../components/dialog/loading/Loading';
 function Signup() {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
+    const notifyToast = (err) => toast.error(err);
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -43,7 +47,6 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         e.stopPropagation();
-
         const emailValid = validateEmail(values.email);
         const passValid = validatePassword(values.password);
         const usernameValid = validateUsername(values.username);
@@ -57,21 +60,29 @@ function Signup() {
                     password: values.password,
                 });
                 // isloading -> false
-                setIsLoading(false);
+                setIsLoading(true);
                 if (res.data.status === 402) {
-                    setErr(res.data.message);
+                    notifyToast(res.data.message);
+                    setIsLoading(false);
+
                 } else {
+                    setIsLoading(false);
                     return navigate('/register/login');
+
                 }
             } catch (error) {
-                setErr(error.message);
+                notifyToast(error.message);
+                setIsLoading(false);
+
             }
             // if (isLoading) {
             //     console.log(isLoading);
             // }
         } else {
-            setErr('Please enter your input !');
+            notifyToast("Something error ! Please try again.");
+            setIsLoading(false);
         }
+
     };
     // onchange input
     const onChange = (e) => {
@@ -84,6 +95,19 @@ function Signup() {
     const handleSignupWithGG = () => {};
     return (
         <div className="signup">
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            ></ToastContainer>
+            {isLoading && <Loading isLoading={isLoading} />}
             <div className="signup-container">
                 <div className="signup-title">
                     <h1>Join with us</h1>
@@ -161,7 +185,7 @@ function Signup() {
                     <p className="signup-direct">
                         Already have an account? <Link to="/register/login">Log in</Link>
                     </p>
-                    <span style={{opacity:"0.5"}}>OR</span>
+                    <span style={{ opacity: '0.5' }}>OR</span>
                     <span className="login-btn-google" onClick={handleSignupWithGG}>
                         {googleIcon(24, 24)} Sign up with Google
                     </span>

@@ -9,7 +9,9 @@ import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
 
-function Dialog_UI({ openDialog, setOpenDialog }) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
+    //toast message
+
     //file default
     const [resultImg, setResultImg] = useState(null);
     const [avatar, setAvatar] = useState(undefined);
@@ -25,13 +27,17 @@ function Dialog_UI({ openDialog, setOpenDialog }) {
                 const res = await http.put(`/users/${currentUser._id}`, {
                     avtImg: resultImg.avatar,
                 });
-                console.log(res.data);
-                dispatch(updateData(res.data));
-                setResultImg(null);
-                setAvatar(undefined);
+                if (res.status === 200) {
+                    dispatch(updateData(res.data));
+                    setResultImg(null);
+                    setAvatar(undefined);
+                }
+                else {
+                    notifyToast("Upload image failed !")
+                }
             } catch (error) {
                 console.log(error.message);
-                alert('File not found!!');
+                notifyToast('File not found!!');
             }
         };
         updateUser();
@@ -58,6 +64,7 @@ function Dialog_UI({ openDialog, setOpenDialog }) {
         deleteObject(desertRef)
             .then(() => {
                 console.log('successfully deleted');
+                notifyToast('Deleted file !!');
             })
             .catch((error) => {
                 console.log(error.message);

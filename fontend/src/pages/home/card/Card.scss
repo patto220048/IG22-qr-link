@@ -25,7 +25,7 @@
                 font-size: $fontSize_home;
                 font-weight: $fontWeight_home;
                 color: rgb(2, 40, 54);
-                text-shadow: 4px 3px 0px #7A7A7A, -3px -2px 4px rgba(206,89,55,0);
+                text-shadow: 4px 3px 0px #7a7a7a, -3px -2px 4px rgba(206, 89, 55, 0);
             }
             .card-desc {
                 font-weight: 600;
@@ -50,6 +50,25 @@
                     a {
                         color: black;
                     }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .card {
+        .card-container {
+            .card-left {
+            }
+            .card-right {
+                .card-text {
+                    font-size: 50px;
+                }
+                .card-desc {
+                }
+                .card-btn {
+                    padding: 10px;
+                    width: 50%;
                 }
             }
         }
