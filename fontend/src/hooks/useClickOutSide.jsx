@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useClickOutSide = (prop) => {
+const useClickOutSide = ({...prop}) => {
     console.log(prop)
     useEffect(() => {
         const handleClickOutside = () => {

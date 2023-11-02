@@ -34,24 +34,30 @@
                 transform: scale(1.1);
             }
         }
-        .btn-save {
-            @include btn;
-            width: 100%;
-            padding: 10px;
-            background-color: $black;
-            color: $white;
-            margin-top: 10px;
-            border: 1px solid rgba($color: $black, $alpha: 0.5);
-
-            &:hover {
-                color: $black;
+        .dialog-btn-group{
+            display: flex;
+            gap: 20px;
+            .dialog-btn {
+                @include btn;
+                display: flex;
+                width: 100%;
+                padding: 10px;
+                background-color: $black;
+                color: $white;
+                margin-top: 10px;
                 border: 1px solid rgba($color: $black, $alpha: 0.5);
-                background-color: rgba($color: $bg_template, $alpha: 1);
+    
+                &:hover {
+                    color: $black;
+                    border: 1px solid rgba($color: $black, $alpha: 0.5);
+                    background-color: rgba($color: $bg_template, $alpha: 1);
+                }
+            }
+            &:focus {
+                outline: none;
             }
         }
-        &:focus {
-            outline: none;
-        }
+      
     }
     @keyframes overlayShow {
         from {

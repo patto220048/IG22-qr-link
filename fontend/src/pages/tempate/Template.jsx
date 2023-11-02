@@ -5,21 +5,20 @@ import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
 import { useState, memo, useEffect } from 'react';
 import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
-import SocialIcon from '../../components/SocialIcon/socialIcon';
+import SocialIcon from '../../components/SocialIconlist/SocialIconList';
 import LinkTree from '../../components/linktree/LinkTree';
-import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/icon';
+import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 // import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
+import SocialIconList from '../../components/SocialIconlist/SocialIconList';
 
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
     const [card, setCard] = useState({});
-        
-     
-    
+
     // const [state, setState] = useState({});
     // const [username, setUsername] = useState(null);
     // const [desc, setDesc] = useState(null);
@@ -38,11 +37,10 @@ function Template() {
     }, []);
     return (
         <div className="template">
-        
             <div className="template-left">
                 <section className="template-item">
                     <h2 className="tempProfile_title">Profile</h2>
-                    <TempProfile/>
+                    <TempProfile />
                 </section>
                 <section className="template-item">
                     <h2 className="tempProfile_title">Themes</h2>
@@ -64,7 +62,7 @@ function Template() {
                                 src={currentTheme.backgroundImg}
                                 alt={currentTheme.backgroundImg}
                             />
-                            <div className="template-profile">
+                            <section className="template-profile">
                                 <AvatarProfile
                                     preview={true}
                                     username={currentUser.username}
@@ -73,7 +71,9 @@ function Template() {
                                     avatar={currentUser.avtImg}
                                     fontColor={currentTheme.font_color}
                                 />
-                                <SocialIcon />
+
+                                <SocialIconList />
+
                                 <LinkTree
                                     preview={true}
                                     title={'Facebook'}
@@ -82,7 +82,7 @@ function Template() {
                                 />
                                 <LinkTree preview={true} title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
                                 <LinkTree preview={true} title={'Instagram'} icon={instagramIcon(35, 35)} />
-                            </div>
+                            </section>
                         </>
                     )}
                 </div>

@@ -31,9 +31,8 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
                     dispatch(updateData(res.data));
                     setResultImg(null);
                     setAvatar(undefined);
-                }
-                else {
-                    notifyToast("Upload image failed !")
+                } else {
+                    notifyToast('Upload image failed !');
                 }
             } catch (error) {
                 console.log(error.message);
@@ -52,11 +51,11 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [avatar]);
-    const handleClose = () => {
+    const handleClear = () => {
         currentAvatar && deleteFile(currentAvatar);
         setResultImg(null);
         setAvatar(undefined);
-    };
+    }
     // deleteFile in firebase
     const deleteFile = (file) => {
         const storage = getStorage(app);
@@ -85,12 +84,15 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
                             setCurrentAvatar={setCurrentAvatar}
                         />
                         {/* ---------------------------------- */}
-                        <Dialog.Close asChild>
-                            <button className="btn-save" onClick={handleSave}>
+                        <div className='dialog-btn-group'>
+                            {resultImg ? <button className="dialog-btn" onClick={handleClear}>Clear</button>:<></>}
+                            <button className="dialog-btn" onClick={handleSave}>
                                 Save changes
                             </button>
-                        </Dialog.Close>
-                        <Dialog.Close asChild className="closeIcon-btn" onClick={handleClose}>
+
+                        </div>
+
+                        <Dialog.Close asChild className="closeIcon-btn" >
                             {closeIcon(20, 20)}
                         </Dialog.Close>
                     </Dialog.Content>

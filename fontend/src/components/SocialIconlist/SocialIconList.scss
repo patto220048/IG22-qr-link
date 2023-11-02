@@ -1,0 +1,11 @@
+.socialIcon{
+    .socialIcon-group{
+        display: flex;
+        gap: 20px;
+        cursor: pointer;
+        width: 330px;
+        overflow: hidden;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}
