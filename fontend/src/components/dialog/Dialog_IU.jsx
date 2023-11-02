@@ -4,20 +4,24 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { imgIcon, closeIcon } from '../../svg/icon';
 import Dialog_file from './dialog_file//Dialog_file';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateData } from '../../redux-toolkit/userSlice';
+import { updateData , deleteFileImg} from '../../redux-toolkit/userSlice';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
+import { current } from '@reduxjs/toolkit';
 
 function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
     //toast message
-
+  
+    const currentUser = useSelector((state) => state.user.currentUser);
+ 
     //file default
     const [resultImg, setResultImg] = useState(null);
     const [avatar, setAvatar] = useState(undefined);
+
     const [currentAvatar, setCurrentAvatar] = useState(null);
+    console.log(currentAvatar)
     // redux
-    const currentUser = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
     // handle save database
     const handleSave = (e) => {
@@ -26,6 +30,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
             try {
                 const res = await http.put(`/users/${currentUser._id}`, {
                     avtImg: resultImg.avatar,
+                    avtImgName: currentAvatar,
                 });
                 if (res.status === 200) {
                     dispatch(updateData(res.data));
@@ -36,7 +41,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
                 }
             } catch (error) {
                 console.log(error.message);
-                notifyToast('File not found!!');
+                notifyToast('Upload file error. Please try again!!');
             }
         };
         updateUser();
@@ -51,11 +56,11 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [avatar]);
-    const handleClear = () => {
-        currentAvatar && deleteFile(currentAvatar);
+    const handleClear = () => { 
+        currentAvatar ?  deleteFile(currentAvatar) :deleteFile(currentUser.avtImgName)
         setResultImg(null);
         setAvatar(undefined);
-    }
+    };
     // deleteFile in firebase
     const deleteFile = (file) => {
         const storage = getStorage(app);
@@ -63,6 +68,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
         deleteObject(desertRef)
             .then(() => {
                 console.log('successfully deleted');
+                dispatch(deleteFileImg(null))
                 notifyToast('Deleted file !!');
             })
             .catch((error) => {
@@ -84,15 +90,20 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
                             setCurrentAvatar={setCurrentAvatar}
                         />
                         {/* ---------------------------------- */}
-                        <div className='dialog-btn-group'>
-                            {resultImg ? <button className="dialog-btn" onClick={handleClear}>Clear</button>:<></>}
+                        <div className="dialog-btn-group">
+                            {resultImg || currentUser.avtImg ? (
+                                <button className="dialog-btn" onClick={handleClear}>
+                                    Clear
+                                </button>
+                            ) : (
+                                <></>
+                            )}
                             <button className="dialog-btn" onClick={handleSave}>
                                 Save changes
                             </button>
-
                         </div>
 
-                        <Dialog.Close asChild className="closeIcon-btn" >
+                        <Dialog.Close asChild className="closeIcon-btn">
                             {closeIcon(20, 20)}
                         </Dialog.Close>
                     </Dialog.Content>

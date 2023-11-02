@@ -5,16 +5,19 @@ import { useEffect, useState, memo } from 'react';
 import app from '../../../firebase/config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import UploadImgLoading from '../../UploadImgLoading/UploadImgLoading';
+import { useSelector } from 'react-redux';
 
 // import Dialog_content from './dialog_contens/Dialog_contents';
 function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrentAvatar }) {
     // image processing upload
+    const currentUser = useSelector((state => state.user.currentUser))
     const [imgPercent, setImgPercent] = useState(0);
     //upload firebase storage
     const upload = (file, type) => {
         const storage = getStorage(app);
         const fileName = new Date().getTime() + file?.name;
         const storageRef = ref(storage, fileName);
+        setCurrentAvatar(fileName)
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
             'state_changed',
@@ -23,7 +26,8 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
                 // Observe state change events such as progress, pause, and resume
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 // console.log('Upload is ' + progress + '% done');
-                setCurrentAvatar(snapshot.ref._location.path_);
+                // setCurrentAvatar(snapshot.ref._location.path_);
+                // console.log(snapshot.ref._location.path_)
                 type === 'avatar' && setImgPercent(Math.round(progress));
                 switch (snapshot.state) {
                     case 'paused':
@@ -58,8 +62,8 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
 
     return (
         <>
-            {avatar ? (
-                <UploadImgLoading resultImg={resultImg} imgPercent={imgPercent} />
+            {avatar || (currentUser.avtImg) ? (
+                <UploadImgLoading resultImg={resultImg} currentAvtImg = {currentUser.avtImg} imgPercent={imgPercent} />
             ) : (
                 <>
                     <Dialog.Title className="DialogTitle">Add image</Dialog.Title>
@@ -67,7 +71,7 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
                         <label className="Label" htmlFor="upload-photo">
                             {imgIcon(30, 30)} File/Image
                         </label>
-                        <input type="file" id="upload-photo" onChange={(e) => setAvatar(e.target.files[0])} />
+                        <input type="file" id="upload-photo" onChange={(e) => setAvatar(e.target.files[0])}  />
                     </fieldset>
                 </>
             )}

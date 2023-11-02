@@ -27,7 +27,10 @@ export const userSlice = createSlice({
             state.error = false;
             state.currentUser = {...action.payload};
         },
-        
+        deleteFileImg: (state, action) => {
+            state.currentUser.avtImg = action.payload;
+
+        },
         logout: () => {
             return initialState;
         }
@@ -35,6 +38,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { loginStart, loginSuccess, loginFail, logout , updateData} = userSlice.actions;
+export const { loginStart, loginSuccess, loginFail, logout , updateData,deleteFileImg} = userSlice.actions;
 
 export default userSlice.reducer;

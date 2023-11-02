@@ -63,14 +63,15 @@ const UserModel = new Schema(
             type: String,
             default: null
         },
+        avtImgName:{
+            type: String,
+            default: null
+        },
         groupImg:{
             type: Array,
             default:[]
-        },
-        bgImg:{
-            type: String,
-            default: null
         }
+       
         
     },
     { timestamps: true },
