@@ -1,4 +1,4 @@
-import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/social';
+
 import SocialIconItem from '../SocialIconItem/SocialIconItem';
 import "./SocialIconList.scss"
 function SocialIconList() {

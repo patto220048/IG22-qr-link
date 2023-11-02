@@ -7,7 +7,7 @@ import { useState, memo, useEffect } from 'react';
 import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
 import SocialIcon from '../../components/SocialIconlist/SocialIconList';
 import LinkTree from '../../components/linktree/LinkTree';
-import { facebookeIcon, instagramIcon, youtubeIcon } from '../../svg/social';
+import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 // import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
@@ -77,7 +77,7 @@ function Template() {
                                 <LinkTree
                                     preview={true}
                                     title={'Facebook'}
-                                    icon={facebookeIcon(35, 35)}
+                                    icon={facebookIcon(35, 35)}
                                     link="https://www.facebook.com/"
                                 />
                                 <LinkTree preview={true} title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
