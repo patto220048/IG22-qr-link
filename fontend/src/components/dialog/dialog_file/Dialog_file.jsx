@@ -8,7 +8,7 @@ import UploadImgLoading from '../../UploadImgLoading/UploadImgLoading';
 import { useSelector } from 'react-redux';
 
 // import Dialog_content from './dialog_contens/Dialog_contents';
-function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrentAvatar }) {
+function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrentAvatar ,avtUser,setImgUpLoading}) {
     // image processing upload
     const currentUser = useSelector((state => state.user.currentUser))
     const [imgPercent, setImgPercent] = useState(0);
@@ -29,6 +29,7 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
                 // setCurrentAvatar(snapshot.ref._location.path_);
                 // console.log(snapshot.ref._location.path_)
                 type === 'avatar' && setImgPercent(Math.round(progress));
+                type === 'avatar' && setImgUpLoading(Math.round(progress))
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -62,8 +63,8 @@ function Dialog_content({ avatar, setAvatar, resultImg, setResultImg, setCurrent
 
     return (
         <>
-            {avatar || (currentUser.avtImg) ? (
-                <UploadImgLoading resultImg={resultImg} currentAvtImg = {currentUser.avtImg} imgPercent={imgPercent} />
+            {avatar || avtUser ? (
+                <UploadImgLoading avtUser={avtUser} resultImg={resultImg} imgPercent={imgPercent} />
             ) : (
                 <>
                     <Dialog.Title className="DialogTitle">Add image</Dialog.Title>

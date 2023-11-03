@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import LinkTree from '../../components/linktree/LinkTree';
-import { facebookeIcon, youtubeIcon, instagramIcon } from '../../svg/icon';
 import './Profile.scss';
 
 import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
-import SocialIcon from '../../components/SocialIcon/socialIcon';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/dialog/loading/Loading';
 import { useQuery } from 'react-query';
 import http from '../../instance/axiosInstance';
+import SocialIconList from '../../components//SocialIconlist/SocialIconList'
+import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 function Profile() {
     // const currentUser = useSelector((state) => state.user.currentUser);
     // const currentTheme = useSelector((state) => state.theme.currentTheme);
@@ -62,8 +62,8 @@ function Profile() {
                             avatar={user.avtImg}
                             fontColor={theme?.font_color}
                         />
-                        <SocialIcon />
-                        <LinkTree title={'Facebook'} icon={facebookeIcon(35, 35)} link="https://www.facebook.com/" />
+                        <SocialIconList/>
+                        <LinkTree title={'Facebook'} icon={facebookIcon(35, 35)} link="https://www.facebook.com/" />
                         <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
                         <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />
                     </div>

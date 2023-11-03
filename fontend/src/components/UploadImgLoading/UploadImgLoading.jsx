@@ -2,15 +2,12 @@ import './UploadImgLoading.scss';
 import React from 'react';
 import * as Progress from '@radix-ui/react-progress';
 import { memo } from 'react';
-import { useSelector } from 'react-redux';
-
-function UploadImg({ imgPercent, resultImg ,currentAvtImg}) {
+function UploadImg({ imgPercent, resultImg ,avtUser}) {
     // const currentUser = useSelector((state => state.user.currentUser))
-
     return (
         <section className="updaloadImg">
-            {resultImg || currentAvtImg ? (
-                <img className="updaloadImg-preview" src={currentAvtImg ? currentAvtImg : resultImg?.avatar}></img>
+            {resultImg || avtUser ? (
+                <img className="updaloadImg-preview" src={avtUser ? avtUser : resultImg?.avatar}></img>
             ) : (
                 <>
                     <span className="updaloadImg-percent">{imgPercent}%</span>

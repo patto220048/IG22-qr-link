@@ -14,9 +14,9 @@ class UserController {
     //get 1 user
     async getUser(req, res) {
         const username = req.params.username;
-        const userId = req.params.id;
+        
         try {
-            const user = username ? await User.findOne({ username: username }) : await User.findById(userId);
+            const user = await User.findOne({ username: username }) 
             const {
                 password,
                 verifyMailCode,
@@ -31,6 +31,27 @@ class UserController {
             res.status(200).json(other);
         } catch (error) {
             res.json(handleError(500, error.message));
+        }
+    }
+    async getUserById(req, res) {
+        const userId = req.params.id;
+        try {
+            const user = await User.findById(userId);
+            const {
+                password,
+                verifyMailCode,
+                admin,
+                customer,
+                refreshToken,
+                accsessToken,
+                resetPassToken,
+                resetPassExpiration,
+                ...other
+            } = user._doc;
+            res.status(200).json(other);
+        } catch (error) {
+            res.json(handleError(500, error.message));
+            
         }
     }
     // edit user

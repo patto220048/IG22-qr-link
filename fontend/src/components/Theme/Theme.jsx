@@ -35,7 +35,6 @@ function Theme({
                     bnt_radius: themeBtnRadius,
                     font_famify: themeFontFamily,
                     font_color: themeFontColor,
-                
                 });
                 console.log(res.data);
                 dispatch(updateTheme(res.data));

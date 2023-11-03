@@ -1,7 +1,5 @@
 import { facebookIcon } from '../../svg/social';
 import './SocialIconItem.scss';
-import { SocialIcon } from 'react-social-icons';
-
 function SocialIconItem() {
     return (
         <div className="socialIconItem">
