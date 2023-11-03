@@ -1,0 +1,48 @@
+@import '../../base/color';
+.avatarProfile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 50px;
+    
+    .avatarProfile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .avatarProfile-name {
+        font-weight: 800;
+        max-width:  330px;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .avatarProfile-desc {
+        max-width:  320px;
+        text-align: center;
+        font-weight: 500;
+        // text-wrap: wrap;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .avatarProfile {
+        padding-top: 30px;
+        gap: 10px;
+        .avatarProfile-img {
+            width: 80px;
+            height: 80px;
+        }
+        .avatarProfile-name {
+            font-size: 18px;
+        }
+        .avatarProfile-desc {
+            font-size: 13px;
+            font-weight: 400;
+            padding: 0px 10px;
+            text-align: center;
+        }
+    }
+}

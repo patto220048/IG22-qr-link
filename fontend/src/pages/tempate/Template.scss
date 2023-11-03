@@ -1,0 +1,66 @@
+@import '../../base/color';
+@import '../../base/variable';
+.template {
+    display: flex;
+    background-color: $bg_template;
+    height: 100%;
+    padding-bottom: 50px;
+    .template-left {
+        padding-top: 110px + 40px;
+        flex: 3;
+        .template-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .tempProfile_title {
+                padding-top: 10px;
+                margin-bottom: 20px;
+                font-size: 30px;
+                font-weight: 800;
+            }
+        }
+    }
+    .template-right {
+        // border-left: 0.5px solid rgba($color: $black, $alpha: 0.3);
+        display: flex;
+        position: sticky;
+        top: 0;
+        // right: 0;
+        height: 10px;
+        padding-top: 180px;
+        width: 30%;
+        .template-right-wapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            // align-items: center;
+            border: 15px solid rgba($color: $black, $alpha: 1);
+            width: 330px;
+            height: 660px;
+            border-radius: 60px;
+            position: relative;
+            .template-bg {
+                border-radius: 40px;
+                width: 330px;
+                height: 660px;
+                object-fit: cover;
+            }
+            .template-profile {
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                .template-icon{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    width: 330px;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

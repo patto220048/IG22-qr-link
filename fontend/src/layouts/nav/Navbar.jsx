@@ -1,15 +1,25 @@
-import { Link } from 'react-router-dom';
-import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
-import './navbav.scss';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux-toolkit/userSlice';
+// component
+import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
+import DropdownItem from '../../components/DropdownItem/DropdownItem';
+import navLogo from '../../assets/img/main-logo.png';
 // import './navbar.css'
-function Navbar() {
+import './navbav.scss';
 
-    const [openMenu, setOpenMenu] = useState(false)
+import NavAvatar from '../../components/nav-avatar/NavAvatar';
+import http from '../../instance/axiosInstance';
+function Navbar() {
+    const currentUser = useSelector((state) => state.user.currentUser);
+    const [openMenu, setOpenMenu] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleOpenMenu = (e) => {
         e.stopPropagation();
         setOpenMenu(!openMenu);
-    }
+    };
     useEffect(() => {
         const handleClickOutside = () => {
             setOpenMenu(false);
@@ -21,55 +31,78 @@ function Navbar() {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+    // sign out
+    const handleSignOut = async () => {
+        try {
+            const res = await http.post('/auth/logout', { token: currentUser.refreshToken});
+            console.log(res.data);
+            navigate('/register/login');
+            dispatch(logout());
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
     return (
-  
-        <div className="navbar">
+        <nav className="navbar">
             <div className="navbar-container">
-                <h2 className="logo">LOGO</h2>
-                <ul className="nav-link">
-                    <li className="nav-link_items">Home</li>
-                    <li className="nav-link_items">Templates</li>
+                <h2 className="logo">
+                    <NavLink to={'/'}>
+                    <img className="navbar-logo" src={navLogo} alt={"super-card-logo"} />
+                    </NavLink>
+                </h2>
+                <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
+                    <NavLink to={'/'} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Home</li>
+                    </NavLink>
+                    <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Templates</li>
+                    </NavLink>
+                    <li className="nav-link_items">Link</li>
+                    <li className="nav-link_items">Create QR</li>
                     <li className="nav-link_items">About</li>
                 </ul>
-                {/* <div className="register">  
-                    <Link to="/register/login"><button className="btn login ">Login</button></Link>
-                    <Link to="/register/signup"><button className="btn signup">Sign Up</button></Link>
-                </div> */}
-                <div className="nav-user">
-                    <div className="avatar" onClick={handleOpenMenu}>
-                        <img
-                            src="https://images.unsplash.com/photo-1682695799561-033f55f75b25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                            alt=""
-                        />
+                {!currentUser ? (
+                    <div className="register">
+                        <Link to="/register/login">
+                            <button className="nav-btn nav-login ">Login</button>
+                        </Link>
+                        <Link to="/register/signup">
+                            <button className="nav-btn nav-signup">Sign Up</button>
+                        </Link>
                     </div>
-                </div>
+                ) : (
+                    <div className="nav-user">
+                         <ul>
+                            <li>Buy Card</li>
+                        </ul>
+                        <div className="avatar" onClick={handleOpenMenu}>
+                            <img
+                                src={currentUser.avtImg}
+                                alt={currentUser.avtImg}
+                            />
+                        </div>
+                       
+                    </div>
 
+                )}
 
-               {openMenu &&
-                <section className="nav-option">
-                    <ul className="account-option">
-                        <h3 className="account">Account</h3>
-                        <li className="account-option-item">
-                            <span className="account-icon">{userIcon()}</span>
-                            <p>My account</p>
-                        </li>
-                        <li className="account-option-item">
-                            <span className="account-icon">{cutomIcon()}</span>
-                            <p>Cutoms my page</p>
-                        </li>
-                        <h3 className="support">Support</h3>
-                        <li className="account-option-item">
-                            <span className="account-icon">{alertIcon()}</span>
-                            <p>Ask a question</p>
-                        </li>
-                        <li className="account-option-item">
-                            <span className="account-icon">{logoutIcon()}</span>
-                            <p>Sign out</p>
-                        </li>
-                    </ul>
-                </section>}
+                {openMenu && (
+                    <section className="nav-option">
+                        <NavAvatar usernameTitle={currentUser.usernameTitle} userImg={currentUser.avtImg} username={currentUser.username} />
+                        <ul className="account-option">
+                            <h3 className="account">Account</h3>
+                            <DropdownItem icon={userIcon()} text={'My account'} />
+                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} />
+                            <h3 className="support">Support</h3>
+                            <DropdownItem icon={alertIcon()} text={'Ask a question'} />
+                            <div onClick={handleSignOut}>
+                                <DropdownItem icon={logoutIcon()} text={'Sign out'} />
+                            </div>
+                        </ul>
+                    </section>
+                )}
             </div>
-        </div>
+        </nav>
     );
 }
 

@@ -1,0 +1,27 @@
+@import '../../base/variable';
+@import '../../base/color';
+
+.navAvatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    .navAvt-img {
+        @include img;
+        width: 50px;
+        height: 50px;
+    }
+    .navAvt-name {
+        .name {
+            font-size: 20px;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            width: 100%;
+            overflow: hidden;
+        }
+        .tagname {
+            opacity: 0.6;
+            font-size: 12px;
+        }
+    }
+}

@@ -7,8 +7,8 @@ class cardController {
     async newCard(req, res) {
         const curentUser = req.user.id;
         try {
-            const card = await Card.findOne({userId: curentUser});
-            console.log(card )
+            const card = await Card.findOne({ userId: curentUser });
+            console.log(card);
             if (card === null) {
                 try {
                     const newCard = new Card({ ...req.body, userId: curentUser });
@@ -17,35 +17,28 @@ class cardController {
                 } catch (error) {
                     res.json(handleErorr(500, error.message));
                 }
+            } else {
+                res.json({ card, Error: handleErorr(500, 'Your card has already existed.') });
             }
-            else{
-                res.json({card , Error :handleErorr(500, "Your card has already existed.")})
-            }
-            
         } catch (error) {
             res.json(handleErorr(500, error.message));
         }
-      
-       
     }
     //get card
     async getCard(req, res) {
-        const cardId = req.params.id;
-        const curentUser = req.user.id;
-
+        const userId = req.params.userId;
         try {
-            const card = await Card.findById(cardId);
-            if (card.userId === curentUser) {
+            if (userId) {
                 try {
-                    const allCard = await Card.find({ userId: curentUser });
-                    res.status(200).json(allCard);
+                    const card = await Card.findOne({ userId: userId });
+                    res.status(200).json(card);
                 } catch (error) {
                     res.json(handleErorr(500, error.message));
                 }
             } else {
                 res.json(handleErorr(403, 'Oop!!! You just get only your card.'));
             }
-        } catch (error) {
+        } catch (error) {   
             res.json(handleErorr(500, error.message));
         }
     }
@@ -54,7 +47,7 @@ class cardController {
         const cardId = req.params.id;
         try {
             const cards = await Card.find();
-            res.status(200).json(cards);
+            res.status(200).json(...cards);
         } catch (error) {
             res.json(handleErorr(500, error.message));
         }
@@ -65,7 +58,7 @@ class cardController {
         const curentUser = req.user.id;
         try {
             const card = await Card.findById(cardId);
-            if (card.userId === curentUser) {
+            if (card.userId === curentUser || req.user.admin) {
                 try {
                     const newCard = await Card.findByIdAndUpdate(
                         cardId,
@@ -83,6 +76,15 @@ class cardController {
             }
         } catch (error) {
             res.json(handleErorr(500, error.message));
+        }
+    }
+    //detele cards
+    async deleteCards(req, res) {
+        try {
+            const card = await Card.deleteMany();
+            res.status(200).json('Delete successfuly!!');
+        } catch (error) {
+            res.json(handleError(500, error.message));
         }
     }
 }

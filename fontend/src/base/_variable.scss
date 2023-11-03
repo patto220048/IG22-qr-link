@@ -1,7 +1,19 @@
 $fontSize_home: 80px;
 $fontWeight_home:900;
 
-
 $heightPage: 100vh;
 $navHight: 70px;
 
+@mixin btn{
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    display: flex;
+    margin: 0 auto;
+    border-radius: 25px;
+    transition: all 0.5s ease;
+}
+@mixin img{
+    object-fit: cover;
+    border-radius: 50%;
+}

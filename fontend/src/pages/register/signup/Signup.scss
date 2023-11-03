@@ -1,33 +1,80 @@
-@import "../../../base/color";
-.signup{
-    .signup-container{
-        height: 700px;
+@import '../../../base/color';
+.signup {
+    .signup-container {
+        height: 800px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 50px;
-        .signup-title{
+        gap: 20px;
+
+        .signup-title {
             text-align: center;
         }
-        .form-group{
+        .form-group {
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
             gap: 20px;
-            width: 30%;
-            .signup-input{
-                padding: 15px;
-                border-radius: 5px;
-                background-color: $text_hover_color;
-                border: 2px solid transparent;
-                &:hover{
-                    border: 2px solid $text_color_soft_2;
-                }
-                &:focus{    
-                    border: 2px solid black;
-                }
+            // background-color: aqua;
+            .err_from_sever {
+                color: red;
+                font-size: 18px;
+                font-weight: 500;
             }
-            .signup-btn{
+            .signup-input {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                // position: relative;
+                input {
+                    background-color: $text_hover_color;
+                    width: 600px;
+                    padding: 15px;
+                    border: 2px solid transparent;
+                    border-radius: 5px;
+                    &:hover {
+                        border: 2px solid $text_color_soft_2;
+                    }
+                    &:focus {
+                        border: 2px solid black;
+                    }
+                    &:invalid[focused='true'] ~ p {
+                        display: block;
+                    }
+                    &:invalid[focused='true'] {
+                        border: 1px solid red;
+                    }
+                }
+
+                .valid-err {
+                    color: red;
+                    display: none;
+                }
+                .username{
+                    position: relative;
+                    // display: flex;
+                 
+                    .username-input{
+                        max-width:481px;
+                    }
+                    label {
+                        // display: block;
+                        // left:10%;
+                        // // top:50%;
+                        // transform:translate(-50%,-50%);
+                        // position: absolute;
+                        background-color: $text_hover_color;
+                        padding: 15px;
+                        // border-radius: 5px;
+                    }
+                }
+               
+            }
+            .signup-btn {
+                width: 100%;
                 padding: 15px;
                 font-size: 20px;
                 font-weight: 900;
@@ -35,19 +82,38 @@
                 color: $white;
                 border-radius: 25px;
                 transition: all 0.3s ease;
-                &:hover{
-                    background-color: rgba($color:$background_color , $alpha: 0.9);
+                &:hover {
+                    background-color: rgba($color: $background_color, $alpha: 0.9);
                     transform: scale(1.01);
                 }
             }
-            .input-err{
-                color: red;
+        }
+        .signup-direct {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .login-btn-google{
+            width: 100%;
+        //    width: 300px;
+           height: 50px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           gap: 10px;
+           border-radius: 25px;
+           background-color: $white;
+           border: 1px solid rgba($color: $black, $alpha: 0.3);
+           font-size: 15px;
+           font-weight: 600;
+           transition: all 0.5s ease;
+           cursor: pointer;
+            &:hover{
+                background-color:$text_hover_color;
+                border: 1px solid rgba($color: $black, $alpha: 0.7);
+                
             }
         }
-        .signup-direct{
-
-        }
-        .signup-protected{
+        .signup-protected {
             font-size: 13px;
             opacity: 0.7;
         }

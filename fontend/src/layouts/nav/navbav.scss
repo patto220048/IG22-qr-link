@@ -3,10 +3,17 @@
 
 .navbar {
     position: fixed;
-    top: 60px;
-    width: 100%;
-   
-
+    top: 40px;
+    width: 100%; 
+    z-index: 999;
+    .navbar-logo{
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        padding: 10px;
+        
+    }
     .navbar-container {
         display: flex;
         align-items: center;
@@ -18,6 +25,7 @@
         padding: 5px 20px;
         border-radius: 50px;
         position: relative;
+        gap: 20px;
          // boxshadow
         box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
         -webkit-box-shadow: 1px 4px 42px -3px rgba(0, 0, 0, 0.56);
@@ -30,7 +38,7 @@
             display: flex;
             gap: 40px;
             color: $text_color_soft_3;
-
+           
             .nav-link_items {
                 padding: 10px;
                 font-size: 18px;
@@ -44,9 +52,9 @@
         .register {
             flex: 1;
             display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            .btn {
+            justify-content: center;
+            gap: 30px;
+            .nav-btn {
                 font-weight: 500;
                 font-size: 18px;
                 padding: 15px;
@@ -54,7 +62,7 @@
                 background-color: black;
                 color: white;
             }
-            .login {
+            .nav-login {
                 border-radius: 10px;
                 background-color: $text_hover_color;
                 color: black;
@@ -62,22 +70,26 @@
                     background-color: rgba($color: $text_hover_color, $alpha: 0.7);
                 }
             }
-            .signup {
+            .nav-signup {
                 &:hover {
                     background-color: rgba($color: black, $alpha: 0.7);
                 }
             }
         }
         .nav-user {
+            display: flex;
+            align-items: center;
             .avatar {
                 padding-left: 20px;
+                // padding: 2px;
                 img {
-                    padding: 2px;
+                    // padding: 2px;
                     width: 50px;
                     height: 50px;
                     border-radius: 50%;
                     cursor: pointer;
                     border: 1px solid transparent;
+                    object-fit: cover;
                     &:hover {
                         border: 1px solid black;
                     }

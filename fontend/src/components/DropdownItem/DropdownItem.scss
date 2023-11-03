@@ -1,0 +1,20 @@
+@import "../../base/color";
+.dropdown-item{
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    p {
+        font-size: 16px;
+        opacity: 0.8;
+    }
+    .dropdown-icon {
+        text-align: center;
+        padding-left: 20px;
+    }
+    &:hover {
+        background-color: $text_hover_color;
+    }
+}
