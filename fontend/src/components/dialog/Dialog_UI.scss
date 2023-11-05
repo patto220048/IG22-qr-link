@@ -1,7 +1,7 @@
 @import '../../base/color';
 @import '../../base/variable';
 .DialogOverlay {
-    background-color: rgba($color: $black, $alpha: 0.5);
+    background-color: rgba($color: $black, $alpha: 0.3);
     position: fixed;
     inset: 0;
     animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);

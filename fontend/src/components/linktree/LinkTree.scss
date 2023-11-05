@@ -13,7 +13,7 @@
     box-shadow: 12px 21px 15px -5px rgba(0, 0, 0, 0.8);
     .linktree-link {
         text-decoration: none;
-        color: $black;
+        color: var(--red-11);
         .linktree-item {
             position: relative;
             .linktree-title {

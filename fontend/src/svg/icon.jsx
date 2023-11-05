@@ -62,9 +62,6 @@ export const menuIcon = (w, h, f) => (
     </svg>
 );
 
-
-
-
 export const addIcon = (w, h) => (
     <svg width={w} height={h} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -125,13 +122,7 @@ export const closeEyeIcon = (w, h) => (
     </svg>
 );
 export const googleIcon = (w, h) => (
-    <svg
-        width={w}
-        height={h}
-        viewBox="-3 0 262 262"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMidYMid"
-    >
+    <svg width={w} height={h} viewBox="-3 0 262 262" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
         <path
             d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
             fill="#4285F4"
@@ -147,6 +138,21 @@ export const googleIcon = (w, h) => (
         <path
             d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
             fill="#EB4335"
+        />
+    </svg>
+);
+export const chevronRightIcon = (w, h) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 7L15 12L10 17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+);
+export const searchIcon = (w, h) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M16.927 17.0401L20.4001 20.4001M11.4001 7.2001C13.3883 7.2001 15.0001 8.81187 15.0001 10.8001M19.2801 11.4401C19.2801 15.77 15.77 19.2801 11.4401 19.2801C7.11018 19.2801 3.6001 15.77 3.6001 11.4401C3.6001 7.11018 7.11018 3.6001 11.4401 3.6001C15.77 3.6001 19.2801 7.11018 19.2801 11.4401Z"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round"
         />
     </svg>
 );

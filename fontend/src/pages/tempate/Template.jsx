@@ -39,14 +39,14 @@ function Template() {
         <div className="template">
             <div className="template-left">
                 <section className="template-item">
-                    <h2 className="tempProfile_title">Profile</h2>
+                    <h2 className="tempProfile_title" id="#profile">Profile</h2>
                     <TempProfile />
                 </section>
-                <section className="template-item">
+                <section className="template-item" id="#theme">
                     <h2 className="tempProfile_title">Themes</h2>
                     <TempTheme cardId={card._id} />
                 </section>
-                <section className="template-item">
+                <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
                     <Background />
                 </section>

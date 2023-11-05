@@ -9,8 +9,9 @@ import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
 import { current } from '@reduxjs/toolkit';
+import IconTable from './IconTable/IconTable';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -117,30 +118,47 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast }) {
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        <Dialog_file
-                            avtUser={avtUser}
-                            setAvatar={setAvatar}
-                            avatar={avatar}
-                            setResultImg={setResultImg}
-                            resultImg={resultImg}
-                            setCurrentAvatar={setCurrentAvatar}
-                            setImgUpLoading={setImgUpLoading}
-                        />
+                        {pickImg ? (
+                            <>
+                                <Dialog_file
+                                    avtUser={avtUser}
+                                    setAvatar={setAvatar}
+                                    avatar={avatar}
+                                    setResultImg={setResultImg}
+                                    resultImg={resultImg}
+                                    setCurrentAvatar={setCurrentAvatar}
+                                    setImgUpLoading={setImgUpLoading}
+                                />
+                                <div className="dialog-btn-group">
+                                    {resultImg || avtUser ? (
+                                        <button className="dialog-btn" onClick={handleClear}>
+                                            Clear
+                                        </button>
+                                    ) : (
+                                        <></>
+                                    )}
+
+                                    <button className="dialog-btn" onClick={handleSave}>
+                                        Save changes
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <IconTable />
+                                    <div className="dialog-btn-group">
+                                        <button className="dialog-btn" >
+                                            Clear
+                                        </button>
+
+                                        <button className="dialog-btn" >
+                                            Save changes
+                                        </button>
+                                    </div>
+                            </>
+                        )}
+
                         {/* ---------------------------------- */}
-                        <div className="dialog-btn-group">
-                            {resultImg || avtUser ? (
-                                <button className="dialog-btn" onClick={handleClear}>
-                                    Clear
-                                </button>
-                            ) : (
-                                <></>
-                            )}
-
-                            <button className="dialog-btn" onClick={handleSave}>
-                                Save changes
-                            </button>
-                        </div>
-
                         <Dialog.Close asChild className="closeIcon-btn" disabled>
                             {closeIcon(20, 20)}
                         </Dialog.Close>
