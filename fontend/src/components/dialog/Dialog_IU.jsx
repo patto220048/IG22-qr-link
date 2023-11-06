@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Dialog_UI.scss';
 import * as Dialog from '@radix-ui/react-dialog';
-import { imgIcon, closeIcon } from '../../svg/icon';
+import { imgIcon, closeIcon, chevronRightIcon, chevronLeftIcon } from '../../svg/icon';
 import Dialog_file from './dialog_file//Dialog_file';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateData, deleteFileImg } from '../../redux-toolkit/userSlice';
@@ -10,6 +10,7 @@ import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
 import { current } from '@reduxjs/toolkit';
 import IconTable from './IconTable/IconTable';
+import InputUrl from './InputUrl/InputUrl';
 
 function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
@@ -17,6 +18,9 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [avtUser, setAvtUser] = useState({});
     const [imgUpLoading, setImgUpLoading] = useState();
+    const [openInputUrl, setOpenInputUrl] = useState(false);
+    const [socialName, setSocialName] = useState()
+    console.log(socialName)
     // fetch user
     useEffect(() => {
         const fectchUser = async () => {
@@ -112,6 +116,9 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     //         notifyToast('File not found !!');
     //     }
     // };
+    const hanleClose = (e) => {
+        setOpenInputUrl(false);
+    };
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -145,23 +152,28 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                             </>
                         ) : (
                             <>
-                                <IconTable />
-                                    <div className="dialog-btn-group">
-                                        <button className="dialog-btn" >
-                                            Clear
-                                        </button>
-
-                                        <button className="dialog-btn" >
-                                            Save changes
-                                        </button>
-                                    </div>
+                                {openInputUrl ? (
+                                    <>
+                                        <InputUrl socialName={socialName} />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn">Save changes</button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <IconTable setOpenInputUrl={setOpenInputUrl} setSocialName={setSocialName} />
+                                )}
                             </>
                         )}
 
                         {/* ---------------------------------- */}
-                        <Dialog.Close asChild className="closeIcon-btn" disabled>
+                        <Dialog.Close asChild className="closeIcon-btn" disabled onClick={hanleClose}>
                             {closeIcon(20, 20)}
                         </Dialog.Close>
+                        {openInputUrl && (
+                            <div className="chevron-btn" onClick={hanleClose}>
+                                {chevronLeftIcon(20, 20)}
+                            </div>
+                        )}
                     </Dialog.Content>
                 </Dialog.Overlay>
             </Dialog.Portal>

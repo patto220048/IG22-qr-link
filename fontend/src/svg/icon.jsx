@@ -143,7 +143,7 @@ export const googleIcon = (w, h) => (
 );
 export const chevronRightIcon = (w, h) => (
     <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 7L15 12L10 17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M10 7L15 12L10 17" stroke="black" strokeWidth="2" strokewinecap="round" strokewinejoin="round" />
     </svg>
 );
 export const searchIcon = (w, h) => (
@@ -151,8 +151,13 @@ export const searchIcon = (w, h) => (
         <path
             d="M16.927 17.0401L20.4001 20.4001M11.4001 7.2001C13.3883 7.2001 15.0001 8.81187 15.0001 10.8001M19.2801 11.4401C19.2801 15.77 15.77 19.2801 11.4401 19.2801C7.11018 19.2801 3.6001 15.77 3.6001 11.4401C3.6001 7.11018 7.11018 3.6001 11.4401 3.6001C15.77 3.6001 19.2801 7.11018 19.2801 11.4401Z"
             stroke="black"
-            stroke-width="2"
-            stroke-linecap="round"
+            strokeWidth="2"
+            strokeLinecap="round"
         />
+    </svg>
+);
+export const chevronLeftIcon = (w, h) => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 17L10 12L15 7" stroke="black" strokeWidth="2" strokewinecap="round" strokeLinejoin="round" />
     </svg>
 );

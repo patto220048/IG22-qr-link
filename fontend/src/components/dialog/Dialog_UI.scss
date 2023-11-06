@@ -34,6 +34,17 @@
                 transform: scale(1.1);
             }
         }
+        .chevron-btn{
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
         .dialog-btn-group{
             display: flex;
             gap: 20px;

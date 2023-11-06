@@ -3,7 +3,11 @@ import iconThemes from '../../../themes/icon';
 import './IconTable.scss';
 import { chevronRightIcon, searchIcon } from '../../../svg/icon';
 
-function IconTable() {
+function IconTable({setOpenInputUrl,setSocialName}) {
+    const handleOpenInput =(props) => {
+        setOpenInputUrl(true)
+        setSocialName(props.iconName)
+    }
     return (
         <section className="iconTable-container">
             <div className="iconTable-wapper">
@@ -12,15 +16,15 @@ function IconTable() {
                     {searchIcon(23, 23)}
                     <input type="text" className="iconTable-search" />
                 </div>
-                <div className="iconTable-lists">
+                <div className="iconTable-lists" >
                     {iconThemes.map((iconTheme) => (
-                        <>
-                            <div className="iconTable-items">
-                                <SocialIconItem icon={iconTheme.icon} key={iconTheme.id} />
+                        <section key={iconTheme.id} >
+                            <div className="iconTable-items" onClick={()=>handleOpenInput(iconTheme)} >
+                                <SocialIconItem icon={iconTheme.icon} />
                                 <span className="iconTable-name">{iconTheme.iconName}</span>
                                 {chevronRightIcon(25, 25)}
                             </div>
-                        </>
+                        </section>
                     ))}
                 </div>
             </div>
