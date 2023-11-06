@@ -13,42 +13,34 @@ class IconController {
         }
     }
     //get links
-    async getLinks(req, res) {
-        const cardId = req.params.idCard;
+    async getIcon(req, res) {
         const currentUser = req.user.id;
         try {
-            const card = await Card.findById(cardId);
-            if (!card) return res.json(handleErorr(404, 'Card no have link.'));
-            if (card.userId === currentUser) {
-                try {
-                    const getLinks = await Link.find({ cardId: cardId });
-                    res.status(200).json(getLinks);
-                } catch (error) {
-                    res.json(handleErorr(500, error.message));
-                }
-            } else {
-                res.json(handleErorr(403, 'You just get link your card!!'));
-            }
+            const icon  = await Icon.find({userId: currentUser})
+            res.status(200).json(icon);
+
         } catch (error) {
             res.json(handleErorr(500, error.message));
+            
         }
+    
     }
     //edit link
-    async editLink(req, res) {
-        const linkId = req.params.id;
+    async editIcon(req, res) {
+        const iconId = req.params.id;
         try {
-            const link = await Link.findById(linkId);
-            if (!link) return res.json(handleErorr(404, 'This link not found.'));
-            if (link.userId === req.user.id) {
+            const icon = await Icon.findById(iconId);
+            if (!icon) return res.json(handleErorr(404, 'This link not found.'));
+            if (icon.userId === req.user.id) {
                 try {
-                    const newLink = await Link.findByIdAndUpdate(
-                        linkId,
+                    const newIcon = await Icon.findByIdAndUpdate(
+                        iconId,
                         {
                             $set: req.body,
                         },
                         { new: true },
                     );
-                    res.status(200).json(newLink);
+                    res.status(200).json(newIcon);
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }
@@ -60,20 +52,20 @@ class IconController {
         }
     }
     //delete a link
-    async deteleLink(req, res) {
-        const linkId = req.params.id;
+    async deteleIcon(req, res) {
+        const iconId = req.params.id;
         try {
-            const link = await Link.findById(linkId);
-            if (!link) return res.json(handleErorr(404, 'This link not found.'));
-            if (link.userId === req.user.id) {
+            const icon = await Icon.findById(iconId);
+            if (!icon) return res.json(handleErorr(404, 'This icon not found.'));
+            if (icon.userId === req.user.id) {
                 try {
-                    await Link.findByIdAndDelete(linkId);
+                    await Icon.findByIdAndDelete(iconId);
                     res.status(200).json('Delete successfuly!!');
                 } catch (error) {
                     res.json(handleErorr(500, error.message));
                 }
             } else {
-                res.json(handleErorr(403, 'Oop!!! You just delete only your link'));
+                res.json(handleErorr(403, 'Oop!!! You just delete only your icon'));
             }
         } catch (error) {
             res.json(handleErorr(500, error.message));
