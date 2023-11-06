@@ -83,7 +83,7 @@ function TempProfile() {
                     <button className="tempProfile-btn_item pickup" onClick={handleOnPickImg}>
                         Pick Image
                     </button>
-                    <button className="tempProfile-btn_item remove">Remove</button>
+                    <button className="tempProfile-btn_item remove"onClick={handleOnPickImg}>Remove</button>
                 </div>
                 <div>
                     <Dialog_UI openDialog={openDialog} setOpenDialog={setOpenDialog} pickImg={pickImg} notifyToast={notifyToast} />

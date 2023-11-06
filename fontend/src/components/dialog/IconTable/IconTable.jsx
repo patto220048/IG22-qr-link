@@ -2,8 +2,10 @@ import SocialIconItem from '../../SocialIconItem/SocialIconItem';
 import iconThemes from '../../../themes/icon';
 import './IconTable.scss';
 import { chevronRightIcon, searchIcon } from '../../../svg/icon';
+import { useState } from 'react';
 
 function IconTable({setOpenInputUrl,setSocialName}) {
+    const [query,setQuery] = useState("")
     const handleOpenInput =(props) => {
         setOpenInputUrl(true)
         setSocialName(props.iconName)
@@ -14,10 +16,10 @@ function IconTable({setOpenInputUrl,setSocialName}) {
                 <h2 className="iconTable-title">Add Icon</h2>
                 <div className="iconTable-input">
                     {searchIcon(23, 23)}
-                    <input type="text" className="iconTable-search" />
+                    <input type="text" className="iconTable-search" onChange={(e)=>setQuery(e.target.value)} placeholder='Search' />
                 </div>
                 <div className="iconTable-lists" >
-                    {iconThemes.map((iconTheme) => (
+                    {iconThemes.filter((iconTheme)=>iconTheme.iconName.toLowerCase().includes(query)).map((iconTheme) => (
                         <section key={iconTheme.id} >
                             <div className="iconTable-items" onClick={()=>handleOpenInput(iconTheme)} >
                                 <SocialIconItem icon={iconTheme.icon} />
