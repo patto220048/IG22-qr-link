@@ -18,7 +18,7 @@ function Template() {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
     const [card, setCard] = useState({});
-
+    const [icons, setIcons] = useState([]);
     // const [state, setState] = useState({});
     // const [username, setUsername] = useState(null);
     // const [desc, setDesc] = useState(null);
@@ -27,7 +27,6 @@ function Template() {
         const getCard = async () => {
             try {
                 const res = await http.get(`/card/v1/${currentUser._id}`);
-                console.log(res.data);
                 setCard(res.data);
             } catch (error) {
                 console.log(error.message);
@@ -35,12 +34,25 @@ function Template() {
         };
         getCard();
     }, []);
+    useEffect(() => {
+        const getIcon = async () => {
+            try {
+                const res = await http.get(`/icon/`);
+                setIcons(res.data);
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        getIcon();
+    }, []);
     return (
         <div className="template">
             <div className="template-left">
                 <section className="template-item">
-                    <h2 className="tempProfile_title" id="#profile">Profile</h2>
-                    <TempProfile />
+                    <h2 className="tempProfile_title" id="#profile">
+                        Profile
+                    </h2>
+                    <TempProfile/>
                 </section>
                 <section className="template-item" id="#theme">
                     <h2 className="tempProfile_title">Themes</h2>
@@ -71,8 +83,9 @@ function Template() {
                                     avatar={currentUser.avtImg}
                                     fontColor={currentTheme.font_color}
                                 />
-
-                                <SocialIconList />
+                            
+                                    <SocialIconList icons={icons}/>
+                            
 
                                 <LinkTree
                                     preview={true}

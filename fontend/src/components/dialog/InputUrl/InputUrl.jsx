@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./InnputUrl.scss"
+import { useSelector } from "react-redux";
 
-function InputUrl({socialName}) {
+function InputUrl({socialName,setUrlIcon}) {
+
     const toLowerCase = (text) =>{
         return text.toLowerCase();
     }
-    const [urlIcon, setUrlIcon] = useState("")
-    
     return (
         <div className="InputUrl">
             <h3 className="InputUrl-iconName">Add icon ⭐ {socialName} ⭐</h3>

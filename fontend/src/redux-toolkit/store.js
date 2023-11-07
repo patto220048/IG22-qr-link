@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import userReducer from '../redux-toolkit/userSlice'
-import themeReducer from "../redux-toolkit/themeSlice"
+import userReducer from '../redux-toolkit/userSlice';
+import themeReducer from '../redux-toolkit/themeSlice';
+import iconReducer from '../redux-toolkit/iconSlice';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -9,7 +10,7 @@ const persistConfig = {
     version: 1,
     storage,
 };
-const rootReducer = combineReducers({theme: themeReducer, user: userReducer});
+const rootReducer = combineReducers({ theme: themeReducer, user: userReducer, icon: iconReducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
     reducer: persistedReducer,

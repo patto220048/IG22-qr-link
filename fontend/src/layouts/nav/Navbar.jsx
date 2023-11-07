@@ -34,7 +34,7 @@ function Navbar() {
     // sign out
     const handleSignOut = async () => {
         try {
-            const res = await http.post('/auth/logout', { token: currentUser.refreshToken});
+            const res = await http.post('/auth/logout', { token: currentUser.refreshToken });
             console.log(res.data);
             navigate('/register/login');
             dispatch(logout());
@@ -47,13 +47,15 @@ function Navbar() {
             <div className="navbar-container">
                 <h2 className="logo">
                     <NavLink to={'/'}>
-                    <img className="navbar-logo" src={navLogo} alt={"super-card-logo"} />
+                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'} />
                     </NavLink>
                 </h2>
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
-                    <NavLink to={'/'} style={{ color: '#696d61' }}>
-                        <li className="nav-link_items">Home</li>
-                    </NavLink>
+                    {!currentUser && (
+                        <NavLink to={'/'} style={{ color: '#696d61' }}>
+                            <li className="nav-link_items">Home</li>
+                        </NavLink>
+                    )}
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Templates</li>
                     </NavLink>
@@ -72,23 +74,22 @@ function Navbar() {
                     </div>
                 ) : (
                     <div className="nav-user">
-                         <ul>
+                        <ul>
                             <li>Buy Card</li>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
-                            <img
-                                src={currentUser.avtImg}
-                                alt={currentUser.avtImg}
-                            />
+                            <img src={currentUser.avtImg} alt={currentUser.avtImg} />
                         </div>
-                       
                     </div>
-
                 )}
 
                 {openMenu && (
                     <section className="nav-option">
-                        <NavAvatar usernameTitle={currentUser.usernameTitle} userImg={currentUser.avtImg} username={currentUser.username} />
+                        <NavAvatar
+                            usernameTitle={currentUser.usernameTitle}
+                            userImg={currentUser.avtImg}
+                            username={currentUser.username}
+                        />
                         <ul className="account-option">
                             <h3 className="account">Account</h3>
                             <DropdownItem icon={userIcon()} text={'My account'} />

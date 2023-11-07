@@ -8,4 +8,5 @@ router.post("/:userId",userVerify.verifyUser,icon.addIcon)
 router.get("/",userVerify.verifyUser,icon.getIcon)
 router.put("/:id",userVerify.verifyUser,icon.editIcon)
 router.delete("/:id",userVerify.verifyUser,icon.deteleIcon)
+router.delete("/",userVerify.verifyUser,icon.deteleAllIcon)
 export default router;

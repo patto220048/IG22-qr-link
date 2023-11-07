@@ -22,7 +22,7 @@ function IconTable({setOpenInputUrl,setSocialName}) {
                     {iconThemes.filter((iconTheme)=>iconTheme.iconName.toLowerCase().includes(query)).map((iconTheme) => (
                         <section key={iconTheme.id} >
                             <div className="iconTable-items" onClick={()=>handleOpenInput(iconTheme)} >
-                                <SocialIconItem icon={iconTheme.icon} />
+                                <SocialIconItem iconTheme={iconTheme.icon} />
                                 <span className="iconTable-name">{iconTheme.iconName}</span>
                                 {chevronRightIcon(25, 25)}
                             </div>

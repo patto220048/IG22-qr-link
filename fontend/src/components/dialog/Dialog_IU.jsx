@@ -11,6 +11,7 @@ import http from '../../instance/axiosInstance';
 import { current } from '@reduxjs/toolkit';
 import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
+import { iconFail, iconStart, iconSuccess } from '../../redux-toolkit/iconSlice';
 
 function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
@@ -20,7 +21,10 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const [imgUpLoading, setImgUpLoading] = useState();
     const [openInputUrl, setOpenInputUrl] = useState(false);
     const [socialName, setSocialName] = useState()
-    console.log(socialName)
+    const [urlIcon, setUrlIcon] = useState("")
+    const toLowerCase = (text) =>{
+        return text.toLowerCase();
+    }
     // fetch user
     useEffect(() => {
         const fectchUser = async () => {
@@ -38,7 +42,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const [avatar, setAvatar] = useState(undefined);
     const [currentAvatar, setCurrentAvatar] = useState(null);
     // handle save database
-    const handleSave = (e) => {
+    const handleAddAvt = (e) => {
         e.preventDefault();
         const updateUser = async () => {
             try {
@@ -65,15 +69,15 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
         }
     };
     //handle delete img when click outside
-    useEffect(() => {
-        const handleClickOutside = () => {
-            avatar && deleteFile(avatar);
-        };
-        document.addEventListener('click', handleClickOutside);
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, [avatar]);
+    // useEffect(() => {
+    //     const handleClickOutside = () => {
+    //         avatar && deleteFile(avatar);
+    //     };
+    //     document.addEventListener('click', handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside);
+    //     };
+    // }, []);
     const handleClear = (e) => {
         e.preventDefault();
         currentAvatar ? deleteFile(currentAvatar) : deleteFile(avtUser);
@@ -119,6 +123,24 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const hanleClose = (e) => {
         setOpenInputUrl(false);
     };
+    const handleAddIcon = ()=>{
+        dispatch(iconStart())
+        const addIcon = async() => {
+            try {
+                const res = await http.post(`/icon/${currentUser._id}`,{
+                    iconName: socialName,
+                    iconUrl : urlIcon
+                })
+                dispatch(iconSuccess(res.data))
+                setOpenInputUrl(false);
+                notifyToast('Added icon successfully!');
+            } catch (error) {
+                dispatch(iconFail())
+                console.log(error.message)
+            }
+        }
+        addIcon()
+    }
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -145,7 +167,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                                         <></>
                                     )}
 
-                                    <button className="dialog-btn" onClick={handleSave}>
+                                    <button className="dialog-btn" onClick={handleAddAvt}>
                                         Save changes
                                     </button>
                                 </div>
@@ -154,9 +176,9 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                             <>
                                 {openInputUrl ? (
                                     <>
-                                        <InputUrl socialName={socialName} />
+                                        <InputUrl socialName={socialName} setUrlIcon={setUrlIcon} />
                                         <div className="dialog-btn-group">
-                                            <button className="dialog-btn">Save changes</button>
+                                            <button className="dialog-btn" onClick={handleAddIcon}>Save changes</button>
                                         </div>
                                     </>
                                 ) : (

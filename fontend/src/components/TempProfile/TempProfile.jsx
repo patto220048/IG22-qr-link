@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import http from '../../instance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function TempProfile() {
+function TempProfile({setIcon}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const [maxLenght, setMaxLenght] = useState(80);
@@ -86,7 +86,7 @@ function TempProfile() {
                     <button className="tempProfile-btn_item remove"onClick={handleOnPickImg}>Remove</button>
                 </div>
                 <div>
-                    <Dialog_UI openDialog={openDialog} setOpenDialog={setOpenDialog} pickImg={pickImg} notifyToast={notifyToast} />
+                    <Dialog_UI openDialog={openDialog} setOpenDialog={setOpenDialog} pickImg={pickImg} notifyToast={notifyToast} setIcon={setIcon} />
                 </div>
             </div>
             <div className="tempProfile-input">

@@ -71,5 +71,13 @@ class IconController {
             res.json(handleErorr(500, error.message));
         }
     }
+    async deteleAllIcon(req, res) {
+        try {
+            await Icon.deleteMany()
+            res.status(200).json('Delete successfuly!!');
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
 }
 export default new IconController();
