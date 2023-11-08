@@ -46,6 +46,10 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
+        icons:{
+            type: Array,
+            default: [],
+        }
     },
     { timestamps: true },
 );

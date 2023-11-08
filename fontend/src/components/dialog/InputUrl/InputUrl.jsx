@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./InnputUrl.scss"
 import { useSelector } from "react-redux";
 
-function InputUrl({socialName,setUrlIcon}) {
+function InputUrl({socialName,setUrlIcon,setClearIcon,clearIcon}) {
+    const {icons} = useSelector((state)=> state.theme.currentTheme)
 
     const toLowerCase = (text) =>{
         return text.toLowerCase();

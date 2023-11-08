@@ -52,7 +52,7 @@ function Template() {
                     <h2 className="tempProfile_title" id="#profile">
                         Profile
                     </h2>
-                    <TempProfile/>
+                    <TempProfile />
                 </section>
                 <section className="template-item" id="#theme">
                     <h2 className="tempProfile_title">Themes</h2>
@@ -83,9 +83,8 @@ function Template() {
                                     avatar={currentUser.avtImg}
                                     fontColor={currentTheme.font_color}
                                 />
-                            
-                                    <SocialIconList icons={icons}/>
-                            
+
+                                <SocialIconList icons={currentTheme.icons} />  
 
                                 <LinkTree
                                     preview={true}

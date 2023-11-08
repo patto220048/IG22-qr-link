@@ -11,20 +11,23 @@ import http from '../../instance/axiosInstance';
 import { current } from '@reduxjs/toolkit';
 import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
-import { iconFail, iconStart, iconSuccess } from '../../redux-toolkit/iconSlice';
+import { iconFail, iconStart, iconSuccess, iconUpdate } from '../../redux-toolkit/iconSlice';
+import { addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/themeSlice';
 
 function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
+    const { icons } = useSelector((state) => state.theme.currentTheme);
     const [avtUser, setAvtUser] = useState({});
     const [imgUpLoading, setImgUpLoading] = useState();
     const [openInputUrl, setOpenInputUrl] = useState(false);
-    const [socialName, setSocialName] = useState()
-    const [urlIcon, setUrlIcon] = useState("")
-    const toLowerCase = (text) =>{
+    const [socialName, setSocialName] = useState();
+    const [urlIcon, setUrlIcon] = useState('');
+    const [clearIcon, setClearIcon] = useState(false);
+    const toLowerCase = (text) => {
         return text.toLowerCase();
-    }
+    };
     // fetch user
     useEffect(() => {
         const fectchUser = async () => {
@@ -123,24 +126,46 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const hanleClose = (e) => {
         setOpenInputUrl(false);
     };
-    const handleAddIcon = ()=>{
-        dispatch(iconStart())
-        const addIcon = async() => {
+    const handleAddIcon = () => {
+        dispatch(iconStart());
+        const addIcon = async () => {
             try {
-                const res = await http.post(`/icon/${currentUser._id}`,{
+                const res = await http.post(`/icon/${currentUser._id}`, {
                     iconName: socialName,
-                    iconUrl : urlIcon
-                })
-                dispatch(iconSuccess(res.data))
+                    iconUrl: urlIcon,
+                });
+                // dispatch(iconUpdate(res.data))
+                dispatch(addThemeIcon(res.data));
                 setOpenInputUrl(false);
                 notifyToast('Added icon successfully!');
             } catch (error) {
-                dispatch(iconFail())
-                console.log(error.message)
+                dispatch(iconFail());
+                console.log(error.message);
             }
-        }
-        addIcon()
-    }
+        };
+        addIcon();
+    };
+    const handleClearIcon = () => {
+        const iconId = () =>
+            icons.map((icon) => {
+                if (icon.iconName === socialName) {
+                    const deleteIcon = async () => {
+                        try {
+                            const res = await http.delete(`/icon/${icon._id}`);
+                            console.log(res.data);
+                            dispatch(deleteThemeIcon(icon))
+                        } catch (error) {
+                            console.log(error.message);
+                        }
+                    };
+                    deleteIcon();
+                } else {
+                    notifyToast('Opp!! Something error. Please try again!');
+
+                }
+            });
+        iconId();
+    };
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -176,9 +201,19 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                             <>
                                 {openInputUrl ? (
                                     <>
-                                        <InputUrl socialName={socialName} setUrlIcon={setUrlIcon} />
+                                        <InputUrl
+                                            socialName={socialName}
+                                            setUrlIcon={setUrlIcon}
+                                            setClearIcon={setClearIcon}
+                                            clearIcon={clearIcon}
+                                        />
                                         <div className="dialog-btn-group">
-                                            <button className="dialog-btn" onClick={handleAddIcon}>Save changes</button>
+                                            <button className="dialog-btn" onClick={handleClearIcon}>
+                                                Clear
+                                            </button>
+                                            <button className="dialog-btn" onClick={handleAddIcon}>
+                                                Save changes
+                                            </button>
                                         </div>
                                     </>
                                 ) : (

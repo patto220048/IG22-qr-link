@@ -11,7 +11,7 @@ import Card from '../database/model/cardModel.js';
 
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '365d',
+        expiresIn: '2h',
     });
 };
 const generateRefeshToken = (user) => {
