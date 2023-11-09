@@ -13,6 +13,7 @@ import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
 import { iconFail, iconStart, iconSuccess, iconUpdate } from '../../redux-toolkit/iconSlice';
 import { addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/themeSlice';
+import iconThemes from '../../themes/icon';
 
 function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
@@ -22,9 +23,11 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const [avtUser, setAvtUser] = useState({});
     const [imgUpLoading, setImgUpLoading] = useState();
     const [openInputUrl, setOpenInputUrl] = useState(false);
-    const [socialName, setSocialName] = useState();
+    const [socialIconName, setSocialIconName] = useState();
     const [urlIcon, setUrlIcon] = useState('');
     const [clearIcon, setClearIcon] = useState(false);
+    const [successMessage, setSuccessMessage] = useState(false);
+    const [isIcon, setIsIcon] = useState(false);
     const toLowerCase = (text) => {
         return text.toLowerCase();
     };
@@ -131,7 +134,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
         const addIcon = async () => {
             try {
                 const res = await http.post(`/icon/${currentUser._id}`, {
-                    iconName: socialName,
+                    iconName: socialIconName,
                     iconUrl: urlIcon,
                 });
                 // dispatch(iconUpdate(res.data))
@@ -148,20 +151,19 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const handleClearIcon = () => {
         const iconId = () =>
             icons.map((icon) => {
-                if (icon.iconName === socialName) {
+                if (icon.iconName === socialIconName) {
                     const deleteIcon = async () => {
                         try {
                             const res = await http.delete(`/icon/${icon._id}`);
-                            console.log(res.data);
-                            dispatch(deleteThemeIcon(icon))
+                            dispatch(deleteThemeIcon(icon));
+                            notifyToast('Deleted icon !!');
                         } catch (error) {
                             console.log(error.message);
                         }
                     };
                     deleteIcon();
                 } else {
-                    notifyToast('Opp!! Something error. Please try again!');
-
+                    notifyToast('Some things error!');
                 }
             });
         iconId();
@@ -201,23 +203,40 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                             <>
                                 {openInputUrl ? (
                                     <>
-                                        <InputUrl
-                                            socialName={socialName}
-                                            setUrlIcon={setUrlIcon}
-                                            setClearIcon={setClearIcon}
-                                            clearIcon={clearIcon}
-                                        />
-                                        <div className="dialog-btn-group">
-                                            <button className="dialog-btn" onClick={handleClearIcon}>
-                                                Clear
-                                            </button>
-                                            <button className="dialog-btn" onClick={handleAddIcon}>
-                                                Save changes
-                                            </button>
-                                        </div>
+                                        {iconThemes.map(
+                                            (iconTheme) =>
+                                                iconTheme.iconName === socialIconName && (
+                                                    <>
+                                                        <InputUrl
+                                                            socialIconName={socialIconName}
+                                                            setUrlIcon={setUrlIcon}
+                                                            setClearIcon={setClearIcon}
+                                                            
+                                                        />
+                                                        <div className="dialog-btn-group">
+                                                            {clearIcon ? (
+                                                                <button
+                                                                    className="dialog-btn"
+                                                                    onClick={handleClearIcon}
+                                                                >
+                                                                    Clear
+                                                                </button>
+                                                            ) : (
+                                                                <button className="dialog-btn" onClick={handleAddIcon}>
+                                                                    Save changes
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    </>
+                                                ),
+                                        )}
                                     </>
                                 ) : (
-                                    <IconTable setOpenInputUrl={setOpenInputUrl} setSocialName={setSocialName} />
+                                    <IconTable
+                                        setClearIcon={setClearIcon}
+                                        setOpenInputUrl={setOpenInputUrl}
+                                        setSocialIconName={setSocialIconName}
+                                    />
                                 )}
                             </>
                         )}

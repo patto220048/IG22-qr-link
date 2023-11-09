@@ -34,7 +34,7 @@ export const themeSlice = createSlice({
             state.currentTheme.icons.map((icon) => {
                 if (icon._id === action.payload._id) {
                     state.currentTheme.icons.splice(state.currentTheme.icons.findIndex(
-                        iconId => iconId !== action.payload._id
+                        icon=> icon._id === action.payload._id
                     ),1)
                 }
             })

@@ -6,6 +6,7 @@ const router = express.Router();
 //add icon
 router.post("/:userId",userVerify.verifyUser,icon.addIcon)
 router.get("/",userVerify.verifyUser,icon.getIcon)
+router.get("/v1/:id",userVerify.verifyUser,icon.getIconbyId)
 router.put("/:id",userVerify.verifyUser,icon.editIcon)
 router.delete("/:id",userVerify.verifyUser,icon.deteleIcon)
 router.delete("/",userVerify.verifyUser,icon.deteleAllIcon)

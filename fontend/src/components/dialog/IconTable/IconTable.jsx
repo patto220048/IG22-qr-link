@@ -5,11 +5,12 @@ import { chevronRightIcon, searchIcon } from '../../../svg/icon';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-function IconTable({ setOpenInputUrl, setSocialName }) {
+function IconTable({ setOpenInputUrl, setSocialIconName , setClearIcon}) {
     const [query, setQuery] = useState('');
     const handleOpenInput = (props) => {
         setOpenInputUrl(true);
-        setSocialName(props.iconName);
+        setSocialIconName(props.iconName);
+        setClearIcon(false)
     };
     const {icons} = useSelector((state)=> state.theme.currentTheme)
     return (
@@ -33,8 +34,8 @@ function IconTable({ setOpenInputUrl, setSocialName }) {
                                 <div className="iconTable-items" onClick={() => handleOpenInput(iconTheme)}>
                                     <SocialIconItem iconTheme={iconTheme.icon} />
                                     <span className="iconTable-name">{iconTheme.iconName}</span>
-                                    {icons.map((icon) => (
-                                        icon.iconName === iconTheme.iconName && <p className="iconTable-added">Added</p>
+                                    {icons.map((icon,index) => (
+                                        icon.iconName === iconTheme.iconName && <p className="iconTable-added" key={index}>Added</p>
                                     ))}
                                     {chevronRightIcon(25, 25)}
                                 </div>

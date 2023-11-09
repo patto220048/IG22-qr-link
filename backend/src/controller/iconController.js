@@ -29,6 +29,19 @@ class IconController {
         }
     
     }
+    //get icon by id
+    async getIconbyId(req, res) {
+        const iconId = req.params.id;
+        try {
+            const icon  = await Icon.findById(iconId)
+            res.status(200).json(icon);
+
+        } catch (error) {
+            res.json(handleErorr(500, error.message));
+            
+        }
+    
+    }
     //edit link
     async editIcon(req, res) {
         const iconId = req.params.id;
