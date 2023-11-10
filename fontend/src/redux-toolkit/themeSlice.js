@@ -40,12 +40,16 @@ export const themeSlice = createSlice({
             })
                 
             
-        }
+        },
+        themeIsloading: (state, action) => {
+            state.loading = false;
+            state.error = false;
+        },
 
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { themeStart, themeSuccess, themeFail, updateTheme, addThemeIcon,deleteThemeIcon } = themeSlice.actions;
+export const { themeStart, themeSuccess, themeFail, updateTheme, addThemeIcon,deleteThemeIcon,themeIsloading } = themeSlice.actions;
 
 export default themeSlice.reducer;

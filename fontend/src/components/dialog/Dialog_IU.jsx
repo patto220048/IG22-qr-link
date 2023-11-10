@@ -8,10 +8,8 @@ import { updateData, deleteFileImg } from '../../redux-toolkit/userSlice';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
-import { current } from '@reduxjs/toolkit';
 import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
-import { iconFail, iconStart, iconSuccess, iconUpdate } from '../../redux-toolkit/iconSlice';
 import { addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/themeSlice';
 import iconThemes from '../../themes/icon';
 
@@ -20,17 +18,14 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const { icons } = useSelector((state) => state.theme.currentTheme);
+    const isLoading = useSelector((state) => state.icon.loading);
+    //
     const [avtUser, setAvtUser] = useState({});
     const [imgUpLoading, setImgUpLoading] = useState();
     const [openInputUrl, setOpenInputUrl] = useState(false);
     const [socialIconName, setSocialIconName] = useState();
     const [urlIcon, setUrlIcon] = useState('');
     const [clearIcon, setClearIcon] = useState(false);
-    const [successMessage, setSuccessMessage] = useState(false);
-    const [isIcon, setIsIcon] = useState(false);
-    const toLowerCase = (text) => {
-        return text.toLowerCase();
-    };
     // fetch user
     useEffect(() => {
         const fectchUser = async () => {
@@ -130,7 +125,6 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
         setOpenInputUrl(false);
     };
     const handleAddIcon = () => {
-        dispatch(iconStart());
         const addIcon = async () => {
             try {
                 const res = await http.post(`/icon/${currentUser._id}`, {
@@ -142,7 +136,6 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                 setOpenInputUrl(false);
                 notifyToast('Added icon successfully!');
             } catch (error) {
-                dispatch(iconFail());
                 console.log(error.message);
             }
         };
@@ -157,13 +150,12 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                             const res = await http.delete(`/icon/${icon._id}`);
                             dispatch(deleteThemeIcon(icon));
                             notifyToast('Deleted icon !!');
+                            setOpenInputUrl(false);
                         } catch (error) {
                             console.log(error.message);
                         }
                     };
                     deleteIcon();
-                } else {
-                    notifyToast('Some things error!');
                 }
             });
         iconId();
@@ -204,15 +196,15 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                                 {openInputUrl ? (
                                     <>
                                         {iconThemes.map(
-                                            (iconTheme) =>
+                                            (iconTheme,index) =>
                                                 iconTheme.iconName === socialIconName && (
-                                                    <>
+                                                    <div key={index}>
                                                         <InputUrl
                                                             socialIconName={socialIconName}
                                                             setUrlIcon={setUrlIcon}
                                                             setClearIcon={setClearIcon}
-                                                            
                                                         />
+
                                                         <div className="dialog-btn-group">
                                                             {clearIcon ? (
                                                                 <button
@@ -222,12 +214,17 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                                                                     Clear
                                                                 </button>
                                                             ) : (
-                                                                <button className="dialog-btn" onClick={handleAddIcon}>
-                                                                    Save changes
-                                                                </button>
+                                                                <>
+                                                                 {isLoading ? <></>:   <button
+                                                                        className="dialog-btn"
+                                                                        onClick={handleAddIcon}
+                                                                    >
+                                                                        Save changes
+                                                                    </button>}
+                                                                </>
                                                             )}
                                                         </div>
-                                                    </>
+                                                    </div>
                                                 ),
                                         )}
                                     </>
