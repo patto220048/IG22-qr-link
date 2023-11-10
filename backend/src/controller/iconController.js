@@ -18,9 +18,9 @@ class IconController {
     }
     //get links
     async getIcon(req, res) {
-        const currentUser = req.user.id;
+        const userId = req.params.userId;
         try {
-            const icon  = await Icon.find({userId: currentUser})
+            const icon  = await Icon.find({userId: userId})
             res.status(200).json(icon);
 
         } catch (error) {

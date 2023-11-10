@@ -44,6 +44,7 @@
                 font-size: 18px;
                 cursor: pointer;
                 border-radius: 5px;
+                text-wrap:nowrap;
                 &:hover {
                     background-color: $text_hover_color;
                 }

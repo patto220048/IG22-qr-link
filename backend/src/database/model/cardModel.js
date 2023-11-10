@@ -14,7 +14,7 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
-        backgroundColor: {
+        bgColor: {
             type: String,
             default: null,
         },

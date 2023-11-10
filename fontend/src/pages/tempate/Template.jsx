@@ -12,13 +12,12 @@ import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
 import SocialIconList from '../../components/SocialIconlist/SocialIconList';
+import PreView from '../../components/Preview/PreView';
 
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const currentTheme = useSelector((state) => state.theme.currentTheme);
-    const themeLoading = useSelector((state) => state.theme.loading);
     const [card, setCard] = useState({});
-    const [icons, setIcons] = useState([]);
+    // const [icons, setIcons] = useState([]);
     // const [state, setState] = useState({});
     // const [username, setUsername] = useState(null);
     // const [desc, setDesc] = useState(null);
@@ -28,23 +27,24 @@ function Template() {
             try {
                 const res = await http.get(`/card/v1/${currentUser._id}`);
                 setCard(res.data);
+                console.log(res.status);
             } catch (error) {
                 console.log(error.message);
             }
         };
         getCard();
     }, []);
-    useEffect(() => {
-        const getIcon = async () => {
-            try {
-                const res = await http.get(`/icon/`);
-                setIcons(res.data);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        getIcon();
-    }, []);
+    // useEffect(() => {
+    //     const getIcon = async () => {
+    //         try {
+    //             const res = await http.get(`/icon/${currentUser._id}`);
+    //             setIcons(res.data);
+    //         } catch (error) {
+    //             console.log(error.message);
+    //         }
+    //     };
+    //     getIcon();
+    // }, []);
     return (
         <div className="template">
             <div className="template-left">
@@ -60,44 +60,11 @@ function Template() {
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
-                    <Background />
+                    <Background cardId={card._id} />
                 </section>
             </div>
             <div className="template-right">
-                <div className="template-right-wapper">
-                    {themeLoading ? (
-                        <Loading isLoading={themeLoading} templateLoading={true} />
-                    ) : (
-                        <>
-                            <img
-                                className="template-bg"
-                                src={currentTheme.backgroundImg}
-                                alt={currentTheme.backgroundImg}
-                            />
-                            <section className="template-profile">
-                                <AvatarProfile
-                                    preview={true}
-                                    username={currentUser.username}
-                                    usernameTitle={currentUser.usernameTitle}
-                                    decs={currentUser.decs}
-                                    avatar={currentUser.avtImg}
-                                    fontColor={currentTheme.font_color}
-                                />
-
-                                <SocialIconList icons={currentTheme.icons} />  
-
-                                <LinkTree
-                                    preview={true}
-                                    title={'Facebook'}
-                                    icon={facebookIcon(35, 35)}
-                                    link="https://www.facebook.com/"
-                                />
-                                <LinkTree preview={true} title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
-                                <LinkTree preview={true} title={'Instagram'} icon={instagramIcon(35, 35)} />
-                            </section>
-                        </>
-                    )}
-                </div>
+                <PreView/>
             </div>
         </div>
     );

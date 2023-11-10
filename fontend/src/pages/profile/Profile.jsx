@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import Loading from '../../components/dialog/loading/Loading';
 import { useQuery } from 'react-query';
 import http from '../../instance/axiosInstance';
-import SocialIconList from '../../components//SocialIconlist/SocialIconList'
+import SocialIconList from '../../components//SocialIconlist/SocialIconList';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 function Profile() {
     // const currentUser = useSelector((state) => state.user.currentUser);
@@ -16,12 +16,11 @@ function Profile() {
     const [user, setUser] = useState({});
     const [theme, setTheme] = useState({});
     const [icons, setIcons] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);   
-    const isLoading = false
+    // const [isLoading, setIsLoading] = useState(false);
+    const isLoading = false;
     let { username } = useParams();
     //fetch user
     useEffect(() => {
-      
         const fectchUser = async () => {
             try {
                 const res = await http.get(`/users/${username}`);
@@ -32,7 +31,6 @@ function Profile() {
             }
         };
         fectchUser();
-      
     }, [username]);
     //fetch theme
     useEffect(() => {
@@ -40,6 +38,7 @@ function Profile() {
             try {
                 const res = await http.get(`/card/v1/${user._id}`);
                 setTheme(res.data);
+                console.log(res.data)
                 // setIsLoading(true);
             } catch (error) {
                 console.log(error.message);
@@ -51,7 +50,7 @@ function Profile() {
     useEffect(() => {
         const fetchIcon = async () => {
             try {
-                const res = await http.get(`/icon`);
+                const res = await http.get(`/icon/${user._id}`);
                 setIcons(res.data);
                 // setIsLoading(true);
             } catch (error) {
@@ -59,7 +58,7 @@ function Profile() {
             }
         };
         fetchIcon();
-    }, [])
+    }, [user._id]);
 
     return (
         <section className="profile">
@@ -67,7 +66,11 @@ function Profile() {
                 <Loading isLoading={isLoading} />
             ) : (
                 <>
-                    <img className="profile-background" src={theme?.backgroundImg} alt="" />
+                    {theme?.backgroundImg ? (
+                        <img className="profile-background" src={theme?.backgroundImg} alt="" />
+                    ) : (
+                        <img className="profile-background"  style={{ backgroundColor: `${theme?.bgColor}` }}/> 
+                    )}
                     <div className="profile-info">
                         <AvatarProfile
                             username={user.username}
@@ -76,7 +79,7 @@ function Profile() {
                             avatar={user.avtImg}
                             fontColor={theme?.font_color}
                         />
-                        <SocialIconList icons={icons}/>
+                        <SocialIconList icons={icons} />
                         <LinkTree title={'Facebook'} icon={facebookIcon(35, 35)} link="https://www.facebook.com/" />
                         <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
                         <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />

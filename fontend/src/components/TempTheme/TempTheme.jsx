@@ -3,14 +3,13 @@ import themes from '../../themes/themes';
 import backgound from '../../themes/background';
 import Theme from '../Theme/Theme';
 import { memo } from 'react';
-function TempTheme({ setState, cardId}) {
+function TempTheme({ setState, cardId }) {
     return (
         <div className="tempTheme">
             <div className="tempTheme-items">
                 <Theme isTheme={false} />
                 {themes.map((theme, i) => (
                     <Theme
-                       
                         isTheme={true}
                         cardId={cardId}
                         themeBg={theme.bg_img}

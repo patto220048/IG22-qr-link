@@ -2,7 +2,7 @@
 import SocialIconItem from '../SocialIconItem/SocialIconItem';
 import "./SocialIconList.scss"
 function SocialIconList({icons}) {
-  
+    console.log(icons)
     return (
         <div className="socialIcon">
             <div className="socialIcon-group">

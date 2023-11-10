@@ -8,7 +8,6 @@ import Loading from '../loading/Loading';
 function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
     const dispatch = useDispatch();
     const { icons } = useSelector((state) => state.theme.currentTheme);
-    // const [isLoading, setIsLoading] = useState(true);
     const isLoading = useSelector((state) => state.icon.loading);
     const [iconFecth, setIconFecth] = useState({});
     const toLowerCase = (text) => {
@@ -17,7 +16,7 @@ function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
     useEffect(() => {
         icons.map((icon) => {
             if (icon.iconName === socialIconName) {
-                const fetchIcon1 = async () => {
+                const fetchIcon = async () => {
                     dispatch(iconStart());
                     //set timeout when fetching icon
                     let timeoutId = setTimeout(async () => {
@@ -25,7 +24,6 @@ function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
                             const res = await http.get(`/icon/v1/${icon._id}`);
                             setIconFecth(res.data);
                             setClearIcon(true);
-                            // setIsLoading(false)
                             dispatch(iconSuccess(res.data));
                         } catch (error) {
                             console.log(error.message);
@@ -36,7 +34,7 @@ function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
                         clearTimeout(timeoutId);
                     };
                 };
-                fetchIcon1();
+                fetchIcon();
             }
         });
     }, [socialIconName]);

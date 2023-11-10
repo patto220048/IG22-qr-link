@@ -98,6 +98,7 @@ function TempProfile({setIcon}) {
                     type="text"
                     placeholder={`@` + (currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
                     className="tempProfile-input"
+                    defaultValue={(currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
                     onChange={onChange}
                     maxLength={16}
                     minLength={1}
