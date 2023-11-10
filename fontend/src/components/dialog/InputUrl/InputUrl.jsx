@@ -58,6 +58,9 @@ function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
                             onChange={(e) => {
                                 setUrlIcon(e.target.value);
                             }}
+                            required = {true}
+                            defaultValue={iconFecth.iconUrl}
+                           
                         />
                         <p className="InputUrl-desc">
                             Example : https://www.{toLowerCase(socialIconName)}.com/*usename*

@@ -15,6 +15,7 @@ function Profile() {
     // const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [user, setUser] = useState({});
     const [theme, setTheme] = useState({});
+    const [icons, setIcons] = useState([]);
     // const [isLoading, setIsLoading] = useState(false);   
     const isLoading = false
     let { username } = useParams();
@@ -46,6 +47,19 @@ function Profile() {
         };
         fectchTheme();
     }, [user._id]);
+    //fetch icon
+    useEffect(() => {
+        const fetchIcon = async () => {
+            try {
+                const res = await http.get(`/icon`);
+                setIcons(res.data);
+                // setIsLoading(true);
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        fetchIcon();
+    }, [])
 
     return (
         <section className="profile">
@@ -62,7 +76,7 @@ function Profile() {
                             avatar={user.avtImg}
                             fontColor={theme?.font_color}
                         />
-                        <SocialIconList/>
+                        <SocialIconList icons={icons}/>
                         <LinkTree title={'Facebook'} icon={facebookIcon(35, 35)} link="https://www.facebook.com/" />
                         <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
                         <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />

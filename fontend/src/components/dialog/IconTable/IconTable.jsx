@@ -20,7 +20,7 @@ function IconTable({ setOpenInputUrl, setSocialIconName , setClearIcon}) {
                 <div className="iconTable-input">
                     {searchIcon(23, 23)}
                     <input
-                        type="text"
+                        type="search"
                         className="iconTable-search"
                         onChange={(e) => setQuery(e.target.value)}
                         placeholder="Search"

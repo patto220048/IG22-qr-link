@@ -12,6 +12,7 @@ import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
 import { addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/themeSlice';
 import iconThemes from '../../themes/icon';
+import useRegex from '../../hooks/useRegex';
 
 function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
@@ -26,6 +27,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const [socialIconName, setSocialIconName] = useState();
     const [urlIcon, setUrlIcon] = useState('');
     const [clearIcon, setClearIcon] = useState(false);
+  
     // fetch user
     useEffect(() => {
         const fectchUser = async () => {
@@ -126,18 +128,26 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     };
     const handleAddIcon = () => {
         const addIcon = async () => {
-            try {
-                const res = await http.post(`/icon/${currentUser._id}`, {
-                    iconName: socialIconName,
-                    iconUrl: urlIcon,
-                });
-                // dispatch(iconUpdate(res.data))
-                dispatch(addThemeIcon(res.data));
-                setOpenInputUrl(false);
-                notifyToast('Added icon successfully!');
-            } catch (error) {
-                console.log(error.message);
+            const validInput = useRegex(urlIcon, socialIconName)
+            if(validInput === true) {
+                try {
+                    const res = await http.post(`/icon/${currentUser._id}`, {
+                        iconName: socialIconName,
+                        iconUrl: urlIcon,
+                    });
+                    // dispatch(iconUpdate(res.data))
+                    dispatch(addThemeIcon(res.data));
+                    setOpenInputUrl(false);
+                    notifyToast('Added icon successfully!');
+                } catch (error) {
+                    console.log(error.message);
+                }
             }
+            else{
+                notifyToast('Link error!!');
+
+            }
+          
         };
         addIcon();
     };
