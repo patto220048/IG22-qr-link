@@ -4,13 +4,12 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { imgIcon, closeIcon, chevronRightIcon, chevronLeftIcon } from '../../svg/icon';
 import Dialog_file from './dialog_file//Dialog_file';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateData, deleteFileImg } from '../../redux-toolkit/userSlice';
+import { updateData, deleteFileImg, addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/userSlice';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
 import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
-import { addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/themeSlice';
 import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
 
@@ -18,7 +17,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
-    const { icons } = useSelector((state) => state.theme.currentTheme);
+    const { groupIcon } = useSelector((state) => state.user.currentUser);
     const isLoading = useSelector((state) => state.icon.loading);
     //
     const [avtUser, setAvtUser] = useState({});
@@ -153,7 +152,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     };
     const handleClearIcon = () => {
         const iconId = () =>
-            icons.map((icon) => {
+        groupIcon.map((icon) => {
                 if (icon.iconName === socialIconName) {
                     const deleteIcon = async () => {
                         try {

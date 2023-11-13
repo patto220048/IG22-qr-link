@@ -12,7 +12,7 @@ function IconTable({ setOpenInputUrl, setSocialIconName , setClearIcon}) {
         setSocialIconName(props.iconName);
         setClearIcon(false)
     };
-    const {icons} = useSelector((state)=> state.theme.currentTheme)
+    const {groupIcon} = useSelector((state)=> state.user.currentUser)
     return (
         <section className="iconTable-container">
             <div className="iconTable-wapper">
@@ -34,7 +34,7 @@ function IconTable({ setOpenInputUrl, setSocialIconName , setClearIcon}) {
                                 <div className="iconTable-items" onClick={() => handleOpenInput(iconTheme)}>
                                     <SocialIconItem iconTheme={iconTheme.icon} />
                                     <span className="iconTable-name">{iconTheme.iconName}</span>
-                                    {icons.map((icon,index) => (
+                                    {groupIcon?.map((icon,index) => (
                                         icon.iconName === iconTheme.iconName && <p className="iconTable-added" key={index}>Added</p>
                                     ))}
                                     {chevronRightIcon(25, 25)}

@@ -8,11 +8,16 @@
     .theme-img {
         object-fit: cover;
         border-radius: 25px;
+        -moz-box-shadow: 3px 5px 7px 1px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 3px 5px 7px 1px rgba(0, 0, 0, 0.4);
+        -ms-box-shadow: 3px 5px 7px 1px rgba(0, 0, 0, 0.4);
+        box-shadow: 3px 5px 7px 1px rgba(0, 0, 0, 0.4);
     }
-    .bg-img {
+    .bg-color {
         width: 160px;
         height: 260px;
         border-radius: 25px;
+        background-color: aqua;
     }
     .theme-btns {
         position: absolute;
@@ -45,11 +50,15 @@
     height: 260px;
     border-radius: 25px;
     background-color: $bg_template;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 600;
     text-align: center;
     transition: all 0.5s ease-in-out;
+    border: 1px dashed rgba($color: $black, $alpha: 0.5);
     &:hover {
         // opacity: 0.7;
     }
+}
+.hide-box{
+    display: none !important;  
 }

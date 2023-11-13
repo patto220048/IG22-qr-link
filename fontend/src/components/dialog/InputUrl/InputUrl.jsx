@@ -7,14 +7,14 @@ import Loading from '../loading/Loading';
 
 function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
     const dispatch = useDispatch();
-    const { icons } = useSelector((state) => state.theme.currentTheme);
+    const { groupIcon } = useSelector((state) => state.user.currentUser);
     const isLoading = useSelector((state) => state.icon.loading);
     const [iconFecth, setIconFecth] = useState({});
     const toLowerCase = (text) => {
         return text.toLowerCase();
     };
     useEffect(() => {
-        icons.map((icon) => {
+        groupIcon?.map((icon) => {
             if (icon.iconName === socialIconName) {
                 const fetchIcon = async () => {
                     dispatch(iconStart());

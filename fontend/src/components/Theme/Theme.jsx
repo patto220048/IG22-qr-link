@@ -84,7 +84,7 @@ function Theme({
                             />
                         </div>
                     ) : (
-                        <div className="bg-img" style={{ backgroundColor: `${bgColor}` }} ></div>
+                        <div className="bg-color"></div>
                     )}
 
                     {!backgoundMode ? (
@@ -99,7 +99,7 @@ function Theme({
                 </section>
             ) : (
                 <button className="theme-cutoms_btn">
-                    <div>Cutoms page</div>
+                        <div>Cutoms page</div>
                     {plusIcon(30, 30)}
                 </button>
             )}

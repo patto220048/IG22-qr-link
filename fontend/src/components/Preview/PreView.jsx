@@ -39,7 +39,7 @@ function PreView() {
                                     fontColor={currentTheme.font_color}
                                 />
 
-                                <SocialIconList icons={currentTheme.icons} />
+                                <SocialIconList icons={currentUser.groupIcon} />
 
                                 <LinkTree
                                     preview={true}
