@@ -5,11 +5,12 @@ import { memo } from 'react';
 import { Chrome } from '@uiw/react-color';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import http from '../../instance/axiosInstance';
 import { themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 import { useRef } from 'react';
 function Background({ cardId }) {
+    const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [hex, setHex] = useState('#333333');
     const [isPickColor, setIsPickColor] = useState(false);
     const dispatch = useDispatch();
@@ -17,20 +18,26 @@ function Background({ cardId }) {
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
+                dispatch(themeStart());
                 try {
-                    dispatch(themeStart());
-                    const res = await http.put(`/card/${cardId}`, {
-                        bgColor: hex,
-                        backgroundImg: null,
-                    });
-                    setIsPickColor(false);
-                    dispatch(updateTheme(res.data));
+                    let timeOutId = setTimeout(async () => {
+                        const res = await http.put(`/card/${cardId}`, {
+                            bgColor: hex,
+                            backgroundImg: null,
+                        });
+                        setIsPickColor(false);
+                        dispatch(updateTheme(res.data));
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
                 } catch (error) {
                     dispatch(themeFail());
                     console.log(error.message);
                 }
             };
-           fetchTheme()
+            fetchTheme();
+           
         };
         refColorBox.current?.addEventListener('mouseleave', handleClickOutside);
         return () => {
@@ -55,9 +62,13 @@ function Background({ cardId }) {
                     <div
                         className="pickColor-box"
                         onClick={handlePickColor}
-                        style={{ backgroundColor: `${hex}` }}
+                        style={{ backgroundColor: `${currentTheme.bgColor ? currentTheme.bgColor : hex}` }}
                     ></div>
-                    <input className="pickColor-input" type="text" placeholder={hex} />
+                    <input
+                        className="pickColor-input"
+                        type="text"
+                        placeholder={currentTheme.bgColor ? currentTheme.bgColor : hex}
+                    />
                 </div>
 
                 {isPickColor && (
