@@ -13,39 +13,35 @@ function Background({ cardId }) {
     const [hex, setHex] = useState('#333333');
     const [isPickColor, setIsPickColor] = useState(false);
     const dispatch = useDispatch();
-    const refColorBox = useRef()
+    const refColorBox = useRef();
     useEffect(() => {
         const handleClickOutside = () => {
-            // setIsPickColor(false);
-            refColorBox.current.className = "hide-box"
+            const fetchTheme = async () => {
+                try {
+                    dispatch(themeStart());
+                    const res = await http.put(`/card/${cardId}`, {
+                        bgColor: hex,
+                        backgroundImg: null,
+                    });
+                    setIsPickColor(false);
+                    dispatch(updateTheme(res.data));
+                } catch (error) {
+                    dispatch(themeFail());
+                    console.log(error.message);
+                }
+            };
+           fetchTheme()
         };
-
-        document.addEventListener('click', handleClickOutside);
-
+        refColorBox.current?.addEventListener('mouseleave', handleClickOutside);
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+            refColorBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, []);
+    }, [refColorBox?.current]);
     const handlePickColor = (e) => {
         e.stopPropagation();
         setIsPickColor(!isPickColor);
     };
-    useEffect(() => {
-        const fetchTheme = async () => {
-            try {
-                dispatch(themeStart());
-                const res = await http.put(`/card/${cardId}`, {
-                    bgColor: hex,
-                    backgroundImg: null,
-                });
-                dispatch(updateTheme(res.data));
-            } catch (error) {
-                dispatch(themeFail());
-                console.log(error.message);
-            }
-        };
-        fetchTheme();
-    },[])
+
     return (
         <div className="bgTheme">
             <div className="bgTheme-items">
@@ -66,6 +62,7 @@ function Background({ cardId }) {
 
                 {isPickColor && (
                     <Chrome
+                        // onMouseLeave={() =>setIsPickColor(false)}
                         ref={refColorBox}
                         className="colorBox"
                         style={{ marginLeft: 20 }}
