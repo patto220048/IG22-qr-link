@@ -9,7 +9,8 @@ import { useParams } from 'react-router-dom';
 import http from '../../instance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function TempProfile({ setIcon }) {
+import { useRef } from 'react';
+function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user, icons}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const [maxLenght, setMaxLenght] = useState(80);
@@ -18,53 +19,89 @@ function TempProfile({ setIcon }) {
     const [onFocus, setOnFocus] = useState(false);
     const notifyToast = (message) => toast.success('🦄 ' + message);
     const [pickImg, setPickImg] = useState(false);
-    // console.log(values);
+    const inputRefUsername = useRef();
+    const inputRefDesc = useRef();
+    
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    // };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            setOnFocus(false);
             const updateUser = async () => {
-                try {
-                    const res = await http.put(`users/${currentUser._id}`, {
-                        usernameTitle: values.username,
-                        decs: values.decs,
-                    });
-                    dispatch(updateData(res.data));
-                    console.log(res.data);
-                } catch (error) {
-                    console.log(error.message);
-                }
+                const timeOutId = setTimeout(async () => {
+                    try {
+                        const res = await http.put(`users/${currentUser._id}`, {
+                            usernameTitle: values.username,
+                        });
+                        // dispatch(updateData(res.data));
+                        setIsLoading(false)
+                        setUserIn(res.data);
+                      
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }, 1000);
+                return () => {
+                    clearTimeout(timeOutId);
+                };
             };
             updateUser();
         };
-
-        document.addEventListener('click', handleClickOutside);
+        inputRefUsername.current?.addEventListener('focusout', handleClickOutside);
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+            inputRefUsername.current?.removeEventListener('focusout', handleClickOutside);
+        };
+    }, [values?.username, values?.decs]);
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            const updateUser = async () => {
+                const timeOutId = setTimeout(async () => {
+                    try {
+                        const res = await http.put(`users/${currentUser._id}`, {
+                            decs: values.decs,
+                        });
+                        // dispatch(updateData(res.data));
+                        setUserIn(res.data);
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }, 1000);
+                return () => {
+                    clearTimeout(timeOutId);
+                };
+            };
+            updateUser();
+
+        };
+
+        inputRefDesc.current?.addEventListener('focusout', handleClickOutside);
+        return () => {
+            inputRefDesc.current?.removeEventListener('focusout', handleClickOutside);
         };
     }, [values?.username, values?.decs]);
     const onKeyDown = (key) => {
         if (key === 'Enter') {
             const updateUser = async () => {
-                try {
-                    const res = await http.put(`users/${currentUser._id}`, {
-                        usernameTitle: values.username,
-                        decs: values.decs,
-                    });
-                    dispatch(updateData(res.data));
-                    console.log(res.data);
-                } catch (error) {
-                    console.log(error.message);
-                }
+                const timeOutId = setTimeout(async () => {
+                    try {
+                        const res = await http.put(`users/${currentUser._id}`, {
+                            usernameTitle: values.username,
+                            decs: values.decs,
+                        });
+                        // dispatch(updateData(res.data));
+                        setUserIn(res.data);
+                    } catch (error) {
+                        console.log(error.message);
+                    }
+                }, 1000);
+                return () => {
+                    clearTimeout(timeOutId);
+                };
             };
+
             updateUser();
+
         }
     };
     const handleOnPickImg = () => {
@@ -90,7 +127,7 @@ function TempProfile({ setIcon }) {
                 theme="dark"
             ></ToastContainer>
             <div className="tempProfile-item">
-                <img className="tempProfile_img" src={currentUser.avtImg} alt="" />
+                <img className="tempProfile_img" src={user?.avtImg} alt="" />
                 <div className="tempProfile-btn">
                     <button className="tempProfile-btn_item pickup" onClick={handleOnPickImg}>
                         Pick Image
@@ -112,13 +149,14 @@ function TempProfile({ setIcon }) {
             <div className="tempProfile-input">
                 <h4 className="tempProfile-input_title">Profile name</h4>
                 <input
+                    ref={inputRefUsername}
                     onFocus={() => setOnFocus(true)}
                     name="username"
                     id="username"
                     type="text"
-                    placeholder={`@` + (currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username)}
+                    placeholder={`@` + (user?.usernameTitle ? user?.usernameTitle : user?.username)}
                     className="tempProfile-input"
-                    defaultValue={currentUser.usernameTitle ? currentUser.usernameTitle : currentUser.username}
+                    defaultValue={user?.usernameTitle ? user?.usernameTitle : user?.username}
                     onChange={onChange}
                     maxLength={16}
                     minLength={1}
@@ -126,6 +164,7 @@ function TempProfile({ setIcon }) {
                 />
                 <input />
                 <textarea
+                    ref={inputRefDesc}
                     onFocus={() => setOnFocus(true)}
                     name="decs"
                     id="decs"
@@ -133,10 +172,9 @@ function TempProfile({ setIcon }) {
                     rows="10"
                     className="tempProfile-textarea"
                     maxLength={maxLenght}
-                    placeholder={currentUser.decs ? currentUser.decs : 'Your description here ...'}
+                    placeholder={user?.decs ? user?.decs : 'Your description here ...'}
                     onChange={onChange}
                     onKeyDown={(e) => onKeyDown(e.key)}
-
                 ></textarea>
             </div>
             <div className="tempProfileAddIcon">

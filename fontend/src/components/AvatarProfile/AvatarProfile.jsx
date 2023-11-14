@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import './AvatarProfile.scss';
-function AvatarProfile({ usernameTitle, decs, avatar, username, preview ,fontColor}) {
+import { memo } from 'react';
+function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontColor }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
 
     return (
@@ -10,7 +11,7 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview ,fontCol
                 className="avatarProfile-name"
                 style={{
                     fontSize: `${preview ? '20px' : '30px'}`,
-                    color:`${fontColor}`
+                    color: `${fontColor}`,
                 }}
             >
                 @{usernameTitle ? usernameTitle : username}
@@ -19,8 +20,7 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview ,fontCol
                 className="avatarProfile-desc"
                 style={{
                     fontSize: `${preview ? '14px' : '20px'}`,
-                    color:`${fontColor}`
-
+                    color: `${fontColor}`,
                 }}
             >
                 {decs}
@@ -29,4 +29,4 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview ,fontCol
     );
 }
 
-export default AvatarProfile;
+export default memo(AvatarProfile);

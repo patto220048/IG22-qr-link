@@ -7,7 +7,10 @@ import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 import http from '../../instance/axiosInstance';
+import { useState } from 'react';
+import PreView from '../Preview/PreView';
 function Theme({
+    setThemeInstance,
     bgColor,
     isTheme,
     themeBg,
@@ -21,11 +24,9 @@ function Theme({
     themeFontColor,
     themeFontFamily,
 }) {
-    const dispatch = useDispatch();
     const handleTheme = () => {
         const fetchTheme = async () => {
             try {
-                dispatch(themeStart());
                 const res = isBg
                     ? await http.put(`/card/${cardId}`, {
                           bgColor: bgColor,
@@ -39,9 +40,9 @@ function Theme({
                           font_famify: themeFontFamily,
                           font_color: themeFontColor,
                       });
-                dispatch(updateTheme(res.data));
+                setThemeInstance(res.data);
+                // dispatch(updateTheme(res.data));
             } catch (error) {
-                dispatch(themeFail());
                 console.log(error.message);
             }
         };
@@ -99,7 +100,7 @@ function Theme({
                 </section>
             ) : (
                 <button className="theme-cutoms_btn">
-                        <div>Cutoms page</div>
+                    <div>Cutoms page</div>
                     {plusIcon(30, 30)}
                 </button>
             )}

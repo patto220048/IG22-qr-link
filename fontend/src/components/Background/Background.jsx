@@ -1,10 +1,8 @@
 import './Background.scss';
 import backgounds from '../../themes/background';
 import Theme from '../Theme/Theme';
-import { memo } from 'react';
 import { Chrome } from '@uiw/react-color';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import http from '../../instance/axiosInstance';
 import { themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
@@ -37,7 +35,6 @@ function Background({ cardId }) {
                 }
             };
             fetchTheme();
-           
         };
         refColorBox.current?.addEventListener('mouseleave', handleClickOutside);
         return () => {

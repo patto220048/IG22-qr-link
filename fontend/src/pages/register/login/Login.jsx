@@ -17,8 +17,7 @@ function Login() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     // toast message
-    const notifyToast = (err) =>
-        toast.error(err);
+    const notifyToast = (err) => toast.error(err);
 
     // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
@@ -98,36 +97,41 @@ function Login() {
         e.preventDefault();
         // e.stopPropagation();
         dispatch(loginStart());
-        try {
-            //valid email
-            const emailValid = validateEmail(values.email);
-            if (emailValid === true) {
-                const res = await http.post(`/auth/login`, {
-                    username: values.username,
-                    email: values.email,
-                    password: values.password,
-                });
-                setUser(res.data);
-                console.log(res.data);
-                //dispatch
-                dispatch(loginSuccess(res.data));
-                if (res.data.status === 401) {
-                    notifyToast(res.data.message);
-                    dispatch(loginFail());
-                } else if (res.data.status === 403) {
-                    notifyToast(res.data.message);
-                    dispatch(loginFail());
+        const timeOutId = setTimeout(async () => {
+            try {
+                //valid email
+                const emailValid = validateEmail(values.email);
+                if (emailValid === true) {
+                    const res = await http.post(`/auth/login`, {
+                        username: values.username,
+                        email: values.email,
+                        password: values.password,
+                    });
+                    setUser(res.data);
+                    console.log(res.data);
+                    //dispatch
+                    dispatch(loginSuccess(res.data));
+                    if (res.data.status === 401) {
+                        notifyToast(res.data.message);
+                        dispatch(loginFail());
+                    } else if (res.data.status === 403) {
+                        notifyToast(res.data.message);
+                        dispatch(loginFail());
+                    } else {
+                        navigate(`/template/${res.data.username}`);
+                    }
                 } else {
-                    navigate(`/template/${res.data.username}`);
+                    dispatch(loginFail());
+                    notifyToast('Oops! Email is not correct! Please try again.');
                 }
-            } else {
+            } catch (error) {
+                notifyToast(error.message);
                 dispatch(loginFail());
-                notifyToast('Oops! Email is not correct! Please try again.');
             }
-        } catch (error) {
-            notifyToast(error.message);
-            dispatch(loginFail());
-        }
+        }, 2000);
+        return () => {
+            clearTimeout(timeOutId);
+        };
     };
 
     const onChange = (e) => {

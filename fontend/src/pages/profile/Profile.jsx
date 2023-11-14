@@ -16,49 +16,26 @@ function Profile() {
     const [user, setUser] = useState({});
     const [theme, setTheme] = useState({});
     const [icons, setIcons] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);
-    const isLoading = false;
+    const [isLoading, setIsLoading] = useState(true);
     let { username } = useParams();
     //fetch user
     useEffect(() => {
-        const fectchUser = async () => {
-            try {
-                const res = await http.get(`/users/${username}`);
-                setUser(res.data);
-                // setIsLoading(true);
-            } catch (error) {
-                console.log(error.message);
-            }
+        const fetchData = async () => {
+                try {
+                    const userData = await http.get(`/users/${username}`);
+                    const themeData = await http.get(`/card/v1/${user._id}`);
+                    const iconData = await http.get(`/icon/${user._id}`);
+                    const [resultUser, resultTheme, resultIcon] = await Promise.all([userData, themeData, iconData]);
+                    setUser(resultUser.data);
+                    setTheme(resultTheme.data);
+                    setIcons(resultIcon.data);
+                    setIsLoading(false)
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
         };
-        fectchUser();
-    }, [username]);
-    //fetch theme
-    useEffect(() => {
-        const fectchTheme = async () => {
-            try {
-                const res = await http.get(`/card/v1/${user._id}`);
-                setTheme(res.data);
-                console.log(res.data)
-                // setIsLoading(true);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        fectchTheme();
-    }, [user._id]);
-    //fetch icon
-    useEffect(() => {
-        const fetchIcon = async () => {
-            try {
-                const res = await http.get(`/icon/${user._id}`);
-                setIcons(res.data);
-                // setIsLoading(true);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        fetchIcon();
-    }, [user._id]);
+        fetchData();
+    }, [username,user._id]);
 
     return (
         <section className="profile">
