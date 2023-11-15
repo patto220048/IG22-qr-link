@@ -15,13 +15,13 @@ function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
     };
     useEffect(() => {
         groupIcon?.map((icon) => {
-            if (icon.iconName === socialIconName) {
+            if (icon?.iconName === socialIconName) {
                 const fetchIcon = async () => {
                     dispatch(iconStart());
                     //set timeout when fetching icon
                     let timeoutId = setTimeout(async () => {
                         try {
-                            const res = await http.get(`/icon/v1/${icon._id}`);
+                            const res = await http.get(`/icon/v1/${icon?._id}`);
                             setIconFecth(res.data);
                             setClearIcon(true);
                             dispatch(iconSuccess(res.data));
@@ -49,15 +49,15 @@ function InputUrl({ socialIconName, setUrlIcon, setClearIcon }) {
                         <input
                             className="InputUrl-input"
                             type="text"
-                            disabled={iconFecth.iconName === socialIconName ? true : false}
+                            disabled={iconFecth?.iconName === socialIconName ? true : false}
                             placeholder={
-                                iconFecth.iconName === socialIconName ? iconFecth.iconUrl : 'Enter your URLs here*'
+                                iconFecth?.iconName === socialIconName ? iconFecth?.iconUrl : 'Enter your URLs here*'
                             }
                             onChange={(e) => {
                                 setUrlIcon(e.target.value);
                             }}
                             required = {true}
-                            defaultValue={iconFecth.iconUrl}
+                            defaultValue={iconFecth?.iconUrl}
                            
                         />
                         <p className="InputUrl-desc">

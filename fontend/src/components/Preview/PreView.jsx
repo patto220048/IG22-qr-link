@@ -10,29 +10,30 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function PreView({ themeInstance, userIn, isLoading, theme, icons, user }) {
+function PreView({ userIn, isLoading, theme, icons, user }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
+    const userLoading = useSelector((state) => state.user.loading);
     return (
         <div className="PreView">
             <div className="PreView-wapper">
-                {isLoading ? (
-                    <Loading isLoading={isLoading} templateLoading={true} />
+                {themeLoading || userLoading ? (
+                    <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
                 ) : (
                     <>
                         {currentTheme?.backgroundImg ? (
                             <img
                                 className="template-bg"
-                                src={themeInstance?.backgroundImg ? themeInstance?.backgroundImg : theme?.backgroundImg}
-                                alt={themeInstance?.backgroundImg ? themeInstance?.backgroundImg : theme?.backgroundImg}
+                                src={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
+                                alt={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
                             />
                         ) : (
                             <div
                                 className="template-bg"
                                 style={{
                                     backgroundColor: `${
-                                        themeInstance?.bgColor ? themeInstance?.bgColor : theme?.bgColor
+                                        currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
                                     }`,
                                 }}
                             />
@@ -40,14 +41,14 @@ function PreView({ themeInstance, userIn, isLoading, theme, icons, user }) {
                         <section className="template-profile">
                             <AvatarProfile
                                 preview={true}
-                                username={userIn?.username ? userIn?.username : user?.username }
-                                usernameTitle={userIn?.usernameTitle ? userIn?.usernameTitle : user?.usernameTitle}
-                                decs={userIn?.decs ? userIn?.decs : user?.decs}
-                                avatar={userIn?.avtImg ? userIn?.avtImg : user?.avtImg}
+                                username={currentUser?.username ? currentUser?.username : user?.username }
+                                usernameTitle={currentUser?.usernameTitle ? currentUser?.usernameTitle : user?.usernameTitle}
+                                decs={currentUser?.decs ? currentUser?.decs : user?.decs}
+                                avatar={currentUser?.avtImg ? currentUser?.avtImg : user?.avtImg}
                                 fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
                             />
 
-                            <SocialIconList icons={userIn?.groupIcon ? userIn?.groupIcon : icons} />
+                            <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
 
                             <LinkTree
                                 preview={true}

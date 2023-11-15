@@ -10,21 +10,18 @@ import { useParams } from 'react-router-dom';
 
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const [ themeInstance, setThemeInstance ] = useState()
     const [ userIn, setUserIn ] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const [user, setUser] = useState({});
     const [theme, setTheme] = useState({});
     const [icons, setIcons] = useState([]);
     let { username } = useParams();
-    console.log(theme)
-    console.log(themeInstance)
     useEffect(() => {
         const fetchData = async () => {
                 try {
                     const userData = await http.get(`/users/${username}`);
-                    const themeData = await http.get(`/card/v1/${user._id}`);
-                    const iconData = await http.get(`/icon/${user._id}`);
+                    const themeData = await http.get(`/card/v1/${user?._id}`);
+                    const iconData = await http.get(`/icon/${user?._id}`);
                     const [resultUser, resultTheme, resultIcon] = await Promise.all([userData, themeData, iconData]);
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
@@ -34,7 +31,7 @@ function Template() {
                 }
         };
         fetchData();
-    }, [username, user._id])
+    }, [username, user?._id])
     // useEffect(() => {
     //     const getIcon = async () => {
     //         try {
@@ -57,15 +54,15 @@ function Template() {
                 </section>
                 <section className="template-item" id="#theme">
                     <h2 className="tempProfile_title">Themes</h2>
-                    <TempTheme cardId={theme._id} setThemeInstance={setThemeInstance}  />
+                    <TempTheme cardId={theme?._id}   />
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
-                    <Background cardId={theme._id} />
+                    <Background cardId={theme?._id} />
                 </section>
             </div>
             <div className="template-right">
-                <PreView themeInstance={themeInstance} userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user}/>
+                <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user}/>
             </div>
         </div>
     );

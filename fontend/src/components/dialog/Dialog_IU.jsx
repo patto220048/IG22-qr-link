@@ -4,7 +4,14 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { imgIcon, closeIcon, chevronRightIcon, chevronLeftIcon } from '../../svg/icon';
 import Dialog_file from './dialog_file//Dialog_file';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateData, deleteFileImg, addThemeIcon, deleteThemeIcon } from '../../redux-toolkit/userSlice';
+import {
+    updateData,
+    deleteFileImg,
+    addThemeIcon,
+    deleteThemeIcon,
+    loadingStart,
+    loadingEnd,
+} from '../../redux-toolkit/userSlice';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
 import app from '../../firebase/config';
 import http from '../../instance/axiosInstance';
@@ -26,7 +33,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const [socialIconName, setSocialIconName] = useState();
     const [urlIcon, setUrlIcon] = useState('');
     const [clearIcon, setClearIcon] = useState(false);
-  
+
     // fetch user
     useEffect(() => {
         const fectchUser = async () => {
@@ -47,21 +54,28 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     const handleAddAvt = (e) => {
         e.preventDefault();
         const updateUser = async () => {
+            dispatch(loadingStart());
             try {
                 const res = await http.put(`/users/${currentUser._id}`, {
                     avtImg: resultImg.avatar,
                     avtImgName: currentAvatar,
                 });
                 if (res.status === 200) {
-                    dispatch(updateData(res.data));
                     setResultImg(null);
                     setAvatar(undefined);
+                    const timeOutId = setTimeout(() => {
+                        dispatch(updateData(res.data));
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
                 } else {
                     notifyToast('Upload image failed !');
                 }
             } catch (error) {
                 console.log(error.message);
                 notifyToast('Upload file error. Please try again!!');
+                dispatch(loadingEnd());
             }
         };
         if (resultImg) {
@@ -127,41 +141,52 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
     };
     const handleAddIcon = () => {
         const addIcon = async () => {
-            const validInput = useRegex(urlIcon, socialIconName)
-            if(validInput === true) {
+            const validInput = useRegex(urlIcon, socialIconName);
+            if (validInput === true) {
+                dispatch(loadingStart());
                 try {
                     const res = await http.post(`/icon/${currentUser._id}`, {
                         iconName: socialIconName,
                         iconUrl: urlIcon,
                     });
-                    // dispatch(iconUpdate(res.data))
-                    dispatch(addThemeIcon(res.data));
-                    setOpenInputUrl(false);
                     notifyToast('Added icon successfully!');
+                    const timeoutId = setTimeout(() => {
+                        setOpenInputUrl(false);
+                        dispatch(addThemeIcon(res.data));
+                    }, 1500);
+                    return () => {
+                        clearTimeout(timeoutId);
+                    };
                 } catch (error) {
                     console.log(error.message);
+                    dispatch(loadingEnd());
                 }
-            }
-            else{
+            } else {
                 notifyToast('Link error!!');
-
             }
-          
         };
         addIcon();
     };
     const handleClearIcon = () => {
         const iconId = () =>
-        groupIcon.map((icon) => {
+            groupIcon.map((icon) => {
                 if (icon.iconName === socialIconName) {
+                    dispatch(loadingStart());
+
                     const deleteIcon = async () => {
                         try {
                             const res = await http.delete(`/icon/${icon._id}`);
-                            dispatch(deleteThemeIcon(icon));
                             notifyToast('Deleted icon !!');
-                            setOpenInputUrl(false);
+                            const timeoutId = setTimeout(() => {
+                                setOpenInputUrl(false);
+                                dispatch(deleteThemeIcon(icon));
+                            }, 1500);
+                            return () => {
+                                clearTimeout(timeoutId);
+                            };
                         } catch (error) {
                             console.log(error.message);
+                            dispatch(loadingEnd());
                         }
                     };
                     deleteIcon();
@@ -205,7 +230,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                                 {openInputUrl ? (
                                     <>
                                         {iconThemes.map(
-                                            (iconTheme,index) =>
+                                            (iconTheme, index) =>
                                                 iconTheme.iconName === socialIconName && (
                                                     <div key={index}>
                                                         <InputUrl
@@ -224,12 +249,16 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                                                                 </button>
                                                             ) : (
                                                                 <>
-                                                                 {isLoading ? <></>:   <button
-                                                                        className="dialog-btn"
-                                                                        onClick={handleAddIcon}
-                                                                    >
-                                                                        Save changes
-                                                                    </button>}
+                                                                    {isLoading ? (
+                                                                        <></>
+                                                                    ) : (
+                                                                        <button
+                                                                            className="dialog-btn"
+                                                                            onClick={handleAddIcon}
+                                                                        >
+                                                                            Save changes
+                                                                        </button>
+                                                                    )}
                                                                 </>
                                                             )}
                                                         </div>

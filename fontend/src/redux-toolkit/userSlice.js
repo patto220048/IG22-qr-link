@@ -32,8 +32,12 @@ export const userSlice = createSlice({
         },
         addThemeIcon: (state, action) => {
             state.currentUser.groupIcon.push(action.payload);
+            state.loading = false;
+            state.error = false;
         },
         deleteThemeIcon: (state, action) => {
+            state.loading = false;
+            state.error = false;
             state.currentUser.groupIcon.map((icon) => {
                 if (icon._id === action.payload._id) {
                     state.currentUser.groupIcon.splice(
@@ -43,6 +47,15 @@ export const userSlice = createSlice({
                 }
             });
         },
+        loadingStart:(state)=>{
+            state.loading = true;
+            state.error = false;
+        },
+        loadingEnd:(state)=>{
+            state.loading = false;
+            state.error = true;
+        },
+
         logout: () => {
             return initialState;
         },
@@ -50,7 +63,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { loginStart, loginSuccess, loginFail, logout, updateData, deleteFileImg, addThemeIcon, deleteThemeIcon } =
+export const { loginStart, loginSuccess, loginFail, logout, updateData, deleteFileImg, addThemeIcon, deleteThemeIcon,loadingStart,loadingEnd } =
     userSlice.actions;
 
 export default userSlice.reducer;

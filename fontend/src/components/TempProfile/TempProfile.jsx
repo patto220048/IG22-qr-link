@@ -4,13 +4,13 @@ import Dialog_UI from '../dialog/Dialog_IU';
 import { useEffect, useState, memo } from 'react';
 import axiosInstance from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateData } from '../../redux-toolkit/userSlice';
+import { loadingEnd, loadingStart, updateData } from '../../redux-toolkit/userSlice';
 import { useParams } from 'react-router-dom';
 import http from '../../instance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRef } from 'react';
-function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user, icons}) {
+function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user, icons }) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const [maxLenght, setMaxLenght] = useState(80);
@@ -21,30 +21,30 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
     const [pickImg, setPickImg] = useState(false);
     const inputRefUsername = useRef();
     const inputRefDesc = useRef();
-    
+
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
     useEffect(() => {
         const handleClickOutside = (e) => {
+            dispatch(loadingStart());
             const updateUser = async () => {
-                const timeOutId = setTimeout(async () => {
-                    try {
-                        const res = await http.put(`users/${currentUser._id}`, {
-                            usernameTitle: values.username,
-                        });
-                        // dispatch(updateData(res.data));
-                        setIsLoading(false)
-                        setUserIn(res.data);
-                      
-                    } catch (error) {
-                        console.log(error.message);
-                    }
-                }, 1000);
-                return () => {
-                    clearTimeout(timeOutId);
-                };
+                try {
+                    const res = await http.put(`users/${currentUser._id}`, {
+                        usernameTitle: values.username,
+                    });
+                    setIsLoading(false);
+                    const timeOutId = setTimeout(async () => {
+                        dispatch(updateData(res.data));
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                } catch (error) {
+                    dispatch(loadingEnd());
+                    console.log(error.message);
+                }
             };
             updateUser();
         };
@@ -52,58 +52,61 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
         return () => {
             inputRefUsername.current?.removeEventListener('focusout', handleClickOutside);
         };
-    }, [values?.username, values?.decs]);
+    }, [values?.username]);
     useEffect(() => {
         const handleClickOutside = (e) => {
+            dispatch(loadingStart());
             const updateUser = async () => {
-                const timeOutId = setTimeout(async () => {
-                    try {
-                        const res = await http.put(`users/${currentUser._id}`, {
-                            decs: values.decs,
-                        });
-                        // dispatch(updateData(res.data));
-                        setUserIn(res.data);
-                    } catch (error) {
-                        console.log(error.message);
-                    }
-                }, 1000);
-                return () => {
-                    clearTimeout(timeOutId);
-                };
+                try {
+                    const res = await http.put(`users/${currentUser._id}`, {
+                        decs: values.decs,
+                    });
+                    const timeOutId = setTimeout(async () => {
+                        dispatch(updateData(res.data));
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                } catch (error) {
+                    console.log(error.message);
+                    dispatch(loadingEnd());
+                }
             };
             updateUser();
-
         };
 
         inputRefDesc.current?.addEventListener('focusout', handleClickOutside);
         return () => {
             inputRefDesc.current?.removeEventListener('focusout', handleClickOutside);
         };
-    }, [values?.username, values?.decs]);
-    const onKeyDown = (key) => {
-        if (key === 'Enter') {
-            const updateUser = async () => {
-                const timeOutId = setTimeout(async () => {
-                    try {
-                        const res = await http.put(`users/${currentUser._id}`, {
-                            usernameTitle: values.username,
-                            decs: values.decs,
-                        });
-                        // dispatch(updateData(res.data));
-                        setUserIn(res.data);
-                    } catch (error) {
-                        console.log(error.message);
-                    }
-                }, 1000);
-                return () => {
-                    clearTimeout(timeOutId);
-                };
-            };
+    }, [values?.decs]);
 
-            updateUser();
+    // const onKeyDown = (key) => {
+    //     if (key === 'Enter') {
+    //         const updateUser = async () => {
+    //             dispatch(loadingStart());
+    //             try {
+    //                 const res = await http.put(`users/${currentUser._id}`, {
+    //                     usernameTitle: values?.username,
+    //                     decs: values?.decs,
+    //                 });
+    //                 const timeOutId = setTimeout(async () => {
+    //                     dispatch(updateData(res.data));
+    //                 }, 1000);
+    //                 return () => {
+    //                     clearTimeout(timeOutId);
+    //                 };
+    //             } catch (error) {
+    //                 console.log(error.message);
+    //                 dispatch(loadingEnd());
+    //             }
+    //         };
 
-        }
-    };
+    //         updateUser();
+    //     }
+    // };
+    // onKeyDown();
+
     const handleOnPickImg = () => {
         setOpenDialog(true);
         setPickImg(true);

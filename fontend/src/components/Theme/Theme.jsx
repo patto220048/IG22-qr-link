@@ -24,47 +24,35 @@ function Theme({
     themeFontColor,
     themeFontFamily,
 }) {
+    const dispatch = useDispatch();
     const handleTheme = () => {
         const fetchTheme = async () => {
+            dispatch(themeStart());
             try {
-                const res = isBg
-                    ? await http.put(`/card/${cardId}`, {
-                          bgColor: bgColor,
-                          backgroundImg: null,
-                      })
-                    : await http.put(`/card/${cardId}`, {
-                          backgroundImg: themeBg,
-                          btn_type: themeBtnType,
-                          btn_color: themeBtnColor,
-                          bnt_radius: themeBtnRadius,
-                          font_famify: themeFontFamily,
-                          font_color: themeFontColor,
-                      });
-                setThemeInstance(res.data);
-                // dispatch(updateTheme(res.data));
+                const res = await http.put(`/card/${cardId}`, {
+                    backgroundImg: themeBg,
+                    btn_type: themeBtnType,
+                    btn_color: themeBtnColor,
+                    bnt_radius: themeBtnRadius,
+                    font_famify: themeFontFamily,
+                    font_color: themeFontColor,
+                });
+                const timeoutId = setTimeout(async () => {
+                    // setThemeInstance(res.data);
+                    dispatch(updateTheme(res.data));
+                }, 1000);
+                return () => {
+                    clearTimeout(timeoutId);
+                };
             } catch (error) {
                 console.log(error.message);
+                dispatch(themeFail());
             }
         };
         fetchTheme();
     };
-    // const handleBg = () => {
-    //     const fetchBg = async () => {
-    //         try {
-    //             dispatch(themeStart());
-    //             const res = await http.put(`/card/${cardId}`, {
-    //                 bgColor: bgColor,
-    //                 backgroundImg: null,
-    //             });
-    //             dispatch(updateTheme(res.data));
-    //             console.log(res.data);
-    //         } catch (error) {
-    //             dispatch(themeFail());
-    //             console.log(error.message);
-    //         }
-    //     };
-    //     fetchBg();
-    // };
+
+
     return (
         <>
             {isTheme || isBg ? (

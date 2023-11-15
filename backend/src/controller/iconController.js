@@ -1,6 +1,8 @@
 import Icon from '../database/model/iconModel.js';
 import Card from '../database/model/cardModel.js';
 import handleErorr from "../error/handleError.js"
+import User from '../database/model/userModel.js';
+
 class IconController {
     //add link
     async addIcon(req, res) {
@@ -9,8 +11,8 @@ class IconController {
             const newIcon = new Icon({ ...req.body, userId: userId });
             await newIcon.save();
             //find card with userid
-            const card = await Card.findOne({userId: userId})
-            await card.updateOne({$push: {icons: newIcon}})
+            const user = await User.findById(userId);
+            await user.updateOne({$push: {groupIcon: newIcon}})
             res.status(200).json(newIcon);
         } catch (error) {
             res.json(handleErorr(500, error.message));
@@ -73,12 +75,12 @@ class IconController {
         const iconId = req.params.id;
         try {
             const icon = await Icon.findById(iconId);
-            const card = await Card.findOne({userId: icon.userId})
+            const user = await User.findById(icon.userId)
             if (!icon) return res.json(handleErorr(404, 'This icon not found.'));
             if (icon.userId === req.user.id) {
                 try {
                     await Icon.findByIdAndDelete(iconId);
-                    await card.updateOne({$pull: {icons: icon}})
+                    await user.updateOne({$pull: {groupIcon: icon}})
 
                     res.status(200).json('Delete successfuly!!');
                 } catch (error) {

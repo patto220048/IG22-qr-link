@@ -18,12 +18,12 @@ function Background({ cardId }) {
             const fetchTheme = async () => {
                 dispatch(themeStart());
                 try {
+                    const res = await http.put(`/card/${cardId}`, {
+                        bgColor: hex,
+                        backgroundImg: null,
+                    });
+                    setIsPickColor(false);
                     let timeOutId = setTimeout(async () => {
-                        const res = await http.put(`/card/${cardId}`, {
-                            bgColor: hex,
-                            backgroundImg: null,
-                        });
-                        setIsPickColor(false);
                         dispatch(updateTheme(res.data));
                     }, 1000);
                     return () => {
