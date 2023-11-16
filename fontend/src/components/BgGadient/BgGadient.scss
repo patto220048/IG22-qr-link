@@ -1,0 +1,20 @@
+@import  "../../base/color";
+.BgGadient {
+    text-align: center;
+    cursor: pointer;
+    .BgGadient-item {
+        width: 160px;
+        height: 260px;
+        border-radius: 25px;
+        background-image: linear-gradient(red, yellow);
+        &:hover{
+            border-radius: 25px;
+            border: 1px solid rgba($color: $black, $alpha: 0.5);
+            transform: scale(0.98);
+        }
+    }
+    .BgGadient-title{
+        font-size: 15px;
+        font-weight: 600;
+    }
+}

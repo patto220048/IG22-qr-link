@@ -58,7 +58,7 @@ function Template() {
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
-                    <Background cardId={theme?._id} />
+                    <Background cardId={theme?._id} theme={theme}/>
                 </section>
             </div>
             <div className="template-right">

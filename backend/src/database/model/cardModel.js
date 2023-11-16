@@ -49,6 +49,15 @@ const CardModel = new Schema(
         icons:{
             type: Array,
             default: [],
+        },
+        gadientColorTop: {
+            type: String,
+            default: null,
+        }
+        ,
+        gadientColorBot: {
+            type: String,
+            default: null,
         }
     },
     { timestamps: true },

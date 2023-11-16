@@ -10,8 +10,6 @@ import http from '../../instance/axiosInstance';
 import { useState } from 'react';
 import PreView from '../Preview/PreView';
 function Theme({
-    setThemeInstance,
-    bgColor,
     isTheme,
     themeBg,
     themeOpacity,

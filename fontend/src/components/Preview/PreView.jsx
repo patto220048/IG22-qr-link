@@ -29,20 +29,33 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                                 alt={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
                             />
                         ) : (
-                            <div
-                                className="template-bg"
-                                style={{
-                                    backgroundColor: `${
-                                        currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
-                                    }`,
-                                }}
-                            />
+                            <>
+                                {currentTheme.gadientColorBot || currentTheme.gadientColorTop || theme?.gadientColorBot || theme?.gadientColorTop ? (
+                                    <div
+                                        className="template-bg"
+                                        style={{
+                                            backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
+                                        }}
+                                    />
+                                ) : (
+                                    <div
+                                        className="template-bg"
+                                        style={{
+                                            backgroundColor: `${
+                                                currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
+                                            }`,
+                                        }}
+                                    />
+                                )}
+                            </>
                         )}
                         <section className="template-profile">
                             <AvatarProfile
                                 preview={true}
-                                username={currentUser?.username ? currentUser?.username : user?.username }
-                                usernameTitle={currentUser?.usernameTitle ? currentUser?.usernameTitle : user?.usernameTitle}
+                                username={currentUser?.username ? currentUser?.username : user?.username}
+                                usernameTitle={
+                                    currentUser?.usernameTitle ? currentUser?.usernameTitle : user?.usernameTitle
+                                }
                                 decs={currentUser?.decs ? currentUser?.decs : user?.decs}
                                 avatar={currentUser?.avtImg ? currentUser?.avtImg : user?.avtImg}
                                 fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
