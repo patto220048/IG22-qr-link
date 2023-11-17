@@ -20,8 +20,8 @@ function Template() {
         const fetchData = async () => {
                 try {
                     const userData = await http.get(`/users/${username}`);
-                    const themeData = await http.get(`/card/v1/${user?._id}`);
-                    const iconData = await http.get(`/icon/${user?._id}`);
+                    const themeData = await http.get(`/card/v1/${currentUser._id}`);
+                    const iconData = await http.get(`/icon/${currentUser._id}`);
                     const [resultUser, resultTheme, resultIcon] = await Promise.all([userData, themeData, iconData]);
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
@@ -31,7 +31,7 @@ function Template() {
                 }
         };
         fetchData();
-    }, [username, user?._id])
+    }, [username, currentUser._id])
     // useEffect(() => {
     //     const getIcon = async () => {
     //         try {

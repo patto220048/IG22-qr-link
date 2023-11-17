@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import LinkTree from '../../components/linktree/LinkTree';
 import './Profile.scss';
-
-import AvatarProfile from '../../components/avatarProfile/AvatarProfile';
+import AvatarProfile from '../../components/AvatarProfile/AvatarProfile';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/dialog/loading/Loading';

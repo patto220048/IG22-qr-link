@@ -22,7 +22,7 @@ import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
 import { clearBgImg, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg }) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,theme }) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);

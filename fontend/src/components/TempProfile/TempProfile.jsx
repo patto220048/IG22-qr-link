@@ -163,6 +163,7 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
                 </div>
                 <div>
                     <Dialog_UI
+                        theme ={theme}
                         openDialog={openDialog}
                         setOpenDialog={setOpenDialog}
                         pickImg={pickImg}

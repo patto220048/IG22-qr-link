@@ -3,7 +3,6 @@ import SocialIconItem from '../SocialIconItem/SocialIconItem';
 import "./SocialIconList.scss"
 import {memo} from "react"
 function SocialIconList({icons}) {
-    console.log(icons)
     return (
         <div className="socialIcon">
             <div className="socialIcon-group">
