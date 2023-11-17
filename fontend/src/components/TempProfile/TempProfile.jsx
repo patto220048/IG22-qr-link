@@ -18,20 +18,25 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const [onFocus, setOnFocus] = useState(false);
-    const notifyToast = (message, type) => {
-        console.log(type)
+    const notifyToast = (message, type, time) => {
         switch (type) {
             case 1:
-               toast.success('🦄 ' + message)
+                toast.success('🦄 ' + message);
                 break;
             case 2:
-               toast.error('Opps!!' + message )
+                toast.error('Opps!!' + message);
                 break;
-
+            case 3:
+                toast.promise(time, {
+                    pending: `${message} pending`,
+                    success: `${message} resolved 👌`,
+                    error: `${message}  rejected 🤯`,
+                });
+                break;
             default:
                 break;
         }
-    };  
+    };
     const [pickImg, setPickImg] = useState(false);
     const inputRefUsername = useRef();
     const inputRefDesc = useRef();
@@ -46,12 +51,13 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
             const updateUser = async () => {
                 try {
                     const res = await http.put(`users/${currentUser._id}`, {
-                        usernameTitle: values.username,
+                        usernameTitle: values.username, 
                     });
                     setIsLoading(false);
                     const timeOutId = setTimeout(async () => {
                         dispatch(updateData(res.data));
-                    }, 1000);
+                    }, 2000);
+                    // notifyToast('Update',3,timeOutId)
                     return () => {
                         clearTimeout(timeOutId);
                     };
@@ -77,7 +83,9 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
                     });
                     const timeOutId = setTimeout(async () => {
                         dispatch(updateData(res.data));
-                    }, 1000);
+                    }, 2000);
+                    notifyToast('Update',3,timeOutId)
+
                     return () => {
                         clearTimeout(timeOutId);
                     };

@@ -32,14 +32,13 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                                 theme?.gadientColorBot ||
                                 theme?.gadientColorTop ? (
                                     <>
-                                        {(currentTheme.gadientColorBot && currentTheme.gadientColorTop) ||
-                                        (theme?.gadientColorBot && theme?.gadientColorTop) ? (
+                                        {(currentTheme?.gadientColorBot && currentTheme?.gadientColorTop) ||
+                                        (theme?.gadientColorTop && theme?.gadientColorBot) ? (
                                             <div
                                                 className="template-bg"
                                                 style={{
                                                     backgroundImage: `linear-gradient(${
-                                                        currentTheme.gadientColorTop || theme?.gadientColorTop
-                                                    },${currentTheme.gadientColorBot || theme?.gadientColorTop})`,
+                                                        currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorBot})`,
                                                 }}
                                             />
                                         ) : (
