@@ -18,7 +18,20 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
     const [openDialog, setOpenDialog] = useState(false);
     const [values, setValues] = useState(null);
     const [onFocus, setOnFocus] = useState(false);
-    const notifyToast = (message) => toast.success('🦄 ' + message);
+    const notifyToast = (message, type) => {
+        console.log(type)
+        switch (type) {
+            case 1:
+               toast.success('🦄 ' + message)
+                break;
+            case 2:
+               toast.error('Opps!!' + message )
+                break;
+
+            default:
+                break;
+        }
+    };  
     const [pickImg, setPickImg] = useState(false);
     const inputRefUsername = useRef();
     const inputRefDesc = useRef();

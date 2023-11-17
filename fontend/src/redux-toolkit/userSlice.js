@@ -55,7 +55,11 @@ export const userSlice = createSlice({
             state.loading = false;
             state.error = true;
         },
-
+        clearAvtImg:(state)=>{
+            state.loading = false;
+            state.error = false
+            state.currentUser.avtImg = null;
+        },
         logout: () => {
             return initialState;
         },
@@ -63,7 +67,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { loginStart, loginSuccess, loginFail, logout, updateData, deleteFileImg, addThemeIcon, deleteThemeIcon,loadingStart,loadingEnd } =
+export const { loginStart, loginSuccess, loginFail, logout, updateData, deleteFileImg, addThemeIcon, deleteThemeIcon,loadingStart,loadingEnd,clearAvtImg } =
     userSlice.actions;
 
 export default userSlice.reducer;

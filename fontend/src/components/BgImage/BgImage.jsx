@@ -1,5 +1,6 @@
 import { imageUp } from '../../svg/icon';
 import './BgImage.scss';
+import { memo } from "react"
 
 function BgImage({setIsPickImg,setopenGadient,setOpenColor}) {
     const handledOpen = () => {
@@ -11,11 +12,11 @@ function BgImage({setIsPickImg,setopenGadient,setOpenColor}) {
         <section className="BgImage" onClick={handledOpen}>
             <div className="BgImage-item"></div>
             <span className="BgImage-title">Image</span>
-            <span span className="imageUpSvg">
+            <span className="imageUpSvg">
                 {imageUp(35, 35)}
             </span>
         </section>
     );
 }
 
-export default BgImage;
+export default memo(BgImage);

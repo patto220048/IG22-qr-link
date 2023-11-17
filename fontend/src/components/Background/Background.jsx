@@ -11,6 +11,7 @@ import BgImage from '../BgImage/BgImage';
 import BgVideo from '../BgIVideo/BgVideo';
 import { alertCricleIcon } from '../../svg/icon';
 import Dialog_UI from '../dialog/Dialog_IU';
+import { ToastContainer, toast } from 'react-toastify';
 function Background({ cardId, theme }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [hex, setHex] = useState('#333333');
@@ -19,8 +20,7 @@ function Background({ cardId, theme }) {
     const [isPickColor, setIsPickColor] = useState(false);
     const [isGardientTop, setIsGardientTop] = useState(false);
     const [isGardientBot, setIsGardientBot] = useState(false);
-    const [isPickImg, setIsPickImg] = useState(false);
-    console.log(isPickImg)
+    const [isPickImgBg, setIsPickImgBg] = useState(false);
     const dispatch = useDispatch();
     const refColorBox = useRef();
     const refGadientTopBox = useRef();
@@ -29,6 +29,21 @@ function Background({ cardId, theme }) {
     const [openColor, setOpenColor] = useState(false);
     const [openGadient, setopenGadient] = useState(false);
     const inputRef = useRef();
+    const notifyToast =(message,type) => {
+        console.log(type)
+        switch (type) {
+            case 1:
+               toast.success('🦄 ' + message)
+                break;
+            case 2:
+               toast.error('Opps!! ' + message )
+                break;
+
+            default:
+                break;
+        }
+    };
+
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -122,27 +137,27 @@ function Background({ cardId, theme }) {
     const handlePickColor = (e) => {
         e.stopPropagation();
         setIsPickColor(!isPickColor);
-        setIsPickImg(false)
+        setIsPickImgBg(false);
     };
     const handlePickGardientTop = (e) => {
         e.stopPropagation();
         setIsGardientTop(!isGardientTop);
         setIsGardientBot(false);
-        setIsPickImg(false)
+        setIsPickImgBg(false);
     };
     const handlePickGardientBot = (e) => {
         e.stopPropagation();
         setIsGardientBot(!isGardientBot);
         setIsGardientTop(false);
-        setIsPickImg(false)
+        setIsPickImgBg(false);
     };
-    const handlePickImage = (e) =>{
+    const handlePickImage = (e) => {
         e.stopPropagation();
-        setHexGadientBot(false)
-        setHexGadientTop(false)
-        setIsPickColor(false)
-        setIsPickImg(true)
-    }
+        setHexGadientBot(false);
+        setHexGadientTop(false);
+        setIsPickColor(false);
+        setIsPickImgBg(true);
+    };
 
     // useEffect(() => {
     //     const handleClickOutside = () => {
@@ -174,10 +189,22 @@ function Background({ cardId, theme }) {
     // }, [inputRef.current]);
     return (
         <div className="bgTheme">
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            ></ToastContainer>
             <div className="bgTheme-items">
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgImage setIsPickImg= {setIsPickImg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
+                <BgImage setIsPickImg={setIsPickImgBg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
                 <BgVideo />
             </div>
 
@@ -188,7 +215,11 @@ function Background({ cardId, theme }) {
                         <div
                             className="pickColor-box"
                             onClick={handlePickColor}
-                            style={{ backgroundColor: `${(currentTheme?.bgColor ? currentTheme?.bgColor : theme.bgColor) || hex}` }}
+                            style={{
+                                backgroundColor: `${
+                                    (currentTheme?.bgColor ? currentTheme?.bgColor : theme.bgColor) || hex
+                                }`,
+                            }}
                         ></div>
                         <input
                             ref={inputRef}
@@ -252,7 +283,7 @@ function Background({ cardId, theme }) {
                                         onClick={handlePickGardientBot}
                                         style={{
                                             backgroundColor: `${
-                                               ( currentTheme?.gadientColorBot
+                                                (currentTheme?.gadientColorBot
                                                     ? currentTheme?.gadientColorBot
                                                     : theme?.gadientColorBot) || hexGadientBot
                                             }`,
@@ -312,7 +343,9 @@ function Background({ cardId, theme }) {
                     </div>
                 </>
             )}
-            {isPickImg && <Dialog_UI openDialog={isPickImg} setOpenDialog={setIsPickImg} pickImgBg={true}/>}
+            {isPickImgBg && (
+                <Dialog_UI openDialog={isPickImgBg} setOpenDialog={setIsPickImgBg} pickImgBg={isPickImgBg} notifyToast={notifyToast} />
+            )}
         </div>
     );
 }

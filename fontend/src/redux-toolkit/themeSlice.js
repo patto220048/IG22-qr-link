@@ -31,11 +31,16 @@ export const themeSlice = createSlice({
             state.loading = false;
             state.error = false;
         },
+        clearBgImg: (state, action) => {
+            state.currentTheme.backgroundImg = null
+            state.loading = false;
+            state.error = false;
+        }
 
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { themeStart, themeSuccess, themeFail, updateTheme,themeIsloading } = themeSlice.actions;
+export const { themeStart, themeSuccess, themeFail, updateTheme,themeIsloading,clearBgImg } = themeSlice.actions;
 
 export default themeSlice.reducer;

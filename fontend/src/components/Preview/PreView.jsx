@@ -1,14 +1,11 @@
 import { useSelector } from 'react-redux';
 import './PreView.scss';
-import AvatarProfile from '../avatarProfile/AvatarProfile';
+import AvatarProfile from '../AvatarProfile/AvatarProfile';
 import SocialIconList from '../SocialIconlist/SocialIconList';
 import LinkTree from '../linktree/LinkTree';
 import Loading from '../dialog/loading/Loading';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
-import http from '../../instance/axiosInstance';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { memo } from 'react';
 
 function PreView({ userIn, isLoading, theme, icons, user }) {
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -102,4 +99,4 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
     );
 }
 
-export default PreView;
+export default memo(PreView);

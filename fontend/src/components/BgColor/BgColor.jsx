@@ -1,5 +1,5 @@
 import './BgColor.scss';
-
+import { memo } from 'react';
 function BgColor({openColor, setOpenColor, setopenGadient}) {
     const handledOpen = () => {
         setOpenColor(true)
@@ -15,4 +15,4 @@ function BgColor({openColor, setOpenColor, setopenGadient}) {
     );
 }
 
-export default BgColor;
+export default memo(BgColor);

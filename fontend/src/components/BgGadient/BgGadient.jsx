@@ -1,5 +1,5 @@
 import "./BgGadient.scss"
-
+import { memo } from "react"
 function BgGadient({setopenGadient,setOpenColor}) {
     const handledOpen = () => {
         setopenGadient(true)
@@ -13,4 +13,4 @@ function BgGadient({setopenGadient,setOpenColor}) {
     );
 }
 
-export default BgGadient;
+export default  memo(BgGadient);
