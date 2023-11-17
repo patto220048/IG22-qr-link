@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux-toolkit/userSlice';
 // component
-import { userIcon, cutomIcon, logoutIcon, alertIcon } from '../../svg/icon';
+import { userIcon, cutomIcon, logoutIcon, alertIcon, menu01Icon } from '../../svg/icon';
 import DropdownItem from '../../components/DropdownItem/DropdownItem';
 import navLogo from '../../assets/img/main-logo.png';
 // import './navbar.css'
@@ -15,6 +15,7 @@ import http from '../../instance/axiosInstance';
 function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleOpenMenu = (e) => {
@@ -42,6 +43,9 @@ function Navbar() {
         } catch (error) {
             console.log(error.message);
         }
+    };
+    const handleOpenMenuMobile = () => {
+        setIsMobile(!isMobile);
     };
     return (
         <nav className="navbar">
@@ -83,6 +87,15 @@ function Navbar() {
                         </div>
                     </div>
                 )}
+                {/* reponsive mobile */}
+                <div className="navMobile" onClick={handleOpenMenuMobile}>
+                    {menu01Icon(30, 30)}
+                </div>
+                {isMobile && 
+                <div className="nav-link-mobile">
+                    
+                    </div>
+                    }
 
                 {openMenu && (
                     <section className="nav-option">

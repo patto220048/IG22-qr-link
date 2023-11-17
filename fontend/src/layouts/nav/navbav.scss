@@ -51,10 +51,9 @@
             }
         }
         .register {
-            flex: 1;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             .nav-btn {
                 font-weight: 500;
                 font-size: 18px;
@@ -76,6 +75,9 @@
                     background-color: rgba($color: black, $alpha: 0.7);
                 }
             }
+        }
+        .navMobile{
+            display: none;
         }
         .nav-user {
             display: flex;
@@ -163,15 +165,14 @@
                 }
             }
             .register {
-                .nav-btn nav-login {
+       
 
-                }
-                .nav-btn nav-signup{
-                    
-                }
+            }
+            .navMobile{
+                display: block !important;
             }
             .nav-user {
-                .avatar {
+                .avatar {   
 
                 }
             }
@@ -206,15 +207,14 @@
                 }
             }
             .register {
-                flex: none !important;
-                .nav-btn nav-login {
-
-                }
-                .nav-btn nav-signup{
-                    
-                }
+                gap: 20px;
+              .nav-btn{
+                font-size: 14px;
+              }
             }
-            
+            .navMobile{
+                display: block !important;
+            }
             .nav-user {
                 .avatar {
 

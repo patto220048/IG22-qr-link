@@ -161,3 +161,9 @@ export const chevronLeftIcon = (w, h) => (
         <path d="M15 17L10 12L15 7" stroke="black" strokeWidth="2" strokewinecap="round" strokeLinejoin="round" />
     </svg>
 );
+
+export const menu01Icon = (w, h) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 18H4M20 12H4M20 6H4" stroke="black" stroke-width="2" stroke-linecap="round" />
+    </svg>
+);
