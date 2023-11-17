@@ -26,7 +26,7 @@
 
         }
         .pickColor-item {
-       
+            align-items: center;
             display: flex;
             margin-top: 10px;
             gap: 20px;
@@ -38,6 +38,7 @@
             }
             .pickColor-input{
                 // width: 50px;
+                height: 40px;
                 transition: all 0.3s ease;
                 border: 0.5px solid rgba($color: $black, $alpha: 0.2);
                 border-radius: 10px;

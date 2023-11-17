@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
 import './AvatarProfile.scss';
 import { memo } from 'react';
+import avatarDefault from '../../untils/AvatarLink';
 function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontColor }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
 
     return (
         <div className="avatarProfile">
-            <img className="avatarProfile-img" src={avatar} alt={avatar} />
+            <img className="avatarProfile-img" src={avatar || avatarDefault} alt={avatar} />
             <h3
                 className="avatarProfile-name"
                 style={{

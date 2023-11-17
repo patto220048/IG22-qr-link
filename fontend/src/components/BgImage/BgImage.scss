@@ -1,9 +1,29 @@
+@import "../../base/color";
+
 .BgImage {
     text-align: center;
+    position: relative;
+    cursor: pointer;
     .BgImage-item {
         width: 160px;
         height: 260px;
         border-radius: 25px;
-        background-color: aqua;
+        background-color: $text_hover_color;
+        border: 2px dashed rgba($color: $black, $alpha: 0.4);
+        &:hover{
+            border-radius: 25px;
+            border: 1px solid rgba($color: $black, $alpha: 0.5);
+            transform: scale(0.98);
+            .imageUpSvg{
+                transform:scale(1.1);
+            }
+        }
+    }
+    .imageUpSvg{
+        position: absolute;
+        left:50%;
+        top:50%;
+        transform:translate(-50%,-50%);
+       
     }
 }

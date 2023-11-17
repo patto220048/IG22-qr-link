@@ -22,7 +22,7 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                     <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
                 ) : (
                     <>
-                        {currentTheme?.backgroundImg ? (
+                        {currentTheme?.backgroundImg || theme?.backgroundImage ? (
                             <img
                                 className="template-bg"
                                 src={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
@@ -30,13 +30,36 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                             />
                         ) : (
                             <>
-                                {currentTheme.gadientColorBot || currentTheme.gadientColorTop || theme?.gadientColorBot || theme?.gadientColorTop ? (
-                                    <div
-                                        className="template-bg"
-                                        style={{
-                                            backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
-                                        }}
-                                    />
+                                {currentTheme.gadientColorBot ||
+                                currentTheme.gadientColorTop ||
+                                theme?.gadientColorBot ||
+                                theme?.gadientColorTop ? (
+                                    <>
+                                        {(currentTheme.gadientColorBot && currentTheme.gadientColorTop) ||
+                                        (theme?.gadientColorBot && theme?.gadientColorTop) ? (
+                                            <div
+                                                className="template-bg"
+                                                style={{
+                                                    backgroundImage: `linear-gradient(${
+                                                        currentTheme.gadientColorTop || theme?.gadientColorTop
+                                                    },${currentTheme.gadientColorBot || theme?.gadientColorTop})`,
+                                                }}
+                                            />
+                                        ) : (
+                                            <div
+                                                className="template-bg"
+                                                style={{
+                                                    backgroundColor: `${
+                                                        currentTheme.gadientColorBot ||
+                                                        currentTheme.gadientColorTop ||
+                                                        theme?.gadientColorBot ||
+                                                        theme?.gadientColorTop
+                                                    }`,
+                                                    // backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
+                                                }}
+                                            />
+                                        )}
+                                    </>
                                 ) : (
                                     <div
                                         className="template-bg"

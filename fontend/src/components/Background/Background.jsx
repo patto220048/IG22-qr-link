@@ -9,6 +9,8 @@ import BgColor from '../BgColor/BgColor';
 import BgGadient from '../BgGadient/BgGadient';
 import BgImage from '../BgImage/BgImage';
 import BgVideo from '../BgIVideo/BgVideo';
+import { alertCricleIcon } from '../../svg/icon';
+import Dialog_UI from '../dialog/Dialog_IU';
 function Background({ cardId, theme }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [hex, setHex] = useState('#333333');
@@ -17,6 +19,8 @@ function Background({ cardId, theme }) {
     const [isPickColor, setIsPickColor] = useState(false);
     const [isGardientTop, setIsGardientTop] = useState(false);
     const [isGardientBot, setIsGardientBot] = useState(false);
+    const [isPickImg, setIsPickImg] = useState(false);
+    console.log(isPickImg)
     const dispatch = useDispatch();
     const refColorBox = useRef();
     const refGadientTopBox = useRef();
@@ -118,17 +122,27 @@ function Background({ cardId, theme }) {
     const handlePickColor = (e) => {
         e.stopPropagation();
         setIsPickColor(!isPickColor);
+        setIsPickImg(false)
     };
     const handlePickGardientTop = (e) => {
         e.stopPropagation();
         setIsGardientTop(!isGardientTop);
         setIsGardientBot(false);
+        setIsPickImg(false)
     };
     const handlePickGardientBot = (e) => {
         e.stopPropagation();
         setIsGardientBot(!isGardientBot);
         setIsGardientTop(false);
+        setIsPickImg(false)
     };
+    const handlePickImage = (e) =>{
+        e.stopPropagation();
+        setHexGadientBot(false)
+        setHexGadientTop(false)
+        setIsPickColor(false)
+        setIsPickImg(true)
+    }
 
     // useEffect(() => {
     //     const handleClickOutside = () => {
@@ -163,9 +177,10 @@ function Background({ cardId, theme }) {
             <div className="bgTheme-items">
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgImage />
+                <BgImage setIsPickImg= {setIsPickImg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
                 <BgVideo />
             </div>
+
             {openColor && (
                 <div className="pickColor">
                     <p className="pickColor-title">Color</p>
@@ -173,14 +188,14 @@ function Background({ cardId, theme }) {
                         <div
                             className="pickColor-box"
                             onClick={handlePickColor}
-                            style={{ backgroundColor: `${(theme?.bgColor ? theme?.bgColor : currentTheme.bgColor) || hex}` }}
+                            style={{ backgroundColor: `${(currentTheme?.bgColor ? currentTheme?.bgColor : theme.bgColor) || hex}` }}
                         ></div>
                         <input
                             ref={inputRef}
                             onChange={(e) => setInputColor(e.target.value)}
                             className="pickColor-input"
                             type="text"
-                            placeholder={(theme?.bgColor ? theme?.bgColor : currentTheme.bgColor) || hex}
+                            placeholder={(currentTheme?.bgColor ? currentTheme?.bgColor : theme.bgColor) || hex}
                         />
                     </div>
 
@@ -210,9 +225,9 @@ function Background({ cardId, theme }) {
                                         onClick={handlePickGardientTop}
                                         style={{
                                             backgroundColor: `${
-                                                (theme?.gadientColorTop
-                                                    ? theme?.gadientColorTop
-                                                    : currentTheme.gadientColorTop) 
+                                                (currentTheme?.gadientColorTop
+                                                    ? currentTheme?.gadientColorTop
+                                                    : theme?.gadientColorTop) || hexGadientTop
                                             }`,
                                         }}
                                     ></div>
@@ -222,9 +237,9 @@ function Background({ cardId, theme }) {
                                         className="pickColor-input"
                                         type="text"
                                         placeholder={
-                                            theme?.gadientColorTop
-                                                ? theme?.gadientColorTop
-                                                : currentTheme.gadientColorTop
+                                            currentTheme?.gadientColorTop
+                                                ? currentTheme?.gadientColorTop
+                                                : theme?.gadientColorTop || hexGadientTop
                                         }
                                     />
                                 </div>
@@ -237,9 +252,9 @@ function Background({ cardId, theme }) {
                                         onClick={handlePickGardientBot}
                                         style={{
                                             backgroundColor: `${
-                                               ( theme?.gadientColorBot
-                                                    ? theme?.gadientColorBot
-                                                    : currentTheme.gadientColorBot)
+                                               ( currentTheme?.gadientColorBot
+                                                    ? currentTheme?.gadientColorBot
+                                                    : theme?.gadientColorBot) || hexGadientBot
                                             }`,
                                         }}
                                     ></div>
@@ -249,9 +264,9 @@ function Background({ cardId, theme }) {
                                         className="pickColor-input"
                                         type="text"
                                         placeholder={
-                                            (theme?.gadientColorBot
-                                                ? theme?.gadientColorBot
-                                                : currentTheme.gadientColorBot)
+                                            (currentTheme?.gadientColorBot
+                                                ? currentTheme?.gadientColorBot
+                                                : theme?.gadientColorBot) || hexGadientBot
                                         }
                                     />
                                 </div>
@@ -297,6 +312,7 @@ function Background({ cardId, theme }) {
                     </div>
                 </>
             )}
+            {isPickImg && <Dialog_UI openDialog={isPickImg} setOpenDialog={setIsPickImg} pickImgBg={true}/>}
         </div>
     );
 }

@@ -7,6 +7,8 @@
         height: 260px;
         border-radius: 25px;
         background-image: linear-gradient(red, yellow);
+        border: 2px solid transparent;
+
         &:hover{
             border-radius: 25px;
             border: 1px solid rgba($color: $black, $alpha: 0.5);

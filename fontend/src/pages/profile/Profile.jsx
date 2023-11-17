@@ -21,7 +21,8 @@ function Profile() {
     //fetch user
     useEffect(() => {
         const fetchData = async () => {
-                try {
+            try {
+                const timeOutId = setTimeout(async () => {
                     const userData = await http.get(`/users/${username}`);
                     const themeData = await http.get(`/card/v1/${user._id}`);
                     const iconData = await http.get(`/icon/${user._id}`);
@@ -29,13 +30,17 @@ function Profile() {
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
                     setIcons(resultIcon.data);
-                    setIsLoading(false)
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
+                    setIsLoading(false);
+                }, 1000);
+                return () => {
+                    clearTimeout(timeOutId);
+                };
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
         fetchData();
-    }, [username,user._id]);
+    }, [username, user._id]);
 
     return (
         <section className="profile">
@@ -46,7 +51,25 @@ function Profile() {
                     {theme?.backgroundImg ? (
                         <img className="profile-background" src={theme?.backgroundImg} alt="" />
                     ) : (
-                        <img className="profile-background"  style={{ backgroundColor: `${theme?.bgColor}` }}/> 
+                        <>
+                            {theme?.gadientColorBot || theme?.gadientColorTop ? (
+                                <>
+                                    {theme?.gadientColorBot && theme?.gadientColorTop ? (
+                                        <div
+                                            className="profile-background"
+                                            style={{ backgroundImage: `linear-gradient(${theme?.gadientColorTop},${theme?.gadientColorBot})`}}
+                                        />
+                                    ) : (
+                                        <div
+                                            className="profile-background"
+                                            style={{ backgroundColor: `${theme?.gadientColorTop || theme?.gadientColorBot }` }}
+                                        />
+                                    )}
+                                </>
+                            ) : (
+                                <div className="profile-background" style={{ backgroundColor: `${theme?.bgColor}` }} />
+                            )}
+                        </>
                     )}
                     <div className="profile-info">
                         <AvatarProfile

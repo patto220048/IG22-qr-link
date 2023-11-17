@@ -12,6 +12,7 @@ import './navbav.scss';
 
 import NavAvatar from '../../components/nav-avatar/NavAvatar';
 import http from '../../instance/axiosInstance';
+import avatarDefault from '../../untils/AvatarLink';
 function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
@@ -83,7 +84,7 @@ function Navbar() {
                             <li>Buy Card</li>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
-                            <img src={currentUser.avtImg} alt={currentUser.avtImg} />
+                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} />
                         </div>
                     </div>
                 )}

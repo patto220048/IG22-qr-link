@@ -20,19 +20,27 @@ import InputUrl from './InputUrl/InputUrl';
 import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg }) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const { groupIcon } = useSelector((state) => state.user.currentUser);
     const isLoading = useSelector((state) => state.icon.loading);
-    //
+    // upload avata
     const [avtUser, setAvtUser] = useState({});
     const [imgUpLoading, setImgUpLoading] = useState();
+    //file default [upload]
+    const [resultImg, setResultImg] = useState(null);
+    const [avatar, setAvatar] = useState(undefined);
+    const [currentAvatar, setCurrentAvatar] = useState(null);
+    // upload icon
     const [openInputUrl, setOpenInputUrl] = useState(false);
     const [socialIconName, setSocialIconName] = useState();
     const [urlIcon, setUrlIcon] = useState('');
     const [clearIcon, setClearIcon] = useState(false);
+    // upload background
+    const [bgImage, setBgImage] = useState();
+    const [resultImgBg, setResultImgBg] = useState(null);
 
     // fetch user
     useEffect(() => {
@@ -46,10 +54,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
         };
         fectchUser();
     }, [currentUser._id]);
-    //file default [upload]
-    const [resultImg, setResultImg] = useState(null);
-    const [avatar, setAvatar] = useState(undefined);
-    const [currentAvatar, setCurrentAvatar] = useState(null);
+
     // handle save database
     const handleAddAvt = (e) => {
         e.preventDefault();
@@ -194,15 +199,22 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
             });
         iconId();
     };
+    const handleClearImageBg = () => {};
+    const handleAddImageBg = () => {};
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImg ? (
+                        {pickImg || pickImgBg ? (
                             <>
                                 <Dialog_file
+                                    setResultImgBg={setResultImgBg}
+                                    resultImgBg={resultImgBg}
+                                    bgImage={bgImage}
+                                    setBgImage={setBgImage}
+                                    pickImgBg={pickImgBg}
                                     avtUser={avtUser}
                                     setAvatar={setAvatar}
                                     avatar={avatar}
@@ -211,19 +223,30 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg }) {
                                     setCurrentAvatar={setCurrentAvatar}
                                     setImgUpLoading={setImgUpLoading}
                                 />
-                                <div className="dialog-btn-group">
-                                    {resultImg || avtUser ? (
-                                        <button className="dialog-btn" onClick={handleClear}>
+                                {pickImgBg ? (
+                                    <div className="dialog-btn-group-bg">
+                                        <button className="dialog-btn" onClick={handleClearImageBg}>
                                             Clear
                                         </button>
-                                    ) : (
-                                        <></>
-                                    )}
+                                        <button className="dialog-btn" onClick={handleAddImageBg}>
+                                            Save changes
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="dialog-btn-group">
+                                        {resultImg || avtUser ? (
+                                            <button className="dialog-btn" onClick={handleClear}>
+                                                Clear
+                                            </button>
+                                        ) : (
+                                            <></>
+                                        )}
 
-                                    <button className="dialog-btn" onClick={handleAddAvt}>
-                                        Save changes
-                                    </button>
-                                </div>
+                                        <button className="dialog-btn" onClick={handleAddAvt}>
+                                            Save changes
+                                        </button>
+                                    </div>
+                                )}
                             </>
                         ) : (
                             <>

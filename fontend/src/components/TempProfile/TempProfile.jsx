@@ -10,6 +10,7 @@ import http from '../../instance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRef } from 'react';
+import avatarDefault from '../../untils/AvatarLink';
 function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user, icons }) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -130,7 +131,7 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
                 theme="dark"
             ></ToastContainer>
             <div className="tempProfile-item">
-                <img className="tempProfile_img" src={user?.avtImg} alt="" />
+                <img className="tempProfile_img" src={user?.avtImg || avatarDefault} alt="" />
                 <div className="tempProfile-btn">
                     <button className="tempProfile-btn_item pickup" onClick={handleOnPickImg}>
                         Pick Image
