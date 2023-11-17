@@ -138,10 +138,99 @@
                     text-align: center;
                     padding-left: 20px;
                 }
+
                 &:hover {
                     background-color: $text_hover_color;
                 }
             }
         }
     }
+}
+
+// For tablets
+@media only screen and (min-width: 769px)  and (max-width: 1024px){
+    .navbar {
+
+        .navbar-container {
+            .logo {
+                .navbar-logo {
+                }
+            }
+            .nav-link {
+                display: none !important;
+                .nav-link_items {
+
+                }
+            }
+            .register {
+                .nav-btn nav-login {
+
+                }
+                .nav-btn nav-signup{
+                    
+                }
+            }
+            .nav-user {
+                .avatar {
+
+                }
+            }
+            .nav-option {
+                .account-option {
+                    .account {
+
+                    }
+                    .support {
+
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+// For mobile
+@media only screen and (max-width: 768px) {
+    .navbar {
+
+        .navbar-container {
+            .logo {
+                .navbar-logo {
+                    // width: 8.0%;
+                }
+            }
+            .nav-link {
+                display: none !important;
+                .nav-link_items {
+                }
+            }
+            .register {
+                flex: none !important;
+                .nav-btn nav-login {
+
+                }
+                .nav-btn nav-signup{
+                    
+                }
+            }
+            
+            .nav-user {
+                .avatar {
+
+                }
+            }
+            .nav-option {
+                .account-option {
+                    .account {
+
+                    }
+                    .support {
+
+                    }
+                }
+            }
+        }
+    }
+
 }
