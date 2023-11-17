@@ -58,3 +58,26 @@
         // justify-content: center;
     }
 }
+
+// For mobile
+@media only screen and (min-width: 375px)  and (max-width: 789px) {
+    .intro {
+        .intro-container {
+            .intro-img {
+
+            }
+            .intro-text {
+                font-size: 47px;
+                line-height: 1.1;
+                padding: 6px;
+            }
+            .intro-decs {
+                 font-size: 15px;
+                 line-height: 1.5;
+            }
+            .intro-button {
+
+            }
+        }
+    }
+}

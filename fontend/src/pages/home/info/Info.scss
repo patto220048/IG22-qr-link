@@ -61,3 +61,40 @@
         }
     }
 }
+
+// For Mobile
+
+@media only screen and (min-width: 375px)  and (max-width: 789px) {
+    .info {
+        .info-container {
+            .info-left {
+                .info-text {
+                    padding-left: 0;
+                    font-size: 44px;
+                    padding-left: 160px;
+                    text-align: left;
+                    // padding-left: none;
+                    padding: 30px;
+                }
+                .info-decs {
+                    text-align: left;
+                    font-size: 20px;
+                    padding: 18px;
+                }
+                .info-section {
+                    padding-left: 50px;
+                    .info-input {
+
+                    }
+                    .info-btn {
+
+                    }
+                }
+            }
+            .info-right {
+
+            }
+        }        
+    }
+}  
+
