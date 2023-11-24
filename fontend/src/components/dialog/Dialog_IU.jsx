@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo, useCallback } from 'react';
 import './Dialog_UI.scss';
 import * as Dialog from '@radix-ui/react-dialog';
 import { imgIcon, closeIcon, chevronRightIcon, chevronLeftIcon } from '../../svg/icon';
@@ -22,14 +22,15 @@ import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
 import { clearBgImg, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,theme }) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg, user }) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
+    const currentTheme = useSelector((state) => state.theme.currentTheme);
+
     const { groupIcon } = useSelector((state) => state.user.currentUser);
     const isLoading = useSelector((state) => state.icon.loading);
     // upload avata
-    const [avtUser, setAvtUser] = useState({});
     const [imgUpLoading, setImgUpLoading] = useState();
     //file default [upload]
     const [resultImg, setResultImg] = useState(null);
@@ -42,22 +43,10 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
     const [clearIcon, setClearIcon] = useState(false);
     // upload background
     const [bgImage, setBgImage] = useState();
-    const [themeBgUser, setThemeBgUser] = useState({});
+    // const [themeBgUser, setThemeBgUser] = useState({});
     const [resultImgBg, setResultImgBg] = useState(null);
     const [currentBackground, setCurrentBackground] = useState(null);
-
-    // fetch user
-    useEffect(() => {
-        const fectchUser = async () => {
-            try {
-                const res = await http.get(`/users/v1/${currentUser._id}`);
-                setAvtUser(res.data.avtImg);
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        fectchUser();
-    }, [currentUser._id]);
+    const [themeBgUser, setThemeBgUser] = useState({});
 
     useEffect(() => {
         const fectchTheme = async () => {
@@ -70,15 +59,14 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         };
         fectchTheme();
     }, [currentUser._id]);
-
     // handle save database
-    const handleAddAvt = (e) => {
+    const handleAddAvt = useCallback((e) => {
         e.preventDefault();
         const updateUser = async () => {
             dispatch(loadingStart());
             try {
                 const res = await http.put(`/users/${currentUser._id}`, {
-                    avtImg: resultImg.avatar,
+                    avtImg: resultImg?.avatar,
                     avtImgName: currentAvatar,
                 });
                 if (res.status === 200) {
@@ -105,7 +93,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         } else {
             notifyToast('Some things error. Please try again!!', 2);
         }
-    };
+    }, []);
     //handle delete img when click outside
     // useEffect(() => {
     //     const handleClickOutside = () => {
@@ -116,11 +104,11 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
     //         document.removeEventListener('click', handleClickOutside);
     //     };
     // }, []);
-    const handleClearAvt = (e) => {
+    const handleClearAvt = useCallback((e) => {
         e.preventDefault();
         const updateUser = async () => {
-            currentAvatar ? deleteFile(currentAvatar) : deleteFile(avtUser);
             try {
+                currentAvatar ? deleteFile(currentAvatar) : deleteFile(user?.avtImg);
                 const res = await http.put(`/users/${currentUser._id}`, {
                     avtImg: null,
                     avtImgName: null,
@@ -128,7 +116,6 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                 if (res.status === 200) {
                     setResultImg(null);
                     setAvatar(undefined);
-                    setAvtUser(null);
                     setResultImg(null);
                     dispatch(clearAvtImg());
                 } else {
@@ -140,9 +127,9 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             }
         };
         updateUser();
-    };
+    }, []);
     // deleteFile in firebase
-    const deleteFile = (file) => {
+    const deleteFile = useCallback((file) => {
         const storage = getStorage(app);
         const desertRef = ref(storage, file);
         deleteObject(desertRef)
@@ -153,7 +140,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                 notifyToast('Not found file !!', 2);
                 console.log(error.message);
             });
-    };
+    }, []);
     // const handleClose = (e) => {
     //     e.preventDefault();
     //     if (!resultImg) {
@@ -163,7 +150,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
     const hanleClose = (e) => {
         setOpenInputUrl(false);
     };
-    const handleAddIcon = () => {
+    const handleAddIcon = useCallback(() => {
         const addIcon = async () => {
             const validInput = useRegex(urlIcon, socialIconName);
             if (validInput === true) {
@@ -190,15 +177,15 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             }
         };
         addIcon();
-    };
-    const handleClearIcon = () => {
+    }, [socialIconName, urlIcon]);
+    const handleClearIcon = useCallback(() => {
         const iconId = () =>
             groupIcon.map((icon) => {
-                if (icon.iconName === socialIconName) {
+                if (icon?.iconName === socialIconName) {
                     dispatch(loadingStart());
                     const deleteIcon = async () => {
                         try {
-                            const res = await http.delete(`/icon/${icon._id}`);
+                            const res = await http.delete(`/icon/${icon?._id}`);
                             notifyToast('Deleted icon !!', 1);
                             const timeoutId = setTimeout(() => {
                                 setOpenInputUrl(false);
@@ -217,68 +204,80 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                 }
             });
         iconId();
-    };
-    const handleClearImageBg = (e) => {
-        e.preventDefault();
-        const updateTheme = async () => {
-            currentBackground ? deleteFile(currentBackground) : deleteFile(themeBgUser.backgroundImgName);
-            try {
-                const res = await http.put(`/card/${themeBgUser._id}`, {
-                    backgroundImg: null,
-                    backgroundImgName: null,
-                });
-                if (res.status === 200) {
-                    dispatch(clearBgImg());
-                    setResultImgBg(null);
-                    setBgImage(undefined);
-                    setThemeBgUser(null);
-                    setResultImgBg(null);
-                } else {
-                    notifyToast('Clear image failed !', 2);
+    }, [socialIconName]);
+    const handleClearImageBg = useCallback(
+        (e) => {
+            e.preventDefault();
+      
+            const updateTheme = async () => {
+                try {
+                    const res = await http.put(`/card/${themeBgUser?._id}`, {
+                        backgroundImg: null,
+                        backgroundImgName: null,
+                    });
+                    if (res.status === 200) {
+                        setResultImgBg(null);
+                        setBgImage(undefined);
+                        setResultImgBg(null);
+                        setOpenDialog(false)
+                        dispatch(clearBgImg());
+
+                    } else {
+                        notifyToast('Clear image failed !', 2);
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    notifyToast('Clear file error. Please try again!!', 2);
                 }
-            } catch (error) {
-                console.log(error.message);
-                notifyToast('Clear file error. Please try again!!', 2);
-            }
-        };
-        updateTheme();
-    };
-    const handleAddImageBg = (e) => {
-        e.preventDefault();
-        const updateBg = async () => {
-            dispatch(themeStart());
-            try {
-                const res = await http.put(`/card/${themeBgUser._id}`, {
-                    backgroundImg: resultImgBg?.background,
-                    backgroundImgName: currentBackground,
-                    bgColor: null,
-                });
-                if (res.status === 200) {
-                    notifyToast('Upload image successfully!', 1);
-                    setResultImgBg(null);
-                    setBgImage(undefined);
-                    setOpenDialog(false);
-                    const timeOutId = setTimeout(() => {
-                        dispatch(updateTheme(res.data));
-                    }, 1000);
-                    return () => {
-                        clearTimeout(timeOutId);
-                    };
-                } else {
-                    notifyToast('Upload image failed !', 2);
+            };
+            updateTheme();
+            currentBackground ? deleteFile(currentBackground) : deleteFile(themeBgUser?.backgroundImgName);
+        },
+        [currentBackground, themeBgUser?.backgroundImgName],
+    );
+    const handleAddImageBg = useCallback(
+        (e) => {
+            e.preventDefault();
+            const updateBg = async () => {
+                dispatch(themeStart());
+                try {
+                    const res = await http.put(`/card/${themeBgUser?._id}`, {
+                        backgroundImg: resultImgBg?.background,
+                        backgroundImgName: currentBackground,
+                        bgColor: null,
+                    });
+                    if (res.status === 200) {
+                        notifyToast('Upload image successfully!', 1);
+                        setResultImgBg(null);
+                        setBgImage(undefined);
+                        setOpenDialog(false);
+                        const timeOutId = setTimeout(() => {
+                            dispatch(updateTheme(res.data));
+                        }, 1000);
+                        return () => {
+                            clearTimeout(timeOutId);
+                        };
+                    } else {
+                        notifyToast('Upload image failed !', 2);
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    notifyToast('Upload file error. Please try again!!', 2);
+                    dispatch(themeFail());
                 }
-            } catch (error) {
-                console.log(error.message);
-                notifyToast('Upload file error. Please try again!!', 2);
-                dispatch(themeFail());
+            };
+            if (resultImgBg) {
+                updateBg();
+                if(currentTheme?.backgroundImgName){    
+                    deleteFile(currentTheme?.backgroundImgName)
+                    console.log("cleared result")       
+                }
+            } else {
+                notifyToast('Some things error. Please try again!!', 2);
             }
-        };
-        if (resultImgBg) {
-            updateBg();
-        } else {
-            notifyToast('Some things error. Please try again!!', 2);
-        }
-    };
+        },
+        [resultImgBg?.background, currentBackground],
+    );
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -301,7 +300,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                 )}
                                 {pickImg && (
                                     <Dialog_file
-                                        avtUser={avtUser}
+                                        avtUser={user?.avtImg}
                                         setAvatar={setAvatar}
                                         avatar={avatar}
                                         setResultImg={setResultImg}
@@ -323,7 +322,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                     </div>
                                 ) : (
                                     <div className="dialog-btn-group">
-                                        {resultImg || avtUser ? (
+                                        {resultImg || user?.avtImg ? (
                                             <button className="dialog-btn" onClick={handleClearAvt}>
                                                 Clear
                                             </button>

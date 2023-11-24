@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRef } from 'react';
 import avatarDefault from '../../untils/AvatarLink';
 function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user, icons }) {
+    console.log(theme)
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const [maxLenght, setMaxLenght] = useState(80);
@@ -163,12 +164,12 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
                 </div>
                 <div>
                     <Dialog_UI
-                        theme ={theme}
                         openDialog={openDialog}
                         setOpenDialog={setOpenDialog}
                         pickImg={pickImg}
                         notifyToast={notifyToast}
                         setIcon={setIcon}
+                        user={user}
                     />
                 </div>
             </div>

@@ -92,7 +92,7 @@ function Dialog_content({
              (
                 <>
                     {pickImgBg || themeBgUser  ? (
-                        <>
+                        <>  
                             <Dialog.Title className="DialogTitle">Add Image Background</Dialog.Title>
                             <fieldset className="Fieldset-bg">
                                 <label className="Label" htmlFor="upload-photo">

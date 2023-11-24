@@ -7,6 +7,7 @@ import { useState, memo, useEffect } from 'react';
 import http from '../../instance/axiosInstance';
 import PreView from '../../components/Preview/PreView';
 import { useParams } from 'react-router-dom';
+import ButtonLink from '../../components/ButtonLink/ButtonLink';
 
 function Template() {
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -54,11 +55,15 @@ function Template() {
                 </section>
                 <section className="template-item" id="#theme">
                     <h2 className="tempProfile_title">Themes</h2>
-                    <TempTheme cardId={theme?._id}   />
+                    <TempTheme cardId={theme?._id}  />
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
                     <Background cardId={theme?._id} theme={theme}/>
+                </section>
+                <section className="template-item" id="#button">
+                    <h2 className="tempProfile_title">Button</h2>
+                    <ButtonLink/>
                 </section>
             </div>
             <div className="template-right">

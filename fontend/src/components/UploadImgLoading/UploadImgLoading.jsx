@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-
     return (
         <>
             <section className="updaloadImg">
@@ -17,7 +16,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg })
                             <>
                                 <img
                                     className="updaloadImg-preview-bg"
-                                    src={themeBgUser ? themeBgUser : resultImgBg?.background}
+                                    src={themeBgUser ? themeBgUser : resultImgBg?.background }
                                 ></img>
                                 <div className="updaloadImg-avt-preview">
                                     <AvatarProfile
