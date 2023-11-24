@@ -19,7 +19,7 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                     <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
                 ) : (
                     <>
-                        {currentTheme?.backgroundImg || theme?.backgroundImage ? (
+                        {currentTheme?.backgroundImg || theme?.backgroundImg ? (
                             <img
                                 className="template-bg"
                                 src={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
