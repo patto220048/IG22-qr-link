@@ -25,7 +25,7 @@ function TempProfile({ setIcon, setUserIn, setIsLoading, isLoading, theme, user,
                 toast.success('🦄 ' + message);
                 break;
             case 2:
-                toast.error('Opps!!' + message);
+                toast.error('Opps !!' + message);
                 break;
             case 3:
                 toast.promise(time, {

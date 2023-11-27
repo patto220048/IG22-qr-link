@@ -33,11 +33,11 @@ class authController {
                     const salt = await bcrypt.genSaltSync(10);
                     const hash = await bcrypt.hashSync(req.body.password, salt);
                     //create card for user
-                  
+
                     // save user into database
                     const newUser = new User({ ...req.body, password: hash, verifyMailCode: verifyMailCode });
                     await newUser.save();
-                    const newCard = new Card({...req.body, userId: newUser._id});
+                    const newCard = new Card({ ...req.body, userId: newUser._id });
                     await newCard.save();
                     return res.status(200).json(newUser);
                 } else {
@@ -270,6 +270,37 @@ class authController {
             }
         } catch (error) {
             res.json(handleError(500, error.message));
+        }
+    }
+    async loginWithGoogle(req, res) {
+        try {
+            const user = await User.findOne({ email: req.body.email });
+
+            if (user) {
+                const accessToken = generateAccessToken(user);
+                const { password, ...other } = user;
+
+                res.cookie('access_token', 'Bearer ' + accessToken, {
+                    httpOnly: true,
+                    path: '/',
+                })
+                    .status(200)
+                    .json({ ...other });
+            }
+            else{
+                const newUser = new User({...req.body, fromGoogle:true})
+                await newUser.save()
+                const accessToken = generateAccessToken(user);
+                res.cookie('access_token', 'Bearer ' + accessToken, {
+                    httpOnly: true,
+                    path: '/',
+                    
+                })
+                    .status(200)
+                    .json("Singup with Google !")
+            }
+        } catch (error) {
+            next(error)
         }
     }
 }

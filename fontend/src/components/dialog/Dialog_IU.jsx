@@ -208,23 +208,17 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
     const handleClearImageBg = useCallback(
         (e) => {
             e.preventDefault();
-      
             const updateTheme = async () => {
                 try {
                     const res = await http.put(`/card/${themeBgUser?._id}`, {
                         backgroundImg: null,
                         backgroundImgName: null,
                     });
-                    if (res.status === 200) {
-                        setResultImgBg(null);
-                        setBgImage(undefined);
-                        setResultImgBg(null);
-                        setOpenDialog(false)
-                        dispatch(clearBgImg());
-
-                    } else {
-                        notifyToast('Clear image failed !', 2);
-                    }
+                    setResultImgBg(null);
+                    setBgImage(undefined);
+                    setResultImgBg(null);
+                    setOpenDialog(false);
+                    dispatch(clearBgImg());
                 } catch (error) {
                     console.log(error.message);
                     notifyToast('Clear file error. Please try again!!', 2);
@@ -268,12 +262,12 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             };
             if (resultImgBg) {
                 updateBg();
-                if(currentTheme?.backgroundImgName){    
-                    deleteFile(currentTheme?.backgroundImgName)
-                    console.log("cleared result")       
+                if (currentTheme?.backgroundImgName) {
+                    deleteFile(currentTheme?.backgroundImgName);
+                    console.log('cleared result');
                 }
             } else {
-                notifyToast('Some things error. Please try again!!', 2);
+                notifyToast('File not found. Please try again!!', 2);
             }
         },
         [resultImgBg?.background, currentBackground],
@@ -313,9 +307,13 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
 
                                 {pickImgBg ? (
                                     <div className="dialog-btn-group-bg">
-                                        <button className="dialog-btn" onClick={handleClearImageBg}>
-                                            Clear
-                                        </button>
+                                        {themeBgUser?.backgroundImg || resultImgBg ? (
+                                            <button className="dialog-btn" onClick={handleClearImageBg}>
+                                                Clear
+                                            </button>
+                                        ) : (
+                                            <></>
+                                        )}
                                         <button className="dialog-btn" onClick={handleAddImageBg}>
                                             Save changes
                                         </button>

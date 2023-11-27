@@ -13,8 +13,13 @@ import http from '../../../instance/axiosInstance';
 import { loginFail, loginStart, loginSuccess, updateData } from '../../../redux-toolkit/userSlice';
 import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
 import Loading from '../../../components/dialog/loading/Loading';
+//login with google
+import {auth, providerGG} from "../../../firebase/config" 
+import {signInWithPopup} from "firebase/auth";
+import { v4 as uuidv4 } from 'uuid';
 function Login() {
     const dispatch = useDispatch();
+    const generatorString = uuidv4();
     const currentUser = useSelector((state) => state.user.currentUser);
     // toast message
     const notifyToast = (err) => toast.error(err);
@@ -142,7 +147,20 @@ function Login() {
     };
     //handle login with google
     const handleLoginWithGG = () => {
-        console.log('google');
+        signInWithPopup(auth,providerGG)
+        .then(async(result)=>{
+            await  http.post("/auth/google", {
+                username :result.user.displayName ,
+                email: result.user.email,
+                verifySuccess: result.user.emailVerified,
+                avtImg: result.user.photoURL,
+                fromGoogle: true,
+                password: generatorString ,
+            })
+        })
+        .catch (err => {
+            console.log(err)
+        })
     };
     return (
         <div className="login">
