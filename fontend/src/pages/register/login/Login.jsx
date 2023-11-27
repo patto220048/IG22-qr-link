@@ -14,12 +14,11 @@ import { loginFail, loginStart, loginSuccess, updateData } from '../../../redux-
 import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
 import Loading from '../../../components/dialog/loading/Loading';
 //login with google
-import {auth, providerGG} from "../../../firebase/config" 
-import {signInWithPopup} from "firebase/auth";
-import { v4 as uuidv4 } from 'uuid';
+import { auth, providerGG } from '../../../firebase/config';
+import { signInWithPopup } from 'firebase/auth';
+
 function Login() {
     const dispatch = useDispatch();
-    const generatorString = uuidv4();
     const currentUser = useSelector((state) => state.user.currentUser);
     // toast message
     const notifyToast = (err) => toast.error(err);
@@ -146,21 +145,32 @@ function Login() {
         setFocused(true);
     };
     //handle login with google
-    const handleLoginWithGG = () => {
-        signInWithPopup(auth,providerGG)
-        .then(async(result)=>{
-            await  http.post("/auth/google", {
-                username :result.user.displayName ,
-                email: result.user.email,
-                verifySuccess: result.user.emailVerified,
-                avtImg: result.user.photoURL,
-                fromGoogle: true,
-                password: generatorString ,
+    const handleLoginWithGG = async () => {
+        dispatch(loginStart());
+        signInWithPopup(auth, providerGG)
+            .then((result) => {
+                console.log(result);
+                http.post('/auth/google', {
+                    username: result.user.displayName,
+                    email: result.user.email,
+                    verifySuccess: result.user.emailVerified,
+                    avtImg: result.user.photoURL,
+                    fromGoogle: true,
+
+                })
+                    .then((res) => {
+                        console.log(res.data);
+                        dispatch(loginSuccess(res.data));
+                        navigate(`/template/${res.data.username}`);
+                    })
+                    .catch((err) => {
+                        setErr('LOGIN FAILED !');
+                        dispatch(loginFail());
+                    });
             })
-        })
-        .catch (err => {
-            console.log(err)
-        })
+            .catch((err) => {
+                console.log(err.message);
+            });
     };
     return (
         <div className="login">
