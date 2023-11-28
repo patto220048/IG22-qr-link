@@ -21,6 +21,7 @@ function Background({ cardId, theme }) {
     const [isGardientTop, setIsGardientTop] = useState(false);
     const [isGardientBot, setIsGardientBot] = useState(false);
     const [isPickImgBg, setIsPickImgBg] = useState(false);
+    const [isPickImgVideo, setIsPickImgVideo] = useState(false);
     const dispatch = useDispatch();
     const refColorBox = useRef();
     const refGadientTopBox = useRef();
@@ -29,14 +30,14 @@ function Background({ cardId, theme }) {
     const [openColor, setOpenColor] = useState(false);
     const [openGadient, setopenGadient] = useState(false);
     const inputRef = useRef();
-    const notifyToast =(message,type) => {
-        console.log(type)
+    const notifyToast = (message, type) => {
+        console.log(type);
         switch (type) {
             case 1:
-               toast.success('🦄 ' + message)
+                toast.success('🦄 ' + message);
                 break;
             case 2:
-               toast.error('Opps!! ' + message )
+                toast.error('Opps!! ' + message);
                 break;
 
             default:
@@ -138,18 +139,21 @@ function Background({ cardId, theme }) {
         e.stopPropagation();
         setIsPickColor(!isPickColor);
         setIsPickImgBg(false);
+        setIsPickImgVideo(false);
     };
     const handlePickGardientTop = (e) => {
         e.stopPropagation();
         setIsGardientTop(!isGardientTop);
         setIsGardientBot(false);
         setIsPickImgBg(false);
+        setIsPickImgVideo(false);
     };
     const handlePickGardientBot = (e) => {
         e.stopPropagation();
         setIsGardientBot(!isGardientBot);
         setIsGardientTop(false);
         setIsPickImgBg(false);
+        setIsPickImgVideo(false);
     };
     const handlePickImage = (e) => {
         e.stopPropagation();
@@ -157,6 +161,7 @@ function Background({ cardId, theme }) {
         setHexGadientTop(false);
         setIsPickColor(false);
         setIsPickImgBg(true);
+        setIsPickImgVideo(false);
     };
 
     // useEffect(() => {
@@ -205,7 +210,7 @@ function Background({ cardId, theme }) {
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
                 <BgImage setIsPickImg={setIsPickImgBg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgVideo />
+                <BgVideo setIsPickImgVideo={setIsPickImgVideo} />
             </div>
 
             {openColor && (
@@ -344,7 +349,20 @@ function Background({ cardId, theme }) {
                 </>
             )}
             {isPickImgBg && (
-                <Dialog_UI openDialog={isPickImgBg} setOpenDialog={setIsPickImgBg} pickImgBg={isPickImgBg} notifyToast={notifyToast} />
+                <Dialog_UI
+                    openDialog={isPickImgBg}
+                    setOpenDialog={setIsPickImgBg}
+                    pickImgBg={isPickImgBg}
+                    notifyToast={notifyToast}
+                />
+            )}
+            {isPickImgVideo && (
+                <Dialog_UI
+                    openDialog={isPickImgVideo}
+                    setOpenDialog={setIsPickImgVideo}
+                    pickImgVideo={isPickImgVideo}
+                    notifyToast={notifyToast}
+                />
             )}
         </div>
     );

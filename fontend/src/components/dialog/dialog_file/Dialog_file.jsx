@@ -1,6 +1,6 @@
 import './Dialog_file.scss';
 import * as Dialog from '@radix-ui/react-dialog';
-import { imgIcon, closeIcon, imageUp } from '../../../svg/icon';
+import { imgIcon, closeIcon, imageUp, upLoadVideo } from '../../../svg/icon';
 import { useEffect, useState, memo } from 'react';
 import app from '../../../firebase/config';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -25,6 +25,12 @@ function Dialog_content({
     pickImgBg,
     isBackground,
     isAvatar,
+    pickImgVideo,
+    bgVideo,
+    setBgVideo,
+    resultVideo,
+    setResultVideo
+
 }) {
     // image processing upload
     const [imgPercent, setImgPercent] = useState(0);
@@ -34,7 +40,7 @@ function Dialog_content({
         const fileName = new Date().getTime() + file?.name;
         const storageRef = ref(storage, fileName);
         type === 'avatar' && setCurrentAvatar(fileName);
-        type === 'background' && setCurrentBackground(fileName)
+        type === 'background' && setCurrentBackground(fileName);
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
             'state_changed',
@@ -47,7 +53,10 @@ function Dialog_content({
                 // console.log(snapshot.ref._location.path_)
                 type === 'avatar' && setImgPercent(Math.round(progress));
                 type === 'avatar' && setImgUpLoading(Math.round(progress));
+               
                 type === 'background' && setImgPercent(Math.round(progress));
+                type === 'video' && setImgPercent(Math.round(progress));
+
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -66,51 +75,93 @@ function Dialog_content({
                 // Handle successful uploads on complete
                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    avatar && setResultImg((pre) => {
-                        return { ...pre, [type]: downloadURL };
-                    });
-                    bgImage && setResultImgBg((pre) => {
-                        return { ...pre, [type]: downloadURL };
-                    });
+                    avatar &&
+                        setResultImg((pre) => {
+                            return { ...pre, [type]: downloadURL };
+                        });
+                    bgImage &&
+                        setResultImgBg((pre) => {
+                            return { ...pre, [type]: downloadURL };
+                        });
+                        bgVideo && 
+                        setResultVideo((pre) => {
+                            return { ...pre, [type]: downloadURL };
+                        })
                 });
             },
         );
     };
     useEffect(() => {
-        avatar && (resultImg ? <></> : upload(avatar, 'avatar')) 
-       
+        avatar && (resultImg ? <></> : upload(avatar, 'avatar'));
     }, [avatar]);
 
-    useEffect(()=>{
-        bgImage && (resultImgBg ? <></> : upload(bgImage, 'background'))
-    },[bgImage])
+    useEffect(() => {
+        bgImage && (resultImgBg ? <></> : upload(bgImage, 'background'));
+    }, [bgImage]);
+    useEffect(() => {
+        bgVideo && (resultVideo ? <></> : upload(bgVideo, 'video'));
+    }, [bgVideo]);
     return (
         <>
-            {avatar || avtUser || bgImage || themeBgUser ? (
-                <UploadImgLoading avtUser={avtUser} resultImg={resultImg} imgPercent={imgPercent} themeBgUser={themeBgUser} resultImgBg={resultImgBg}/>
-            ) :
-             (
+            {avatar || avtUser || bgImage || themeBgUser || resultVideo? (
+                <UploadImgLoading
+                    avtUser={avtUser}
+                    resultImg={resultImg}
+                    imgPercent={imgPercent}
+                    themeBgUser={themeBgUser}
+                    resultImgBg={resultImgBg}
+                    resultVideo={resultVideo}
+                />
+            ) : (
                 <>
-                    {pickImgBg || themeBgUser  ? (
-                        <>  
+                    {pickImgBg && (
+                        <>
                             <Dialog.Title className="DialogTitle">Add Image Background</Dialog.Title>
                             <fieldset className="Fieldset-bg">
                                 <label className="Label" htmlFor="upload-photo">
                                     {imageUp(50, 50)}
-                                <h6>Upload your image</h6>
+                                    <h6>Upload your image</h6>
                                 </label>
-                                <input type="file" accept="image/*" id="upload-photo" onChange={(e) => setBgImage(e.target.files[0])} />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    id="upload-photo"
+                                    onChange={(e) => setBgImage(e.target.files[0])}
+                                />
                             </fieldset>
-
                         </>
-                        ) : (
-                            <>
+                    )}
+
+                    {themeBgUser && (
+                        <>
                             <Dialog.Title className="DialogTitle">Add Image</Dialog.Title>
                             <fieldset className="Fieldset">
                                 <label className="Label" htmlFor="upload-photo">
                                     {imgIcon(30, 30)} File/Image
                                 </label>
-                                <input type="file" accept="image/*" id="upload-photo" onChange={(e) => setAvatar(e.target.files[0])} />
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    id="upload-photo"
+                                    onChange={(e) => setAvatar(e.target.files[0])}
+                                />
+                            </fieldset>
+                        </>
+                    )}
+                    {pickImgVideo && (
+                        <>
+                            <Dialog.Title className="DialogTitle">Add Video Background</Dialog.Title>
+                            <fieldset className="Fieldset-bg">
+                                <label className="Label" htmlFor="upload-photo">
+                                    {upLoadVideo(50, 50)}
+                                    <h6>Upload your video</h6>
+                                </label>
+                                <input
+                                    type="file"
+                                    accept="video/*"
+                                    id="upload-photo"
+                                    onChange={(e) => setBgVideo(e.target.files[0])}
+                                />
                             </fieldset>
                         </>
                     )}
