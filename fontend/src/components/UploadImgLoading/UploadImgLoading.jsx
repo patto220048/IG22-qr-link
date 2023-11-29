@@ -37,14 +37,14 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                     <>
                                         <img
                                             className="updaloadImg-preview-bg"
-                                            src={themeBgUser ? themeBgUser : resultImgBg?.background}
+                                            src={resultImgBg?.background ? resultImgBg?.background : ( currentTheme.backgroundImg ? currentTheme.backgroundImg : themeBgUser)}
                                         ></img>
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
                                                 preview={true}
                                                 username={currentUser?.username}
                                                 usernameTitle={currentUser?.usernameTitle}
-                                                decs={currentUser?.decs}
+                                                decs={currentUser?.decs}    
                                                 avatar={currentUser?.avtImg}
                                                 fontColor={currentTheme?.currentTheme}
                                             />

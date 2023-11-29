@@ -166,6 +166,7 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                         openDialog={openDialog}
                         setOpenDialog={setOpenDialog}
                         pickImg={pickImg}
+                        setPickImg={setPickImg}
                         notifyToast={notifyToast}
                         setIcon={setIcon}
                         user={user}

@@ -18,6 +18,7 @@ function Dialog_content({
     avatar,
     setAvatar,
     resultImg,
+    pickImg,
     setResultImg,
     setCurrentAvatar,
     avtUser,
@@ -132,7 +133,7 @@ function Dialog_content({
                         </>
                     )}
 
-                    {themeBgUser && (
+                    {pickImg && (
                         <>
                             <Dialog.Title className="DialogTitle">Add Image</Dialog.Title>
                             <fieldset className="Fieldset">

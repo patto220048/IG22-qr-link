@@ -92,11 +92,6 @@ function Navbar() {
                 <div className="navMobile" onClick={handleOpenMenuMobile}>
                     {menu01Icon(30, 30)}
                 </div>
-                {isMobile && 
-                <div className="nav-link-mobile">
-                    
-                    </div>
-                    }
 
                 {openMenu && (
                     <section className="nav-option">

@@ -22,7 +22,7 @@ import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
 import { clearBgImg, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg, user, pickImgVideo }) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg, user, pickImgVideo ,setIsPickImgBg,setPickImg}) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -46,7 +46,6 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
     //upload video background
     const [bgVideo, setBgVideo] = useState(undefined);
     const [resultVideo, setResultVideo] = useState(null);
-    console.log(resultVideo)
     // const [themeBgUser, setThemeBgUser] = useState({});
     const [resultImgBg, setResultImgBg] = useState(null);
     const [currentBackground, setCurrentBackground] = useState(null);
@@ -79,7 +78,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                     setAvatar(undefined);
                     const timeOutId = setTimeout(() => {
                         dispatch(updateData(res.data));
-                    }, 1000);
+                    }, 500);
                     return () => {
                         clearTimeout(timeOutId);
                     };
@@ -97,22 +96,11 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         } else {
             notifyToast('Some things error. Please try again!!', 2);
         }
-    }, []);
-    //handle delete img when click outside
-    // useEffect(() => {
-    //     const handleClickOutside = () => {
-    //         avatar && deleteFile(avatar);
-    //     };
-    //     document.addEventListener('click', handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside);
-    //     };
-    // }, []);
+    }, [currentUser._id,resultImg?.avatar]);
     const handleClearAvt = useCallback((e) => {
         e.preventDefault();
         const updateUser = async () => {
             try {
-                currentAvatar ? deleteFile(currentAvatar) : deleteFile(user?.avtImg);
                 const res = await http.put(`/users/${currentUser._id}`, {
                     avtImg: null,
                     avtImgName: null,
@@ -131,19 +119,23 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             }
         };
         updateUser();
-    }, []);
+        currentAvatar ? deleteFile(currentAvatar) : deleteFile(user?.avtImg);
+
+    }, [currentUser._id,currentAvatar,user?.avtImg]);
     // deleteFile in firebase
     const deleteFile = useCallback((file) => {
-        const storage = getStorage(app);
-        const desertRef = ref(storage, file);
-        deleteObject(desertRef)
-            .then(() => {
-                notifyToast('Clear image successfully', 1);
-            })
-            .catch((error) => {
-                notifyToast('Not found file !!', 2);
-                console.log(error.message);
-            });
+        if(file){
+            const storage = getStorage(app);
+            const desertRef = ref(storage, file);
+            deleteObject(desertRef)
+                .then(() => {
+                    notifyToast('Clear image successfully', 1);
+                })
+                .catch((error) => {
+                    notifyToast('Not found file !!', 2);
+                    console.log(error.message);
+                });
+        }
     }, []);
     // const handleClose = (e) => {
     //     e.preventDefault();
@@ -214,14 +206,14 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             e.preventDefault();
             const updateTheme = async () => {
                 try {
-                    const res = await http.put(`/card/${themeBgUser?._id}`, {
+                    const res = await http.put(`/card/${currentTheme?._id}`, {
                         backgroundImg: null,
                         backgroundImgName: null,
                     });
                     setResultImgBg(null);
                     setBgImage(undefined);
                     setResultImgBg(null);
-                    setOpenDialog(false);
+                    setIsPickImgBg(false);
                     dispatch(clearBgImg());
                 } catch (error) {
                     console.log(error.message);
@@ -231,7 +223,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             updateTheme();
             currentBackground ? deleteFile(currentBackground) : deleteFile(themeBgUser?.backgroundImgName);
         },
-        [currentBackground, themeBgUser?.backgroundImgName],
+        [currentTheme?._id,currentBackground, themeBgUser?.backgroundImgName],
     );
     const handleAddImageBg = useCallback(
         (e) => {
@@ -321,6 +313,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                             setCurrentAvatar={setCurrentAvatar}
                                             setImgUpLoading={setImgUpLoading}
                                             isAvatar={'avatar'}
+                                            pickImg = {pickImg}
                                         />
                                         <div className="dialog-btn-group">
                                             {resultImg || user?.avtImg ? (
