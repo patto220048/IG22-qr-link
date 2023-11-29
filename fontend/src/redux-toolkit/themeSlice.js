@@ -33,6 +33,7 @@ export const themeSlice = createSlice({
         },
         clearBgImg: (state, action) => {
             state.currentTheme.backgroundImg = null
+            state.currentTheme.backgroundImgName = null
             state.loading = false;
             state.error = false;
         }

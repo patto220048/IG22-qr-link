@@ -4,30 +4,53 @@ import * as Progress from '@radix-ui/react-progress';
 import { memo } from 'react';
 import AvatarProfile from '../AvatarProfile/AvatarProfile';
 import { useSelector } from 'react-redux';
-function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg }) {
+function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     return (
         <>
             <section className="updaloadImg">
-                {resultImg || avtUser || themeBgUser || resultImgBg ? (
+                {resultImg || avtUser || themeBgUser || resultImgBg || resultVideo ? (
                     <>
-                        { themeBgUser || resultImgBg ? (
+                        {themeBgUser || resultImgBg || resultVideo ? (
                             <>
-                                <img
-                                    className="updaloadImg-preview-bg"
-                                    src={themeBgUser ? themeBgUser : resultImgBg?.background }
-                                ></img>
-                                <div className="updaloadImg-avt-preview">
-                                    <AvatarProfile
-                                        preview={true}
-                                        username={currentUser?.username}
-                                        usernameTitle={currentUser?.usernameTitle}
-                                        decs={currentUser?.decs}
-                                        avatar={currentUser?.avtImg}
-                                        fontColor={currentTheme?.currentTheme}
-                                    />
-                                </div>
+                                {resultVideo?.video ? (
+                                    <>
+                                        <video
+                                            controls
+                                            className="updaloadImg-video-bg"
+                                            type="video/mp4"
+                                            src={resultVideo?.video}
+                                        ></video>
+                                        <div className="updaloadImg-avt-preview">
+                                            <AvatarProfile
+                                                preview={true}
+                                                username={currentUser?.username}
+                                                usernameTitle={currentUser?.usernameTitle}
+                                                decs={currentUser?.decs}
+                                                avatar={currentUser?.avtImg}
+                                                fontColor={currentTheme?.currentTheme}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <img
+                                            className="updaloadImg-preview-bg"
+                                            src={resultImgBg?.background ? resultImgBg?.background : ( currentTheme.backgroundImg ? currentTheme.backgroundImg : themeBgUser)}
+                                        ></img>
+                                        <div className="updaloadImg-avt-preview">
+                                            <AvatarProfile
+                                                preview={true}
+                                                username={currentUser?.username}
+                                                usernameTitle={currentUser?.usernameTitle}
+                                                decs={currentUser?.decs}    
+                                                avatar={currentUser?.avtImg}
+                                                fontColor={currentTheme?.currentTheme}
+                                            />
+                                        </div>
+                                    </>
+                                )}
                             </>
                         ) : (
                             <img className="updaloadImg-preview" src={avtUser ? avtUser : resultImg?.avatar}></img>
