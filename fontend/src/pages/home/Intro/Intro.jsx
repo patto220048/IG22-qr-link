@@ -9,6 +9,7 @@ function Intro() {
         <div className="intro">
             <div className="intro-container">
                 <div className="intro-img">
+                    {/* <div className='intro-img'><img src={imgIntro} /></div> */}
                     <img src={imgIntro} />
                     <p>PLATFORM FOR CREATORS</p>
                 </div>

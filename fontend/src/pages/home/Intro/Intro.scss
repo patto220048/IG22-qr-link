@@ -83,3 +83,30 @@
     }
 }
 
+
+// For tablets
+
+@media only screen and (min-width: 955px) {
+    .intro {
+        .intro-container {
+            .intro-img {
+                .img {
+                    width: 1200px;
+                    height: 500px;
+                    margin-bottom: 180px;
+                }
+            }
+            .intro-text {
+                font-size: clamp(64px, 8vmin, 56px);
+                font-family: "Link Sans", "Arial Black", Arial, sans-serif;
+            }
+            .intro-decs {
+                font-size: 30px;
+            }
+            .intro-button {
+                font-size: 25px;
+            }
+        }
+    }
+}
+
