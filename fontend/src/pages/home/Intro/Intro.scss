@@ -15,28 +15,57 @@
         align-items: center;
         gap: 50px;
 
-        .intro-img {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            // margin-bottom:30px;
-            margin-top: 60px;
+        .intro-group {
+            .intro-img {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+                // margin-bottom:30px;
+                margin-top: 100px;
+
+                img {
+                    width: 600px;
+                    height: 200px;
+                    object-fit: cover;
+                    -moz-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+                    -webkit-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+                    -ms-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+                    box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+                }
+            }
+
             p {
+                padding-top: 20px;
                 margin-top: 20px;
                 opacity: 0.5;
                 font-size: 20px;
-            }
-            img {
-                width: 600px;
-                height: 200px;
-                object-fit: cover;
-                -moz-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
-                -webkit-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
-                -ms-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
-                box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+                text-align: center;
             }
         }
+        
+        // .intro-img {
+        //     display: flex;
+        //     flex-direction: column;
+        //     align-items: center;
+        //     gap: 30px;
+        //     // margin-bottom:30px;
+        //     margin-top: 60px;
+        //     p {
+        //         margin-top: 20px;
+        //         opacity: 0.5;
+        //         font-size: 20px;
+        //     }
+        //     img {
+        //         width: 600px;
+        //         height: 200px;
+        //         object-fit: cover;
+        //         -moz-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+        //         -webkit-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+        //         -ms-box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+        //         box-shadow: 9px 19px 22px -4px rgba(0, 0, 0, 0.38);
+        //     }
+        // }
 
         .intro-text {
             font-size: $fontSize_home;
@@ -63,21 +92,65 @@
 @media only screen and (min-width: 375px)  and (max-width: 789px) {
     .intro {
         .intro-container {
-            .intro-img {
-
+            .intro-group {
+                .intro-img {
+                    img {
+                        width: 340px;
+                        height: 115px;
+                        margin-top: 40px;
+                    }
+                }
+                
+                p {
+                    font-size: 10px;
+                    text-align: center;
+                }
             }
+
             .intro-text {
-                font-size: 47px;
+                font-size: 35px;
                 line-height: 1.1;
-                padding: 6px;
+                padding: 8px;
             }
             .intro-decs {
-                 font-size: 15px;
+                 font-size: 14px;
                  line-height: 1.5;
+                 padding-left: 9px;
             }
             .intro-button {
-
+                font-size: 10px;
             }
         }
     }
 }
+
+
+// For tablets
+
+@media only screen and (min-width: 955px) {
+    .intro {
+        .intro-container {
+
+            .intro-group {
+                .intro-img {
+                    .img {
+                        width: 1200px;
+                        height: 500px;
+                        margin-bottom: 180px;
+                    }
+                }
+            }
+            .intro-text {
+                font-size: clamp(60px, 8vmin, 56px);
+                font-family: "Link Sans", "Arial Black", Arial, sans-serif;
+            }
+            .intro-decs {
+                font-size: 30px;
+            }
+            .intro-button {
+                font-size: 25px;
+            }
+        }
+    }
+}
+
