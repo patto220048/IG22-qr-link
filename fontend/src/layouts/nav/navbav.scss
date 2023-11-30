@@ -172,7 +172,8 @@
                 flex-direction: column;
                 gap: 70px;
                 align-items: center;
-                padding: 65px;
+                padding: 75px;
+                width: 800px;
                 // width: 100%;z
                 z-index: -1;
                 height: 100vh;
@@ -252,12 +253,12 @@
                 position: absolute;
                 display: flex;
                 flex-direction: column;
-                gap: 60px;
+                gap: 40px;
                 align-items: center;
-                padding: 20px;
+                padding: 60px;
                 // width: 100%;z
                 z-index: -1;
-                height: 100vh;
+                height: 100vh;  
                 background-color: aqua;
                 margin-top: 500px;
                 justify-content: center;
@@ -266,7 +267,7 @@
                 animation-delay: -1s;
                 .nav-link-mobile_items {
                     // margin-top: 100px;
-                    font-size: 40px;
+                    font-size: 30px;
                     color: $text_color_soft_3;
                     &:hover {
                         background-color: $text_hover_color;

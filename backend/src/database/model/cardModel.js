@@ -18,6 +18,10 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
+        backgroundVideoName: {
+            type: String,
+            default: null,
+        },
         bgColor: {
             type: String,
             default: null,

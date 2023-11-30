@@ -46,6 +46,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
     //upload video background
     const [bgVideo, setBgVideo] = useState(undefined);
     const [resultVideo, setResultVideo] = useState(null);
+    const [currentVideoBg, setCurrentVideoBg] = useState(null);
     // const [themeBgUser, setThemeBgUser] = useState({});
     const [resultImgBg, setResultImgBg] = useState(null);
     const [currentBackground, setCurrentBackground] = useState(null);
@@ -268,6 +269,41 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         },
         [resultImgBg?.background, currentBackground],
     );
+    // video handle
+    const handleAddVideoBg = useCallback((e) => {
+        const updateBg = async () => {
+            dispatch(themeStart());
+            try {
+                const res = await http.put(`/card/${themeBgUser?._id}`, {
+                    backgroundImg: resultVideo?.video,
+                    backgroundVideoName : currentVideoBg,
+                    bgColor: null,
+                });
+                if (res.status === 200) {
+                    notifyToast('Upload image successfully!', 1);
+                    setResultVideo(null);
+                    setBgVideo(undefined);
+                    setOpenDialog(false);
+                    const timeOutId = setTimeout(() => {
+                        dispatch(updateTheme(res.data));
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                } else {
+                    notifyToast('Upload image failed !', 2);
+                }
+            } catch (error) {
+                console.log(error.message);
+                notifyToast('Upload file error. Please try again!!', 2);
+                dispatch(themeFail());
+            }
+        };
+
+    },[])
+    const handleClearVideoBg = (e) => {
+        
+    }
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -340,8 +376,8 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                         setResultVideo = {setResultVideo}
                                          />
                                         <div className="dialog-btn-group">
-                                            <button className="dialog-btn">Clear</button>
-                                            <button className="dialog-btn">Save changes</button>
+                                            <button className="dialog-btn" onClick={handleClearVideoBg}>Clear</button>
+                                            <button className="dialog-btn" onClick={handleAddVideoBg}>Save changes</button>
                                         </div>
                                     </>
                                 )}
