@@ -1,0 +1,23 @@
+.InputUrl{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    
+    .InputUrl-iconName{
+
+    }
+    .InputUrl-input{
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 25px;
+        font-size: 15px;
+        font-weight: 500;
+        
+    }
+    .InputUrl-desc{
+        font-size: 14px;
+        opacity: 0.6;
+    }
+}

@@ -59,6 +59,8 @@
     .card {
         .card-container {
             .card-left {
+                flex: 0;
+                margin-left: 10px;
             }
             .card-right {
                 .card-text {

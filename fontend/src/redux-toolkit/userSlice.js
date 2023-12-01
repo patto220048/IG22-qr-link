@@ -11,33 +11,63 @@ export const userSlice = createSlice({
     reducers: {
         loginStart: (state) => {
             state.loading = true;
-            state.error = false
+            state.error = false;
         },
         loginSuccess: (state, action) => {
             state.loading = false;
-            state.error = false
+            state.error = false;
             state.currentUser = action.payload;
         },
         loginFail: (state) => {
             state.loading = false;
             state.error = true;
         },
-        updateData: (state,action) => {
+        updateData: (state, action) => {
             state.loading = false;
             state.error = false;
-            state.currentUser = {...action.payload};
+            state.currentUser = { ...action.payload };
         },
         deleteFileImg: (state, action) => {
             state.currentUser.avtImg = action.payload;
-
+        },
+        addThemeIcon: (state, action) => {
+            state.currentUser.groupIcon.push(action.payload);
+            state.loading = false;
+            state.error = false;
+        },
+        deleteThemeIcon: (state, action) => {
+            state.loading = false;
+            state.error = false;
+            state.currentUser.groupIcon.map((icon) => {
+                if (icon._id === action.payload._id) {
+                    state.currentUser.groupIcon.splice(
+                        state.currentUser.groupIcon.findIndex((icon) => icon._id === action.payload._id),
+                        1,
+                    );
+                }
+            });
+        },
+        loadingStart:(state)=>{
+            state.loading = true;
+            state.error = false;
+        },
+        loadingEnd:(state)=>{
+            state.loading = false;
+            state.error = true;
+        },
+        clearAvtImg:(state)=>{
+            state.loading = false;
+            state.error = false
+            state.currentUser.avtImg = null;
         },
         logout: () => {
             return initialState;
-        }
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { loginStart, loginSuccess, loginFail, logout , updateData,deleteFileImg} = userSlice.actions;
+export const { loginStart, loginSuccess, loginFail, logout, updateData, deleteFileImg, addThemeIcon, deleteThemeIcon,loadingStart,loadingEnd,clearAvtImg } =
+    userSlice.actions;
 
 export default userSlice.reducer;

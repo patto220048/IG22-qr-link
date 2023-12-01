@@ -89,3 +89,37 @@
         }
     }
 }
+
+// For mobile
+@media only screen and (min-width: 375px)  and (max-width: 789px) {
+    .footer {
+        .footer-container {
+            flex-direction: column;
+            .footer-left {
+                justify-content: space-around;
+                flex-direction: column;
+                align-items: flex-start;
+                .footer-sub {
+
+                }
+            }
+            .footer-right {
+                justify-content: flex-start;
+                .footer-info {
+                    .footer-logo {
+
+                    }
+                    .footer-input {
+
+                    }
+                    .footer-icon {
+                        .footer-icon_items {
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

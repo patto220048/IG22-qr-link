@@ -101,5 +101,6 @@ class UserController {
             res.json(handleError(500, error.message));
         }
     }
+ 
 }
 export default new UserController();

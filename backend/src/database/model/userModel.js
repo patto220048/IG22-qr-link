@@ -70,6 +70,14 @@ const UserModel = new Schema(
         groupImg:{
             type: Array,
             default:[]
+        },
+        groupIcon:{
+            type: Array,
+            default:[]
+        },
+        fromGoogle : {
+            type: Boolean,
+            default:false
         }
        
         

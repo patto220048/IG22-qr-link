@@ -1,13 +1,21 @@
-import { facebookIcon } from '../../svg/social';
 import './SocialIconItem.scss';
-function SocialIconItem() {
+import iconSvgs from '../../themes/icon';
+import { useSelector } from 'react-redux';
+import { memo } from 'react';
+function SocialIconItem({ iconName, iconUrl, iconTheme }) {
     return (
         <div className="socialIconItem">
-            <a href="https://www.figma.com/files/recents-and-sharing/recently-viewed?fuid=1239730375145362701">
-                {facebookIcon(30,30)}
-            </a>
+            {!iconTheme ? (
+                <a href={iconUrl}>
+                    {iconSvgs.map(
+                        (iconSvg, index) => iconSvg.iconName === iconName && <span key={index}>{iconSvg.icon}</span>,
+                    )}
+                </a>
+            ) : (
+                iconTheme
+            )}
         </div>
     );
 }
 
-export default SocialIconItem;
+export default memo(SocialIconItem);

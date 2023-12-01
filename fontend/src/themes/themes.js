@@ -30,7 +30,7 @@ const themes = [
     {
         bg_img: "https://firebasestorage.googleapis.com/v0/b/qr-link-34a7e.appspot.com/o/theme%2F6-2.jpg?alt=media&token=0843d41e-c913-488c-b0c8-4bc7971f5b07&_gl=1*1h6m2zi*_ga*NTcxOTUzNjQyLjE2OTcxNjgzNDc.*_ga_CW55HF8NVT*MTY5ODk3NTczNC41LjEuMTY5ODk3NTk5OS42MC4wLjA.",
         bg_opacity: 0.7,
-        bnt_radius: 25,
+        bnt_radius: 0,
         btn_color:"",
         btn_type:"",
         font_color:"#FFFFFF",

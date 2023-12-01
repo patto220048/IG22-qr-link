@@ -8,10 +8,10 @@ import sha256 from 'crypto-js/sha256.js';
 import verifyHtml from '../mail-service/mail-html/verify-html.js';
 import verifyPassHtml from '../mail-service/mail-html/resetpass-html.js';
 import Card from '../database/model/cardModel.js';
-
+import { v4 as uuidv4 } from 'uuid';
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '365d',
+        expiresIn: '2h',
     });
 };
 const generateRefeshToken = (user) => {
@@ -19,6 +19,7 @@ const generateRefeshToken = (user) => {
         expiresIn: '365d',
     });
 };
+const generateString = uuidv4()
 class authController {
     async signUp(req, res) {
         crypto.randomBytes(64, async (err, buffer) => {
@@ -33,11 +34,11 @@ class authController {
                     const salt = await bcrypt.genSaltSync(10);
                     const hash = await bcrypt.hashSync(req.body.password, salt);
                     //create card for user
-                  
+
                     // save user into database
                     const newUser = new User({ ...req.body, password: hash, verifyMailCode: verifyMailCode });
                     await newUser.save();
-                    const newCard = new Card({...req.body, userId: newUser._id});
+                    const newCard = new Card({ ...req.body, userId: newUser._id });
                     await newCard.save();
                     return res.status(200).json(newUser);
                 } else {
@@ -270,6 +271,49 @@ class authController {
             }
         } catch (error) {
             res.json(handleError(500, error.message));
+        }
+    }
+    async loginWithGoogle(req, res, next) {
+        try {
+            const user = await User.findOne({ email: req.body.email });
+
+            if (user) {
+                const accessToken = generateAccessToken(user);
+                const { password, ...other } = user._doc;
+
+                res.cookie('access_token', 'Bearer ' + accessToken, {
+                    httpOnly: true,
+                    path: '/',
+                })
+                    .status(200)
+                    .json({ ...other });
+            }
+            else{
+                //generate password
+                const passwordGenerate = generateString
+                //hash password
+                const salt = await bcrypt.genSaltSync(10);
+                const hash = await bcrypt.hashSync(passwordGenerate, salt);
+                // create new user
+                const newUser = new User({...req.body, fromGoogle:true, password:hash })
+                await newUser.save()
+                // create new card
+                const newCard = new Card({ ...req.body, userId: newUser._id });
+                await newCard.save();
+                const accessToken = generateAccessToken(newUser);
+                // create cookie
+                const { password,verifyMailCode, ...other } = newUser._doc;
+
+                res.cookie('access_token', 'Bearer ' + accessToken, {
+                    httpOnly: true,
+                    path: '/',
+                    
+                })
+                    .status(200)
+                    .json(newUser)
+            }
+        } catch (error) {
+           next(error)
         }
     }
 }

@@ -14,7 +14,15 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
-        backgroundColor: {
+        backgroundImgName: {
+            type: String,
+            default: null,
+        },
+        backgroundVideoName: {
+            type: String,
+            default: null,
+        },
+        bgColor: {
             type: String,
             default: null,
         },
@@ -46,6 +54,19 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
+        icons:{
+            type: Array,
+            default: [],
+        },
+        gadientColorTop: {
+            type: String,
+            default: null,
+        }
+        ,
+        gadientColorBot: {
+            type: String,
+            default: null,
+        }
     },
     { timestamps: true },
 );

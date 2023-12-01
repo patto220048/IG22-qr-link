@@ -1,0 +1,24 @@
+@import  "../../base/color";
+
+.BackgroundColor {
+    text-align: center;
+    cursor: pointer;
+    .BackgroundColor-item {
+        width: 160px;
+        height: 260px;
+        border-radius: 25px;
+        background-color: rgb(145, 145, 145);
+        border: 2px solid transparent;
+
+        &:hover{
+            border-radius: 25px;
+            border: 1px solid rgba($color: $black, $alpha: 0.5);
+            transform: scale(0.98);
+        }
+    }
+    .BackgroundColor-title{
+        font-size: 15px;
+        font-weight: 600;
+    }
+   
+}

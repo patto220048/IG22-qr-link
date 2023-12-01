@@ -13,12 +13,15 @@ import http from '../../../instance/axiosInstance';
 import { loginFail, loginStart, loginSuccess, updateData } from '../../../redux-toolkit/userSlice';
 import { openEyeIcon, closeEyeIcon, googleIcon } from '../../../svg/icon';
 import Loading from '../../../components/dialog/loading/Loading';
+//login with google
+import { auth, providerGG } from '../../../firebase/config';
+import { signInWithPopup } from 'firebase/auth';
+
 function Login() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     // toast message
-    const notifyToast = (err) =>
-        toast.error(err);
+    const notifyToast = (err) => toast.error(err);
 
     // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
@@ -98,36 +101,41 @@ function Login() {
         e.preventDefault();
         // e.stopPropagation();
         dispatch(loginStart());
-        try {
-            //valid email
-            const emailValid = validateEmail(values.email);
-            if (emailValid === true) {
-                const res = await http.post(`/auth/login`, {
-                    username: values.username,
-                    email: values.email,
-                    password: values.password,
-                });
-                setUser(res.data);
-                console.log(res.data);
-                //dispatch
-                dispatch(loginSuccess(res.data));
-                if (res.data.status === 401) {
-                    notifyToast(res.data.message);
-                    dispatch(loginFail());
-                } else if (res.data.status === 403) {
-                    notifyToast(res.data.message);
-                    dispatch(loginFail());
+        const timeOutId = setTimeout(async () => {
+            try {
+                //valid email
+                const emailValid = validateEmail(values.email);
+                if (emailValid === true) {
+                    const res = await http.post(`/auth/login`, {
+                        username: values.username,
+                        email: values.email,
+                        password: values.password,
+                    });
+                    setUser(res.data);
+                    console.log(res.data);
+                    //dispatch
+                    dispatch(loginSuccess(res.data));
+                    if (res.data.status === 401) {
+                        notifyToast(res.data.message);
+                        dispatch(loginFail());
+                    } else if (res.data.status === 403) {
+                        notifyToast(res.data.message);
+                        dispatch(loginFail());
+                    } else {
+                        navigate(`/template/${res.data.username}`);
+                    }
                 } else {
-                    navigate(`/template/${res.data.username}`);
+                    dispatch(loginFail());
+                    notifyToast('Oops! Email is not correct! Please try again.');
                 }
-            } else {
+            } catch (error) {
+                notifyToast(error.message);
                 dispatch(loginFail());
-                notifyToast('Oops! Email is not correct! Please try again.');
             }
-        } catch (error) {
-            notifyToast(error.message);
-            dispatch(loginFail());
-        }
+        }, 2000);
+        return () => {
+            clearTimeout(timeOutId);
+        };
     };
 
     const onChange = (e) => {
@@ -137,8 +145,32 @@ function Login() {
         setFocused(true);
     };
     //handle login with google
-    const handleLoginWithGG = () => {
-        console.log('google');
+    const handleLoginWithGG = async () => {
+        dispatch(loginStart());
+        signInWithPopup(auth, providerGG)
+            .then((result) => {
+                console.log(result);
+                http.post('/auth/google', {
+                    username: result.user.displayName,
+                    email: result.user.email,
+                    verifySuccess: result.user.emailVerified,
+                    avtImg: result.user.photoURL,
+                    fromGoogle: true,
+
+                })
+                    .then((res) => {
+                        console.log(res.data);
+                        dispatch(loginSuccess(res.data));
+                        navigate(`/template/${res.data.username}`);
+                    })
+                    .catch((err) => {
+                        setErr('LOGIN FAILED !');
+                        dispatch(loginFail());
+                    });
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     };
     return (
         <div className="login">
