@@ -34,6 +34,13 @@ function Theme({
                     bnt_radius: themeBtnRadius,
                     font_famify: themeFontFamily,
                     font_color: themeFontColor,
+                    backgroundImgName:null,
+                    backgroundVideoName:null,
+                    backgroundVideo:null,
+                    bgColor:null,
+                    gadientColorTop:null,
+                    gadientColorBot:null,
+
                 });
                 const timeoutId = setTimeout(async () => {
                     // setThemeInstance(res.data);

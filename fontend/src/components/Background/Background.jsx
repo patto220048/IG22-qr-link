@@ -55,6 +55,7 @@ function Background({ cardId, theme }) {
                         backgroundImg: null,
                         gadientColorTop: null,
                         gadientColorBot: null,
+                        backgroundVideo: null,
                     });
                     setIsPickColor(false);
                     let timeOutId = setTimeout(async () => {
@@ -84,6 +85,7 @@ function Background({ cardId, theme }) {
                         gadientColorTop: hexGadientTop,
                         bgColor: null,
                         backgroundImg: null,
+                        backgroundVideo: null,
                     });
                     setIsGardientTop(false);
                     console.log(res.data);
@@ -114,6 +116,7 @@ function Background({ cardId, theme }) {
                         gadientColorBot: hexGadientBot,
                         backgroundImg: null,
                         bgColor: null,
+                        backgroundVideo: null
                     });
                     setIsGardientBot(false);
                     let timeOutId = setTimeout(async () => {
@@ -210,7 +213,7 @@ function Background({ cardId, theme }) {
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
                 <BgImage setIsPickImg={setIsPickImgBg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgVideo setIsPickImgVideo={setIsPickImgVideo} />
+                <BgVideo setIsPickImgVideo={setIsPickImgVideo} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
             </div>
 
             {openColor && (

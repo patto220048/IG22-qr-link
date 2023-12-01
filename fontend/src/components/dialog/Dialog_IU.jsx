@@ -235,6 +235,8 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                     const res = await http.put(`/card/${themeBgUser?._id}`, {
                         backgroundImg: resultImgBg?.background,
                         backgroundImgName: currentBackground,
+                        backgroundVideo:null,
+                        backgroundVideoName: null,
                         bgColor: null,
                     });
                     if (res.status === 200) {
@@ -275,12 +277,14 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             dispatch(themeStart());
             try {
                 const res = await http.put(`/card/${themeBgUser?._id}`, {
-                    backgroundImg: resultVideo?.video,
+                    backgroundVideo: resultVideo?.video,
                     backgroundVideoName : currentVideoBg,
+                    backgroundImg:null,
+                    backgroundImgName:null,
                     bgColor: null,
                 });
                 if (res.status === 200) {
-                    notifyToast('Upload image successfully!', 1);
+                    notifyToast('Upload video successfully!', 1);
                     setResultVideo(null);
                     setBgVideo(undefined);
                     setOpenDialog(false);
@@ -291,7 +295,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                         clearTimeout(timeOutId);
                     };
                 } else {
-                    notifyToast('Upload image failed !', 2);
+                    notifyToast('Upload video failed !', 2);
                 }
             } catch (error) {
                 console.log(error.message);
@@ -299,8 +303,8 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                 dispatch(themeFail());
             }
         };
-
-    },[])
+        updateBg()
+    },[themeBgUser?._id,resultVideo?.video,currentVideoBg])
     const handleClearVideoBg = (e) => {
         
     }
@@ -369,6 +373,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                 {pickImgVideo && (
                                     <>
                                         <Dialog_file
+                                        setCurrentVideoBg={setCurrentVideoBg}
                                         bgVideo={bgVideo}
                                         setBgVideo={setBgVideo}
                                         pickImgVideo={pickImgVideo}

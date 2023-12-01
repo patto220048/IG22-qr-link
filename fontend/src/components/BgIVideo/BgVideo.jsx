@@ -1,9 +1,11 @@
 import { videoIcon } from '../../svg/icon';
 import './BgVideo.scss';
 
-function BgVideo({setIsPickImgVideo}) {
+function BgVideo({setIsPickImgVideo,setOpenColor,setopenGadient}) {
     const handledOpen = () => {
         setIsPickImgVideo(true)
+        setOpenColor(false)
+        setopenGadient(false);
     };
     return (
         <section className="BgVideo" onClick={handledOpen}>

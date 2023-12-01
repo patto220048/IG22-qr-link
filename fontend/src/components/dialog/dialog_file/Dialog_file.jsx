@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 
 // import Dialog_content from './dialog_contens/Dialog_contents';
 function Dialog_content({
+   
     setCurrentBackground,
     setResultImgBg,
     resultImgBg,
@@ -30,7 +31,9 @@ function Dialog_content({
     bgVideo,
     setBgVideo,
     resultVideo,
-    setResultVideo
+    setResultVideo,
+    setCurrentVideoBg
+
 
 }) {
     // image processing upload
@@ -42,6 +45,7 @@ function Dialog_content({
         const storageRef = ref(storage, fileName);
         type === 'avatar' && setCurrentAvatar(fileName);
         type === 'background' && setCurrentBackground(fileName);
+        type === 'video' && setCurrentVideoBg(fileName)
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
             'state_changed',
@@ -53,16 +57,16 @@ function Dialog_content({
                 // setCurrentAvatar(snapshot.ref._location.path_);
                 // console.log(snapshot.ref._location.path_)
                 type === 'avatar' && setImgPercent(Math.round(progress));
-                type === 'avatar' && setImgUpLoading(Math.round(progress));
                
                 type === 'background' && setImgPercent(Math.round(progress));
-                type === 'video' && setImgPercent(Math.round(progress));
 
+                type === 'video' && setImgPercent(Math.round(progress));
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
                         break;
                     case 'running':
+
                         console.log('Upload is running');
                         break;
                     default:
