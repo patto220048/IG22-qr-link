@@ -6,7 +6,8 @@
     height: 100%;
     padding-bottom: 50px;
     .template-left {
-        padding-top: 110px + 40px;
+        padding-top: 180px;
+
         flex: 3;
         .template-item {
             display: flex;
@@ -25,8 +26,9 @@
         // border-left: 0.5px solid rgba($color: $black, $alpha: 0.3);
         display: flex;
         position: sticky;
+        justify-content: center;
         top: 0;
-        // right: 0;
+
         height: 10px;
         padding-top: 180px;
         width: 30%;

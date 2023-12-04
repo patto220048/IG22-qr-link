@@ -15,6 +15,7 @@ import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
 import axiosInstance from './instance/axiosInstance';
 import axios from 'axios';
+import Links from './pages/links/Links';
 
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
@@ -61,6 +62,14 @@ function App() {
                         <ProtectRoute>
                             <Template />
                         </ProtectRoute>
+                    ),
+                },
+                {
+                    path: `links`,
+                    element: (
+                        <Suspense fallback={<div>Loading....</div>}>
+                            <Links />
+                        </Suspense>
                     ),
                 },
             ],
