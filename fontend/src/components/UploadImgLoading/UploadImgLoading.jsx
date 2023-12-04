@@ -4,26 +4,26 @@ import * as Progress from '@radix-ui/react-progress';
 import { memo } from 'react';
 import AvatarProfile from '../AvatarProfile/AvatarProfile';
 import { useSelector } from 'react-redux';
-function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo }) {
+function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo,themeBgUserVideo }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-    console.log(imgPercent)
     return (
         <>
             <section className="updaloadImg">
-                {resultImg || avtUser || themeBgUser || resultImgBg || resultVideo ? (
+                {resultImg || avtUser || themeBgUser || resultImgBg || resultVideo || themeBgUserVideo ? (
                     <>
                         {themeBgUser || resultImgBg || resultVideo ? (
                             <>
-                                {resultVideo?.video ? (
+                                {resultVideo?.video || themeBgUserVideo? (
                                     <>
                                         <video
                                             controls
                                             autoPlay
                                             loop
                                             className="updaloadImg-video-bg"
-                                            type="video/webm"
-                                            src={resultVideo?.video}
+                                            type="video/mp4"
+                                            src={resultVideo?.video
+                                              }
                                         ></video>
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile

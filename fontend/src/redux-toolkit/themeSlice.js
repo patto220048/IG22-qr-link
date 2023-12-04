@@ -36,12 +36,18 @@ export const themeSlice = createSlice({
             state.currentTheme.backgroundImgName = null
             state.loading = false;
             state.error = false;
+        },
+        clearBgVideo: (state, action) => {
+            state.currentTheme.backgroundVideo = null
+            state.currentTheme.backgroundVideoName = null
+            state.loading = false;
+            state.error = false;
         }
 
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { themeStart, themeSuccess, themeFail, updateTheme,themeIsloading,clearBgImg } = themeSlice.actions;
+export const { themeStart, themeSuccess, themeFail, updateTheme,themeIsloading,clearBgImg,clearBgVideo } = themeSlice.actions;
 
 export default themeSlice.reducer;

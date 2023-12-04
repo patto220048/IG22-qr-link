@@ -32,7 +32,8 @@ function Dialog_content({
     setBgVideo,
     resultVideo,
     setResultVideo,
-    setCurrentVideoBg
+    setCurrentVideoBg,
+    themeBgUserVideo
 
 
 }) {
@@ -54,8 +55,7 @@ function Dialog_content({
                 // Observe state change events such as progress, pause, and resume
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 // console.log('Upload is ' + progress + '% done');
-                // setCurrentAvatar(snapshot.ref._location.path_);
-                // console.log(snapshot.ref._location.path_)
+          
                 type === 'avatar' && setImgPercent(Math.round(progress));
                
                 type === 'background' && setImgPercent(Math.round(progress));
@@ -108,7 +108,7 @@ function Dialog_content({
     }, [bgVideo]);
     return (
         <>
-            {avatar || avtUser || bgImage || themeBgUser || resultVideo? (
+            {avatar || avtUser || bgImage || themeBgUser || resultVideo ? (
                 <UploadImgLoading
                     avtUser={avtUser}
                     resultImg={resultImg}
@@ -116,6 +116,7 @@ function Dialog_content({
                     themeBgUser={themeBgUser}
                     resultImgBg={resultImgBg}
                     resultVideo={resultVideo}
+                    themeBgUserVideo={themeBgUserVideo}
                 />
             ) : (
                 <>

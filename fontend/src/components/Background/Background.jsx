@@ -366,6 +366,7 @@ function Background({ cardId, theme }) {
                     setOpenDialog={setIsPickImgVideo}
                     pickImgVideo={isPickImgVideo}
                     notifyToast={notifyToast}
+                    setIsPickImgVideo={setIsPickImgVideo}
                 />
             )}
         </div>

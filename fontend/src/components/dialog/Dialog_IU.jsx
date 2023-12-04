@@ -20,9 +20,9 @@ import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
 import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
-import { clearBgImg, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
+import { clearBgImg, clearBgVideo, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg, user, pickImgVideo ,setIsPickImgBg,setPickImg}) {
+function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg, user, pickImgVideo ,setIsPickImgBg,setIsPickImgVideo}) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -130,7 +130,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             const desertRef = ref(storage, file);
             deleteObject(desertRef)
                 .then(() => {
-                    notifyToast('Clear image successfully', 1);
+                    notifyToast('Clear file successfully', 1);
                 })
                 .catch((error) => {
                     notifyToast('Not found file !!', 2);
@@ -276,7 +276,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         const updateBg = async () => {
             dispatch(themeStart());
             try {
-                const res = await http.put(`/card/${themeBgUser?._id}`, {
+                const res = await http.put(`/card/${currentTheme?._id}`, {
                     backgroundVideo: resultVideo?.video,
                     backgroundVideoName : currentVideoBg,
                     backgroundImg:null,
@@ -295,6 +295,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                         clearTimeout(timeOutId);
                     };
                 } else {
+                    dispatch(themeFail());
                     notifyToast('Upload video failed !', 2);
                 }
             } catch (error) {
@@ -303,11 +304,35 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                 dispatch(themeFail());
             }
         };
-        updateBg()
+        if (resultVideo) {
+            updateBg();
+            if (currentTheme?.backgroundVideo) {
+                deleteFile(currentTheme?.backgroundVideo);
+                console.log('cleared result');
+            }
+        } else {
+            notifyToast('File not found. Please try again!!', 2);
+        }
     },[themeBgUser?._id,resultVideo?.video,currentVideoBg])
-    const handleClearVideoBg = (e) => {
-        
-    }
+    const handleClearVideoBg = useCallback((e)=>{
+        const updateTheme = async () => {
+            try {
+                const res = await http.put(`/card/${currentTheme?._id}`, {
+                    backgroundVideo: null,
+                    backgroundVideoName: null,
+                });
+                setResultVideo(null);
+                setBgVideo(undefined);
+                // setIsPickImgVideo(true)
+                dispatch(clearBgVideo());
+            } catch (error) {
+                console.log(error.message);
+                notifyToast('Clear file error. Please try again!!', 2);
+            }
+        };
+        updateTheme();
+        currentVideoBg ? deleteFile(currentVideoBg) : deleteFile(themeBgUser?.backgroundVideoName);
+    },[currentTheme?._id,currentVideoBg ])
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -373,6 +398,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                 {pickImgVideo && (
                                     <>
                                         <Dialog_file
+                                        themeBgUserVideo={themeBgUser?.backgroundVideo}
                                         setCurrentVideoBg={setCurrentVideoBg}
                                         bgVideo={bgVideo}
                                         setBgVideo={setBgVideo}
