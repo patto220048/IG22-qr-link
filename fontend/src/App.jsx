@@ -15,8 +15,7 @@ import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
 import axiosInstance from './instance/axiosInstance';
 import axios from 'axios';
-import Links from './pages/links/Links';
-
+const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
