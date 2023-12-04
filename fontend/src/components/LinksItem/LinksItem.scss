@@ -1,0 +1,52 @@
+@import '../../base/color';
+
+.LinksItem {
+    width: 700px;
+    .LinksItem-drag-icon {
+    }
+    .LinksItem-wapper {
+        .LinksItem-item {
+            display: flex;
+            justify-content: space-between;
+            .LinksItem-side {
+                .LinkItem-name {
+                }
+                .LinkItem-link {
+                }
+            }
+            .LinksItem-switch {
+                .SwitchRoot {
+                    width: 42px;
+                    height: 25px;
+                    background-color: var(--gray-8);
+                    border-radius: 9999px;
+                    position: relative;
+                    box-shadow: 0 2px 10px var(--black-6);
+                    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                }
+                .SwitchRoot:focus {
+                    box-shadow: 0 0 0 2px black;
+                }
+                .SwitchRoot[data-state='checked'] {
+                    background-color:var(--green-10);
+                }
+                .SwitchThumb {
+                    display: block;
+                    width: 21px;
+                    height: 21px;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 9999px;
+                    box-shadow: 0 2px 2px var(--black-8);
+                    transition: transform 100ms;
+                    transform: translateX(2px);
+                    will-change: transform;
+                }
+                .SwitchThumb[data-state='checked'] {
+                    transform: translateX(19px);
+                  }
+            }
+        }
+        .LinksItem-direct {
+        }
+    }
+}

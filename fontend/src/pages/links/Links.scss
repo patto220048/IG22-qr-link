@@ -1,40 +1,42 @@
 @import '../../base/color';
 @import '../../base/variable';
 
-.Links{
+.Links {
     display: flex;
     background-color: $bg_template;
     // height: 100%;
     padding-bottom: 50px;
     height: 100vh;
     align-items: flex-start;
-    .Links-left{
+    .Links-left {
         padding-top: 180px;
         flex: 3;
         display: flex;
-        justify-content: center;
-        .Links-left-wapper{
-            .Links-left-btn{
-                width: 700px;
-                height: 50px;
-                padding: 5px;
-                border-radius: 25px;
-                background-color: rgb(0, 255, 179);
-                @include btn;
-                font-weight: 700;
-                font-size: 20px;
-                &:hover{
-                    transform:scale(1.1);
-                    color: whitesmoke;
-                }
+        gap: 30px;
+        align-items: center;
+        flex-direction: column;
+        .Links-left-btn {
+            width: 700px;   
+            height: 50px;
+            padding: 5px;
+            border-radius: 25px;
+            background-color: rgb(0, 255, 179);
+            @include btn;
+            font-weight: 700;
+            font-size: 20px;
+            &:hover {
+                transform: scale(1.1);
+                color: whitesmoke;
             }
         }
+        .Links-left-wapper{
 
+        }
     }
-    .Links-right{
+    .Links-right {
         display: flex;
         position: sticky;
-        justify-content: center ;
+        justify-content: center;
         top: 0;
 
         height: 10px;

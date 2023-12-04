@@ -13,6 +13,7 @@
     "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-progress": "^1.0.3",
+    "@radix-ui/react-switch": "^1.0.3",
     "@reduxjs/toolkit": "^1.9.7",
     "@uiw/react-color": "^2.0.1",
     "axios": "^1.5.0",
