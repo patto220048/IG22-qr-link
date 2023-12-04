@@ -108,7 +108,7 @@ function Dialog_content({
     }, [bgVideo]);
     return (
         <>
-            {avatar || avtUser || bgImage || themeBgUser || resultVideo ? (
+            {avatar || avtUser || bgImage || themeBgUser || resultVideo || themeBgUserVideo ? (
                 <UploadImgLoading
                     avtUser={avtUser}
                     resultImg={resultImg}

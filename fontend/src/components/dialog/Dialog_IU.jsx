@@ -22,7 +22,17 @@ import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
 import { clearBgImg, clearBgVideo, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
 
-function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg, user, pickImgVideo ,setIsPickImgBg,setIsPickImgVideo}) {
+function Dialog_UI({
+    openDialog,
+    setOpenDialog,
+    notifyToast,
+    pickImg,
+    pickImgBg,
+    user,
+    pickImgVideo,
+    setIsPickImgBg,
+    setIsPickImgVideo,
+}) {
     // redux
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -64,68 +74,73 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         fectchTheme();
     }, [currentUser._id]);
     // handle save database
-    const handleAddAvt = useCallback((e) => {
-        e.preventDefault();
-        const updateUser = async () => {
-            dispatch(loadingStart());
-            try {
-                const res = await http.put(`/users/${currentUser._id}`, {
-                    avtImg: resultImg?.avatar,
-                    avtImgName: currentAvatar,
-                });
-                if (res.status === 200) {
-                    notifyToast('Upload image successfull.', 1);
-                    setResultImg(null);
-                    setAvatar(undefined);
-                    const timeOutId = setTimeout(() => {
-                        dispatch(updateData(res.data));
-                    }, 500);
-                    return () => {
-                        clearTimeout(timeOutId);
-                    };
-                } else {
-                    notifyToast('Upload image unsuccessfull.', 2);
+    const handleAddAvt = useCallback(
+        (e) => {
+            e.preventDefault();
+            const updateUser = async () => {
+                dispatch(loadingStart());
+                try {
+                    const res = await http.put(`/users/${currentUser._id}`, {
+                        avtImg: resultImg?.avatar,
+                        avtImgName: currentAvatar,
+                    });
+                    if (res.status === 200) {
+                        notifyToast('Upload image successfull.', 1);
+                        setResultImg(null);
+                        setAvatar(undefined);
+                        const timeOutId = setTimeout(() => {
+                            dispatch(updateData(res.data));
+                        }, 500);
+                        return () => {
+                            clearTimeout(timeOutId);
+                        };
+                    } else {
+                        notifyToast('Upload image unsuccessfull.', 2);
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    notifyToast('Upload image failed. Please try again!', 2);
+                    dispatch(loadingEnd());
                 }
-            } catch (error) {
-                console.log(error.message);
-                notifyToast('Upload image failed. Please try again!', 2);
-                dispatch(loadingEnd());
-            }
-        };
-        if (resultImg) {
-            updateUser();
-        } else {
-            notifyToast('Some things error. Please try again!!', 2);
-        }
-    }, [currentUser._id,resultImg?.avatar]);
-    const handleClearAvt = useCallback((e) => {
-        e.preventDefault();
-        const updateUser = async () => {
-            try {
-                const res = await http.put(`/users/${currentUser._id}`, {
-                    avtImg: null,
-                    avtImgName: null,
-                });
-                if (res.status === 200) {
-                    setResultImg(null);
-                    setAvatar(undefined);
-                    setResultImg(null);
-                    dispatch(clearAvtImg());
-                } else {
-                    notifyToast('Clear image unsuccessfully.', 2);
-                }
-            } catch (error) {
-                console.log(error.message);
+            };
+            if (resultImg) {
+                updateUser();
+            } else {
                 notifyToast('Some things error. Please try again!!', 2);
             }
-        };
-        updateUser();
-        currentAvatar ? deleteFile(currentAvatar) : deleteFile(user?.avtImg);
-
-    }, [currentUser._id,currentAvatar,user?.avtImg]);
+        },
+        [currentUser._id, resultImg?.avatar],
+    );
+    const handleClearAvt = useCallback(
+        (e) => {
+            e.preventDefault();
+            const updateUser = async () => {
+                try {
+                    const res = await http.put(`/users/${currentUser._id}`, {
+                        avtImg: null,
+                        avtImgName: null,
+                    });
+                    if (res.status === 200) {
+                        setResultImg(null);
+                        setAvatar(undefined);
+                        setResultImg(null);
+                        dispatch(clearAvtImg());
+                    } else {
+                        notifyToast('Clear image unsuccessfully.', 2);
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    notifyToast('Some things error. Please try again!!', 2);
+                }
+            };
+            updateUser();
+            currentAvatar ? deleteFile(currentAvatar) : deleteFile(user?.avtImg);
+        },
+        [currentUser._id, currentAvatar, user?.avtImg],
+    );
     // deleteFile in firebase
     const deleteFile = useCallback((file) => {
-        if(file){
+        if (file) {
             const storage = getStorage(app);
             const desertRef = ref(storage, file);
             deleteObject(desertRef)
@@ -174,7 +189,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             }
         };
         addIcon();
-    }, [socialIconName, urlIcon]);
+    }, [socialIconName, urlIcon,currentUser._id]);
     const handleClearIcon = useCallback(() => {
         const iconId = () =>
             groupIcon.map((icon) => {
@@ -224,7 +239,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
             updateTheme();
             currentBackground ? deleteFile(currentBackground) : deleteFile(themeBgUser?.backgroundImgName);
         },
-        [currentTheme?._id,currentBackground, themeBgUser?.backgroundImgName],
+        [currentTheme?._id, currentBackground, themeBgUser?.backgroundImgName],
     );
     const handleAddImageBg = useCallback(
         (e) => {
@@ -235,7 +250,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                     const res = await http.put(`/card/${themeBgUser?._id}`, {
                         backgroundImg: resultImgBg?.background,
                         backgroundImgName: currentBackground,
-                        backgroundVideo:null,
+                        backgroundVideo: null,
                         backgroundVideoName: null,
                         bgColor: null,
                     });
@@ -272,67 +287,74 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
         [resultImgBg?.background, currentBackground],
     );
     // video handle
-    const handleAddVideoBg = useCallback((e) => {
-        const updateBg = async () => {
-            dispatch(themeStart());
-            try {
-                const res = await http.put(`/card/${currentTheme?._id}`, {
-                    backgroundVideo: resultVideo?.video,
-                    backgroundVideoName : currentVideoBg,
-                    backgroundImg:null,
-                    backgroundImgName:null,
-                    bgColor: null,
-                });
-                if (res.status === 200) {
-                    notifyToast('Upload video successfully!', 1);
+    const handleAddVideoBg = useCallback(
+        (e) => {
+            const updateBg = async () => {
+                dispatch(themeStart());
+                try {
+                    const res = await http.put(`/card/${currentTheme?._id}`, {
+                        backgroundVideo: resultVideo?.video,
+                        backgroundVideoName: currentVideoBg,
+                        backgroundImg: null,
+                        backgroundImgName: null,
+                        bgColor: null,
+                    });
+                    if (res.status === 200) {
+                        notifyToast('Upload video successfully!', 1);
+                        setResultVideo(null);
+                        setBgVideo(undefined);
+                        setOpenDialog(false);
+                        const timeOutId = setTimeout(() => {
+                            dispatch(updateTheme(res.data));
+                        }, 1000);
+                        return () => {
+                            clearTimeout(timeOutId);
+                        };
+                    } else {
+                        dispatch(themeFail());
+                        notifyToast('Upload video failed !', 2);
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    notifyToast('Upload file error. Please try again!!', 2);
+                    dispatch(themeFail());
+                }
+            };
+            if (resultVideo) {
+                updateBg();
+                if (currentTheme?.backgroundVideo) {
+                    deleteFile(currentTheme?.backgroundVideo);
+                    console.log('cleared result');
+                }
+            } else {
+                notifyToast('File not found. Please try again!!', 2);
+            }
+        },
+        [themeBgUser?._id, resultVideo?.video, currentVideoBg],
+    );
+    const handleClearVideoBg = useCallback(
+        (e) => {
+            const updateTheme = async () => {
+                try {
+                    const res = await http.put(`/card/${currentTheme?._id}`, {
+                        backgroundVideo: null,
+                        backgroundVideoName: null,
+                    });
                     setResultVideo(null);
                     setBgVideo(undefined);
-                    setOpenDialog(false);
-                    const timeOutId = setTimeout(() => {
-                        dispatch(updateTheme(res.data));
-                    }, 1000);
-                    return () => {
-                        clearTimeout(timeOutId);
-                    };
-                } else {
-                    dispatch(themeFail());
-                    notifyToast('Upload video failed !', 2);
+                    setIsPickImgVideo(false);
+                    setOpenDialog(false)
+                    dispatch(clearBgVideo());
+                } catch (error) {
+                    console.log(error.message);
+                    notifyToast('Clear file error. Please try again!!', 2);
                 }
-            } catch (error) {
-                console.log(error.message);
-                notifyToast('Upload file error. Please try again!!', 2);
-                dispatch(themeFail());
-            }
-        };
-        if (resultVideo) {
-            updateBg();
-            if (currentTheme?.backgroundVideo) {
-                deleteFile(currentTheme?.backgroundVideo);
-                console.log('cleared result');
-            }
-        } else {
-            notifyToast('File not found. Please try again!!', 2);
-        }
-    },[themeBgUser?._id,resultVideo?.video,currentVideoBg])
-    const handleClearVideoBg = useCallback((e)=>{
-        const updateTheme = async () => {
-            try {
-                const res = await http.put(`/card/${currentTheme?._id}`, {
-                    backgroundVideo: null,
-                    backgroundVideoName: null,
-                });
-                setResultVideo(null);
-                setBgVideo(undefined);
-                // setIsPickImgVideo(true)
-                dispatch(clearBgVideo());
-            } catch (error) {
-                console.log(error.message);
-                notifyToast('Clear file error. Please try again!!', 2);
-            }
-        };
-        updateTheme();
-        currentVideoBg ? deleteFile(currentVideoBg) : deleteFile(themeBgUser?.backgroundVideoName);
-    },[currentTheme?._id,currentVideoBg ])
+            };
+            updateTheme();
+            currentVideoBg ? deleteFile(currentVideoBg) : deleteFile(themeBgUser?.backgroundVideoName);
+        },
+        [currentTheme?._id, currentVideoBg, themeBgUser?.backgroundVideoName],
+    );
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -378,7 +400,7 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                             setCurrentAvatar={setCurrentAvatar}
                                             setImgUpLoading={setImgUpLoading}
                                             isAvatar={'avatar'}
-                                            pickImg = {pickImg}
+                                            pickImg={pickImg}
                                         />
                                         <div className="dialog-btn-group">
                                             {resultImg || user?.avtImg ? (
@@ -398,17 +420,21 @@ function Dialog_UI({ openDialog, setOpenDialog, notifyToast, pickImg, pickImgBg,
                                 {pickImgVideo && (
                                     <>
                                         <Dialog_file
-                                        themeBgUserVideo={themeBgUser?.backgroundVideo}
-                                        setCurrentVideoBg={setCurrentVideoBg}
-                                        bgVideo={bgVideo}
-                                        setBgVideo={setBgVideo}
-                                        pickImgVideo={pickImgVideo}
-                                        resultVideo= {resultVideo}
-                                        setResultVideo = {setResultVideo}
-                                         />
+                                            themeBgUserVideo={themeBgUser?.backgroundVideo}
+                                            setCurrentVideoBg={setCurrentVideoBg}
+                                            bgVideo={bgVideo}
+                                            setBgVideo={setBgVideo}
+                                            pickImgVideo={pickImgVideo}
+                                            resultVideo={resultVideo}
+                                            setResultVideo={setResultVideo}
+                                        />
                                         <div className="dialog-btn-group">
-                                            <button className="dialog-btn" onClick={handleClearVideoBg}>Clear</button>
-                                            <button className="dialog-btn" onClick={handleAddVideoBg}>Save changes</button>
+                                            <button className="dialog-btn" onClick={handleClearVideoBg}>
+                                                Clear
+                                            </button>
+                                            <button className="dialog-btn" onClick={handleAddVideoBg}>
+                                                Save changes
+                                            </button>
                                         </div>
                                     </>
                                 )}
