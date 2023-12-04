@@ -18,7 +18,7 @@
         max-width: 450px;
         max-height: 85vh;
         padding: 25px;
-        animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+        animation: contentShow 400ms cubic-bezier(0.16, 1, 0.3, 1);
         
         .closeIcon-btn {
             padding: 5px;
@@ -105,11 +105,12 @@
     @keyframes contentShow {
         from {
             opacity: 0;
-            transform: translate(-50%, -48%) scale(0.96);
+            transform: translate(-50%, -600%) scale(0.96);
         }
         to {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
+
         }
     }
 }
