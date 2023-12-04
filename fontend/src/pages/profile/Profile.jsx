@@ -47,8 +47,22 @@ function Profile() {
                 <Loading isLoading={isLoading} />
             ) : (
                 <>
-                    {theme?.backgroundImg ? (
-                        <img className="profile-background" src={theme?.backgroundImg} alt="" />
+                    {theme?.backgroundVideo ? (
+                        <>
+                            {theme?.backgroundVideo ? (
+                                <>
+                                    <video
+                                        className="profile-background"
+                                        type="video/webm"
+                                        loop
+                                        autoPlay
+                                        src={theme?.backgroundVideo}
+                                    ></video>
+                                </>
+                            ) : (
+                                <img className="profile-background" src={theme?.backgroundImg} alt="" />
+                            )}
+                        </>
                     ) : (
                         <>
                             {theme?.gadientColorBot || theme?.gadientColorTop ? (
@@ -56,12 +70,16 @@ function Profile() {
                                     {theme?.gadientColorBot && theme?.gadientColorTop ? (
                                         <div
                                             className="profile-background"
-                                            style={{ backgroundImage: `linear-gradient(${theme?.gadientColorTop},${theme?.gadientColorBot})`}}
+                                            style={{
+                                                backgroundImage: `linear-gradient(${theme?.gadientColorTop},${theme?.gadientColorBot})`,
+                                            }}
                                         />
                                     ) : (
                                         <div
                                             className="profile-background"
-                                            style={{ backgroundColor: `${theme?.gadientColorTop || theme?.gadientColorBot }` }}
+                                            style={{
+                                                backgroundColor: `${theme?.gadientColorTop || theme?.gadientColorBot}`,
+                                            }}
                                         />
                                     )}
                                 </>
