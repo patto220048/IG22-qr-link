@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './LinksItem.scss';
 import * as Switch from '@radix-ui/react-switch';
-import {trashIcon} from "../../svg/icon"
+import {penIcon, trashIcon} from "../../svg/icon"
 function LinksItem({linkUrl, linkTitle,linkThumbnail}) {
     const [isSwith, setIsSwitch] = useState(false)
     return (
@@ -11,7 +11,8 @@ function LinksItem({linkUrl, linkTitle,linkThumbnail}) {
                 <div className="LinksItem-item">
                     <div className="LinksItem-side">
                         <h4 className="LinkItem-name">{linkTitle}</h4>
-                        <span className="LinkItem-link">{linkUrl}</span>
+                        <span className="LinkItem-link">{linkUrl}</span> 
+                        {penIcon(25,25)}
                     </div>
                     <div className="LinksItem-switch">
                         <Switch.Root className="SwitchRoot" id="airplane-mode">

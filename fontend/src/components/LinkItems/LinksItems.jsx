@@ -23,7 +23,6 @@ function LinksItems() {
         <div className="LinksItems"> 
             {links.map((link,index)=>(
                 <LinksItem linkUrl ={link.url} linkTitle= {link.title} linkThumbnail={link.linkThumbnail} key={link._id}/>
-
             ))}
             
         </div>
