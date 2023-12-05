@@ -46,13 +46,17 @@
     }
 }
 .theme-cutoms_btn {
+    display: flex;
+    color: $black;
+    flex-direction: column;
     width: 160px;
     height: 260px;
+    align-items: center;
+    justify-content: center;
     border-radius: 25px;
     background-color: $bg_template;
     font-size: 20px;
     font-weight: 600;
-    text-align: center;
     transition: all 0.5s ease-in-out;
     border: 1px dashed rgba($color: $black, $alpha: 0.5);
     &:hover {

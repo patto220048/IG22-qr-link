@@ -92,10 +92,10 @@ function Theme({
                     )}
                 </section>
             ) : (
-                <button className="theme-cutoms_btn">
-                    <div>Cutoms page</div>
+                <a href='#background' className="theme-cutoms_btn" >
+                    Cutoms page
                     {plusIcon(30, 30)}
-                </button>
+                </a>
             )}
         </>
     );

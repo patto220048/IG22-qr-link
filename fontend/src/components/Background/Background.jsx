@@ -196,7 +196,7 @@ function Background({ cardId, theme }) {
     //     };
     // }, [inputRef.current]);
     return (
-        <div className="bgTheme">
+        <div className="bgTheme" id="background">
             <ToastContainer
                 position="top-center"
                 autoClose={1000}
