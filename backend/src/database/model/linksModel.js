@@ -12,17 +12,24 @@ const LinkModel = new Schema(
             type: String, 
             require: true,
         },
-        link:{
+        url:{
             type:String,
             require: true, 
             
-        },
+        },  
         title:{
             type: String,
+            default:null
 
         },
-        icon:{
+        acticve:{
+            type: Boolean,
+            default: false,
+        },
+        linkThumbnail:{
             type: String,
+            default:null
+
         }
     
     },

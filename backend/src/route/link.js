@@ -11,5 +11,10 @@ router.get('/:idCard', userVerify.verifyUser, link.getLinks);
 router.put('/:id', userVerify.verifyUser, link.editLink);
 // delete a link
 router.delete('/:id', userVerify.verifyUser, link.deteleLink);
+// get all link
+router.get('/', userVerify.verifyUser, link.getAllLink);
+//delete all link
+router.delete('/', userVerify.verifyUser, link.deteleAllLink);
+
 
 export default router;
