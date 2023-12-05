@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 function AddLink({ setIsAddLink,isAddLink }) {
     const currentTheme = useSelector((state)=> state.theme.currentTheme)
 
-    const [values, setValues] = useState()
+    const [values, setValues] = useState("")
 
     const handleAddLink = () => {
         const addLink = async()=> {
@@ -15,13 +15,13 @@ function AddLink({ setIsAddLink,isAddLink }) {
                     url: values.url,
                 })
                 console.log(res.data)
+                setValues("")
                
             } catch (error) {
                 console.log(error.message)
             }
         }
         addLink()
-        setValues("")
     }
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
