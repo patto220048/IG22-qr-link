@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './LinksItem.scss';
 import * as Switch from '@radix-ui/react-switch';
+import {trashIcon} from "../../svg/icon"
 function LinksItem() {
     const [isSwith, setIsSwitch] = useState(false)
-    console.log(isSwith)
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -19,7 +19,14 @@ function LinksItem() {
                         </Switch.Root>
                     </div>
                 </div>
-                <div className="LinksItem-direct"></div>
+                <ul className="LinksItem-direct">
+                    <li className='LinksItem-direct-item'>1</li>
+                    <li className='LinksItem-direct-item'>2</li>
+                    <li className='LinksItem-direct-item'>3</li>
+                    <li className='LinksItem-direct-item'>4</li>
+                    <li className='LinksItem-direct-delete'>{trashIcon(25,25)}</li>
+
+                </ul>
             </div>
         </section>
     );

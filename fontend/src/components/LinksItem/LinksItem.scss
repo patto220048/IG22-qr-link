@@ -2,13 +2,22 @@
 
 .LinksItem {
     width: 700px;
+    background-color: $white;
+    padding: 20px;
+    border-radius: 25px;
     .LinksItem-drag-icon {
     }
     .LinksItem-wapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
         .LinksItem-item {
             display: flex;
             justify-content: space-between;
             .LinksItem-side {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
                 .LinkItem-name {
                 }
                 .LinkItem-link {
@@ -28,7 +37,7 @@
                     box-shadow: 0 0 0 2px black;
                 }
                 .SwitchRoot[data-state='checked'] {
-                    background-color:var(--green-10);
+                    background-color: var(--green-10);
                 }
                 .SwitchThumb {
                     display: block;
@@ -43,10 +52,25 @@
                 }
                 .SwitchThumb[data-state='checked'] {
                     transform: translateX(19px);
-                  }
+                }
             }
         }
         .LinksItem-direct {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            width: 100%;
+            .LinksItem-direct-delete {
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+
+                :hover {
+                    border-radius: 5px;
+                    background-color: var(--gray-6);
+                }
+            }
         }
     }
 }

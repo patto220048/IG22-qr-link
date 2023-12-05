@@ -13,8 +13,6 @@ const Home = lazy(() => import('./pages/home/Home'));
 import Template from './pages/tempate/Template';
 import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
-import axiosInstance from './instance/axiosInstance';
-import axios from 'axios';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
