@@ -17,10 +17,9 @@ const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
- 
-    const currentUser  = useSelector((state) => state.user.currentUser);
-    const [user, setUser] = useState()
-   //
+    const currentUser = useSelector((state) => state.user.currentUser);
+    const [user, setUser] = useState();
+    //
     // protect page
     const ProtectRoute = ({ children }) => {
         if (!currentUser) {
@@ -35,7 +34,6 @@ function App() {
                     <Navbar />
                 </header>
                 <Outlet />
-               
             </div>
         );
     }
@@ -65,7 +63,9 @@ function App() {
                     path: `links`,
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
-                            <Links />
+                            <ProtectRoute>
+                                <Links />
+                            </ProtectRoute>
                         </Suspense>
                     ),
                 },
@@ -90,12 +90,11 @@ function App() {
         {
             path: 'register/reset',
             element: <ResetPass />,
-        }
-        ,
+        },
         {
             path: 'register/newpass/:token',
-            element: <Newpass/>
-        }
+            element: <Newpass />,
+        },
     ]);
     return <RouterProvider router={router} />;
 }
