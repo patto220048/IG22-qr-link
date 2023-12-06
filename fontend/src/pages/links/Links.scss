@@ -8,6 +8,7 @@
     padding-bottom: 50px;
     height: 100vh;
     align-items: flex-start;
+ 
     .Links-left {
         padding-top: 180px;
         flex: 3;
@@ -17,6 +18,7 @@
             align-items: center;
             flex-direction: column;
             display: flex;
+            position: relative;
             .Links-left-btn {
                 width: 720px;
                 height: 50px;
@@ -33,6 +35,7 @@
             }
             .Links-left-wapper {
             }
+           
         }
     }
     .Links-right {
