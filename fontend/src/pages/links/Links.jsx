@@ -4,9 +4,10 @@ import PreView from '../../components/Preview/PreView';
 import { plusIcon } from '../../svg/icon';
 import './Links.scss';
 import AddLink from '../../components/AddLink/AddLink';
+import { useSelector } from 'react-redux';
 
 function Links() {
-
+    const {loading}= useSelector((state)=> state.url.currentUrl)
     const [isAddLink, setIsAddLink] = useState(false)
     const handleAddLink = () => {
         setIsAddLink(true);
