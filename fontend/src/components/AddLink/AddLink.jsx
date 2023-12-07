@@ -9,7 +9,6 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
 
     const dispatch = useDispatch();
-    console.log(sortUrl(values.url)?.host)
     const handleAddLink = () => {
         dispatch(urlStart());
         const addLink = async () => {
@@ -17,10 +16,10 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
                 const res = await http.post(`/link/${currentTheme?._id}`, {
                     urlTitle: sortUrl(values.url)?.host,
                     url: values.url,
+                    urlThumbnail: sortUrl(values.url)?.host + '/' + "favicon.ico"
                 });
                 setIsAddLink(false);
-
-                const timeOutId = setTimeout(() => dispatch(urlAdd(res.data)), 2000);
+                const timeOutId = setTimeout(() => dispatch(urlAdd(res.data)), 1000);
                 return () => {
                     clearTimeout(timeOutId);
                 };
@@ -46,6 +45,7 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
                             placeholder="Your URL"
                             onChange={onChange}
                             required
+                            minLength={5}
                         />
                         <button
                             className="AddLink-content-btn"

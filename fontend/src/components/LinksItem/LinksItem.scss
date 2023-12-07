@@ -18,25 +18,27 @@
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
-                .LinkItem-url{
-                    .input-title-label{
+                width: 100%;
+                .LinkItem-url {
+                    .input-title-label {
                         font-size: 20px;
                         font-weight: 600;
                         max-width: 250px;
                         overflow: hidden;
                         text-overflow: ellipsis;
                     }
-                    #inputTitle{
-                    //    display: none;
-                       font-size: 20px;
-                       font-weight: 600;
-                       overflow: hidden;
-                       text-overflow: ellipsis;
-                       &:valid[focused="true"]{
-                            width: 100%;
+                    #inputTitle {
+                        //    display: none;
+                        font-size: 20px;
+                        font-weight: 600;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        // border: 1px solid rgba($color: $black, $alpha: 0.3);
+                        width: 100%;
+                        &:valid[focused='true'] {
                             overflow: unset;
                         }
-
+                       
                     }
                     .LinkItem-pen {
                         &:hover {
@@ -50,7 +52,23 @@
                     display: flex;
                     align-items: center;
                     gap: 10px;
+                    width: 100%;
                     .LinkItem-link {
+                        max-width: 500px;
+                        font-size: 15px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-wrap: nowrap;
+                    }
+                    #inputUrl {
+                        width: 100%;
+
+                        font-size: 15px;
+                        &:valid[focused='true'] {
+                            text-wrap: wrap;
+                            text-overflow: ellipsis;
+
+                        }
                     }
                     .LinkItem-pen {
                         &:hover {

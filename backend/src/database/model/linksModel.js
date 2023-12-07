@@ -26,7 +26,7 @@ const LinkModel = new Schema(
             type: Boolean,
             default: false,
         },
-        linkThumbnail:{
+        urlThumbnail:{
             type: String,
             default:null
 

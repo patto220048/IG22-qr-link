@@ -7,7 +7,6 @@ import AddLink from '../../components/AddLink/AddLink';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
-import { current } from '@reduxjs/toolkit';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
 function Links() {
@@ -50,7 +49,6 @@ function Links() {
                     <section className="Links-left-wapper">
                         <LinksItems onChange={onChange} />
                     </section>
-                    {/* <Loading isLoading = {loading} /> */}
                 </div>
             </div>
             {/* preview */}

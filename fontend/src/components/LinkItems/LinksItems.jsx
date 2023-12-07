@@ -26,7 +26,7 @@ function LinksItems({onChange}) {
     return (
         <div className="LinksItems"> 
             {currentLink?.map((link,index)=>(
-                <LinksItem onChange={onChange} linkId ={link?._id} linkUrl ={link.url} linkTitle= {link.urlTitle} linkThumbnail={link.linkThumbnail} key={link._id}/>
+                <LinksItem onChange={onChange} linkId ={link?._id} linkUrl ={link.url} linkTitle= {link.urlTitle} linkThumbnail={link.linkThumbnail} key={index}/>
             ))}
             
         </div>

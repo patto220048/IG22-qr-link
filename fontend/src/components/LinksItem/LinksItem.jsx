@@ -8,13 +8,15 @@ import { urlFail, urlStart, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import Alert from '../Alert/Alert';
 
 function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
-    const currentLink = useSelector((state)=> state.url.currentUrl)
+    const currentLink = useSelector((state) => state.url.currentUrl);
 
     const [isSwith, setIsSwitch] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
     const [isChangeTitle, setIsChangeTitle] = useState(false);
-    const [values, setValues] = useState("")
+    const [isChangeUrl, setIsChangeUrl] = useState(false);
+    const [values, setValues] = useState('');
     const inputTitleRef = useRef(null);
+    const inputUrLRef = useRef(null);
     const [focused, setFocused] = useState(false);
     const dispatch = useDispatch();
     const handleOpenAlert = () => {
@@ -24,39 +26,61 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
     useEffect(() => {
-        const handleClickOutside = () => {
-          
-         
-            const updateLink = async() =>{
+        const handleClickOutInput = () => {
+            const updateLink = async () => {
                 try {
-                    const res = await http.put(`/link/${linkId}`,{
+                    const res = await http.put(`/link/${linkId}`, {
                         urlTitle: values.inputTitle,
-                    })
-                    dispatch(urlUpdate(res.data))
+                    });
+                    dispatch(urlUpdate(res.data));
                     setIsChangeTitle(false);
                 } catch (error) {
-                    console.log(error.message)
-                    dispatch(urlFail())
+                    console.log(error.message);
+                    dispatch(urlFail());
                 }
-
-            }
-            updateLink()
+            };
+            updateLink();
         };
-        inputTitleRef.current?.addEventListener('focusout', handleClickOutside);
-        return () => {
-            inputTitleRef.current?.removeEventListener('focusout', handleClickOutside);
+        const handleClickOutSide = () => {
+            setIsChangeTitle(false);
         };
-    }, [linkId,values?.inputTitle,inputTitleRef?.current]);
-    const handleIsChangeTitle = (e) => {
-        e.stopPropagation()
-        setIsChangeTitle(true);
-        if(inputTitleRef.current){
-            inputTitleRef.current.focus()
+        if (inputTitleRef) {
+            inputTitleRef.current?.addEventListener('focusout', handleClickOutInput);
+            return () => {
+                inputTitleRef.current?.removeEventListener('focusout', handleClickOutInput);
+            };
         }
+    }, [linkId, values?.inputTitle, inputTitleRef?.current]);
+    useEffect(() => {
+        const handleClickOutside = () => {
+            const updateLink = async () => {
+                try {
+                    const res = await http.put(`/link/${linkId}`, {
+                        url: values.inputUrl,
+                    });
+                    dispatch(urlUpdate(res.data));
+                    setIsChangeUrl(false);
+                } catch (error) {
+                    console.log(error.message);
+                    dispatch(urlFail());
+                }
+            };
+            updateLink();
+        };
+        if (inputUrLRef) {
+            inputUrLRef.current?.addEventListener('focusout', handleClickOutside);
+            return () => {
+                inputUrLRef.current?.removeEventListener('focusout', handleClickOutside);
+            };
+        }
+    }, [linkId, values?.inputUrl, inputUrLRef?.current]);
+    const handleIsChangeTitle = (e) => {
+        e.stopPropagation();
+        setIsChangeTitle(true);
     };
     const handleFocused = (e) => {
-        setFocused(true)
-    }
+        setFocused(true);
+    };
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -77,12 +101,13 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
                                         id="inputTitle"
                                         name="inputTitle"
                                         type="text"
+                                        autoFocus={true}
                                         onBlur={handleFocused}
                                         disabled={isChangeTitle ? false : true}
                                         onChange={onChangeTitle}
                                         style={isChangeTitle ? { display: 'block' } : { display: 'none' }}
                                         defaultValue={currentLink.urlTitle ? currentLink.urlTitle : linkTitle}
-                                        focused = {focused.toString()}
+                                        focused={focused.toString()}
                                     />
                                 </>
                             }
@@ -93,8 +118,29 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
                             )}
                         </div>
                         <div className="LinkItem-url">
-                            <span className="LinkItem-link">{linkUrl}</span>
-                            <span className="LinkItem-pen">{penIcon(25, 25)}</span>
+                            <span
+                                className="LinkItem-link"
+                                style={isChangeUrl ? { display: 'none' } : { display: 'block' }}
+                            >
+                                {currentLink.url ? currentLink.url : linkUrl}
+                            </span>
+                            <input
+                                ref={inputUrLRef}
+                                onChange={onChangeTitle}
+                                onBlur={handleFocused}
+                                type="text"
+                                name="inputUrl"
+                                id="inputUrl"
+                                disabled={isChangeUrl ? false : true}
+                                focused={focused.toString()}
+                                style={isChangeUrl ? { display: 'block' } : { display: 'none' }}
+                                defaultValue={currentLink.url ? currentLink.url : linkUrl}
+                            />
+                            {!isChangeUrl && (
+                                <span className="LinkItem-pen" onClick={() => setIsChangeUrl(true)}>
+                                    {penIcon(25, 25)}
+                                </span>
+                            )}
                         </div>
                     </div>
                     <div className="LinksItem-switch">

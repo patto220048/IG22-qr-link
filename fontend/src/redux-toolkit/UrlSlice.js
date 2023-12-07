@@ -41,11 +41,14 @@ export const urlSlice = createSlice({
         },
         urlUpdate: (state, action) => {
             state.loading = false;
-            state.error = false;
+            state.error = false;    
             state.currentUrl.map((url)=>{
                 if(url._id === action.payload._id)
                 {
                     url.urlTitle = action.payload.urlTitle
+                    url.url = action.payload.url    
+                    url.urlThumbnail= action.payload.urlThumbnail
+                    url.acticve = action.payload.acticve
                 }
             })
         }
