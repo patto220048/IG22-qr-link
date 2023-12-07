@@ -4,7 +4,7 @@ import "./LinksItems.scss"
 import { useDispatch, useSelector } from "react-redux";
 import http from "../../instance/axiosInstance";
 import { urlFail, urlStart, urlSuccess } from "../../redux-toolkit/UrlSlice";
-function LinksItems() {
+function LinksItems({onChange}) {
     const currentTheme = useSelector((state)=> state.theme.currentTheme)
     const currentLink = useSelector((state)=> state.url.currentUrl)
     const dispatch = useDispatch()
@@ -26,7 +26,7 @@ function LinksItems() {
     return (
         <div className="LinksItems"> 
             {currentLink?.map((link,index)=>(
-                <LinksItem linkId ={link?._id} linkUrl ={link.url} linkTitle= {link.title} linkThumbnail={link.linkThumbnail} key={link._id}/>
+                <LinksItem onChange={onChange} linkId ={link?._id} linkUrl ={link.url} linkTitle= {link.urlTitle} linkThumbnail={link.linkThumbnail} key={link._id}/>
             ))}
             
         </div>

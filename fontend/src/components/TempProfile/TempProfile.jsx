@@ -185,9 +185,9 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                     className="tempProfile-input"
                     defaultValue={user?.usernameTitle ? user?.usernameTitle : user?.username}
                     onChange={onChange}
-                    maxLength={16}
+                    maxLength={16}  
                     minLength={1}
-                    onKeyDown={(e) => onKeyDown(e.key)}
+                    // onKeyDown={(e) => onKeyDown(e.key)}
                 />
                 <input />
                 <textarea

@@ -13,7 +13,11 @@ import { themeSuccess } from '../../redux-toolkit/themeSlice';
 function Links() {
     const loading = useSelector((state) => state.url.loading);
     const [isAddLink, setIsAddLink] = useState(false);
+    const [values, setValues] = useState('');
     const currentUser = useSelector((state) => state.user.currentUser)
+    const onChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
     const handleAddLink = () => {
         setIsAddLink(true);
     };
@@ -42,9 +46,9 @@ function Links() {
                             )}
                         </button>
                     )}
-                    {isAddLink && <AddLink isAddLink={isAddLink} setIsAddLink={setIsAddLink} />}
+                    {isAddLink && <AddLink isAddLink={isAddLink} setIsAddLink={setIsAddLink} onChange={onChange} values={values} setValues={setValues}/>}
                     <section className="Links-left-wapper">
-                        <LinksItems />
+                        <LinksItems onChange={onChange} />
                     </section>
                     {/* <Loading isLoading = {loading} /> */}
                 </div>

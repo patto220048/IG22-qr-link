@@ -4,16 +4,18 @@ import './AddLink.scss';
 import http from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { urlAdd, urlFail, urlStart, urlSuccess } from '../../redux-toolkit/UrlSlice';
-function AddLink({ setIsAddLink, isAddLink }) {
+import { sortUrl } from '../../untils/sortUrl';
+function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-    const [values, setValues] = useState('');
+
     const dispatch = useDispatch();
-    console.log(currentTheme);
+    console.log(sortUrl(values.url)?.host)
     const handleAddLink = () => {
         dispatch(urlStart());
         const addLink = async () => {
             try {
                 const res = await http.post(`/link/${currentTheme?._id}`, {
+                    urlTitle: sortUrl(values.url)?.host,
                     url: values.url,
                 });
                 setIsAddLink(false);
@@ -29,9 +31,7 @@ function AddLink({ setIsAddLink, isAddLink }) {
         };
         addLink();
     };
-    const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
-    };
+   
     return (
         <div className={'AddLink '}>
             <div className="AddLink-wapper">

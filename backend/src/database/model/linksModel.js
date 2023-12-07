@@ -17,7 +17,7 @@ const LinkModel = new Schema(
             require: true, 
             
         },  
-        title:{
+        urlTitle:{
             type: String,
             default:null
 
