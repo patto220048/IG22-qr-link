@@ -94,7 +94,7 @@ function Theme({
             ) : (
                 <a href='#background' className="theme-cutoms_btn" >
                     Cutoms page
-                    {plusIcon(30, 30)}
+                    {plusIcon(30, 30, "black")}
                 </a>
             )}
         </>

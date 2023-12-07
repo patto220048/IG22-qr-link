@@ -5,22 +5,15 @@ import { penIcon, trashIcon } from '../../svg/icon';
 import http from '../../instance/axiosInstance';
 import { useDispatch } from 'react-redux';
 import { urlDelete } from '../../redux-toolkit/UrlSlice';
+import Alert from '../Alert/Alert';
 function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId }) {
     const [isSwith, setIsSwitch] = useState(false);
+    const [isAlert, setIsAlert] = useState(false);
     const dispatch = useDispatch();
-    const handleDeleteUrl = () => {
-        const deleteUrl = async () => {
-            try {
-                const res = await http.delete(`/link/${linkId}`);
-                if (res.status === 200) {
-                    dispatch(urlDelete(linkId));
-                }
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        deleteUrl();
-    };
+
+    const handleOpenAlert = () => {
+        setIsAlert(true)
+    }
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -48,10 +41,11 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId }) {
                     <li className="LinksItem-direct-item">2</li>
                     <li className="LinksItem-direct-item">3</li>
                     <li className="LinksItem-direct-item">4</li>
-                    <li className="LinksItem-direct-delete" onClick={handleDeleteUrl}>
+                    <li className="LinksItem-direct-delete" onClick={handleOpenAlert}>
                         {trashIcon(25, 25)}
                     </li>
                 </ul>
+              {isAlert && <Alert setIsAlert={setIsAlert} />}
             </div>
         </section>
     );

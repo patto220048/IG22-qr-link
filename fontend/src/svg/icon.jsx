@@ -80,15 +80,15 @@ export const imgIcon = (w, h) => (
 );
 export const closeIcon = (w, h) => (
     <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 8L8 16M16 16L8 8" stroke="black" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16 8L8 16M16 16L8 8" stroke="black" strokeWidth="1" strokeLinecap="round" />
     </svg>
 );
-export const plusIcon = (w, h) => (
-    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const plusIcon = (w, h,c) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
         <path
             d="M12.0001 4.7998L12 19.1998M19.2 11.9998L4.80005 11.9998"
-            stroke="black"
-            strokeWidth="2"
+            stroke={c}
+            strokeWidth="1"
             strokeLinecap="round"
         />
     </svg>

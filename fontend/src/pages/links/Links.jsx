@@ -11,7 +11,6 @@ import { current } from '@reduxjs/toolkit';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
 function Links() {
-    
     const loading = useSelector((state) => state.url.loading);
     const [isAddLink, setIsAddLink] = useState(false);
     const currentUser = useSelector((state) => state.user.currentUser)
@@ -39,7 +38,7 @@ function Links() {
                             {loading ? (
                                 <Loading urlLoading = {true} isLoading={loading} />
                             ) : (
-                                <>{plusIcon(30, 30)} Add link</>
+                                <>{plusIcon(30, 30, "white")} Add link</>
                             )}
                         </button>
                     )}

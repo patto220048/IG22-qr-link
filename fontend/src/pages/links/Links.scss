@@ -24,13 +24,14 @@
                 height: 50px;
                 padding: 5px;
                 border-radius: 25px;
-                background-color: rgb(0, 255, 179);
+                background-color: $btn_color;
                 @include btn;
                 font-weight: 700;
                 font-size: 20px;
+                color: $white;
                 &:hover {
                     // transform: scale(1.1);
-                    color: whitesmoke;
+                    background-color: $btn_color_hover;
                 }
             }
             .Links-left-wapper {
