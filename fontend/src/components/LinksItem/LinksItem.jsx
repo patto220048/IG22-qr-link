@@ -10,7 +10,6 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId }) {
     const [isSwith, setIsSwitch] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
     const dispatch = useDispatch();
-
     const handleOpenAlert = () => {
         setIsAlert(true)
     }
@@ -41,11 +40,13 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId }) {
                     <li className="LinksItem-direct-item">2</li>
                     <li className="LinksItem-direct-item">3</li>
                     <li className="LinksItem-direct-item">4</li>
-                    <li className="LinksItem-direct-delete" onClick={handleOpenAlert}>
+                    <li className="LinksItem-direct-delete"  onClick={handleOpenAlert}>
                         {trashIcon(25, 25)}
                     </li>
                 </ul>
-              {isAlert && <Alert setIsAlert={setIsAlert} />}
+                <div className='Alert-Delete' data-state = {isAlert ? "open": "closed"}>
+                {isAlert && <Alert linkId = {linkId} setIsAlert={setIsAlert} isAlert={isAlert}/>}
+                </div>
             </div>
         </section>
     );

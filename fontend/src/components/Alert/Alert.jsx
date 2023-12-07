@@ -2,8 +2,10 @@ import { useDispatch } from 'react-redux';
 import { closeIcon } from '../../svg/icon';
 import './Alert.scss';
 import http from '../../instance/axiosInstance';
+import { useState } from 'react';
+import { urlDelete } from '../../redux-toolkit/UrlSlice';
 
-function Alert({ setIsAlert }) {
+function Alert({ setIsAlert, isAlert, linkId }) {
     const dispatch = useDispatch();
     const handleDeleteUrl = () => {
         const deleteUrl = async () => {
@@ -19,7 +21,7 @@ function Alert({ setIsAlert }) {
         deleteUrl();
     };
     return (
-        <div className="ALert">
+        <div className={`ALert`}>
             <div className="Alert-head">
                 <h6 className="Alert-title">Delete</h6>
                 <div className="Alert-close-icon" onClick={() => setIsAlert(false)}>
@@ -28,7 +30,7 @@ function Alert({ setIsAlert }) {
             </div>
             <p className="Alert-desc">Delete this forever</p>
             <div className="Alert-btn-group">
-                <button className="Alert-btn cancel" onClick={() => setIsAlert(false)}>
+                <button className="Alert-btn cancel" onClick={()=>setIsAlert(false)}>
                     Cancel
                 </button>
                 <button className="Alert-btn agree" onClick={handleDeleteUrl}>Delete</button>

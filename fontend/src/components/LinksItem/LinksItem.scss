@@ -77,12 +77,38 @@
                 position: absolute;
                 right: 0;
                 cursor: pointer;
-
                 :hover {
                     border-radius: 5px;
                     background-color: var(--gray-4);
                 }
             }
         }
+
+        .Alert-Delete[data-state='open'] {
+            animation: fadeIn 300ms ease-in;
+        }
+        .Alert-Delete[data-state='closed'] {
+            animation: fadeOut 300ms ease;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
     }
 }
