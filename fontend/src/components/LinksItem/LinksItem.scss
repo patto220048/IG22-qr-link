@@ -22,11 +22,20 @@
                     .input-title-label{
                         font-size: 20px;
                         font-weight: 600;
+                        max-width: 250px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
-                    #input-title{
-                       display: none;
+                    #inputTitle{
+                    //    display: none;
                        font-size: 20px;
                        font-weight: 600;
+                       overflow: hidden;
+                       text-overflow: ellipsis;
+                       &:valid[focused="true"]{
+                            width: 100%;
+                            overflow: unset;
+                        }
 
                     }
                     .LinkItem-pen {

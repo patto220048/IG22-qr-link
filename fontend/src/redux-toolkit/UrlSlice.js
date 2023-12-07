@@ -39,10 +39,20 @@ export const urlSlice = createSlice({
                 }
             });
         },
+        urlUpdate: (state, action) => {
+            state.loading = false;
+            state.error = false;
+            state.currentUrl.map((url)=>{
+                if(url._id === action.payload._id)
+                {
+                    url.urlTitle = action.payload.urlTitle
+                }
+            })
+        }
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { urlStart, urlSuccess, urlFail, urlAdd, urlDelete } = urlSlice.actions;
+export const { urlStart, urlSuccess, urlFail, urlAdd, urlDelete,urlUpdate } = urlSlice.actions;
 
 export default urlSlice.reducer;
