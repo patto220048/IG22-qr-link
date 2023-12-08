@@ -80,15 +80,15 @@ export const imgIcon = (w, h) => (
 );
 export const closeIcon = (w, h) => (
     <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 8L8 16M16 16L8 8" stroke="black" strokeWidth="2" strokeLinecap="round" />
+        <path d="M16 8L8 16M16 16L8 8" stroke="black" strokeWidth="1" strokeLinecap="round" />
     </svg>
 );
-export const plusIcon = (w, h) => (
-    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const plusIcon = (w, h,c) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
         <path
             d="M12.0001 4.7998L12 19.1998M19.2 11.9998L4.80005 11.9998"
-            stroke="black"
-            strokeWidth="2"
+            stroke={c}
+            strokeWidth="1"
             strokeLinecap="round"
         />
     </svg>
@@ -203,6 +203,28 @@ export const upLoadVideo = (w, h) => (
             d="M4 15.2044V18.8925C4 19.4514 4.21071 19.9875 4.58579 20.3827C4.96086 20.778 5.46957 21 6 21H18C18.5304 21 19.0391 20.778 19.4142 20.3827C19.7893 19.9875 20 19.4514 20 18.8925V15.2044M12.0007 14.9425L12.0007 3M12.0007 3L7.42931 7.56318M12.0007 3L16.5722 7.56318"
             stroke="black"
             strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+export const trashIcon = (w, h) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M4 6.17647H20M10 16.7647V10.4118M14 16.7647V10.4118M16 21H8C6.89543 21 6 20.0519 6 18.8824V7.23529C6 6.65052 6.44772 6.17647 7 6.17647H17C17.5523 6.17647 18 6.65052 18 7.23529V18.8824C18 20.0519 17.1046 21 16 21ZM10 6.17647H14C14.5523 6.17647 15 5.70242 15 5.11765V4.05882C15 3.47405 14.5523 3 14 3H10C9.44772 3 9 3.47405 9 4.05882V5.11765C9 5.70242 9.44772 6.17647 10 6.17647Z"
+            stroke="black"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+export const penIcon = (w, h) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M13.4487 6.95168L17.0487 10.5517M4.44873 19.5517L8.81472 18.672C9.04649 18.6253 9.25931 18.5111 9.42645 18.3439L19.2001 8.56486C19.6687 8.096 19.6684 7.33602 19.1994 6.86755L17.129 4.79948C16.6602 4.33121 15.9006 4.33153 15.4322 4.80019L5.65749 14.5802C5.49068 14.7471 5.37678 14.9595 5.33003 15.1908L4.44873 19.5517Z"
+            stroke="black"
+            strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"
         />

@@ -180,9 +180,7 @@
                 background-color: rgb(45, 221, 221);
                 margin-top: 900px;
                 justify-content: center;
-                animation-name: slidein;
-                animation-duration: 3s;
-                animation-delay: -1s;
+                animation: slidein 300ms cubic-bezier(0.16, 1, 0.3, 1);
                 
                 .nav-link-mobile_items {
                     font-size: 40px;

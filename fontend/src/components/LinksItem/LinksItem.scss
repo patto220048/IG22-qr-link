@@ -1,0 +1,158 @@
+@import '../../base/color';
+
+.LinksItem {
+    width: 700px;
+    background-color: $white;
+    padding: 20px;
+    border-radius: 25px;
+    .LinksItem-drag-icon {
+    }
+    .LinksItem-wapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .LinksItem-item {
+            display: flex;
+            justify-content: space-between;
+            .LinksItem-side {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+                .LinkItem-url {
+                    .input-title-label {
+                        font-size: 20px;
+                        font-weight: 600;
+                        max-width: 250px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    #inputTitle {
+                        //    display: none;
+                        font-size: 20px;
+                        font-weight: 600;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        // border: 1px solid rgba($color: $black, $alpha: 0.3);
+                        width: 100%;
+                        &:valid[focused='true'] {
+                            overflow: unset;
+                        }
+                       
+                    }
+                    .LinkItem-pen {
+                        &:hover {
+                            cursor: pointer;
+                            border-radius: 5px;
+                            background-color: var(--gray-4);
+                        }
+                    }
+                }
+                .LinkItem-url {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    .LinkItem-link {
+                        max-width: 500px;
+                        font-size: 15px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        text-wrap: nowrap;
+                    }
+                    #inputUrl {
+                        width: 100%;
+
+                        font-size: 15px;
+                        &:valid[focused='true'] {
+                            text-wrap: wrap;
+                            text-overflow: ellipsis;
+
+                        }
+                    }
+                    .LinkItem-pen {
+                        &:hover {
+                            cursor: pointer;
+                            border-radius: 5px;
+                            background-color: var(--gray-4);
+                        }
+                    }
+                }
+            }
+            .LinksItem-switch {
+                .SwitchRoot {
+                    width: 42px;
+                    height: 25px;
+                    background-color: var(--gray-8);
+                    border-radius: 9999px;
+                    position: relative;
+                    box-shadow: 0 2px 10px var(--black-6);
+                    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+                }
+                .SwitchRoot:focus {
+                    box-shadow: 0 0 0 2px black;
+                }
+                .SwitchRoot[data-state='checked'] {
+                    background-color: var(--green-10);
+                }
+                .SwitchThumb {
+                    display: block;
+                    width: 21px;
+                    height: 21px;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: 9999px;
+                    box-shadow: 0 2px 2px var(--black-8);
+                    transition: transform 100ms;
+                    transform: translateX(2px);
+                    will-change: transform;
+                }
+                .SwitchThumb[data-state='checked'] {
+                    transform: translateX(19px);
+                }
+            }
+        }
+        .LinksItem-direct {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            width: 100%;
+            .LinksItem-direct-delete {
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+                :hover {
+                    border-radius: 5px;
+                    background-color: var(--gray-4);
+                }
+            }
+        }
+
+        .Alert-Delete[data-state='open'] {
+            animation: fadeIn 300ms ease-in;
+        }
+        .Alert-Delete[data-state='closed'] {
+            animation: fadeOut 300ms ease;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: 100%;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

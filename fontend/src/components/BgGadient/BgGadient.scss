@@ -3,15 +3,15 @@
     text-align: center;
     cursor: pointer;
     .BgGadient-item {
-        width: 160px;
-        height: 260px;
+        width: 162px;
+        height: 262px;
         border-radius: 25px;
-        background-image: linear-gradient(red, yellow);
-        border: 2px solid transparent;
+        background-image: linear-gradient(rgb(240, 38, 38), rgb(241, 241, 7));
+        
 
         &:hover{
             border-radius: 25px;
-            border: 1px solid rgba($color: $black, $alpha: 0.5);
+            // border: 1px solid rgba($color: $black, $alpha: 0.5);
             transform: scale(0.98);
         }
     }

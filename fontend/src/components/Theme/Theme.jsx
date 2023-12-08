@@ -34,6 +34,13 @@ function Theme({
                     bnt_radius: themeBtnRadius,
                     font_famify: themeFontFamily,
                     font_color: themeFontColor,
+                    backgroundImgName:null,
+                    backgroundVideoName:null,
+                    backgroundVideo:null,
+                    bgColor:null,
+                    gadientColorTop:null,
+                    gadientColorBot:null,
+
                 });
                 const timeoutId = setTimeout(async () => {
                     // setThemeInstance(res.data);
@@ -85,10 +92,10 @@ function Theme({
                     )}
                 </section>
             ) : (
-                <button className="theme-cutoms_btn">
-                    <div>Cutoms page</div>
-                    {plusIcon(30, 30)}
-                </button>
+                <a href='#background' className="theme-cutoms_btn" >
+                    Cutoms page
+                    {plusIcon(30, 30, "black")}
+                </a>
             )}
         </>
     );

@@ -19,12 +19,39 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                     <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
                 ) : (
                     <>
-                        {currentTheme?.backgroundImg || theme?.backgroundImg ? (
-                            <img
-                                className="template-bg"
-                                src={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
-                                alt={currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg}
-                            />
+                        {currentTheme?.backgroundImg ||
+                        theme?.backgroundImg ||
+                        currentTheme?.backgroundVideo ||
+                        theme?.backgroundVideo ? (
+                            <>
+                                {currentTheme?.backgroundVideo || theme?.backgroundVideo ? (
+                                    <video
+                                        className="template-bg"
+                                        type="video/webm"
+                                        loop
+                                        autoPlay
+                                        src={
+                                            currentTheme?.backgroundVideo
+                                                ? currentTheme?.backgroundVideo
+                                                : theme?.backgroundVideo
+                                        }
+                                    ></video>
+                                ) : (
+                                    <img
+                                        className="template-bg"
+                                        src={
+                                            currentTheme?.backgroundImg
+                                                ? currentTheme?.backgroundImg
+                                                : theme?.backgroundImg
+                                        }
+                                        alt={
+                                            currentTheme?.backgroundImg
+                                                ? currentTheme?.backgroundImg
+                                                : theme?.backgroundImg
+                                        }
+                                    />
+                                )}
+                            </>
                         ) : (
                             <>
                                 {currentTheme.gadientColorBot ||
@@ -38,7 +65,8 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                                                 className="template-bg"
                                                 style={{
                                                     backgroundImage: `linear-gradient(${
-                                                        currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorBot})`,
+                                                        currentTheme.gadientColorTop || theme?.gadientColorTop
+                                                    },${currentTheme.gadientColorBot || theme?.gadientColorBot})`,
                                                 }}
                                             />
                                         ) : (

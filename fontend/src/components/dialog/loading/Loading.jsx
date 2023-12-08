@@ -9,11 +9,14 @@ const override = {
     margin: '0 auto',
     borderColor: '1px solid black',
 };
-function Loading({ isLoading, templateLoading, InputUrlLoading }) {
+function Loading({ isLoading, templateLoading, InputUrlLoading, urlLoading, loginLoading }) {
     return (
-        <section className="overlay" style={templateLoading ? { position: 'relative' } : { position: 'fixed' }}>
+        <section
+            className="overlay"
+            style={templateLoading || urlLoading ? { position: 'relative' } : { position: 'fixed' }}
+        >
             <div className="loading">
-                {!InputUrlLoading ? (
+                {templateLoading && (
                     <HashLoader
                         speedMultiplier={1.5}
                         color={templateLoading ? '#333333' : '#ffffff'}
@@ -24,9 +27,11 @@ function Loading({ isLoading, templateLoading, InputUrlLoading }) {
                         aria-label="Loading Spinner"
                         data-testid="loader"
                     />
-                ) : (
+                )}
+                
+                {InputUrlLoading && (
                     <DotLoader
-                        color={"#ffffff"}
+                        color={'#ffffff'}
                         loading={isLoading}
                         cssOverride={override}
                         size={35}
@@ -35,6 +40,33 @@ function Loading({ isLoading, templateLoading, InputUrlLoading }) {
                         speedMultiplier={1.5}
                     />
                 )}
+                
+                {urlLoading && (
+                    <DotLoader
+                        color={'#ffffff'} 
+                        loading={isLoading}
+                        cssOverride={override}
+                        size={25}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                        speedMultiplier={1.5}
+                    />
+                )}
+                
+                {loginLoading && 
+                    <HashLoader
+                    speedMultiplier={1.5}
+                    color={templateLoading ? '#333333' : '#ffffff'}
+                    loading={isLoading}
+                    // cssOverride={override}
+                    cssOverride={override}
+                    size={70}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+                }
+
+
             </div>
         </section>
     );

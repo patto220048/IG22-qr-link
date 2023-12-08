@@ -186,7 +186,7 @@ function Login() {
                 pauseOnHover
                 theme="colored"
             ></ToastContainer>
-            {isLoading && <Loading isLoading={isLoading} />}
+            {isLoading && <Loading isLoading={isLoading} loginLoading={true}/>}
             <div className="login-left">
                 <img className="login-left-img" src={bg_login_page} alt="" />
             </div>

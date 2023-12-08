@@ -87,7 +87,7 @@ class LinkController {
             if (!link) return res.json(handleErorr(404, "This link not found."))
             if (link.userId === req.user.id) {
                 try {
-                    await Link.findByIdAndDelete(linkId);
+                    const link = await Link.findByIdAndDelete(linkId);
                     res.status(200).json('Delete successfuly!!');
                 } catch (error) {
                     res.json(handleErorr(500, error.message));
@@ -101,6 +101,22 @@ class LinkController {
             
         }
       
+    }
+    async getAllLink(req, res, next) {
+        try {
+            const link = await Link.find()
+            res.status(200).json(link)
+        } catch (error) {
+            res.json(handleErorr(500, error.message));
+        }
+    }
+    async deteleAllLink(req, res, next) {
+        try {
+            const link = await Link.deleteMany()
+            res.status(200).json("Delete successfuly!!")
+        } catch (error) {
+            res.json(handleErorr(500, error.message));
+        }
     }
 }
 export default new LinkController();

@@ -1,0 +1,83 @@
+@import "../../base/color";
+@import "../../base/variable";
+
+.AddLink{
+    width: 700px;
+    height: 100%;
+    background-color: $white;
+    padding: 20px;
+    border-radius: 25px;
+    animation: contentShow 500ms  cubic-bezier(0.16, 1, 0.3, 1);
+
+    .AddLink-wapper{
+        width: 100%;
+        position: relative;
+        .AddLink-content{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            .AddLink-content_group{
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+                .AddLink-content_input{
+                    width: 90%;
+                    height: 13px;
+                    padding: 12px;
+                    border-radius: 5px;
+                    font-size: 15px;
+                    background-color: rgba($color: $text_hover_color, $alpha: 0.5);
+                    border: 2px solid transparent;
+                    font-weight: 500;
+                    &:focus {
+                        border: 2px solid $black;
+                    }
+                  
+                }
+                .AddLink-content-btn{
+                    @include btn;
+                    width: 50px;
+                    border-radius: 5px;
+                    transition: all 0.3s ease-in-out;
+                
+
+                    &:hover{
+                        background-color: $black;
+                        color:$white;
+                    }
+                }
+            }
+            .AddLink-content_title{
+                font-family: 800;
+            }
+            
+        }
+        .AddLink-off{
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            :hover{
+                background-color: var(--gray-3);
+                border-radius: 50%;
+                
+            }
+        }
+    }
+}
+
+
+@keyframes contentShow {
+    from {
+        opacity: 0;
+        height: 0;
+    }
+    to{
+        opacity: 1;
+        height: 100%;
+
+    }
+}
+
+

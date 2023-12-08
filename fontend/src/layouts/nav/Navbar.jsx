@@ -65,15 +65,21 @@ function Navbar() {
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Templates</li>
                     </NavLink>
-                    <li className="nav-link_items">Link</li>
+                    <NavLink to={`/links`} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Links</li>
+                    </NavLink>
                     <li className="nav-link_items">Create QR</li>
                     <li className="nav-link_items">About</li>
                 </ul>
                 {/* ----------------------------------------nav mobile-------------------------------------------- */}
                 {isMobile && (
-                    <ul className={"nav-link-mobile "} style={currentUser ? { width: '100%' } : { flex: '1' }} onClick={()=>setIsMobile(false)}>
-                        <NavLink to={"/"}>
-                        <li className="nav-link-mobile_items" >Home</li>    
+                    <ul
+                        className={'nav-link-mobile '}
+                        style={currentUser ? { width: '100%' } : { flex: '1' }}
+                        onClick={() => setIsMobile(false)}
+                    >
+                        <NavLink to={'/'}>
+                            <li className="nav-link-mobile_items">Home</li>
                         </NavLink>
 
                         {!currentUser && (
@@ -84,16 +90,11 @@ function Navbar() {
                         <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
                             <li className="nav-link-mobile_items">Templates</li>
                         </NavLink>
-                        <li className="nav-link-mobile_items">Link</li>
+                        <li className="nav-link-mobile_items">Links</li>
                         <li className="nav-link-mobile_items">Create QR</li>
                         <li className="nav-link-mobile_items">About</li>
                     </ul>
-                    
-                    
-                )
-               
-
-            }
+                )}
                 {!currentUser ? (
                     <div className="register">
                         <Link to="/register/login">
@@ -114,14 +115,15 @@ function Navbar() {
                     </div>
                 )}
                 {/* reponsive mobile */}
-               {isMobile ?
-               <div className="navMobile" onClick={handleOpenMenuMobile}>
-               {closeIcon(30,30)}
-           </div>
-               : <div className="navMobile" onClick={handleOpenMenuMobile}>
-                    {menu01Icon(30, 30)}
-                </div>
-                }
+                {isMobile ? (
+                    <div className="navMobile" onClick={handleOpenMenuMobile}>
+                        {closeIcon(30, 30)}
+                    </div>
+                ) : (
+                    <div className="navMobile" onClick={handleOpenMenuMobile}>
+                        {menu01Icon(30, 30)}
+                    </div>
+                )}
 
                 {openMenu && (
                     <section className="nav-option">
