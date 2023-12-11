@@ -32,22 +32,23 @@
         height: 10px;
         padding-top: 180px;
         width: 30%;
-       
     }
 }
 //mobile
-@media only screen and (max-width: 768px){
-    .template{
-        .template-left{
-            flex: 0;
-        }  
-        .template-right{
-            display: none !important;
+@media only screen and (max-width: 768px) {
+    .template {
+        display: block;
+
+        .template-left {
+            .template-item {
+                width: 100%;
+            }
+        }
+        .template-right {
+            display: none;
         }
     }
 }
 //table
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
-
 }
-

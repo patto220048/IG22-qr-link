@@ -11,21 +11,18 @@
         grid-template-columns: 1fr 1fr 1fr;
         justify-items: center;
         padding: 20px;
-        width: 160px;
-        height: 260px;
         gap: 20px;
     }
     .pickColor {
         margin: 40px;
-        .gadient-items{
+        .gadient-items {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        .pickColor-title{
+        .pickColor-title {
             font-size: 20px;
             font-weight: 600;
-
         }
         .pickColor-item {
             align-items: center;
@@ -38,45 +35,46 @@
                 cursor: pointer;
                 border-radius: 5px;
             }
-            .pickColor-input{
+            .pickColor-input {
                 // width: 50px;
                 height: 40px;
                 transition: all 0.3s ease;
                 border: 0.5px solid rgba($color: $black, $alpha: 0.2);
                 border-radius: 10px;
                 padding-left: 10px;
-                &:hover{
+                &:hover {
                     border: 0.5px solid rgba($color: $black, $alpha: 0.5);
                 }
-                &:focus{
+                &:focus {
                     transform: scale(1.1);
                     border: 0.5px solid rgba($color: $black, $alpha: 0.5);
-
                 }
             }
         }
-
     }
-    
+
     .colorBox {
-     position: absolute;
-     transform:translate(-7%,-5%);
+        position: absolute;
+        transform: translate(-7%, -5%);
     }
-    .colorBoxTop{
-     position: absolute;
-     transform:translate(-7%,-42%);
-    
+    .colorBoxTop {
+        position: absolute;
+        transform: translate(-7%, -42%);
     }
-    .colorBoxBot{
-     position: absolute;
-     transform:translate(-7%,-5%);
-
+    .colorBoxBot {
+        position: absolute;
+        transform: translate(-7%, -5%);
     }
 }
 @media only screen and (max-width: 768px) {
-    .bgTheme{
-        .bgTheme-items{
-          
+    .bgTheme {
+        width: 90%;
+
+        .bgTheme-items {
+            grid-template-columns: 1fr 1fr 1fr;
+            width: 100%;
+            gap: 10px;
+            padding: 10px;
         }
     }
 }
