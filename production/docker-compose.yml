@@ -1,18 +1,18 @@
 services:
   api:
-    build: 
+    build:
       context: ../backend
       dockerfile: Dockerfile
     ports:
       - 4000:4000
     container_name: api-sv
     environment:
-      - CLIENT_URL_ORIGIN=http://localhost:5173
+      - CLIENT_URL_ORIGIN=http://35.78.65.89
     networks:
       - super-card-net
     expose:
       - 4000
-    
+
   nginx:
     image: nginx:1.19-alpine
     ports:
