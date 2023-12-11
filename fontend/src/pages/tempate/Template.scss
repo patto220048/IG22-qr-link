@@ -35,3 +35,19 @@
        
     }
 }
+//mobile
+@media only screen and (max-width: 768px){
+    .template{
+        .template-left{
+            flex: 0;
+        }  
+        .template-right{
+            display: none !important;
+        }
+    }
+}
+//table
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+
+}
+
