@@ -75,7 +75,7 @@ function Template({}) {
                     <ButtonLink />
                 </section>
             </div>
-            {viewMb ? (
+            {/* {viewMb ? (
                 <div className="template-right" style={{ display: 'block' }}>
                     <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user} />
                 </div>
@@ -92,7 +92,7 @@ function Template({}) {
                 <button className="review-btn close" onClick={() => setViewMb(false)}>
                     {closeIcon(25, 25)}
                 </button>
-            )}
+            )} */}
         </div>
     );
 }

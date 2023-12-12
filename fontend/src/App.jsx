@@ -20,7 +20,7 @@ const Profile = lazy(() => import('./pages/profile/Profile'));
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState();
-    
+
     //
     // protect page
     const ProtectRoute = ({ children }) => {
@@ -31,12 +31,18 @@ function App() {
     };
     function Layout() {
         return (
-            <div >
+            <div className="app-wapper">
                 <header>
                     <Navbar />
                 </header>
-                <Outlet/>
-               
+                <body className="body-main">
+                    <div className="body-main-item">
+                        <Outlet />
+                    </div>
+                    <div className="preview">
+                        <PreView />
+                    </div>
+                </body>
             </div>
         );
     }
