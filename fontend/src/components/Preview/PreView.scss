@@ -33,3 +33,21 @@
         }
     }
 }
+@media only screen and (max-width: 768px) {
+    .PreView-wapper{
+    // width: none;
+        width: 100%;
+        height: calc(100vh + 50px);
+        border: none;
+        border-radius: 0;
+        .template-bg{
+            width: 100%;
+            height:  calc(100vh + 100px);
+        border-radius: 0;
+
+        }
+        .template-profile {
+            padding-top: 60px;
+        }
+    }
+}

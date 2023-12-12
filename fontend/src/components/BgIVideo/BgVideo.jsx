@@ -1,7 +1,7 @@
 import { videoIcon } from '../../svg/icon';
 import './BgVideo.scss';
 
-function BgVideo({setIsPickImgVideo,setOpenColor,setopenGadient}) {
+function BgVideo({setIsPickImgVideo,setOpenColor,setopenGadient,setViewMb}) {
     const handledOpen = () => {
         setIsPickImgVideo(true)
         setOpenColor(false)

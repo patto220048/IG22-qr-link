@@ -13,12 +13,14 @@ const Home = lazy(() => import('./pages/home/Home'));
 import Template from './pages/tempate/Template';
 import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
+import PreView from './components/Preview/PreView';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState();
+    
     //
     // protect page
     const ProtectRoute = ({ children }) => {
@@ -29,11 +31,12 @@ function App() {
     };
     function Layout() {
         return (
-            <div>
+            <div >
                 <header>
                     <Navbar />
                 </header>
-                <Outlet />
+                <Outlet/>
+               
             </div>
         );
     }
