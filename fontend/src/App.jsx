@@ -39,9 +39,9 @@ function App() {
                     <div className="body-main-item">
                         <Outlet />
                     </div>
-                    <div className="preview">
+                    {/* <div className="preview">
                         <PreView />
-                    </div>
+                    </div> */}
                 </body>
             </div>
         );
