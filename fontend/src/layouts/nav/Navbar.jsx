@@ -129,7 +129,7 @@ function Navbar() {
                 )}
 
                 {openMenu && (
-                    <section className="nav-option">
+                    <div className="nav-option">
                         <NavAvatar
                             usernameTitle={currentUser.usernameTitle}
                             userImg={currentUser.avtImg}
@@ -145,7 +145,7 @@ function Navbar() {
                                 <DropdownItem icon={logoutIcon()} text={'Sign out'} />
                             </div>
                         </ul>
-                    </section>
+                    </div>
                 )}
             </div>
         </nav>
