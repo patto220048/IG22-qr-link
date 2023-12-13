@@ -32,11 +32,11 @@ class LinkController {
         const cardId = req.params.idCard;
         const currentUser = req.user.id 
         try {
-            const card = await Card.findById(cardId)
+            const card = await Card.findById(cardId);
             if (!card) return res.json(handleErorr(404, 'Card no have link.'))
             if(card.userId === currentUser){
                 try {
-                    const getLinks = await Link.find({ cardId: cardId });
+                    const getLinks = await Link.find({ cardId: card._id});
                     res.status(200).json(getLinks);
                 } catch (error) {
                     res.json(handleErorr(500, error.message));

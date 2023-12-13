@@ -6,7 +6,6 @@ const LinkModel = new Schema(
     {
         cardId: {
             type: String, 
-            require: true, 
         },
         userId: {
             type: String, 
