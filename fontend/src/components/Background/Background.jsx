@@ -12,7 +12,7 @@ import BgVideo from '../BgIVideo/BgVideo';
 import { alertCricleIcon } from '../../svg/icon';
 import Dialog_UI from '../dialog/Dialog_IU';
 import { ToastContainer, toast } from 'react-toastify';
-function Background({ cardId, theme }) {
+function Background({ cardId, theme, setViewMb }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [hex, setHex] = useState('#333333');
     const [hexGadientTop, setHexGadientTop] = useState('#333333');
@@ -116,7 +116,7 @@ function Background({ cardId, theme }) {
                         gadientColorBot: hexGadientBot,
                         backgroundImg: null,
                         bgColor: null,
-                        backgroundVideo: null
+                        backgroundVideo: null,
                     });
                     setIsGardientBot(false);
                     let timeOutId = setTimeout(async () => {
@@ -213,7 +213,11 @@ function Background({ cardId, theme }) {
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
                 <BgImage setIsPickImg={setIsPickImgBg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgVideo setIsPickImgVideo={setIsPickImgVideo} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
+                <BgVideo
+                    setIsPickImgVideo={setIsPickImgVideo}
+                    setOpenColor={setOpenColor}
+                    setopenGadient={setopenGadient}
+                />
             </div>
 
             {openColor && (

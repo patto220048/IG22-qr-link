@@ -100,3 +100,26 @@
         }
     }
 }
+@media only screen and (max-width: 768px) {
+ .tempProfile{
+    width: 95%;
+    .tempProfile-item{
+        padding: 20px;
+        justify-content: space-between;
+        gap: 10px;
+
+        .tempProfile-btn{
+            .tempProfile-btn {
+
+            }
+            .pickup{
+                font-size: 13px;
+            }
+            .remove{
+                font-size: 13px;
+
+            }
+        }
+    } 
+ }
+}

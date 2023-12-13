@@ -7,6 +7,8 @@
 
     .theme-img {
         object-fit: cover;
+        height: 260px;
+        width: 160px;
         border-radius: 25px;
         -moz-box-shadow: 3px 5px 7px 1px rgba(0, 0, 0, 0.4);
         -webkit-box-shadow: 3px 5px 7px 1px rgba(0, 0, 0, 0.4);
@@ -17,7 +19,7 @@
         width: 160px;
         height: 260px;
         border-radius: 25px;
-        background-color: aqua;
+        // background-color: aqua;?
     }
     .theme-btns {
         position: absolute;
@@ -61,5 +63,24 @@
     border: 1px dashed rgba($color: $black, $alpha: 0.5);
     &:hover {
         // opacity: 0.7;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .theme {
+        .theme-img {
+            height: 160px;
+            width: 100px;
+        }
+        .bg-color {
+            height: 160px;
+            width: 100px;
+        }
+    }
+    .theme-cutoms_btn {
+        height: 160px;
+        width: 100px;
+    }
+    .theme-cutoms_btn{
+        font-size: 12px;
     }
 }

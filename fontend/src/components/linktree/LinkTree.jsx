@@ -4,6 +4,7 @@ import { useState } from 'react';
 function LinkTree(props) {
     // const [isFocus, setIsFocus] = useState(false)
     // console.log(isFocus)
+    console.log(props.icon)
     return (
         <div className="linktree" style={{
             backgroundColor:"aliceblue",
@@ -13,7 +14,7 @@ function LinkTree(props) {
             <a href={props.link} className='linktree-link'>
                 <div className="linktree-item" >
                     <p className="linktree-title">{props.title}</p>
-                    <span className="linktree-icon">{props.icon}</span>
+                    <link rel="shortcut icon" href={props.icon} />
                     <span className="linktree-icon_menu">{menuIcon()}</span>
                 </div>
             </a>

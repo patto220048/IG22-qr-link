@@ -90,7 +90,10 @@ function Navbar() {
                         <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
                             <li className="nav-link-mobile_items">Templates</li>
                         </NavLink>
-                        <li className="nav-link-mobile_items">Links</li>
+                        <NavLink to={`/links`} style={{ color: '#696d61' }}>
+                            <li className="nav-link-mobile_items">Links</li>
+                        </NavLink>
+
                         <li className="nav-link-mobile_items">Create QR</li>
                         <li className="nav-link-mobile_items">About</li>
                     </ul>

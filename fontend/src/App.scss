@@ -1,0 +1,19 @@
+.app-wapper{
+    .body-main{
+        display: flex;
+        // position: relative;
+        align-items: center;
+        .body-main-item{
+            flex: 2;
+        }
+        .preview{
+            position: fixed;
+            right: 0;
+            top: 0;
+            // position: absolute;
+            
+        }
+        
+    }
+    
+}
