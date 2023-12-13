@@ -29,14 +29,14 @@
 }
 @media only screen and (max-width: 768px) {
     .avatarProfile {
-        padding-top: 30px;
+        padding-top: 60px;
         gap: 10px;
         .avatarProfile-img {
             width: 80px;
             height: 80px;
         }
         .avatarProfile-name {
-            font-size: 18px;
+            font-size: 24px !important;
         }
         .avatarProfile-desc {
             font-size: 13px;
