@@ -43,7 +43,8 @@
         .template-bg{
             width: 100%;
             height:  calc(100vh + 100px);
-        border-radius: 0;
+            border-radius: 0;
+            background-color: $text_hover_color;
 
         }
         .template-profile {

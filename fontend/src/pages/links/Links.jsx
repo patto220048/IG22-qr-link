@@ -52,9 +52,9 @@ function Links() {
                 </div>
             </div>
             {/* preview */}
-            {/* <div className="Links-right">
+            <div className="Links-right">
                 <PreView  />
-            </div> */}
+            </div>
         </div>
     );
 }
