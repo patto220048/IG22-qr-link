@@ -17,6 +17,7 @@ function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [active, setActive] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleOpenMenu = (e) => {
@@ -50,6 +51,10 @@ function Navbar() {
     const handleOpenMenuMobile = () => {
         setIsMobile(!isMobile);
     };
+
+    const handleActive= () => {
+        setActive(true)
+    }
     return (
         <nav className="navbar">
             <div className="navbar-container">
@@ -61,7 +66,7 @@ function Navbar() {
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
                     {!currentUser && (
                         <NavLink to={'/'} style={{ color: '#696d61' }}>
-                            <li className="nav-link_items">Home</li>
+                            <li className={`nav-link_items ` + (active ? "active" : "") } onClick={handleActive}>Home</li>
                         </NavLink>
                     )}
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
@@ -71,6 +76,7 @@ function Navbar() {
                         <li className="nav-link_items">Links</li>
                     </NavLink>
                     <li className="nav-link_items">Create QR</li>
+                    <li className="nav-link_items">Community</li>
                     <li className="nav-link_items">About</li>
                 </ul>
                 {/* ----------------------------------------nav mobile-------------------------------------------- */}
@@ -93,6 +99,8 @@ function Navbar() {
                         </NavLink>
 
                         <li className="nav-link-mobile_items qr1">Create QR</li>
+                        <li className="nav-link_items">Community</li>
+
                         <li className="nav-link-mobile_items about1">About</li>
                     </ul>
                 )}
@@ -107,8 +115,8 @@ function Navbar() {
                     </div>
                 ) : (
                     <div className="nav-user">
-                        <ul className='nav-user-option'>
-                            <button className='nav-user-btn'>Buy Card</button>
+                        <ul className="nav-user-option">
+                            <button className="nav-user-btn">Buy Card</button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
                             <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} />
@@ -136,10 +144,14 @@ function Navbar() {
                         <ul className="account-option">
                             <h3 className="account">Account</h3>
                             {/* <DropdownItem icon={userIcon()} text={'My account'} /> */}
-                            <DropdownItem icon={userIcon()} text={'My profile'} link={`/profile/${currentUser.username}`} />
-                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} link={"#"}/>
+                            <DropdownItem
+                                icon={userIcon()}
+                                text={'My profile'}
+                                link={`/profile/${currentUser.username}`}
+                            />
+                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} link={'#'} />
                             <h3 className="support">Support</h3>
-                            <DropdownItem icon={alertIcon()} text={'Ask a question'} link={"#"}/>
+                            <DropdownItem icon={alertIcon()} text={'Ask a question'} link={'#'} />
                             <div onClick={handleSignOut}>
                                 <DropdownItem icon={logoutIcon()} text={'Sign out'} />
                             </div>

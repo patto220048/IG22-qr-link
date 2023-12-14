@@ -48,7 +48,14 @@
                     background-color: $text_hover_color;
                 }
             }
+            .active {
+                background-color: $text_hover_color;
+                border-radius: 5px;
+                
+            }
+           
         }
+       
         .nav-link-mobile {
             display: none;
         }
@@ -126,6 +133,7 @@
                 }
             }
         }
+      
     }
     .nav-option {
         position: absolute;
