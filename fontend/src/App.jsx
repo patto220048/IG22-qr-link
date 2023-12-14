@@ -35,14 +35,14 @@ function App() {
                 <header>
                     <Navbar />
                 </header>
-                <body className="body-main">
+                <div className="body-main">
                     <div className="body-main-item">
                         <Outlet />
                     </div>
                     {/* <div className="preview">
                         <PreView />
                     </div> */}
-                </body>
+                </div>
             </div>
         );
     }

@@ -139,10 +139,11 @@ function Navbar() {
                         />
                         <ul className="account-option">
                             <h3 className="account">Account</h3>
-                            <DropdownItem icon={userIcon()} text={'My account'} />
-                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} />
+                            {/* <DropdownItem icon={userIcon()} text={'My account'} /> */}
+                            <DropdownItem icon={userIcon()} text={'My profile'} link={`/profile/${currentUser.username}`} />
+                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} link={"#"}/>
                             <h3 className="support">Support</h3>
-                            <DropdownItem icon={alertIcon()} text={'Ask a question'} />
+                            <DropdownItem icon={alertIcon()} text={'Ask a question'} link={"#"}/>
                             <div onClick={handleSignOut}>
                                 <DropdownItem icon={logoutIcon()} text={'Sign out'} />
                             </div>

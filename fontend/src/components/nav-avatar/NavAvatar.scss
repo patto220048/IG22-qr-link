@@ -12,6 +12,11 @@
         height: 50px;
     }
     .navAvt-name {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        align-items: center;
+        justify-content: flex-start;
         .name {
             font-size: 20px;
             text-wrap: nowrap;

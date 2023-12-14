@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom';
 import avatarDefault from '../../untils/AvatarLink';
 import './NavAvatar.scss';
 function NavAvatar({ usernameTitle, userImg, username }) {
