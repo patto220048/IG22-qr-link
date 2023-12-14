@@ -7,7 +7,7 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontCol
 
     return (
         <div className="avatarProfile">
-            <img className="avatarProfile-img" src={avatar || avatarDefault} alt={avatar} />
+            <img className="avatarProfile-img" src={avatar || avatarDefault} alt={avatar}   loading='lazy'/>
             <h3
                 className="avatarProfile-name"
                 style={{

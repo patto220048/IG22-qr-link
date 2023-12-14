@@ -151,8 +151,9 @@ function Profile() {
                             ) : (
                                 <img
                                     className="profile-background"
-                                    src={theme?.backgroundImg}
+                                    src={theme?.backgroundImg}  
                                     alt={theme?.backgroundImg}
+                                    loading="lazy"
                                 />
                             )}
                         </>

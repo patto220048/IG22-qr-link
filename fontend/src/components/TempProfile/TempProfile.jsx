@@ -152,7 +152,7 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                 theme="dark"
             ></ToastContainer>
             <div className="tempProfile-item">
-                <img className="tempProfile_img" src={user?.avtImg || avatarDefault} alt="" />
+                <img className="tempProfile_img" src={user?.avtImg || avatarDefault} alt=""  loading='lazy' />
                 <div className="tempProfile-btn">
                     <button className="tempProfile-btn_item pickup" onClick={handleOnPickImg}>
                         Pick Image

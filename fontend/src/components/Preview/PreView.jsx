@@ -46,6 +46,7 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                                     alt={
                                         currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg
                                     }
+                                    loading='lazy'
                                 />
                             )}
                         </>

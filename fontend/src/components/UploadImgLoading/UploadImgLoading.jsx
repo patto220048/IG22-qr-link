@@ -23,6 +23,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                             className="updaloadImg-video-bg"
                                             type="video/mp4"
                                             src={resultVideo?.video}
+                                            loading='lazy'
                                         ></video>
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
@@ -46,6 +47,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                                     ? currentTheme.backgroundImg
                                                     : themeBgUser
                                             }
+                                            loading='lazy'
                                         ></img>
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
@@ -72,6 +74,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                             className="updaloadImg-video-bg"
                                             type="video/mp4"
                                             src={themeBgUserVideo}
+                                            loading='lazy'
                                         ></video>
                                             <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
@@ -88,6 +91,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                     <img
                                         className="updaloadImg-preview"
                                         src={avtUser ? avtUser : resultImg?.avatar}
+                                        loading='lazy'
                                     ></img>
                                 )}
                             </>
