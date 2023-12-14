@@ -93,6 +93,10 @@ function App() {
             element: <Login />,
         },
         {
+            path: 'register/signup/:username',
+            element: <Signup />,
+        },
+        {
             path: 'register/signup',
             element: <Signup />,
         },

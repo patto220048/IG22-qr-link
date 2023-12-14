@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Signup.scss';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,6 +16,8 @@ function Signup() {
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
+    const username = useParams().username
+    console.log(username);
     const notifyToast = (message, type, time) => {
         switch (type) {
             case 1:
@@ -156,7 +158,7 @@ function Signup() {
                     <div className="signup-input">
                         <div className="username">
                             <label htmlFor="username" aria-disabled>
-                                super-card/
+                                super-card.online/
                             </label>
                             <input
                                 className="username-input"
@@ -170,9 +172,11 @@ function Signup() {
                                 focused={focused.toString()}
                                 placeholder="Username"
                                 onChange={onChange}
+                                defaultValue={username ? username : ""}
+                                
                             />
-                            <p className="valid-err">Username not valid ( min "3" characters)</p>
                         </div>
+                        <p className="valid-err">Username not valid ( min "3" characters)</p>
                     </div>
                     <div className="signup-input">
                         <input

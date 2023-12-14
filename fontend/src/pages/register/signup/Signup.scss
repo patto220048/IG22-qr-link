@@ -32,7 +32,7 @@
                 flex-direction: column;
                 gap: 10px;
                 width: 100%;
-                // position: relative;
+                position: relative;
                 input {
                     background-color: $text_hover_color;
                     width: 600px;
@@ -58,11 +58,13 @@
                     display: none;
                 }
                 .username {
-                    position: relative;
-                    // display: flex;
-
+                    //    justify-content: space-;
+                    gap: 2px;
+                    display: flex;
                     .username-input {
-                        max-width: 481px;
+                        width: 100%;
+                         
+                    }
                     }
                     label {
                         // display: block;
@@ -72,9 +74,14 @@
                         // position: absolute;
                         background-color: $text_hover_color;
                         padding: 15px;
-                        // border-radius: 5px;
+                        border-radius: 5px;
+                        width: 35%;
+                        
                     }
+                    &:invalid[focused='true'] ~ p {
+                        display: block;
                 }
+            
             }
             .signup-btn {
                 width: 100%;
