@@ -111,8 +111,8 @@ function Navbar() {
                     </div>
                 ) : (
                     <div className="nav-user">
-                        <ul>
-                            <li>Buy Card</li>
+                        <ul className='nav-user-option'>
+                            <button className='nav-user-btn'>Buy Card</button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
                             <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} />

@@ -16,12 +16,16 @@
             font-size: 20px;
             text-wrap: nowrap;
             text-overflow: ellipsis;
-            width: 100%;
             overflow: hidden;
+            width: 95%;
         }
         .tagname {
             opacity: 0.6;
-            font-size: 12px;
+            font-size: 11px;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 95%
         }
     }
 }

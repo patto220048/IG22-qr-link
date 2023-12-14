@@ -81,7 +81,7 @@ function App() {
             ],
         },
         {
-            path: `profile/user/:username`,
+            path: `profile/:username`,
             element: (
                 <Suspense fallback={<div>Loading....</div>}>
                     <Profile />
