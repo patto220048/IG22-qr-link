@@ -44,10 +44,18 @@
                 flex-direction: column;
                 gap: 10px;
                 width:70%;
-                h1{
-                    font-size: 40px;
-                    font-weight: 800;
+                .footer-logo-group{
+                    display: flex;
+                    align-items: center;
+                    font-size: 10px;
+                    font-weight: 700;
+                    .footer-logo{
+                        width: 40px;
+                        height: 40px;
+                    }
+                  
                 }
+               
                 span{
                     font-size: 14px;
                     padding-bottom: 10px;
@@ -94,19 +102,25 @@
 @media only screen and (max-width: 768px) {
     .footer {
         .footer-container {
-            flex-direction: column;
-            align-items: center;
+            padding: 15px;
+            // flex-direction: column;
+            // align-items: center;
             .footer-left {
                 justify-content: space-around;
                 flex-direction: column;
                 align-items: flex-start;
-                .footer-sub {
-
+                flex: 0.5;
+                .footer-sub h3 {
+                    font-size: 18px;
+                }
+                .footer-sub li {
+                    font-size: 10px;
                 }
             }
             .footer-right {
                 // justify-content: flex-start;
                 .footer-info {
+                    flex: 1;
                     .footer-logo {
 
                     }
@@ -114,8 +128,10 @@
 
                     }
                     .footer-icon {
+                        gap: 20px;
                         .footer-icon_items {
-
+                            width: 30px;
+                            height: 30px;
                         }
                     }
                 }
