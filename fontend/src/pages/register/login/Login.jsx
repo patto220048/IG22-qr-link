@@ -132,7 +132,7 @@ function Login() {
                 notifyToast(error.message);
                 dispatch(loginFail());
             }
-        }, 2000);
+        }, 1500);
         return () => {
             clearTimeout(timeOutId);
         };
@@ -169,6 +169,7 @@ function Login() {
                     });
             })
             .catch((err) => {
+                dispatch(loginFail());
                 console.log(err.message);
             });
     };
@@ -176,7 +177,7 @@ function Login() {
         <div className="login">
             <ToastContainer
                 position="top-center"
-                autoClose={1000}
+                autoClose={1500}
                 hideProgressBar
                 newestOnTop={false}
                 closeOnClick
