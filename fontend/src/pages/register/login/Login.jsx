@@ -134,20 +134,20 @@ function Login() {
                     //dispatch
                     dispatch(loginSuccess(res.data));
                     if (res.data.status === 401) {
-                        notifyToast(res.data.message);
+                        notifyToast(res.data.message,2);
                         dispatch(loginFail());
                     } else if (res.data.status === 403) {
-                        notifyToast(res.data.message);
+                        notifyToast(res.data.message,2);
                         dispatch(loginFail());
                     } else {
                         navigate(`/template/${res.data.username}`);
                     }
                 } else {
                     dispatch(loginFail());
-                    notifyToast('Oops! Email is not correct! Please try again.');
+                    notifyToast('Oops! Email is not correct! Please try again.',2);
                 }
             } catch (error) {
-                notifyToast(error.message);
+                notifyToast(error.message,2);
                 dispatch(loginFail());
             }
         }, 1500);
