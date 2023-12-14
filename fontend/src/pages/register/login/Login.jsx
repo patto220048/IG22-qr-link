@@ -21,7 +21,25 @@ function Login() {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     // toast message
-    const notifyToast = (err) => toast.error(err);
+    const notifyToast = (message, type, time) => {
+        switch (type) {
+            case 1:
+                toast.success('🦄 ' + message);
+                break;
+            case 2:
+                toast.error('Opps!! ' + message);
+                break;
+            case 3:
+                toast.promise(time, {
+                    pending: `${message} pending`,
+                    success: `${message} resolved 👌`,
+                    error: `${message}  rejected 🤯`,
+                });
+                break;
+            default:
+                break;
+        }
+    };
 
     // const [isLoading, setIsLoading] = useState(true);
     const [showPass, setShowPass] = useState(false);
@@ -116,20 +134,20 @@ function Login() {
                     //dispatch
                     dispatch(loginSuccess(res.data));
                     if (res.data.status === 401) {
-                        notifyToast(res.data.message);
+                        notifyToast(res.data.message,2);
                         dispatch(loginFail());
                     } else if (res.data.status === 403) {
-                        notifyToast(res.data.message);
+                        notifyToast(res.data.message,2);
                         dispatch(loginFail());
                     } else {
                         navigate(`/template/${res.data.username}`);
                     }
                 } else {
                     dispatch(loginFail());
-                    notifyToast('Oops! Email is not correct! Please try again.');
+                    notifyToast('Oops! Email is not correct! Please try again.',2);
                 }
             } catch (error) {
-                notifyToast(error.message);
+                notifyToast(error.message,2);
                 dispatch(loginFail());
             }
         }, 1500);
@@ -164,13 +182,15 @@ function Login() {
                         navigate(`/template/${res.data.username}`);
                     })
                     .catch((err) => {
-                        setErr('LOGIN FAILED !');
+                        notifyToast('Login failed!',2)
+                        // setErr('LOGIN FAILED !');
                         dispatch(loginFail());
                     });
             })
             .catch((err) => {
+                notifyToast('Login with google failed!',2)
                 dispatch(loginFail());
-                console.log(err.message);
+                // console.log(err.message);
             });
     };
     return (

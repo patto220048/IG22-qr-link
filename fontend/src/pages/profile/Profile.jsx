@@ -113,6 +113,7 @@ function Profile() {
                             avatar={user.avtImg}
                             fontColor={theme?.font_color}
                         />
+                          <SocialIconList icons={icons} />
                         {links?.map((url, index) => (
                             <LinkTree title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index} />
                         ))}
