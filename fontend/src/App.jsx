@@ -35,14 +35,14 @@ function App() {
                 <header>
                     <Navbar />
                 </header>
-                <body className="body-main">
+                <div className="body-main">
                     <div className="body-main-item">
                         <Outlet />
                     </div>
                     {/* <div className="preview">
                         <PreView />
                     </div> */}
-                </body>
+                </div>
             </div>
         );
     }
@@ -81,7 +81,7 @@ function App() {
             ],
         },
         {
-            path: `profile/user/:username`,
+            path: `profile/:username`,
             element: (
                 <Suspense fallback={<div>Loading....</div>}>
                     <Profile />
@@ -91,6 +91,10 @@ function App() {
         {
             path: 'register/login',
             element: <Login />,
+        },
+        {
+            path: 'register/signup/:username',
+            element: <Signup />,
         },
         {
             path: 'register/signup',

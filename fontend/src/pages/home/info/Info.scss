@@ -17,13 +17,12 @@
             justify-content: center;
             gap: 20px;
             .info-text {
-            
                 padding-left: 160px;
                 font-size: $fontSize_home;
                 font-weight: $fontWeight_home;
-                text-shadow: 4px 3px 0px #7A7A7A, -3px -2px 4px rgba(206,89,55,0);
+                text-shadow: 4px 3px 0px #7a7a7a, -3px -2px 4px rgba(206, 89, 55, 0);
             }
-            .info-decs{
+            .info-decs {
                 padding-left: 160px;
                 font-weight: 500;
                 opacity: 0.7;
@@ -33,7 +32,7 @@
                 display: flex;
                 gap: 20px;
                 padding-left: 160px;
-             
+
                 .info-input {
                     padding: 18px;
                     width: 40%;
@@ -45,11 +44,12 @@
                     }
                 }
                 .info-btn {
-                    padding: 20px;
-                    border-radius: 25px;
                     background-color: black;
                     color: white;
-                    font-weight: 600;
+                    @include btn;
+                    padding: 17px;
+                    border-radius: 15px;
+                    font-size: 18px;
                     &:hover {
                         background-color: rgba($color: #000000, $alpha: 0.6);
                     }
@@ -64,17 +64,18 @@
 
 // For Mobile
 
-@media only screen and (min-width: 375px)  and (max-width: 789px) {
+@media only screen and (max-width: 768px) {
     .info {
+        height: 100vh;
         .info-container {
             .info-left {
                 .info-text {
                     padding-left: 0;
-                    font-size: 44px;
+                    font-size: 43px;
                     padding-left: 160px;
-                    text-align: left;
+                    text-align: center;
                     // padding-left: none;
-                    padding: 30px;
+                    padding: 10px;
                 }
                 .info-decs {
                     text-align: left;
@@ -82,19 +83,21 @@
                     padding: 18px;
                 }
                 .info-section {
-                    padding-left: 50px;
+                    // padding-left: 0px;
+                    padding: 18px;
+                    align-items: center;
                     .info-input {
-
+                        width: 65%;
                     }
                     .info-btn {
-
+                        font-size: 15px;    
+                        
                     }
                 }
             }
             .info-right {
-
+                display: none;
             }
-        }        
+        }
     }
-}  
-
+}

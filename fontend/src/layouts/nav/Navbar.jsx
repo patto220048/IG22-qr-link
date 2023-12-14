@@ -17,6 +17,7 @@ function Navbar() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [openMenu, setOpenMenu] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [active, setActive] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleOpenMenu = (e) => {
@@ -38,9 +39,11 @@ function Navbar() {
     const handleSignOut = async () => {
         try {
             const res = await http.post('/auth/logout', { token: currentUser.refreshToken });
-            console.log(res.data);
-            navigate('/register/login');
-            dispatch(logout());
+            if (res.status == 200) {
+                navigate('/register/login');
+                localStorage.clear();
+                dispatch(logout());
+            }
         } catch (error) {
             console.log(error.message);
         }
@@ -48,6 +51,10 @@ function Navbar() {
     const handleOpenMenuMobile = () => {
         setIsMobile(!isMobile);
     };
+
+    const handleActive= () => {
+        setActive(true)
+    }
     return (
         <nav className="navbar">
             <div className="navbar-container">
@@ -59,7 +66,7 @@ function Navbar() {
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
                     {!currentUser && (
                         <NavLink to={'/'} style={{ color: '#696d61' }}>
-                            <li className="nav-link_items">Home</li>
+                            <li className={`nav-link_items ` + (active ? "active" : "") } onClick={handleActive}>Home</li>
                         </NavLink>
                     )}
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
@@ -69,6 +76,7 @@ function Navbar() {
                         <li className="nav-link_items">Links</li>
                     </NavLink>
                     <li className="nav-link_items">Create QR</li>
+                    <li className="nav-link_items">Community</li>
                     <li className="nav-link_items">About</li>
                 </ul>
                 {/* ----------------------------------------nav mobile-------------------------------------------- */}
@@ -78,24 +86,22 @@ function Navbar() {
                         style={currentUser ? { width: '100%' } : { flex: '1' }}
                         onClick={() => setIsMobile(false)}
                     >
-                        <NavLink to={'/'}>
-                            <li className="nav-link-mobile_items">Home</li>
-                        </NavLink>
-
                         {!currentUser && (
                             <NavLink to={'/'} style={{ color: '#696d61' }}>
-                                <li className="nav-link-mobile_items">Home</li>
+                                <li className="nav-link-mobile_items home1">Home</li>
                             </NavLink>
                         )}
                         <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
-                            <li className="nav-link-mobile_items">Templates</li>
+                            <li className="nav-link-mobile_items template1">Templates</li>
                         </NavLink>
                         <NavLink to={`/links`} style={{ color: '#696d61' }}>
-                            <li className="nav-link-mobile_items">Links</li>
+                            <li className="nav-link-mobile_items link1">Links</li>
                         </NavLink>
 
-                        <li className="nav-link-mobile_items">Create QR</li>
-                        <li className="nav-link-mobile_items">About</li>
+                        <li className="nav-link-mobile_items qr1">Create QR</li>
+                        <li className="nav-link_items">Community</li>
+
+                        <li className="nav-link-mobile_items about1">About</li>
                     </ul>
                 )}
                 {!currentUser ? (
@@ -109,8 +115,8 @@ function Navbar() {
                     </div>
                 ) : (
                     <div className="nav-user">
-                        <ul>
-                            <li>Buy Card</li>
+                        <ul className="nav-user-option">
+                            <button className="nav-user-btn">Buy Card</button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
                             <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} />
@@ -137,10 +143,15 @@ function Navbar() {
                         />
                         <ul className="account-option">
                             <h3 className="account">Account</h3>
-                            <DropdownItem icon={userIcon()} text={'My account'} />
-                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} />
+                            {/* <DropdownItem icon={userIcon()} text={'My account'} /> */}
+                            <DropdownItem
+                                icon={userIcon()}
+                                text={'My profile'}
+                                link={`/profile/${currentUser.username}`}
+                            />
+                            <DropdownItem icon={cutomIcon()} text={'Cutoms my page'} link={'#'} />
                             <h3 className="support">Support</h3>
-                            <DropdownItem icon={alertIcon()} text={'Ask a question'} />
+                            <DropdownItem icon={alertIcon()} text={'Ask a question'} link={'#'} />
                             <div onClick={handleSignOut}>
                                 <DropdownItem icon={logoutIcon()} text={'Sign out'} />
                             </div>

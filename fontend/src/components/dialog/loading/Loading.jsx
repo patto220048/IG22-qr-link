@@ -9,7 +9,16 @@ const override = {
     margin: '0 auto',
     borderColor: '1px solid black',
 };
-function Loading({ isLoading, templateLoading, InputUrlLoading, urlLoading, loginLoading, profileLoading }) {
+function Loading({
+    isLoading,
+    templateLoading,
+    InputUrlLoading,
+    urlLoading,
+    loginLoading,
+    profileLoading,
+    resetPassLoading,
+    signupLoading,
+}) {
     return (
         <section
             className="overlay"
@@ -66,6 +75,30 @@ function Loading({ isLoading, templateLoading, InputUrlLoading, urlLoading, logi
                     />
                 )}
                 {profileLoading && (
+                    <HashLoader
+                        speedMultiplier={1.5}
+                        color={templateLoading ? '#333333' : '#ffffff'}
+                        loading={isLoading}
+                        // cssOverride={override}
+                        cssOverride={override}
+                        size={70}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                )}
+                {resetPassLoading && (
+                    <HashLoader
+                        speedMultiplier={1.5}
+                        color={templateLoading ? '#333333' : '#ffffff'}
+                        loading={isLoading}
+                        // cssOverride={override}
+                        cssOverride={override}
+                        size={70}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                )}
+                {signupLoading && (
                     <HashLoader
                         speedMultiplier={1.5}
                         color={templateLoading ? '#333333' : '#ffffff'}
