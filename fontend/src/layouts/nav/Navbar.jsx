@@ -39,6 +39,7 @@ function Navbar() {
     const handleSignOut = async () => {
         try {
             const res = await http.post('/auth/logout', { token: currentUser.refreshToken });
+            console.log(res.status)
             if (res.status == 200) {
                 navigate('/register/login');
                 localStorage.clear();
@@ -60,7 +61,7 @@ function Navbar() {
             <div className="navbar-container">
                 <h2 className="logo">
                     <NavLink to={'/'}>
-                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'} />
+                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'}  loading='lazy'/>
                     </NavLink>
                 </h2>
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
@@ -119,7 +120,7 @@ function Navbar() {
                             <button className="nav-user-btn">Buy Card</button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
-                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} />
+                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg}  loading='lazy' />
                         </div>
                     </div>
                 )}

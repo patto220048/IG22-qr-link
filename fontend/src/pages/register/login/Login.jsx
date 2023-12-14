@@ -209,7 +209,7 @@ function Login() {
             ></ToastContainer>
             {isLoading && <Loading isLoading={isLoading} loginLoading={true}/>}
             <div className="login-left">
-                <img className="login-left-img" src={bg_login_page} alt="" />
+                <img className="login-left-img" src={bg_login_page} alt=""  loading='lazy'/>
             </div>
 
             <div className="login-right">

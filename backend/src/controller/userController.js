@@ -14,7 +14,6 @@ class UserController {
     //get 1 user
     async getUser(req, res) {
         const username = req.params.username;
-        
         try {
             const user = await User.findOne({ username: username }) 
             const {

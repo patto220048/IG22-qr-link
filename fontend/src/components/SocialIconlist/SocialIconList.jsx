@@ -7,7 +7,7 @@ function SocialIconList({icons}) {
         <div className="socialIcon">
             <div className="socialIcon-group">
                 {icons?.map((icon,index)=>(
-                    <SocialIconItem iconName={icon.iconName} iconUrl={icon.iconUrl} key={icon._id}/>
+                    <SocialIconItem iconName={icon.iconName} iconUrl={icon.iconUrl} key={index}/>
                 ))}
             </div>
         </div>
