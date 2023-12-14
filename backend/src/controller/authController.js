@@ -186,7 +186,7 @@ class authController {
                         }
                     }
                     const { password, ...other } = newUser._doc;
-                    res.status(200).json({ other, Message: 'Send mail reset passwrod successfull' });
+                    res.status(200).json({ status:200, Message: 'Send mail reset passwrod successfull' });
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }

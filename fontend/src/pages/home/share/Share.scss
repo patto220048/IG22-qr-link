@@ -19,7 +19,7 @@
             height: calc($heightPage + $navHight);
             width: 40%;
             .share-text {
-                margin-left: 160px;
+                padding-left: 160px;
                 font-size: $fontSize_home;
                 font-weight: $fontWeight_home;
                 color: #4d4d23;
@@ -40,6 +40,7 @@
                 background-color: black;
                 font-weight: 600;
                 width: 20%;
+                font-size: 14px;
                 cursor: pointer;
                 a {
                     text-decoration: none;
@@ -61,27 +62,32 @@
 
 // For Mobile
  
-@media only screen and (min-width: 375px)  and (max-width: 789px) {
+@media only screen and (max-width: 768px) {
     .share {
         .share-container {
             .share-left {
+                align-items: center;
                 .share-text {
-                   font-size: 35px; 
-                   text-align: left;
-                   margin-left: 45px;
-                   padding-left: 40px;
+                    padding-left: 0;
+                    font-size: 47px;
+                    // padding-left: 160px;
+                    text-align: center;
+                    // padding-left: none;
+                    padding: 10px;
                 }
                 .share-desc {
-                    font-size: 12px;
-                    line-height: 1.3;
-                    padding-left: 95px;
+                    text-align: left;
+                    font-size: 20px;
+                    padding: 18px;
                 }
                 .share-btn {
-                    
+                    margin-left: 0;
+                    padding: 18px;
+                    width: 50%;
                 }
             }
             .share-right {
-
+                display: none;
             }
         }
     }

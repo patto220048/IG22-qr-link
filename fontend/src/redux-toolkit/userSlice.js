@@ -53,7 +53,7 @@ export const userSlice = createSlice({
         },
         loadingEnd:(state)=>{
             state.loading = false;
-            state.error = true;
+            state.error = false;
         },
         clearAvtImg:(state)=>{
             state.loading = false;

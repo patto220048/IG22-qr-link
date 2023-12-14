@@ -14,6 +14,10 @@
         gap: 20px;
         .resetPass-title {
             text-align: center;
+            padding-bottom: 10px;
+            h1{
+                padding-bottom:10px ;
+            }
         }
         .form-group {
             display: flex;
@@ -83,6 +87,28 @@
         .resetPass-protected {
             font-size: 13px;
             opacity: 0.7;
+            text-align: center;
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .resetPass {
+        .resetPass-container {
+            height: 100vh;
+            .form-group {
+                width: 95%;
+                .resetPass-input {
+                    width: 100%;
+                    input {
+                        width: 91%;
+                    }
+                    .username label {
+                        padding: 10px;
+                        border-radius: 5px;
+                    }
+                }
+
+            }
         }
     }
 }

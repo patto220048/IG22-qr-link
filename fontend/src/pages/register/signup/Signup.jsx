@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Signup.scss';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -9,12 +9,35 @@ import http from '../../../instance/axiosInstance';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from '../../../components/dialog/loading/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadingStart, loginFail, loginSuccess } from '../../../redux-toolkit/userSlice';
 function Signup() {
-    const [isLoading, setIsLoading] = useState(false);
+    const isLoading = useSelector((state) => state.user.loading);
     const [err, setErr] = useState('');
     const [focused, setFocused] = useState(false);
     const navigate = useNavigate();
-    const notifyToast = (err) => toast.error(err);
+    const username = useParams().username
+    console.log(username);
+    const notifyToast = (message, type, time) => {
+        switch (type) {
+            case 1:
+                toast.success('🦄 ' + message);
+                break;
+            case 2:
+                toast.error('Opps!! ' + message);
+                break;
+            case 3:
+                toast.promise(time, {
+                    pending: `${message} pending`,
+                    success: `${message} resolved 👌`,
+                    error: `${message}  rejected 🤯`,
+                });
+                break;
+            default:
+                break;
+        }
+    };
+    const dispatch = useDispatch()
     const [values, setValues] = useState({
         username: '',
         email: '',
@@ -47,41 +70,43 @@ function Signup() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         e.stopPropagation();
+        dispatch(loadingStart())
         const emailValid = validateEmail(values.email);
         const passValid = validatePassword(values.password);
         const usernameValid = validateUsername(values.username);
         const comfirmPassValid = values.password === values.confirmPassword;
         console.log(emailValid, passValid, usernameValid, comfirmPassValid);
-        if (emailValid && passValid && usernameValid && comfirmPassValid === true) {
-            try {
-                const res = await http.post(`/auth/signup`, {
-                    username: values.username,
-                    email: values.email,
-                    password: values.password,
-                });
-                // isloading -> false
-                setIsLoading(true);
-                if (res.data.status === 402) {
-                    notifyToast(res.data.message);
-                    setIsLoading(false);
-
-                } else {
-                    setIsLoading(false);
-                    return navigate('/register/login');
-
+        const timeOutId = setTimeout(async() => {
+            if (emailValid && passValid && usernameValid && comfirmPassValid === true) {
+                try {
+                    const res = await http.post(`/auth/signup`, {
+                        username: values.username,
+                        email: values.email,
+                        password: values.password,
+                    });
+                    // isloading -> false
+                    // setIsLoading(true);
+                    console.log(res.data)
+                    if (res.data.status === 402) {
+                        notifyToast(res.data.message,2);
+                        dispatch(loginFail())
+                    } else {
+                        notifyToast(res.data.message,1);
+                        dispatch(loginSuccess())
+                        return navigate('/register/login');
+                    }
+                } catch (error) {
+                    notifyToast(error.message,2);
                 }
-            } catch (error) {
-                notifyToast(error.message);
-                setIsLoading(false);
-
+            } else {
+                dispatch(loginFail())
+                notifyToast("Something error ! Please try again.",2);
+             
             }
-            // if (isLoading) {
-            //     console.log(isLoading);
-            // }
-        } else {
-            notifyToast("Something error ! Please try again.");
-            setIsLoading(false);
-        }
+        },1500)
+       return () => {
+        clearTimeout(timeOutId)
+       }
 
     };
     // onchange input
@@ -107,7 +132,7 @@ function Signup() {
                 pauseOnHover
                 theme="colored"
             ></ToastContainer>
-            {isLoading && <Loading isLoading={isLoading} />}
+            {isLoading && <Loading isLoading={isLoading} signupLoading={true}/>}
             <div className="signup-container">
                 <div className="signup-title">
                     <h1>Join with us</h1>
@@ -133,7 +158,7 @@ function Signup() {
                     <div className="signup-input">
                         <div className="username">
                             <label htmlFor="username" aria-disabled>
-                                super-card/
+                                super-card.online/
                             </label>
                             <input
                                 className="username-input"
@@ -147,9 +172,11 @@ function Signup() {
                                 focused={focused.toString()}
                                 placeholder="Username"
                                 onChange={onChange}
+                                defaultValue={username ? username : ""}
+                                
                             />
-                            <p className="valid-err">Username not valid ( min "3" characters)</p>
                         </div>
+                        <p className="valid-err">Username not valid ( min "3" characters)</p>
                     </div>
                     <div className="signup-input">
                         <input
@@ -185,10 +212,10 @@ function Signup() {
                     <p className="signup-direct">
                         Already have an account? <Link to="/register/login">Log in</Link>
                     </p>
-                    <span style={{ opacity: '0.5' }}>OR</span>
+                    {/* <span style={{ opacity: '0.5' }}>OR</span>
                     <span className="login-btn-google" onClick={handleSignupWithGG}>
                         {googleIcon(24, 24)} Sign up with Google
-                    </span>
+                    </span> */}
                 </form>
                 <p className="signup-protected">
                     This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply
