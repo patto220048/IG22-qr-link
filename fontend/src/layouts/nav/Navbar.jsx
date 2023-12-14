@@ -38,9 +38,11 @@ function Navbar() {
     const handleSignOut = async () => {
         try {
             const res = await http.post('/auth/logout', { token: currentUser.refreshToken });
-            console.log(res.data);
-            navigate('/register/login');
-            dispatch(logout());
+            if (res.status == 200) {
+                navigate('/register/login');
+                localStorage.clear();
+                dispatch(logout());
+            }
         } catch (error) {
             console.log(error.message);
         }
