@@ -86,23 +86,23 @@
         .nav-user {
             display: flex;
             align-items: center;
-            .nav-user-option{
+            .nav-user-option {
                 transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-                .nav-user-btn{
+                .nav-user-btn {
                     padding: 10px;
                     // width: 100px;
                     text-wrap: nowrap;
                     @include btn;
                     border-radius: 5px;
                     color: rgba($color: $white, $alpha: 0.9);
-                    background-color:var(--green-11);
+                    background-color: var(--green-11);
                     font-weight: 500;
                     -moz-box-shadow: 1px 2px 21px 2px rgba(0, 0, 0, 0.58);
                     -webkit-box-shadow: 1px 2px 21px 2px rgba(0, 0, 0, 0.58);
                     -ms-box-shadow: 1px 2px 21px 2px rgba(0, 0, 0, 0.58);
-                    box-shadow: 1px 2px 21px 2px rgba(0, 0, 0, 0.30);
+                    box-shadow: 1px 2px 21px 2px rgba(0, 0, 0, 0.3);
                 }
-                &:hover{
+                &:hover {
                     transform: scale(0.97);
                 }
             }
@@ -197,11 +197,12 @@
                 // width: 100%;z
                 z-index: -1;
                 height: 100vh;
-                background-color: rgb(45, 221, 221);
+                background-color: $black;
+                color: $white;
                 margin-top: 900px;
                 justify-content: center;
-                animation: slidein 300ms cubic-bezier(0.16, 1, 0.3, 1);
-                
+                animation: slidein 200ms cubic-bezier(0.16, 1, 0.3, 1);
+
                 .nav-link-mobile_items {
                     font-size: 40px;
                     color: $text_color_soft_3;
@@ -218,16 +219,14 @@
                     }
                 }
             }
-            .avtive{
+            .avtive {
                 animation-name: slideout;
-            
-                @keyframes slideout{
+
+                @keyframes slideout {
                     from {
-                     
                         transform: translateX(0%);
                     }
                     to {
-                       
                         transform: translateX(100%);
                     }
                 }
@@ -276,28 +275,44 @@
                 padding: 150px;
                 // width: 100%;z
                 z-index: -1;
-                height: 100vh;  
-                background-color: aqua;
+                height: 100vh;
+                background-color: $black;
+                color: $white;
                 margin-top: 500px;
                 justify-content: center;
                 animation-name: slidein;
-                animation-duration: 3s;
+                animation-duration: 1.5s;
                 animation-delay: -1s;
                 .nav-link-mobile_items {
                     // margin-top: 100px;
                     font-size: 30px;
-                    color: $text_color_soft_3;
+                    // color: $text_color_soft_3;
+                    color: $white;
+                    animation-name: slidein;
+                    animation-delay: -2s;
+                    animation-duration: 2s;
                     &:hover {
                         background-color: $text_hover_color;
-                    }   
+                    }
                 }
-                @keyframes slidein {
-                    from {
-                        transform: translateX(100%);
-                    }
-                    to {
-                        transform: translateX(0);
-                    }
+                .home1{
+                   animation: slidein_item 100ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                }
+                .template1{
+                   animation: slidein_item 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                    
+                }
+                .link1{
+                   animation: slidein_item 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+                }
+                .qr1{
+                   animation: slidein_item 700ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
+                }
+                .about1{
+                   animation: slidein_item 900ms cubic-bezier(0.075, 0.82, 0.165, 1);
+
                 }
             }
 
@@ -314,11 +329,26 @@
                 .avatar {
                 }
             }
-         
         }
-        .nav-option{
-            width: 88% ;
+        .nav-option {
+            width: 88%;
         }
-        
     }
 }
+@keyframes slidein {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slidein_item{
+    from {
+        transform: translateX(120px);
+    }
+    to {
+        transform: translateX(0px);
+    }
+}   

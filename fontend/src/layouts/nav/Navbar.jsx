@@ -80,24 +80,20 @@ function Navbar() {
                         style={currentUser ? { width: '100%' } : { flex: '1' }}
                         onClick={() => setIsMobile(false)}
                     >
-                        <NavLink to={'/'}>
-                            <li className="nav-link-mobile_items">Home</li>
-                        </NavLink>
-
                         {!currentUser && (
                             <NavLink to={'/'} style={{ color: '#696d61' }}>
-                                <li className="nav-link-mobile_items">Home</li>
+                                <li className="nav-link-mobile_items home1">Home</li>
                             </NavLink>
                         )}
                         <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
-                            <li className="nav-link-mobile_items">Templates</li>
+                            <li className="nav-link-mobile_items template1">Templates</li>
                         </NavLink>
                         <NavLink to={`/links`} style={{ color: '#696d61' }}>
-                            <li className="nav-link-mobile_items">Links</li>
+                            <li className="nav-link-mobile_items link1">Links</li>
                         </NavLink>
 
-                        <li className="nav-link-mobile_items">Create QR</li>
-                        <li className="nav-link-mobile_items">About</li>
+                        <li className="nav-link-mobile_items qr1">Create QR</li>
+                        <li className="nav-link-mobile_items about1">About</li>
                     </ul>
                 )}
                 {!currentUser ? (

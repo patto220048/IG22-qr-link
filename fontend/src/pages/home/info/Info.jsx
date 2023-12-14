@@ -8,10 +8,10 @@ function Info() {
                     <h1 className="info-text">Everything you are. In one, simple link in bio. </h1>
                     <p className='info-decs'>Create your own information link with your name</p>
                     <section className="info-section">
-                        <input className="info-input" placeholder="123" type="text" />
+                        <input className="info-input" placeholder="Username" type="text" />
 
                         <Link to="/register/signup">
-                            <button className="info-btn">Click make your link</button>
+                            <button className="info-btn">Claim your link</button>
                         </Link>
                     </section>
                 </div>
