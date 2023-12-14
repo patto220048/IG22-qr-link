@@ -6,13 +6,13 @@ const router = express.Router();
 // add link for card
 router.post('/:idCard', userVerify.verifyUser, link.addLink);
 // get link with a card
-router.get('/:idCard', userVerify.verifyUser, link.getLinks);
+router.get('/:cardId', link.getLinks);
 // edit a link
 router.put('/:id', userVerify.verifyUser, link.editLink);
 // delete a link
 router.delete('/:id', userVerify.verifyUser, link.deteleLink);
 // get all link
-router.get('/', userVerify.verifyUser, link.getAllLink);
+router.get('/', link.getAllLink);
 //delete all link
 router.delete('/', userVerify.verifyUser, link.deteleAllLink);
 

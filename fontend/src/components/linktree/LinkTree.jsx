@@ -1,10 +1,8 @@
 import './LinkTree.scss';
 import { menuIcon } from '../../svg/icon';
-import { useState } from 'react';
+import { useState ,memo} from 'react';
+
 function LinkTree(props) {
-    // const [isFocus, setIsFocus] = useState(false)
-    // console.log(isFocus)
-    console.log(props.icon)
     return (
         <div className="linktree" style={{
             backgroundColor:"aliceblue",
@@ -23,4 +21,4 @@ function LinkTree(props) {
     );
 }
 
-export default LinkTree;
+export default memo(LinkTree);

@@ -7,7 +7,7 @@ import Loading from '../dialog/loading/Loading';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 import { memo } from 'react';
 
-function PreView({ userIn, isLoading, theme, icons, user }) {
+function PreView({ userIn, isLoading, theme, icons, user,links }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
