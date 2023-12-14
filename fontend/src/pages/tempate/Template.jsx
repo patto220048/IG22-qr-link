@@ -29,8 +29,8 @@ function Template({}) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userData = await http.get(`/users/${username}`);
-                const themeData = await http.get(`/card/v1/${currentUser._id}`);
+                const userData = await http.get(`/users/v1/${currentUser._id}`);
+                const themeData = await http.get(`/card/v1/${currentUser._id}`);    
                 const iconData = await http.get(`/icon/${currentUser._id}`);
                 const linkData = await http.get(`/link/${theme._id}`);
                 const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([userData, themeData, iconData,linkData]);
@@ -90,11 +90,11 @@ function Template({}) {
             </div>
             {viewMb ? (
                 <div className="template-right" style={{ display: 'block' }}>
-                    <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user}/>
+                    <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user} />
                 </div>
             ) : (
                 <div className="template-right">
-                    <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user}/>
+                    <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user} />
                 </div>
             )}
             {!viewMb ? (

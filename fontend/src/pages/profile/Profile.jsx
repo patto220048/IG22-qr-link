@@ -31,17 +31,17 @@ function Profile() {
             try {
                 const timeOutId = setTimeout(async () => {
                     const userData = await http.get(`/users/${username}`);
-                    const themeData = await http.get(`/card/v1/${currentUser._id}`);
-                    const iconData = await http.get(`/icon/${currentUser._id}`);
-                    const linksData = await http.get(`/link/${currentTheme._id}`);
+                    const themeData = await http.get(`/card/v1/${currentUser?._id}`);
+                    const iconData = await http.get(`/icon/${currentUser?._id}`);
+                    const linksData = await http.get(`/link/${currentTheme?._id}`);
                     const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
                         userData,
                         themeData,
                         iconData,
                         linksData,
                     ]);
-                    dispatch(updateData(resultUser.data));
-                    dispatch(updateTheme(resultTheme.data));
+                    dispatch(loginSuccess(resultUser.data));
+                    dispatch(themeSuccess(resultTheme.data));
                     dispatch(urlSuccess(resultLinks.data))
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
@@ -153,7 +153,6 @@ function Profile() {
                                     className="profile-background"
                                     src={theme?.backgroundImg}  
                                     alt={theme?.backgroundImg}
-                                    loading="lazy"
                                 />
                             )}
                         </>
