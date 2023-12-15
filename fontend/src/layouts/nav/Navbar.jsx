@@ -100,7 +100,7 @@ function Navbar() {
                         </NavLink>
 
                         <li className="nav-link-mobile_items qr1">Create QR</li>
-                        <li className="nav-link_items">Community</li>
+                        <li className="nav-link-mobile_items commuity">Community</li>
 
                         <li className="nav-link-mobile_items about1">About</li>
                     </ul>
