@@ -28,6 +28,8 @@ function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setV
     //     }
     //     getLink()
     // },[currentTheme._id])
+    const [pickImg, setPickImg] = useState(false);
+
     return (
         <div className="template">
             <div className="template-left">
@@ -43,6 +45,8 @@ function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setV
                         theme={theme}
                         icons={icons}
                         user={user}
+                        setPickImg={setPickImg}
+                        pickImg={pickImg}
                     />
                 </section>
                 <section className="template-item" id="#theme">
@@ -51,7 +55,7 @@ function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setV
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
-                    <Background cardId={theme?._id} theme={theme} setViewMb={setViewMb} />
+                    <Background cardId={theme?._id} theme={theme} setViewMb={setViewMb} setPickImg={setPickImg}/>
                 </section>
                 <section className="template-item" id="#button">
                     <h2 className="tempProfile_title">Button</h2>

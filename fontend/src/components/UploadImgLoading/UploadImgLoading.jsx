@@ -7,12 +7,13 @@ import { useSelector } from 'react-redux';
 function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
+    const isLoading = useSelector((state) => state.theme.loading)
     return (
         <>
             <section className="updaloadImg">
-                {resultImg || avtUser || themeBgUser || resultImgBg || resultVideo || themeBgUserVideo ? (
+                {resultImg || avtUser || resultImgBg || resultVideo || themeBgUserVideo || currentTheme?.backgroundImg ? (
                     <>
-                        {themeBgUser || resultImgBg || resultVideo ? (
+                        { currentTheme?.backgroundImg || resultImgBg || resultVideo ? (
                             <>
                                 {resultVideo?.video || themeBgUserVideo ? (
                                     <>
@@ -38,17 +39,14 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                     </>
                                 ) : (
                                     <>
-                                        <img
+
+                                      {isLoading ? <>loading</> : <img
                                             className="updaloadImg-preview-bg"
                                             src={
-                                                resultImgBg?.background
-                                                    ? resultImgBg?.background
-                                                    : currentTheme.backgroundImg
-                                                    ? currentTheme.backgroundImg
-                                                    : themeBgUser
+                                               resultImgBg?.background ?  resultImgBg?.background : currentTheme?.backgroundImg
                                             }
                                             loading='lazy'
-                                        ></img>
+                                        ></img>}
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
                                                 preview={true}

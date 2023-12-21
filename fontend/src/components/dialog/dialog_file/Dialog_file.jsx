@@ -33,8 +33,7 @@ function Dialog_content({
     resultVideo,
     setResultVideo,
     setCurrentVideoBg,
-    themeBgUserVideo
-
+    themeBgUserVideo,
 
 }) {
     // image processing upload
@@ -117,6 +116,7 @@ function Dialog_content({
                     resultImgBg={resultImgBg}
                     resultVideo={resultVideo}
                     themeBgUserVideo={themeBgUserVideo}
+                 
                 />
             ) : (
                 <>

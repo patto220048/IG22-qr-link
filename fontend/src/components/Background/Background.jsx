@@ -12,7 +12,7 @@ import BgVideo from '../BgIVideo/BgVideo';
 import { alertCricleIcon } from '../../svg/icon';
 import Dialog_UI from '../dialog/Dialog_IU';
 import { ToastContainer, toast } from 'react-toastify';
-function Background({ cardId, theme, setViewMb }) {
+function Background({ cardId, theme, setViewMb,setPickImg}) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [hex, setHex] = useState('#333333');
     const [hexGadientTop, setHexGadientTop] = useState('#333333');
@@ -217,11 +217,14 @@ function Background({ cardId, theme, setViewMb }) {
                     setopenGadient={setopenGadient}
                     setOpenColor={setOpenColor}
                     setViewMb={setViewMb}
+                    setPickImg={setPickImg}
                 />
                 <BgVideo
                     setIsPickImgVideo={setIsPickImgVideo}
                     setOpenColor={setOpenColor}
                     setopenGadient={setopenGadient}
+                    setPickImg={setPickImg}
+
                 />
             </div>
 
