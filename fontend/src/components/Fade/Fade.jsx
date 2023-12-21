@@ -22,10 +22,10 @@ function Fade({ onTemplate, onLinks }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userData = await http.get(`/users/v1/${currentUser._id}`);
-                const themeData = await http.get(`/card/v1/${currentUser._id}`);
-                const iconData = await http.get(`/icon/${currentUser._id}`);
-                const linkData = await http.get(`/link/${currentTheme._id}`);
+                const userData = await http.get(`/users/v1/${currentUser?._id}`);
+                const themeData = await http.get(`/card/v1/${currentUser?._id}`);
+                const iconData = await http.get(`/icon/${currentUser?._id}`);
+                const linkData = await http.get(`/link/${theme?._id}`);
                 const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
                     userData,
                     themeData,
@@ -36,11 +36,6 @@ function Fade({ onTemplate, onLinks }) {
                 setTheme(resultTheme.data);
                 setIcons(resultIcon.data);
                 setLinks(resultLinks.data);
-                // dispatch(loginSuccess(resultUser.data))
-                dispatch(urlSuccess(resultLinks.data));
-                // dispatch(themeSuccess(resultTheme.data))
-                dispatch(themeSuccess(resultTheme.data))
-                dispatch(iconSuccess(resultIcon.data));
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -50,7 +45,16 @@ function Fade({ onTemplate, onLinks }) {
     return (
         <section className="fade-wapper">
             <div className="fade-left">
-                {onTemplate && <Template setUserIn={setUserIn} setIsLoading={setIsLoading} isLoading={isLoading} theme={theme} user={user} icons={icons}/>}
+                {onTemplate && (
+                    <Template
+                        setUserIn={setUserIn}
+                        setIsLoading={setIsLoading}
+                        isLoading={isLoading}
+                        theme={theme}
+                        user={user}
+                        icons={icons}
+                    />
+                )}
                 {onLinks && <Links />}
             </div>
             {viewMb ? (
