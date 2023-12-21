@@ -142,6 +142,7 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
                                 </span>
                             )}
                         </div>
+
                     </div>
                     <div className="LinksItem-switch">
                         <Switch.Root className="SwitchRoot" id="airplane-mode">
@@ -152,6 +153,7 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
                             />
                         </Switch.Root>
                     </div>
+                 
                 </div>
                 <ul className="LinksItem-direct">
                     <li className="LinksItem-direct-item">1</li>

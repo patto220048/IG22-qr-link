@@ -1,20 +1,14 @@
-import { useDispatch, useSelector } from 'react-redux';
+
 import Background from '../../components/Background/Background';
 import TempProfile from '../../components/TempProfile/TempProfile';
 import TempTheme from '../../components/TempTheme/TempTheme';
 import './Template.scss';
 import { useState, memo, useEffect } from 'react';
-import http from '../../instance/axiosInstance';
-import PreView from '../../components/Preview/PreView';
-import { useParams } from 'react-router-dom';
-import ButtonLink from '../../components/ButtonLink/ButtonLink';
-import { closeIcon } from '../../svg/icon';
-import { urlSuccess } from '../../redux-toolkit/UrlSlice';
-import { iconSuccess } from '../../redux-toolkit/iconSlice';
-import { themeSuccess } from '../../redux-toolkit/themeSlice';
-import { loginSuccess } from '../../redux-toolkit/userSlice';
 
-function Template({setUserIn,setIsLoading,isLoading,theme,icons,user}) {
+import ButtonLink from '../../components/ButtonLink/ButtonLink';
+
+
+function Template({setUserIn,setIsLoading,isLoading,theme,icons,user,setViewMb}) {
   
     return (
         <div className="template">
@@ -38,7 +32,7 @@ function Template({setUserIn,setIsLoading,isLoading,theme,icons,user}) {
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
-                    <Background cardId={theme?._id} theme={theme} />
+                <Background cardId={theme?._id} theme={theme} setViewMb={setViewMb} />
                 </section>
                 <section className="template-item" id="#button">
                     <h2 className="tempProfile_title">Button</h2>

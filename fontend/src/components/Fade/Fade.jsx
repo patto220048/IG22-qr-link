@@ -53,6 +53,7 @@ function Fade({ onTemplate, onLinks }) {
                         theme={theme}
                         user={user}
                         icons={icons}
+                        setViewMb={setViewMb}
                     />
                 )}
                 {onLinks && <Links />}

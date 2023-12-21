@@ -212,7 +212,12 @@ function Background({ cardId, theme, setViewMb }) {
             <div className="bgTheme-items">
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgImage setIsPickImg={setIsPickImgBg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
+                <BgImage
+                    setIsPickImg={setIsPickImgBg}
+                    setopenGadient={setopenGadient}
+                    setOpenColor={setOpenColor}
+                    setViewMb={setViewMb}
+                />
                 <BgVideo
                     setIsPickImgVideo={setIsPickImgVideo}
                     setOpenColor={setOpenColor}

@@ -11,15 +11,17 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
+        width: 100%;
         .LinksItem-item {
             display: flex;
-            justify-content: space-between;
+            position: relative;
             .LinksItem-side {
                 display: flex;
                 flex-direction: column;
                 gap: 15px;
                 width: 100%;
                 .LinkItem-url {
+                    width: 100%;
                     .input-title-label {
                         font-size: 20px;
                         font-weight: 600;
@@ -53,6 +55,7 @@
                     align-items: center;
                     gap: 10px;
                     width: 100%;
+            
                     .LinkItem-link {
                         max-width: 500px;
                         font-size: 15px;
@@ -81,11 +84,12 @@
             }
             .LinksItem-switch {
                 .SwitchRoot {
+                    right: 0;
                     width: 42px;
                     height: 25px;
                     background-color: var(--gray-8);
                     border-radius: 9999px;
-                    position: relative;
+                    position: absolute;
                     box-shadow: 0 2px 10px var(--black-6);
                     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                 }
@@ -158,6 +162,6 @@
 }
 @media only screen and (max-width: 768px){
     .LinksItem{
-        width: 320px;
+        width: 300px;
     }
 }
