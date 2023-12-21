@@ -14,51 +14,8 @@ import { iconSuccess } from '../../redux-toolkit/iconSlice';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
 import { loginSuccess } from '../../redux-toolkit/userSlice';
 
-function Template({}) {
-    const currentUser = useSelector((state) => state.user.currentUser);
-    const currentTheme = useSelector((state) => state.theme.currentTheme)
-    const [userIn, setUserIn] = useState();
-    const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useState({});
-    const [theme, setTheme] = useState({});
-    const [icons, setIcons] = useState([]);
-    const [links, setLinks] = useState([]);
-    const [viewMb, setViewMb] = useState(false);
-    let { username } = useParams();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const userData = await http.get(`/users/v1/${currentUser._id}`);
-                const themeData = await http.get(`/card/v1/${currentUser._id}`);    
-                const iconData = await http.get(`/icon/${currentUser._id}`);
-                const linkData = await http.get(`/link/${theme._id}`);
-                const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([userData, themeData, iconData,linkData]);
-                setUser(resultUser.data);
-                setTheme(resultTheme.data);
-                setIcons(resultIcon.data);
-                setLinks(resultLinks.data)
-                // dispatch(loginSuccess(resultUser.data))
-                dispatch(urlSuccess(resultLinks.data))
-                // dispatch(themeSuccess(resultTheme.data))
-                dispatch(iconSuccess(resultIcon.data))
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
-    }, [username, currentUser._id,theme._id]);
-    // useEffect(() => {
-    //     const getIcon = async () => {
-    //         try {
-    //             const res = await http.get(`/icon/${currentUser._id}`);
-    //             setIcons(res.data);
-    //         } catch (error) {
-    //             console.log(error.message);
-    //         }
-    //     };
-    //     getIcon();
-    // }, []);
+function Template({setUserIn,setIsLoading,isLoading,theme,icons,user}) {
+  
     return (
         <div className="template">
             <div className="template-left">
@@ -88,24 +45,7 @@ function Template({}) {
                     <ButtonLink />
                 </section>
             </div>
-            {viewMb ? (
-                <div className="template-right" style={{ display: 'block' }}>
-                    <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user} />
-                </div>
-            ) : (
-                <div className="template-right">
-                    <PreView userIn={userIn} isLoading={isLoading} theme={theme} icons={icons} user={user} />
-                </div>
-            )}
-            {!viewMb ? (
-                <button className="review-btn" onClick={() => setViewMb(true)}>
-                    Preview?
-                </button>
-            ) : (
-                <button className="review-btn close" onClick={() => setViewMb(false)}>
-                    {closeIcon(25, 25)}
-                </button>
-            )}
+    
         </div>
     );
 }
