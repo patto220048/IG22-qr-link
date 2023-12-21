@@ -52,8 +52,8 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                         </>
                     ) : (
                         <>
-                            {currentTheme.gadientColorBot ||
-                            currentTheme.gadientColorTop ||
+                            {currentTheme?.gadientColorBot ||
+                            currentTheme?.gadientColorTop ||
                             theme?.gadientColorBot ||
                             theme?.gadientColorTop ? (
                                 <>
@@ -63,8 +63,8 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                                             className="template-bg"
                                             style={{
                                                 backgroundImage: `linear-gradient(${
-                                                    currentTheme.gadientColorTop || theme?.gadientColorTop
-                                                },${currentTheme.gadientColorBot || theme?.gadientColorBot})`,
+                                                    currentTheme?.gadientColorTop || theme?.gadientColorTop
+                                                },${currentTheme?.gadientColorBot || theme?.gadientColorBot})`,
                                             }}
                                         />
                                     ) : (
@@ -72,8 +72,8 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                                             className="template-bg"
                                             style={{
                                                 backgroundColor: `${
-                                                    currentTheme.gadientColorBot ||
-                                                    currentTheme.gadientColorTop ||
+                                                    currentTheme?.gadientColorBot ||
+                                                    currentTheme?.gadientColorTop ||
                                                     theme?.gadientColorBot ||
                                                     theme?.gadientColorTop
                                                 }`,
@@ -108,7 +108,7 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
 
                         <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
 
-                        {currentLink.map((url, index) => (
+                        {currentLink?.map((url, index) => (
                             <LinkTree preview={true} title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index}/>
                         ))}
                     </section>

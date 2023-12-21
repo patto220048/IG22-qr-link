@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import http from '../../instance/axiosInstance';
 import { useParams } from 'react-router-dom';
 import { closeIcon } from '../../svg/icon';
+import { themeSuccess } from '../../redux-toolkit/themeSlice';
+import { urlSuccess } from '../../redux-toolkit/UrlSlice';
 function Fade({ onTemplate, onLinks }) {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [userIn, setUserIn] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState({});
@@ -18,7 +19,7 @@ function Fade({ onTemplate, onLinks }) {
     const [links, setLinks] = useState([]);
     let { username } = useParams();
     const [viewMb, setViewMb] = useState(false);
-    const dispatch = useDispatch();
+    const dispatch=useDispatch()
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -36,6 +37,8 @@ function Fade({ onTemplate, onLinks }) {
                 setTheme(resultTheme.data);
                 setIcons(resultIcon.data);
                 setLinks(resultLinks.data);
+                dispatch(themeSuccess(resultTheme.data))
+                dispatch(urlSuccess(resultLinks.data))
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -45,8 +48,11 @@ function Fade({ onTemplate, onLinks }) {
     return (
         <section className="fade-wapper">
             <div className="fade-left">
+                {/*------------------left contents--------------------*/}
+                {/* Template */}
                 {onTemplate && (
                     <Template
+                        userIn={userIn}
                         setUserIn={setUserIn}
                         setIsLoading={setIsLoading}
                         isLoading={isLoading}
@@ -56,18 +62,20 @@ function Fade({ onTemplate, onLinks }) {
                         setViewMb={setViewMb}
                     />
                 )}
-                {onLinks && <Links />}
+                {/* Links */}
+                {onLinks && <Links/>}
             </div>
+            {/* --------------------------------preview----------------------------- */}
             {viewMb ? (
                 <div className="fade-right" style={{ display: 'block' }}>
                     <div className="fade-right-items">
-                        <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} />
+                    <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} links={links} />
                     </div>
                 </div>
             ) : (
                 <div className="fade-right">
                     <div className="fade-right-items">
-                        <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} />
+                        <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} links={links}/>
                     </div>
                 </div>
             )}

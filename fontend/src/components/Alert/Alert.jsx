@@ -13,6 +13,7 @@ function Alert({ setIsAlert, isAlert, linkId }) {
                 const res = await http.delete(`/link/${linkId}`);
                 if (res.status === 200) {
                     dispatch(urlDelete(linkId));
+                    setIsAlert(false)
                 }
             } catch (error) {
                 console.log(error.message);

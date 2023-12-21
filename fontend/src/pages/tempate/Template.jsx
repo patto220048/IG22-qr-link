@@ -1,4 +1,3 @@
-
 import Background from '../../components/Background/Background';
 import TempProfile from '../../components/TempProfile/TempProfile';
 import TempTheme from '../../components/TempTheme/TempTheme';
@@ -6,10 +5,29 @@ import './Template.scss';
 import { useState, memo, useEffect } from 'react';
 
 import ButtonLink from '../../components/ButtonLink/ButtonLink';
+import { useDispatch, useSelector } from 'react-redux';
+import { urlFail, urlStart, urlSuccess } from '../../redux-toolkit/UrlSlice';
+import http from '../../instance/axiosInstance';
+import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
-
-function Template({setUserIn,setIsLoading,isLoading,theme,icons,user,setViewMb}) {
-  
+function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setViewMb ,userIn}) {
+    // const currentUser = useSelector((state) => state.user.currentUser)
+    // const currentTheme = useSelector((state) => state.theme.currentTheme);
+    // const dispatch = useDispatch()
+    // useEffect(()=>{
+    //     dispatch(urlStart())
+    //     const getLink = async()=> {
+    //         try {
+    //             const res = await http.get(`/link/${currentTheme?._id}`)
+    //             // setLinks(res.data)
+    //             dispatch(urlSuccess(res.data))
+    //         } catch (error) {
+    //             dispatch(urlFail())
+    //             console.log(error.message)
+    //         }
+    //     }
+    //     getLink()
+    // },[currentTheme._id])
     return (
         <div className="template">
             <div className="template-left">
@@ -18,6 +36,7 @@ function Template({setUserIn,setIsLoading,isLoading,theme,icons,user,setViewMb})
                         Profile
                     </h2>
                     <TempProfile
+                        userIn={userIn}
                         setUserIn={setUserIn}
                         setIsLoading={setIsLoading}
                         isLoading={isLoading}
@@ -32,14 +51,13 @@ function Template({setUserIn,setIsLoading,isLoading,theme,icons,user,setViewMb})
                 </section>
                 <section className="template-item" id="#backgound">
                     <h2 className="tempProfile_title">Background</h2>
-                <Background cardId={theme?._id} theme={theme} setViewMb={setViewMb} />
+                    <Background cardId={theme?._id} theme={theme} setViewMb={setViewMb} />
                 </section>
                 <section className="template-item" id="#button">
                     <h2 className="tempProfile_title">Button</h2>
                     <ButtonLink />
                 </section>
             </div>
-    
         </div>
     );
 }

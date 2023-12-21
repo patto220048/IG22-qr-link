@@ -21,17 +21,17 @@ function Links() {
         setIsAddLink(true);
     };
     const dispatch = useDispatch()
-    useEffect(()=>{
-        const fecthTheme = async() =>{
-            try {
-               const res = await http.get(`/card/v1/${currentUser?._id}`) 
-               dispatch(themeSuccess(res.data))
-            } catch (error) {
-                console.log(error.message);
-            }
-        }
-        fecthTheme()
-    },[currentUser?._id])
+    // useEffect(()=>{
+    //     const fecthTheme = async() =>{
+    //         try {
+    //            const res = await http.get(`/card/v1/${currentUser?._id}`) 
+    //            dispatch(themeSuccess(res.data))
+    //         } catch (error) {
+    //             console.log(error.message);
+    //         }
+    //     }
+    //     fecthTheme()
+    // },[currentUser?._id])
     return (
         <div className="Links">
                 <div className="Links-contents">
