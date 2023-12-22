@@ -56,6 +56,8 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
                         gadientColorTop: null,
                         gadientColorBot: null,
                         backgroundVideo: null,
+                        backgroundImgName:null,
+                        backgroundVideoName:null,
                     });
                     setIsPickColor(false);
                     let timeOutId = setTimeout(async () => {
@@ -75,7 +77,7 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         return () => {
             refColorBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refColorBox?.current]);
+    }, [refColorBox?.current,cardId]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -86,6 +88,8 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
                         bgColor: null,
                         backgroundImg: null,
                         backgroundVideo: null,
+                        backgroundImgName:null,
+                        backgroundVideoName:null
                     });
                     setIsGardientTop(false);
                     console.log(res.data);
@@ -106,7 +110,7 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         return () => {
             refGadientTopBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refGadientTopBox?.current]);
+    }, [refGadientTopBox?.current,cardId]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -117,6 +121,8 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
                         backgroundImg: null,
                         bgColor: null,
                         backgroundVideo: null,
+                        backgroundImgName:null,
+                        backgroundVideoName:null
                     });
                     setIsGardientBot(false);
                     let timeOutId = setTimeout(async () => {
@@ -136,7 +142,7 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         return () => {
             refGadientBotBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refGadientBotBox?.current]);
+    }, [refGadientBotBox?.current,cardId]);
 
     const handlePickColor = (e) => {
         e.stopPropagation();

@@ -18,6 +18,7 @@ function Loading({
     profileLoading,
     resetPassLoading,
     signupLoading,
+    uploadImgLoading,
 }) {
     return (
         <section
@@ -99,6 +100,18 @@ function Loading({
                     />
                 )}
                 {signupLoading && (
+                    <HashLoader
+                        speedMultiplier={1.5}
+                        color={templateLoading ? '#333333' : '#ffffff'}
+                        loading={isLoading}
+                        // cssOverride={override}
+                        cssOverride={override}
+                        size={70}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                    />
+                )}
+                {uploadImgLoading && (
                     <HashLoader
                         speedMultiplier={1.5}
                         color={templateLoading ? '#333333' : '#ffffff'}

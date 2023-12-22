@@ -4,16 +4,22 @@ import * as Progress from '@radix-ui/react-progress';
 import { memo } from 'react';
 import AvatarProfile from '../AvatarProfile/AvatarProfile';
 import { useSelector } from 'react-redux';
+import Loading from '../dialog/loading/Loading';
 function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-    const isLoading = useSelector((state) => state.theme.loading)
+    const isLoading = useSelector((state) => state.theme.loading);
     return (
         <>
             <section className="updaloadImg">
-                {resultImg || avtUser || resultImgBg || resultVideo || themeBgUserVideo || currentTheme?.backgroundImg ? (
+                {resultImg ||
+                avtUser ||
+                resultImgBg ||
+                resultVideo ||
+                themeBgUserVideo ||
+                currentTheme?.backgroundImg ? (
                     <>
-                        { currentTheme?.backgroundImg || resultImgBg || resultVideo ? (
+                        {currentTheme?.backgroundImg || resultImgBg || resultVideo ? (
                             <>
                                 {resultVideo?.video || themeBgUserVideo ? (
                                     <>
@@ -24,7 +30,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                             className="updaloadImg-video-bg"
                                             type="video/mp4"
                                             src={resultVideo?.video}
-                                            loading='lazy'
+                                            loading="lazy"
                                         ></video>
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
@@ -39,14 +45,19 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                     </>
                                 ) : (
                                     <>
-
-                                      {isLoading ? <>loading</> : <img
-                                            className="updaloadImg-preview-bg"
-                                            src={
-                                               resultImgBg?.background ?  resultImgBg?.background : currentTheme?.backgroundImg
-                                            }
-                                            loading='lazy'
-                                        ></img>}
+                                        {isLoading ? (
+                                           <Loading isLoading={isLoading} uploadImgLoading={true}/>
+                                        ) : (
+                                            <img
+                                                className="updaloadImg-preview-bg"
+                                                src={
+                                                    resultImgBg?.background
+                                                        ? resultImgBg?.background
+                                                        : currentTheme?.backgroundImg
+                                                }
+                                                // loading='lazy'
+                                            ></img>
+                                        )}
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
                                                 preview={true}
@@ -72,9 +83,9 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                             className="updaloadImg-video-bg"
                                             type="video/mp4"
                                             src={themeBgUserVideo}
-                                            loading='lazy'
+                                            loading="lazy"
                                         ></video>
-                                            <div className="updaloadImg-avt-preview">
+                                        <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
                                                 preview={true}
                                                 username={currentUser?.username}
@@ -89,7 +100,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                     <img
                                         className="updaloadImg-preview"
                                         src={avtUser ? avtUser : resultImg?.avatar}
-                                        loading='lazy'
+                                        loading="lazy"
                                     ></img>
                                 )}
                             </>

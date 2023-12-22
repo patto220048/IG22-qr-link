@@ -70,11 +70,9 @@ function Dialog_UI({
     const [themeBgUser, setThemeBgUser] = useState({});
     useEffect(() => {
         const fectchTheme = async () => {
-            setImgUpLoading(false);
             try {
                 const res = await http.get(`/card/v1/${currentUser._id}`);
 
-                dispatch(themeSuccess(res.data));
                 setThemeBgUser(res.data);
             } catch (error) {
                 console.log(error.message);
@@ -411,7 +409,6 @@ function Dialog_UI({
                                                 setBgImage={setBgImage}
                                                 pickImgBg={pickImgBg}
                                                 isBackground={'background'}
-                                         
                                             />
                                             <div className="dialog-btn-group-bg">
                                                 {themeBgUser?.backgroundImg || resultImgBg ? (
