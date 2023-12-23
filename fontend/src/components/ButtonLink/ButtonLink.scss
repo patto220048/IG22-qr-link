@@ -4,7 +4,7 @@
     background-color: $white;
     border-radius: 25px;
     width: 70%;
-  
+
     .buttonLink-items {
         display: flex;
         flex-direction: column;
@@ -99,7 +99,7 @@
                     background-color: transparent;
                     width: auto;
                     height: 50px;
-                    box-shadow: 11px 14px 19px 0px rgba(0,0,0,0.3);
+                    box-shadow: 11px 14px 19px 0px rgba(0, 0, 0, 0.3);
                 }
             }
         }
@@ -132,38 +132,77 @@
                     background-color: transparent;
                     width: auto;
                     height: 50px;
-                    box-shadow:  5px 8px 0px 0px rgba(0,0,0,1);
+                    box-shadow: 5px 8px 0px 0px rgba(0, 0, 0, 1);
                 }
             }
         }
     }
-    .buttonLinks-color{
+    .buttonLinks-color {
         display: flex;
         flex-direction: column;
         gap: 15px;
         padding: 10px 25px;
+        .buttonLink-group {
+            display: flex;
+            gap: 20px;
+            .buttonLinks-colorBox {
+                width: 60px;
+                height: 40px;
+                cursor: pointer;
+                border-radius: 5px;
+                border: 1px solid rgba($color: $black, $alpha: 0.2);
+       
+            }
+            .buttonLinks-input {
+                width: 20%;
+                border: 1px solid rgba($color: $black, $alpha: 0.2);
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 18px;
+                &:hover{
+                    // transform: scale(0.98);
+                    border: 1px solid rgba($color: $black, $alpha: 1);
 
-        .buttonLinks-colorBox{
-            width: 60px;
-            height: 40px;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: rgb(12, 132, 237);
+                }
+                &:focus{
+                    border: 1px solid rgba($color: red, $alpha: 1);
+                    transform: scale(0.98);
+                }
+            }
         }
     }
-    .buttonLinks-fontcolor{
+    .buttonLinks-fontcolor {
         display: flex;
         flex-direction: column;
         gap: 15px;
         padding: 10px 25px;
-        .buttonLinks-colorBox{
-            width: 60px;
-            height: 40px;
-            cursor: pointer;
-            border-radius: 5px;
-            background-color: rgb(12, 132, 237);
+        .buttonLink-group {
+            display: flex;
+            gap: 20px;
+            .buttonLinks-colorBox {
+                width: 60px;
+                height: 40px;
+                cursor: pointer;
+                border-radius: 5px;
+                border: 1px solid rgba($color: $black, $alpha: 0.2);
+       
+            }
+            .buttonLinks-input {
+                width: 20%;
+                border: 1px solid rgba($color: $black, $alpha: 0.2);
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 18px;
+                &:hover{
+                    // transform: scale(0.98);
+                    border: 1px solid rgba($color: $black, $alpha: 1);
+
+                }
+                &:focus{
+                    border: 1px solid rgba($color: red, $alpha: 1);
+                    transform: scale(0.98);
+                }
+            }
         }
     }
-
-
 }

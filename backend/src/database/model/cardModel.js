@@ -38,17 +38,52 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
-        btn_type: {
+        btn_fontColor: {
             type: String,
             default: null,
         },
-        btn_color: {
-            type: String,
+        btn_color1: {
             default: null,
+            type: String,
         },
-        bnt_radius: {
-            type: String,
-            default: null,
+        btn_outline: {
+            type: Boolean,
+            default: false,
+        },
+        btn_radius: {
+            type: Number,
+            default: 0,
+        },
+        btn_border: {
+            type: Number,
+            default: 0,
+        },
+        btn_style: {
+            btn_shadow: {
+                horizontal: {
+                    type: Number,
+                    default: 0,
+                },
+                vertical: {
+                    type: Number,
+                    default: 0,
+                },
+                blur: {
+                    type: Number,
+                    default: 0,
+                },
+                spread: {
+                    type: Number,
+                    default: 0,
+                },
+                opacity: {
+                    type: Number,
+                    default: 0,
+                },
+                color: {
+                    type: String,
+                },
+            },
         },
         font_famify: {
             type: String,
@@ -58,19 +93,18 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
-        icons:{
+        icons: {
             type: Array,
             default: [],
         },
         gadientColorTop: {
             type: String,
             default: null,
-        }
-        ,
+        },
         gadientColorBot: {
             type: String,
             default: null,
-        }
+        },
     },
     { timestamps: true },
 );

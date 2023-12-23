@@ -12,6 +12,7 @@ import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
 function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setViewMb ,userIn}) {
     // const currentUser = useSelector((state) => state.user.currentUser)
+    
     // const currentTheme = useSelector((state) => state.theme.currentTheme);
     // const dispatch = useDispatch()
     // useEffect(()=>{
@@ -59,7 +60,7 @@ function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setV
                 </section>
                 <section className="template-item" id="#button">
                     <h2 className="tempProfile_title">Button</h2>
-                    <ButtonLink />
+                    <ButtonLink  cardId={theme?._id} theme={theme}/>
                 </section>
             </div>
         </div>
