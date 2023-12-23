@@ -10,12 +10,11 @@ function LinkTree(props) {
         <div
             className="linktree"
             style={{
-                
                 borderRadius: `${currentTheme.btn_radius}px`,
-                boxShadow: `${currentTheme.btn_style?.btn_shadow.horizontal}px ${currentTheme.btn_style?.btn_shadow.vertical}px ${currentTheme.btn_style?.btn_shadow.blur}px ${currentTheme.btn_style?.btn_shadow.spread}px ${currentTheme.btn_style?.btn_shadow.color}`,
+                boxShadow: `${currentTheme.btn_style?.btn_shadow.horizontal}px ${currentTheme.btn_style?.btn_shadow.vertical}px ${currentTheme.btn_style?.btn_shadow.blur}px ${currentTheme.btn_style?.btn_shadow.spread}px ${currentTheme?.btn_shadow_color}`,
                 width: `${props.preview ? '230px' : '500px'}`,
                 border: `${currentTheme.btn_border}px solid black`,
-                backgroundColor: `${currentTheme?.btn_outline ? "transparent" : `${currentTheme?.btn_color1}` }`
+                backgroundColor: `${currentTheme?.btn_outline ? 'transparent' : `${currentTheme?.btn_color1}`}`,
             }}
         >
             <a href={props.link} className="linktree-link">

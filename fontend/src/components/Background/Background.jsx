@@ -77,7 +77,7 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         return () => {
             refColorBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refColorBox?.current,cardId]);
+    }, [refColorBox?.current,hex]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -110,7 +110,7 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         return () => {
             refGadientTopBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refGadientTopBox?.current,cardId]);
+    }, [refGadientTopBox?.current,hexGadientTop]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -142,7 +142,7 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         return () => {
             refGadientBotBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refGadientBotBox?.current,cardId]);
+    }, [refGadientBotBox?.current,hexGadientBot]);
 
     const handlePickColor = (e) => {
         e.stopPropagation();

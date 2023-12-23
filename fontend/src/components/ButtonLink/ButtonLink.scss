@@ -4,7 +4,7 @@
     background-color: $white;
     border-radius: 25px;
     width: 70%;
-
+    padding: 20px 0;
     .buttonLink-items {
         display: flex;
         flex-direction: column;
@@ -23,6 +23,7 @@
                 display: grid;
                 grid-template-columns: 1fr 1fr 1fr;
                 gap: 20px;
+
                 .square {
                     border-radius: 0px;
                 }
@@ -33,9 +34,14 @@
                     border-radius: 50px;
                 }
                 .buttonLink-item {
+                    // border:  1px solid black;
                     background-color: $black;
                     width: auto;
                     height: 50px;
+
+                    &:hover {
+                        transform: scale(0.98);
+                    }
                 }
             }
         }
@@ -67,6 +73,9 @@
                     background-color: transparent;
                     width: auto;
                     height: 50px;
+                    &:hover {
+                        transform: scale(0.98);
+                    }
                 }
             }
         }
@@ -100,6 +109,9 @@
                     width: auto;
                     height: 50px;
                     box-shadow: 11px 14px 19px 0px rgba(0, 0, 0, 0.3);
+                    &:hover {
+                        transform: scale(0.98);
+                    }
                 }
             }
         }
@@ -133,6 +145,9 @@
                     width: auto;
                     height: 50px;
                     box-shadow: 5px 8px 0px 0px rgba(0, 0, 0, 1);
+                    &:hover {
+                        transform: scale(0.98);
+                    }
                 }
             }
         }
@@ -151,7 +166,6 @@
                 cursor: pointer;
                 border-radius: 5px;
                 border: 1px solid rgba($color: $black, $alpha: 0.2);
-       
             }
             .buttonLinks-input {
                 width: 20%;
@@ -159,12 +173,11 @@
                 border-radius: 5px;
                 padding: 10px;
                 font-size: 18px;
-                &:hover{
+                &:hover {
                     // transform: scale(0.98);
                     border: 1px solid rgba($color: $black, $alpha: 1);
-
                 }
-                &:focus{
+                &:focus {
                     border: 1px solid rgba($color: red, $alpha: 1);
                     transform: scale(0.98);
                 }
@@ -185,7 +198,6 @@
                 cursor: pointer;
                 border-radius: 5px;
                 border: 1px solid rgba($color: $black, $alpha: 0.2);
-       
             }
             .buttonLinks-input {
                 width: 20%;
@@ -193,12 +205,43 @@
                 border-radius: 5px;
                 padding: 10px;
                 font-size: 18px;
-                &:hover{
+                &:hover {
                     // transform: scale(0.98);
                     border: 1px solid rgba($color: $black, $alpha: 1);
-
                 }
-                &:focus{
+                &:focus {
+                    border: 1px solid rgba($color: red, $alpha: 1);
+                    transform: scale(0.98);
+                }
+            }
+        }
+    }
+    .buttonLinks-shadowColor {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 25px;
+        .buttonLink-group {
+            display: flex;
+            gap: 20px;
+            .buttonLinks-colorShadowBox {
+                width: 60px;
+                height: 40px;
+                cursor: pointer;
+                border-radius: 5px;
+                border: 1px solid rgba($color: $black, $alpha: 0.2);
+            }
+            .buttonLinks-input {
+                width: 20%;
+                border: 1px solid rgba($color: $black, $alpha: 0.2);
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 18px;
+                &:hover {
+                    // transform: scale(0.98);
+                    border: 1px solid rgba($color: $black, $alpha: 1);
+                }
+                &:focus {
                     border: 1px solid rgba($color: red, $alpha: 1);
                     transform: scale(0.98);
                 }

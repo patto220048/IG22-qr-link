@@ -15,25 +15,30 @@ function ButtonLink({ cardId, theme }) {
         border: 0,
         borderRadius: 0,
         fontColor: '',
-        color: '',
         outline: false,
         shadow: { horizontal: 0, vertical: 0, blur: 0, spread: 0, opacity: 0, color: '' },
     });
+
     const [currentColorBtn, setCurrentColorBtn] = useState({});
     const [currentColorFont, setCurrentColorFont] = useState({});
+    const [currentColorShadow, setCurrentColorShadow] = useState({});
     const [isPickColorBtn, setIsPickColorBtn] = useState(false);
     const [isPickColorFont, setIsPickColorFont] = useState(false);
+    const [isPickColorShadow, setIsPickColorShadow] = useState(false);
+    const [isShadow, setIsShadow] = useState(false);
     const [colorFont, setColorFont] = useState('#ffffff');
     const [colorBtn, setcolorBtn] = useState('#333333');
+    const [colorShadow, setcolorShadow] = useState('#333333');
     const refColorBoxBtn = useRef();
     const refColorBoxFont = useRef();
+    const refColorBoxShadow = useRef();
     const dispatch = useDispatch();
     useEffect(() => {
         const fetchTheme = async () => {
             dispatch(themeStart());
             try {
                 const res = await http.put(`/card/${cardId}`, {
-                    btn_outline:buttonStyte.outline,
+                    btn_outline: buttonStyte.outline,
                     btn_radius: buttonStyte.borderRadius,
                     btn_border: buttonStyte.border,
                     btn_style: {
@@ -43,7 +48,6 @@ function ButtonLink({ cardId, theme }) {
                             blur: buttonStyte.shadow.blur,
                             spread: buttonStyte.shadow.spread,
                             opacity: buttonStyte.shadow.opacity,
-                            color: buttonStyte.shadow.color,
                         },
                     },
                 });
@@ -58,7 +62,7 @@ function ButtonLink({ cardId, theme }) {
             }
         };
         fetchTheme();
-    }, [buttonStyte, cardId]);
+    }, [buttonStyte]);
 
     useEffect(() => {
         const handleClickOutside = () => {
@@ -69,8 +73,8 @@ function ButtonLink({ cardId, theme }) {
                         btn_color1: colorBtn,
                     });
                     setIsPickColorBtn(false);
-                    setCurrentColorBtn(res.data);
                     let timeOutId = setTimeout(async () => {
+                        setCurrentColorBtn(res.data);
                         dispatch(updateTheme(res.data));
                     }, 1000);
                     return () => {
@@ -87,7 +91,7 @@ function ButtonLink({ cardId, theme }) {
         return () => {
             refColorBoxBtn.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refColorBoxBtn?.current, cardId]);
+    }, [refColorBoxBtn?.current]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -99,6 +103,7 @@ function ButtonLink({ cardId, theme }) {
                     setIsPickColorFont(false);
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
+                        setCurrentColorFont(res.data);
                     }, 1000);
                     return () => {
                         clearTimeout(timeOutId);
@@ -114,7 +119,35 @@ function ButtonLink({ cardId, theme }) {
         return () => {
             refColorBoxFont.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refColorBoxFont?.current, cardId, colorFont]);
+    }, [refColorBoxFont?.current]);
+    useEffect(() => {
+        const handleClickOutside = () => {
+            const fetchTheme = async () => {
+                dispatch(themeStart());
+                try {
+                    const res = await http.put(`/card/${cardId}`, {
+                        btn_shadow_color: colorShadow,
+                    });
+                    setIsPickColorShadow(false);
+                    let timeOutId = setTimeout(async () => {
+                        dispatch(updateTheme(res.data));
+                        setCurrentColorShadow(res.data);
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                } catch (error) {
+                    dispatch(themeFail());
+                    console.log(error.message);
+                }
+            };
+            fetchTheme();
+        };
+        refColorBoxShadow.current?.addEventListener('mouseleave', handleClickOutside);
+        return () => {
+            refColorBoxShadow.current?.removeEventListener('mouseleave', handleClickOutside);
+        };
+    }, [refColorBoxShadow?.current]);
 
     return (
         <div className="buttonLink">
@@ -124,7 +157,7 @@ function ButtonLink({ cardId, theme }) {
                     <ul className="buttonLink-fill-items">
                         <button
                             className="buttonLink-item square"
-                            onClick={() =>
+                            onClick={() => {
                                 setbuttonStyle({
                                     name: 'square',
                                     style: 'fill',
@@ -137,14 +170,14 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 0,
-                                        color: '#333333',
                                     },
-                                })
-                            }
+                                });
+                                setIsShadow(false);
+                            }}
                         ></button>
                         <button
                             className="buttonLink-item half-square"
-                            onClick={() =>
+                            onClick={() => {
                                 setbuttonStyle({
                                     name: 'halfSquare',
                                     style: 'fill',
@@ -157,31 +190,30 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 0,
-                                        color: '#333333',
                                     },
-                                })
-                            }
+                                });
+                                setIsShadow(false);
+                            }}
                         ></button>
                         <button
                             className="buttonLink-item round"
-                            onClick={() =>
+                            onClick={() => {
                                 setbuttonStyle({
                                     name: 'round',
                                     style: 'fill',
                                     borderRadius: 50,
                                     border: 0,
                                     outline: false,
-
                                     shadow: {
                                         horizontal: 0,
                                         vertical: 0,
                                         blur: 0,
                                         spread: 0,
                                         opacity: 0,
-                                        color: '#333333',
                                     },
-                                })
-                            }
+                                });
+                                setIsShadow(false);
+                            }}
                         ></button>
                     </ul>
                 </section>
@@ -191,7 +223,7 @@ function ButtonLink({ cardId, theme }) {
                     <ul className="buttonLink-outline-items">
                         <button
                             className="buttonLink-item square"
-                            onClick={() =>
+                            onClick={() => {
                                 setbuttonStyle({
                                     name: 'square',
                                     style: 'outline',
@@ -204,14 +236,14 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 0,
-                                        color: '#333333',
                                     },
-                                })
-                            }
+                                });
+                                setIsShadow(false);
+                            }}
                         ></button>
                         <button
                             className="buttonLink-item half-square"
-                            onClick={() =>
+                            onClick={() => {
                                 setbuttonStyle({
                                     name: 'halfSquare',
                                     style: 'outline',
@@ -224,14 +256,14 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 0,
-                                        color: '#333333',
                                     },
-                                })
-                            }
+                                });
+                                setIsShadow(false);
+                            }}
                         ></button>
                         <button
                             className="buttonLink-item round"
-                            onClick={() =>
+                            onClick={() => {
                                 setbuttonStyle({
                                     name: 'round',
                                     style: 'outline',
@@ -244,17 +276,17 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 0,
-                                        color: '#333333',
                                     },
-                                })
-                            }
+                                });
+                                setIsShadow(false);
+                            }}
                         ></button>
                     </ul>
                 </section>
                 <section className="buttonLink-shadow">
                     <h1 className="buttonLink-title">Shadow</h1>
 
-                    <ul className="buttonLink-shadow-items">
+                    <ul className="buttonLink-shadow-items" onClick={() => setIsShadow(true)}>
                         <button
                             className="buttonLink-item square"
                             onClick={() =>
@@ -271,7 +303,6 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 19,
                                         spread: 0,
                                         opacity: 0.3,
-                                        color: '#333333',
                                     },
                                 })
                             }
@@ -292,7 +323,6 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 19,
                                         spread: 0,
                                         opacity: 0.3,
-                                        color: '#333333',
                                     },
                                 })
                             }
@@ -313,7 +343,6 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 19,
                                         spread: 0,
                                         opacity: 0.3,
-                                        color: '#333333',
                                     },
                                 })
                             }
@@ -324,7 +353,7 @@ function ButtonLink({ cardId, theme }) {
                 <section className="buttonLink-hard-shadow">
                     <h1 className="buttonLink-title">Hard Shadow</h1>
 
-                    <ul className="buttonLink-hard-shadow-items">
+                    <ul className="buttonLink-hard-shadow-items" onClick={() => setIsShadow(true)}>
                         <button
                             className="buttonLink-item square"
                             onClick={() =>
@@ -341,7 +370,6 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 1,
-                                        color: '#333333',
                                     },
                                 })
                             }
@@ -362,7 +390,6 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 1,
-                                        color: '#333333',
                                     },
                                 })
                             }
@@ -382,7 +409,6 @@ function ButtonLink({ cardId, theme }) {
                                         blur: 0,
                                         spread: 0,
                                         opacity: 1,
-                                        color: '#333333',
                                     },
                                 })
                             }
@@ -396,11 +422,17 @@ function ButtonLink({ cardId, theme }) {
                     <div
                         className="buttonLinks-colorBox"
                         style={{
-                            backgroundColor: `${currentTheme?.btn_color}`,
+                            backgroundColor: `${
+                                currentColorBtn?.btn_color1 ? currentColorBtn?.btn_color1 : theme?.btn_color1
+                            }`,
                         }}
                         onClick={() => setIsPickColorBtn(true)}
                     ></div>
-                    <input type="text" className="buttonLinks-input" placeholder={currentTheme?.btn_color} />
+                    <input
+                        type="text"
+                        className="buttonLinks-input"
+                        placeholder={currentColorBtn?.btn_color1 ? currentColorBtn?.btn_color1 : theme?.btn_color1}
+                    />
                 </div>
 
                 {isPickColorBtn && (
@@ -423,15 +455,17 @@ function ButtonLink({ cardId, theme }) {
                     <div
                         className="buttonLinks-colorBox"
                         onClick={() => setIsPickColorFont(true)}
-                        style={{ backgroundColor: `${currentColorFont.btn_style?.btn_fontColor}` }}
+                        style={{
+                            backgroundColor: `${
+                                currentColorFont?.btn_fontColor ? currentColorFont?.btn_fontColor : theme?.btn_fontColor
+                            }`,
+                        }}
                     ></div>
                     <input
                         type="text"
                         className="buttonLinks-input"
                         placeholder={
-                            currentColorFont.btn_style?.btn_fontColor
-                                ? currentColorFont.btn_style?.btn_fontColor
-                                : '#abdcf'
+                            currentColorFont?.btn_fontColor ? currentColorFont?.btn_fontColor : theme?.btn_fontColor
                         }
                     />
                 </div>
@@ -448,6 +482,45 @@ function ButtonLink({ cardId, theme }) {
                     />
                 )}
             </div>
+            {isShadow && (
+                <div className="buttonLinks-shadowColor">
+                    <h1 className="buttonLink-title">Shadow Color</h1>
+                    <div className="buttonLink-group">
+                        <div
+                            className="buttonLinks-colorShadowBox"
+                            onClick={() => setIsPickColorShadow(true)}
+                            style={{
+                                backgroundColor: `${
+                                    currentColorShadow?.btn_shadow_color
+                                        ? currentColorShadow?.btn_shadow_color
+                                        : theme?.btn_shadow_color
+                                }`,
+                            }}
+                        ></div>
+                        <input
+                            type="text"
+                            className="buttonLinks-input"
+                            placeholder={
+                                currentColorShadow?.btn_shadow_color
+                                ? currentColorShadow?.btn_shadow_color
+                                : theme?.btn_shadow_color
+                            }
+                        />
+                    </div>
+                    {isPickColorShadow && (
+                        <Chrome
+                            // onMouseLeave={() =>setIsPickColor(false)}
+                            className="colorBox"
+                            ref={refColorBoxShadow}
+                            style={{ marginLeft: 20 }}
+                            color={colorShadow}
+                            onChange={(color) => {
+                                setcolorShadow(color.hex);
+                            }}
+                        />
+                    )}
+                </div>
+            )}
         </div>
     );
 }

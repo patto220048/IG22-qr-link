@@ -40,13 +40,13 @@ const CardModel = new Schema(
         },
         btn_fontColor: {
             type: String,
-            default: null,
+            default: "#ffffff",
         },
         btn_color1: {
-            default: null,
+            default: "#333333",
             type: String,
         },
-        btn_outline: {
+        btn_outline:{
             type: Boolean,
             default: false,
         },
@@ -57,6 +57,10 @@ const CardModel = new Schema(
         btn_border: {
             type: Number,
             default: 0,
+        },
+        btn_shadow_color: {
+            default:"#333333",
+            type: String,
         },
         btn_style: {
             btn_shadow: {
@@ -79,9 +83,6 @@ const CardModel = new Schema(
                 opacity: {
                     type: Number,
                     default: 0,
-                },
-                color: {
-                    type: String,
                 },
             },
         },
