@@ -1,11 +1,11 @@
 @import '../../base/color';
 
-.linktree {
-    padding: 20px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    .linktree-link {
-        text-decoration: none;
+.linktree-link {
+    text-decoration: none;
+    .linktree {
+        padding: 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
         .linktree-item {
             position: relative;
             .linktree-title {
@@ -26,16 +26,16 @@
             top: 0;
             right: 0;
         }
-    }
-    &:hover {
-        transform: scale(0.98);
-        border: 1px solid rgba($color: #000000, $alpha: 0.5);
+        &:hover {
+            transform: scale(0.98);
+            border: 1px solid rgba($color: #000000, $alpha: 0.5);
+        }
     }
 }
 //mobile browser
 @media only screen and (max-width: 768px) {
     .linktree {
-        width: 80% !important;
+        width: 80%;
         padding: 12px;
         .linktree-link {
             .linktree-item {

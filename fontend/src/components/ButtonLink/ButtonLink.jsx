@@ -426,7 +426,7 @@ function ButtonLink({ cardId, theme }) {
                                 currentColorBtn?.btn_color1 ? currentColorBtn?.btn_color1 : theme?.btn_color1
                             }`,
                         }}
-                        onClick={() => setIsPickColorBtn(true)}
+                        onClick={() => setIsPickColorBtn(!isPickColorBtn)}
                     ></div>
                     <input
                         type="text"
@@ -440,7 +440,7 @@ function ButtonLink({ cardId, theme }) {
                         // onMouseLeave={() =>setIsPickColor(false)}
                         className="colorBox"
                         ref={refColorBoxBtn}
-                        style={{ marginLeft: 20 }}
+                        style={{ marginLeft: 20}}
                         color={colorBtn}
                         onChange={(color) => {
                             setcolorBtn(color.hex);
@@ -454,7 +454,7 @@ function ButtonLink({ cardId, theme }) {
                 <div className="buttonLink-group">
                     <div
                         className="buttonLinks-colorBox"
-                        onClick={() => setIsPickColorFont(true)}
+                        onClick={() => setIsPickColorFont(!isPickColorFont)}
                         style={{
                             backgroundColor: `${
                                 currentColorFont?.btn_fontColor ? currentColorFont?.btn_fontColor : theme?.btn_fontColor
@@ -502,8 +502,8 @@ function ButtonLink({ cardId, theme }) {
                             className="buttonLinks-input"
                             placeholder={
                                 currentColorShadow?.btn_shadow_color
-                                ? currentColorShadow?.btn_shadow_color
-                                : theme?.btn_shadow_color
+                                    ? currentColorShadow?.btn_shadow_color
+                                    : theme?.btn_shadow_color
                             }
                         />
                     </div>
