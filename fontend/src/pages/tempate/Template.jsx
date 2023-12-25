@@ -11,24 +11,6 @@ import http from '../../instance/axiosInstance';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
 function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setViewMb ,userIn}) {
-    // const currentUser = useSelector((state) => state.user.currentUser)
-    
-    // const currentTheme = useSelector((state) => state.theme.currentTheme);
-    // const dispatch = useDispatch()
-    // useEffect(()=>{
-    //     dispatch(urlStart())
-    //     const getLink = async()=> {
-    //         try {
-    //             const res = await http.get(`/link/${currentTheme?._id}`)
-    //             // setLinks(res.data)
-    //             dispatch(urlSuccess(res.data))
-    //         } catch (error) {
-    //             dispatch(urlFail())
-    //             console.log(error.message)
-    //         }
-    //     }
-    //     getLink()
-    // },[currentTheme._id])
     const [pickImg, setPickImg] = useState(false);
 
     return (
