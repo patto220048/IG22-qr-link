@@ -7,10 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { urlFail, urlStart, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import Alert from '../Alert/Alert';
 
-function LinksItem({linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkIndex ,acticve}) {
+function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkIndex, acticve }) {
     const currentLink = useSelector((state) => state.url.currentUrl);
     // console.log(currentLink)
-    const [checkedItems, setCheckedItems] = useState({});
     const [isChecked, setIsChecked] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
     const [isChangeTitle, setIsChangeTitle] = useState(false);
@@ -18,7 +17,6 @@ function LinksItem({linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkInd
     const [values, setValues] = useState('');
     const inputTitleRef = useRef(null);
     const inputUrLRef = useRef(null);
-    const switchRef = useRef(null);
     const [focused, setFocused] = useState(false);
     const dispatch = useDispatch();
     const handleOpenAlert = () => {
@@ -27,12 +25,11 @@ function LinksItem({linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkInd
     const onChangeTitle = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
-    const handleCheckboxChange = (linkId) => {
+    const handleCheckboxChange = (linkId, e) => {
         const updateLink = async () => {
-         
             try {
                 const res = await http.put(`/link/${linkId}`, {
-                    acticve: !isChecked ,
+                    acticve: !isChecked,
                 });
                 dispatch(urlUpdate(res.data));
                 setIsChecked(!isChecked);
@@ -45,7 +42,7 @@ function LinksItem({linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkInd
     useEffect(() => {
         const handleClickOutInput = () => {
             const updateLink = async () => {
-                dispatch(urlStart())
+                dispatch(urlStart());
                 try {
                     const res = await http.put(`/link/${linkId}`, {
                         urlTitle: values.inputTitle,
@@ -173,20 +170,16 @@ function LinksItem({linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkInd
                     </div>
 
                     <div className="LinksItem-switch">
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <label className="Label" htmlFor="airplane-mode" style={{ paddingRight: 15 }}></label>
-                            <Switch.Root className="SwitchRoot" id="airplane-mode">
-                                <input
-                                    datatype={ isChecked ? "checked": ""}
-                                    type="checkbox"
-                                    name=""
-                                    id=""
-                                    className="SwitchThumb"
-                                    checked={acticve ? acticve : isChecked}
-                                    onChange={() => handleCheckboxChange(linkId)}
-                                />
-                            </Switch.Root>
-                        </div>
+                        <input
+                            data-state={(acticve ? acticve : isChecked) ? 'checked' : ''}
+                            type="checkbox"
+                            name={`switch` + linkId}
+                            id={`switch` + linkId}
+                            className={`switch` + linkId}
+                            checked={acticve ? acticve : isChecked}
+                            onChange={() => handleCheckboxChange(linkId)}
+                        />
+                        <label htmlFor={`switch` + linkId}>Toggle</label>
                     </div>
                 </div>
                 <ul className="LinksItem-direct">
