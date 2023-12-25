@@ -7,7 +7,7 @@ function LinkTree(props) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
 
     return (
-        <a href={props.link} className="linktree-link">
+        <a href={props.link} className="linktree-link" hidden={!props.acticve}>
             <div
                 className="linktree"
                 style={{

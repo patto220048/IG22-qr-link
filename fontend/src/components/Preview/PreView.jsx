@@ -109,7 +109,7 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                         <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
 
                         {currentLink?.map((url, index) => (
-                            <LinkTree preview={true} title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index}
+                            <LinkTree preview={true} title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index} acticve={url.acticve}
                             />
                         ))}
                     </section>

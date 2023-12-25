@@ -7,16 +7,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { urlFail, urlStart, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import Alert from '../Alert/Alert';
 
-function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
+function LinksItem({linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkIndex ,acticve}) {
     const currentLink = useSelector((state) => state.url.currentUrl);
-
-    const [isSwith, setIsSwitch] = useState(false);
+    // console.log(currentLink)
+    const [checkedItems, setCheckedItems] = useState({});
+    const [isChecked, setIsChecked] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
     const [isChangeTitle, setIsChangeTitle] = useState(false);
     const [isChangeUrl, setIsChangeUrl] = useState(false);
     const [values, setValues] = useState('');
     const inputTitleRef = useRef(null);
     const inputUrLRef = useRef(null);
+    const switchRef = useRef(null);
     const [focused, setFocused] = useState(false);
     const dispatch = useDispatch();
     const handleOpenAlert = () => {
@@ -25,9 +27,25 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
     const onChangeTitle = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
+    const handleCheckboxChange = (linkId) => {
+        const updateLink = async () => {
+         
+            try {
+                const res = await http.put(`/link/${linkId}`, {
+                    acticve: !isChecked ,
+                });
+                dispatch(urlUpdate(res.data));
+                setIsChecked(!isChecked);
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        updateLink();
+    };
     useEffect(() => {
         const handleClickOutInput = () => {
             const updateLink = async () => {
+                dispatch(urlStart())
                 try {
                     const res = await http.put(`/link/${linkId}`, {
                         urlTitle: values.inputTitle,
@@ -81,6 +99,16 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
     const handleFocused = (e) => {
         setFocused(true);
     };
+    // useEffect(() => {
+    //     const handleClickOutside = () => {
+    //         console.log( switchRef.current.value)
+    //     };
+    //     switchRef.current.
+    // }, []);
+
+    function handleSelect(linkIndex) {
+        console.log(linkIndex);
+    }
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -142,18 +170,24 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
                                 </span>
                             )}
                         </div>
+                    </div>
 
-                    </div>
                     <div className="LinksItem-switch">
-                        <Switch.Root className="SwitchRoot" id="airplane-mode">
-                            <Switch.Thumb
-                                className="SwitchThumb"
-                                checked={isSwith}
-                                onClick={() => setIsSwitch(!isSwith)}
-                            />
-                        </Switch.Root>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <label className="Label" htmlFor="airplane-mode" style={{ paddingRight: 15 }}></label>
+                            <Switch.Root className="SwitchRoot" id="airplane-mode">
+                                <input
+                                    datatype={ isChecked ? "checked": ""}
+                                    type="checkbox"
+                                    name=""
+                                    id=""
+                                    className="SwitchThumb"
+                                    checked={acticve ? acticve : isChecked}
+                                    onChange={() => handleCheckboxChange(linkId)}
+                                />
+                            </Switch.Root>
+                        </div>
                     </div>
-                 
                 </div>
                 <ul className="LinksItem-direct">
                     <li className="LinksItem-direct-item">1</li>
