@@ -28,6 +28,7 @@ import {
     themeSuccess,
     updateTheme,
 } from '../../redux-toolkit/themeSlice';
+import FontTable from '../FontTable/FontTable';
 
 function Dialog_UI({
     openDialog,
@@ -39,6 +40,8 @@ function Dialog_UI({
     pickImgVideo,
     setIsPickImgBg,
     setIsPickImgVideo,
+    isFonts,
+    setIsFonts,
 }) {
     // redux
     const dispatch = useDispatch();
@@ -68,6 +71,11 @@ function Dialog_UI({
     const [resultImgBg, setResultImgBg] = useState(null);
     const [currentBackground, setCurrentBackground] = useState(null);
     const [themeBgUser, setThemeBgUser] = useState({});
+    // font
+    const [fontFamily, setFontFamily] = useState({
+        family: '',
+        weight: 0,
+    });
     useEffect(() => {
         const fectchTheme = async () => {
             try {
@@ -362,13 +370,31 @@ function Dialog_UI({
         },
         [currentTheme?._id, currentVideoBg, themeBgUser?.backgroundVideoName],
     );
+
+    const handleSaveFont = useCallback((font) => {
+        const updateFont = async () => {
+            try {
+                const res = await http.put(`/card/${currentTheme?._id}`, {
+                    font_famify: font.family,
+                    font_weight: font.weight,
+                });
+                setIsFonts(false);
+                console.log(res.data);
+                dispatch(updateTheme(res.data));
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        updateFont();
+    },[currentTheme?._id]);
+
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImgBg || pickImg || pickImgVideo ? (
+                        {pickImgBg || pickImg || pickImgVideo || isFonts ? (
                             <>
                                 {(pickImg && (
                                     <>
@@ -440,6 +466,20 @@ function Dialog_UI({
                                                     Clear
                                                 </button>
                                                 <button className="dialog-btn" onClick={handleAddVideoBg}>
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </>
+                                    )) ||
+                                    (isFonts && (
+                                        <>
+                                            <FontTable
+                                                setIsFonts={setIsFonts}
+                                                setFontFamily={setFontFamily}
+                                                fontFamily={fontFamily}
+                                            />
+                                            <div className="dialog-btn-group">
+                                                <button className="dialog-btn" onClick={()=>handleSaveFont(fontFamily)}>
                                                     Save changes
                                                 </button>
                                             </div>

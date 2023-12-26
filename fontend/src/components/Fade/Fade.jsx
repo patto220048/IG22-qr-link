@@ -11,6 +11,8 @@ import { themeSuccess } from '../../redux-toolkit/themeSlice';
 import { urlSuccess } from '../../redux-toolkit/UrlSlice';
 function Fade({ onTemplate, onLinks }) {
     const currentUser = useSelector((state) => state.user.currentUser);
+    const currentTheme = useSelector((state) => state.theme.currentTheme);
+
     const [userIn, setUserIn] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState({});
@@ -26,7 +28,7 @@ function Fade({ onTemplate, onLinks }) {
                 const userData = await http.get(`/users/v1/${currentUser?._id}`);
                 const themeData = await http.get(`/card/v1/${currentUser?._id}`);
                 const iconData = await http.get(`/icon/${currentUser?._id}`);
-                const linkData = await http.get(`/link/${theme?._id}`);
+                const linkData = await http.get(`/link/${currentTheme?._id}`);
                 const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
                     userData,
                     themeData,
@@ -44,7 +46,7 @@ function Fade({ onTemplate, onLinks }) {
             }
         };
         fetchData();
-    }, [username, currentUser._id, theme._id]);
+    }, [username, currentUser._id, currentTheme?._id]);
     return (
         <section className="fade-wapper">
             <div className="fade-left">

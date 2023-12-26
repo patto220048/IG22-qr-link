@@ -1,6 +1,5 @@
 import './TempTheme.scss';
 import themes from '../../themes/themes';
-import backgound from '../../themes/background';
 import Theme from '../Theme/Theme';
 import { memo } from 'react';
 import { useState } from 'react';

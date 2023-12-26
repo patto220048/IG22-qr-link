@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { urlFail, urlStart, urlSuccess } from '../../redux-toolkit/UrlSlice';
 import http from '../../instance/axiosInstance';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
+import Fonts from '../../components/Fonts/Fonts';
 
 function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setViewMb ,userIn}) {
     const [pickImg, setPickImg] = useState(false);
@@ -43,6 +44,10 @@ function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setV
                 <section className="template-item" id="#button">
                     <h2 className="tempProfile_title">Button</h2>
                     <ButtonLink  cardId={theme?._id} theme={theme}/>
+                </section>
+                <section className="template-item" id="#button">
+                    <h2 className="tempProfile_title">Fonts</h2>
+                    <Fonts  theme={theme}/>
                 </section>
             </div>
         </div>

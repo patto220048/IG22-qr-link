@@ -88,15 +88,15 @@ const CardModel = new Schema(
         },
         font_famify: {
             type: String,
-            default: null,
+            default: "Inner",
+        },
+        font_weight: {
+            type: Number,
+            default: 0,
         },
         font_color: {
             type: String,
             default: null,
-        },
-        icons: {
-            type: Array,
-            default: [],
         },
         gadientColorTop: {
             type: String,
