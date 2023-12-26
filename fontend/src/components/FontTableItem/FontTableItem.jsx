@@ -7,7 +7,7 @@ function FontTableItem({ fontClassicName, fontWeight, setFontFamily, index }) {
         // setIsFonts(false);
        
     };
-    const [active, setActve] = useState();
+    const [active, setActve] = useState("");
     return (
         <div
             className="FontTableItem"
@@ -17,7 +17,7 @@ function FontTableItem({ fontClassicName, fontWeight, setFontFamily, index }) {
             }}
         >
             <span
-                className={'FontTableItem-name ' + (active === index ? 'active' : '')}
+                className={'FontTableItem-name ' + (active === index ? 'active' : 'unactive')}
                 style={{
                     fontFamily: `${fontClassicName}`,
                     fontWeight: `${fontWeight}`,
