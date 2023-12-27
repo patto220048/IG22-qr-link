@@ -371,22 +371,25 @@ function Dialog_UI({
         [currentTheme?._id, currentVideoBg, themeBgUser?.backgroundVideoName],
     );
 
-    const handleSaveFont = useCallback((font) => {
-        const updateFont = async () => {
-            try {
-                const res = await http.put(`/card/${currentTheme?._id}`, {
-                    font_famify: font.family,
-                    font_weight: font.weight,
-                });
-                setIsFonts(false);
-                console.log(res.data);
-                dispatch(updateTheme(res.data));
-            } catch (error) {
-                console.log(error.message);
-            }
-        };
-        updateFont();
-    },[currentTheme?._id]);
+    const handleSaveFont = useCallback(
+        (font) => {
+            const updateFont = async () => {
+                try {
+                    const res = await http.put(`/card/${currentTheme?._id}`, {
+                        font_famify: font.family,
+                        font_weight: font.weight,
+                    });
+                    setIsFonts(false);
+                    console.log(res.data);
+                    dispatch(updateTheme(res.data));
+                } catch (error) {
+                    console.log(error.message);
+                }
+            };
+            updateFont();
+        },
+        [currentTheme?._id],
+    );
 
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
@@ -394,9 +397,9 @@ function Dialog_UI({
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImgBg || pickImg || pickImgVideo || isFonts ? (
+                        {pickImgBg || pickImg || pickImgVideo? (
                             <>
-                                {(pickImg && (
+                                {pickImg && (
                                     <>
                                         <Dialog_file
                                             avtUser={user?.avtImg}
@@ -423,68 +426,68 @@ function Dialog_UI({
                                             </button>
                                         </div>
                                     </>
-                                )) ||
-                                    (pickImgBg && (
-                                        <>
-                                            <Dialog_file
-                                                setCurrentBackground={setCurrentBackground}
-                                                resultImgBg={resultImgBg}
-                                                setResultImgBg={setResultImgBg}
-                                                themeBgUser={themeBgUser?.backgroundImg}
-                                                bgImage={bgImage}
-                                                setBgImage={setBgImage}
-                                                pickImgBg={pickImgBg}
-                                                isBackground={'background'}
-                                            />
-                                            <div className="dialog-btn-group-bg">
-                                                {themeBgUser?.backgroundImg || resultImgBg ? (
-                                                    <button className="dialog-btn" onClick={handleClearImageBg}>
-                                                        Clear
-                                                    </button>
-                                                ) : (
-                                                    <></>
-                                                )}
-                                                <button className="dialog-btn" onClick={handleAddImageBg}>
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </>
-                                    )) ||
-                                    (pickImgVideo && (
-                                        <>
-                                            <Dialog_file
-                                                themeBgUserVideo={themeBgUser?.backgroundVideo}
-                                                setCurrentVideoBg={setCurrentVideoBg}
-                                                bgVideo={bgVideo}
-                                                setBgVideo={setBgVideo}
-                                                pickImgVideo={pickImgVideo}
-                                                resultVideo={resultVideo}
-                                                setResultVideo={setResultVideo}
-                                            />
-                                            <div className="dialog-btn-group">
-                                                <button className="dialog-btn" onClick={handleClearVideoBg}>
+                                )}
+                                {pickImgBg && (
+                                    <>
+                                        <Dialog_file
+                                            setCurrentBackground={setCurrentBackground}
+                                            resultImgBg={resultImgBg}
+                                            setResultImgBg={setResultImgBg}
+                                            themeBgUser={themeBgUser?.backgroundImg}
+                                            bgImage={bgImage}
+                                            setBgImage={setBgImage}
+                                            pickImgBg={pickImgBg}
+                                            isBackground={'background'}
+                                        />
+                                        <div className="dialog-btn-group-bg">
+                                            {themeBgUser?.backgroundImg || resultImgBg ? (
+                                                <button className="dialog-btn" onClick={handleClearImageBg}>
                                                     Clear
                                                 </button>
-                                                <button className="dialog-btn" onClick={handleAddVideoBg}>
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </>
-                                    )) ||
-                                    (isFonts && (
-                                        <>
-                                            <FontTable
-                                                setIsFonts={setIsFonts}
-                                                setFontFamily={setFontFamily}
-                                                fontFamily={fontFamily}
-                                            />
-                                            <div className="dialog-btn-group">
-                                                <button className="dialog-btn" onClick={()=>handleSaveFont(fontFamily)}>
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </>
-                                    ))}
+                                            ) : (
+                                                <></>
+                                            )}
+                                            <button className="dialog-btn" onClick={handleAddImageBg}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                                {pickImgVideo && (
+                                    <>
+                                        <Dialog_file
+                                            themeBgUserVideo={themeBgUser?.backgroundVideo}
+                                            setCurrentVideoBg={setCurrentVideoBg}
+                                            bgVideo={bgVideo}
+                                            setBgVideo={setBgVideo}
+                                            pickImgVideo={pickImgVideo}
+                                            resultVideo={resultVideo}
+                                            setResultVideo={setResultVideo}
+                                        />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn" onClick={handleClearVideoBg}>
+                                                Clear
+                                            </button>
+                                            <button className="dialog-btn" onClick={handleAddVideoBg}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                                {isFonts && (
+                                    <>
+                                        <FontTable
+                                            setIsFonts={setIsFonts}
+                                            setFontFamily={setFontFamily}
+                                            fontFamily={fontFamily}
+                                        />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn" onClick={() => handleSaveFont(fontFamily)}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </>
                         ) : (
                             <>

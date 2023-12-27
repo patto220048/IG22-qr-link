@@ -19,7 +19,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                 themeBgUserVideo ||
                 currentTheme?.backgroundImg ? (
                     <>
-                        {currentTheme?.backgroundImg || resultImgBg || resultVideo ? (
+                        {themeBgUser || resultImgBg || resultVideo ? (
                             <>
                                 {resultVideo?.video || themeBgUserVideo ? (
                                     <>
@@ -45,19 +45,16 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                                     </>
                                 ) : (
                                     <>
-                                        {isLoading ? (
-                                           <Loading isLoading={isLoading} uploadImgLoading={true}/>
-                                        ) : (
-                                            <img
-                                                className="updaloadImg-preview-bg"
-                                                src={
-                                                    resultImgBg?.background
-                                                        ? resultImgBg?.background
-                                                        : currentTheme?.backgroundImg
-                                                }
-                                                // loading='lazy'
-                                            ></img>
-                                        )}
+                                        <img
+                                            className="updaloadImg-preview-bg"
+                                            src={
+                                                resultImgBg?.background
+                                                    ? resultImgBg?.background
+                                                    : currentTheme?.backgroundImg
+                                            }
+                                            loading='lazy'
+                                        ></img>
+
                                         <div className="updaloadImg-avt-preview">
                                             <AvatarProfile
                                                 preview={true}
