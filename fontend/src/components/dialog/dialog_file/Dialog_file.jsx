@@ -105,7 +105,7 @@ function Dialog_content({
         );
     };
     useEffect(() => {
-        avatar && (resultImg ? <img src={resultImg}></img> : upload(avatar, 'avatar'));
+        avatar && (resultImg ? <></>: upload(avatar, 'avatar'));
     }, [avatar]);
 
     useEffect(() => {

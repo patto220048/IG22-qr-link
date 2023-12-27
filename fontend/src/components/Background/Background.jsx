@@ -171,35 +171,6 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
         setIsPickImgBg(true);
         setIsPickImgVideo(false);
     };
-
-    // useEffect(() => {
-    //     const handleClickOutside = () => {
-    //         const fetchTheme = async () => {
-    //             dispatch(themeStart());
-    //             try {
-    //                 const res = await http.put(`/card/${cardId}`, {
-    //                     bgColor: inputColor,
-    //                     backgroundImg: null,
-    //                 });
-    //                 setIsPickColor(false);
-    //                 let timeOutId = setTimeout(async () => {
-    //                     dispatch(updateTheme(res.data));
-    //                 }, 1000);
-    //                 return () => {
-    //                     clearTimeout(timeOutId);
-    //                 };
-    //             } catch (error) {
-    //                 dispatch(themeFail());
-    //                 console.log(error.message);
-    //             }
-    //         };
-    //         fetchTheme();
-    //     };
-    //     inputRef.current?.addEventListener('mouseleave', handleClickOutside);
-    //     return () => {
-    //         inputRef.current?.removeEventListener('mouseleave', handleClickOutside);
-    //     };
-    // }, [inputRef.current]);
     return (
         <div className="bgTheme" id="background">
             <ToastContainer

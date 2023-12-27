@@ -5,7 +5,7 @@ import { memo } from 'react';
 import AvatarProfile from '../AvatarProfile/AvatarProfile';
 import { useSelector } from 'react-redux';
 import Loading from '../dialog/loading/Loading';
-function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo}) {
+function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     return (
@@ -14,28 +14,16 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
                 {resultImg || avtUser || resultImgBg || resultVideo || themeBgUserVideo || themeBgUser ? (
                     <>
                         {resultImg && (
-                            <img
-                                className="updaloadImg-preview"
-                                src={avtUser ? avtUser : resultImg?.avatar}
-                                loading="lazy"
-                            ></img>
+                            <img className="updaloadImg-preview" src={resultImg?.avatar} loading="lazy"></img>
                         )}
 
-                        {avtUser && (
-                            <img
-                                className="updaloadImg-preview"
-                                src={avtUser ? avtUser : resultImg?.avatar}
-                                loading="lazy"
-                            ></img>
-                        )}
+                        {avtUser && <img className="updaloadImg-preview" src={avtUser} loading="lazy"></img>}
 
                         {resultImgBg && (
                             <>
                                 <img
                                     className="updaloadImg-preview-bg"
-                                    src={
-                                        resultImgBg?.background ? resultImgBg?.background : currentTheme?.backgroundImg
-                                    }
+                                    src={resultImgBg?.background}
                                     loading="lazy"
                                 ></img>
 
@@ -54,13 +42,7 @@ function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, r
 
                         {themeBgUser && (
                             <>
-                                <img
-                                    className="updaloadImg-preview-bg"
-                                    src={
-                                        resultImgBg?.background ? resultImgBg?.background : currentTheme?.backgroundImg
-                                    }
-                                    loading="lazy"
-                                ></img>
+                                <img className="updaloadImg-preview-bg" src={themeBgUser} loading="lazy"></img>
 
                                 <div className="updaloadImg-avt-preview">
                                     <AvatarProfile
