@@ -398,7 +398,7 @@ function Dialog_UI({
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImgBg || pickImg || pickImgVideo? (
+                        {pickImgBg || pickImg || pickImgVideo || isFonts? (
                             <>
                                 {pickImg && (
                                     <>
