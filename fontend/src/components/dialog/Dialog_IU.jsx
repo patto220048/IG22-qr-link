@@ -176,6 +176,7 @@ function Dialog_UI({
     // };
     const hanleClose = (e) => {
         setOpenInputUrl(false);
+        
     };
     const handleAddIcon = useCallback(() => {
         const addIcon = async () => {

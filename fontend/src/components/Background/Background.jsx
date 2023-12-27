@@ -31,7 +31,6 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
     const [openGadient, setopenGadient] = useState(false);
     const inputRef = useRef();
     const notifyToast = (message, type) => {
-        console.log(type);
         switch (type) {
             case 1:
                 toast.success('🦄 ' + message);
