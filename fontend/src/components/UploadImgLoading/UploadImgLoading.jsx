@@ -8,98 +8,118 @@ import Loading from '../dialog/loading/Loading';
 function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-    const isLoading = useSelector((state) => state.theme.loading);
     return (
         <>
             <section className="updaloadImg">
-                {resultImg ||
-                avtUser ||
-                resultImgBg ||
-                resultVideo ||
-                themeBgUserVideo ||
-                currentTheme?.backgroundImg ? (
+                {resultImg || avtUser || resultImgBg || resultVideo || themeBgUserVideo || themeBgUser ? (
                     <>
-                        {themeBgUser || resultImgBg || resultVideo ? (
-                            <>
-                                {resultVideo?.video || themeBgUserVideo ? (
-                                    <>
-                                        <video
-                                            controls
-                                            autoPlay
-                                            loop
-                                            className="updaloadImg-video-bg"
-                                            type="video/mp4"
-                                            src={resultVideo?.video}
-                                            loading="lazy"
-                                        ></video>
-                                        <div className="updaloadImg-avt-preview">
-                                            <AvatarProfile
-                                                preview={true}
-                                                username={currentUser?.username}
-                                                usernameTitle={currentUser?.usernameTitle}
-                                                decs={currentUser?.decs}
-                                                avatar={currentUser?.avtImg}
-                                                fontColor={currentTheme?.currentTheme}
-                                            />
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <img
-                                            className="updaloadImg-preview-bg"
-                                            src={
-                                                resultImgBg?.background
-                                                    ? resultImgBg?.background
-                                                    : currentTheme?.backgroundImg
-                                            }
-                                            loading='lazy'
-                                        ></img>
+                        {resultImg && (
+                            <img
+                                className="updaloadImg-preview"
+                                src={avtUser ? avtUser : resultImg?.avatar}
+                                loading="lazy"
+                            ></img>
+                        )}
 
-                                        <div className="updaloadImg-avt-preview">
-                                            <AvatarProfile
-                                                preview={true}
-                                                username={currentUser?.username}
-                                                usernameTitle={currentUser?.usernameTitle}
-                                                decs={currentUser?.decs}
-                                                avatar={currentUser?.avtImg}
-                                                fontColor={currentTheme?.currentTheme}
-                                            />
-                                        </div>
-                                    </>
-                                )}
-                            </>
-                        ) : (
-                            // set video preview when have in database
+                        {avtUser && (
+                            <img
+                                className="updaloadImg-preview"
+                                src={avtUser ? avtUser : resultImg?.avatar}
+                                loading="lazy"
+                            ></img>
+                        )}
+
+                        {resultImgBg && (
                             <>
-                                {themeBgUserVideo ? (
-                                    <>
-                                        <video
-                                            controls
-                                            autoPlay
-                                            loop
-                                            className="updaloadImg-video-bg"
-                                            type="video/mp4"
-                                            src={themeBgUserVideo}
-                                            loading="lazy"
-                                        ></video>
-                                        <div className="updaloadImg-avt-preview">
-                                            <AvatarProfile
-                                                preview={true}
-                                                username={currentUser?.username}
-                                                usernameTitle={currentUser?.usernameTitle}
-                                                decs={currentUser?.decs}
-                                                avatar={currentUser?.avtImg}
-                                                fontColor={currentTheme?.currentTheme}
-                                            />
-                                        </div>
-                                    </>
-                                ) : (
-                                    <img
-                                        className="updaloadImg-preview"
-                                        src={avtUser ? avtUser : resultImg?.avatar}
-                                        loading="lazy"
-                                    ></img>
-                                )}
+                                <img
+                                    className="updaloadImg-preview-bg"
+                                    src={
+                                        resultImgBg?.background ? resultImgBg?.background : currentTheme?.backgroundImg
+                                    }
+                                    loading="lazy"
+                                ></img>
+
+                                <div className="updaloadImg-avt-preview">
+                                    <AvatarProfile
+                                        preview={true}
+                                        username={currentUser?.username}
+                                        usernameTitle={currentUser?.usernameTitle}
+                                        decs={currentUser?.decs}
+                                        avatar={currentUser?.avtImg}
+                                        fontColor={currentTheme?.currentTheme}
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {themeBgUser && (
+                            <>
+                                <img
+                                    className="updaloadImg-preview-bg"
+                                    src={
+                                        resultImgBg?.background ? resultImgBg?.background : currentTheme?.backgroundImg
+                                    }
+                                    loading="lazy"
+                                ></img>
+
+                                <div className="updaloadImg-avt-preview">
+                                    <AvatarProfile
+                                        preview={true}
+                                        username={currentUser?.username}
+                                        usernameTitle={currentUser?.usernameTitle}
+                                        decs={currentUser?.decs}
+                                        avatar={currentUser?.avtImg}
+                                        fontColor={currentTheme?.currentTheme}
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {resultVideo && (
+                            <>
+                                <video
+                                    controls
+                                    autoPlay
+                                    loop
+                                    className="updaloadImg-video-bg"
+                                    type="video/mp4"
+                                    src={resultVideo?.video}
+                                    loading="lazy"
+                                ></video>
+                                <div className="updaloadImg-avt-preview">
+                                    <AvatarProfile
+                                        preview={true}
+                                        username={currentUser?.username}
+                                        usernameTitle={currentUser?.usernameTitle}
+                                        decs={currentUser?.decs}
+                                        avatar={currentUser?.avtImg}
+                                        fontColor={currentTheme?.currentTheme}
+                                    />
+                                </div>
+                            </>
+                        )}
+
+                        {themeBgUserVideo && (
+                            <>
+                                <video
+                                    controls
+                                    autoPlay
+                                    loop
+                                    className="updaloadImg-video-bg"
+                                    type="video/mp4"
+                                    src={themeBgUserVideo}
+                                    loading="lazy"
+                                ></video>
+                                <div className="updaloadImg-avt-preview">
+                                    <AvatarProfile
+                                        preview={true}
+                                        username={currentUser?.username}
+                                        usernameTitle={currentUser?.usernameTitle}
+                                        decs={currentUser?.decs}
+                                        avatar={currentUser?.avtImg}
+                                        fontColor={currentTheme?.currentTheme}
+                                    />
+                                </div>
                             </>
                         )}
                     </>
