@@ -38,39 +38,74 @@ const CardModel = new Schema(
             type: String,
             default: null,
         },
-        btn_type: {
+        btn_fontColor: {
             type: String,
-            default: null,
+            default: "#ffffff",
         },
-        btn_color: {
+        btn_color1: {
+            default: "#333333",
             type: String,
-            default: null,
         },
-        bnt_radius: {
+        btn_outline:{
+            type: Boolean,
+            default: false,
+        },
+        btn_radius: {
+            type: Number,
+            default: 0,
+        },
+        btn_border: {
+            type: Number,
+            default: 0,
+        },
+        btn_shadow_color: {
+            default:"#333333",
             type: String,
-            default: null,
+        },
+        btn_style: {
+            btn_shadow: {
+                horizontal: {
+                    type: Number,
+                    default: 0,
+                },
+                vertical: {
+                    type: Number,
+                    default: 0,
+                },
+                blur: {
+                    type: Number,
+                    default: 0,
+                },
+                spread: {
+                    type: Number,
+                    default: 0,
+                },
+                opacity: {
+                    type: Number,
+                    default: 0,
+                },
+            },
         },
         font_famify: {
             type: String,
-            default: null,
+            default: "Inner",
+        },
+        font_weight: {
+            type: Number,
+            default: 0,
         },
         font_color: {
             type: String,
             default: null,
         },
-        icons:{
-            type: Array,
-            default: [],
-        },
         gadientColorTop: {
             type: String,
             default: null,
-        }
-        ,
+        },
         gadientColorBot: {
             type: String,
             default: null,
-        }
+        },
     },
     { timestamps: true },
 );

@@ -130,24 +130,23 @@ function Login() {
                         password: values.password,
                     });
                     setUser(res.data);
-                    console.log(res.data);
                     //dispatch
                     dispatch(loginSuccess(res.data));
                     if (res.data.status === 401) {
-                        notifyToast(res.data.message,2);
+                        notifyToast(res.data.message, 2);
                         dispatch(loginFail());
                     } else if (res.data.status === 403) {
-                        notifyToast(res.data.message,2);
+                        notifyToast(res.data.message, 2);
                         dispatch(loginFail());
                     } else {
                         navigate(`/template/${res.data.username}`);
                     }
                 } else {
                     dispatch(loginFail());
-                    notifyToast('Oops! Email is not correct! Please try again.',2);
+                    notifyToast('Oops! Email is not correct! Please try again.', 2);
                 }
             } catch (error) {
-                notifyToast(error.message,2);
+                notifyToast(error.message, 2);
                 dispatch(loginFail());
             }
         }, 1500);
@@ -174,7 +173,6 @@ function Login() {
                     verifySuccess: result.user.emailVerified,
                     avtImg: result.user.photoURL,
                     fromGoogle: true,
-
                 })
                     .then((res) => {
                         console.log(res.data);
@@ -182,13 +180,13 @@ function Login() {
                         navigate(`/template/${res.data.username}`);
                     })
                     .catch((err) => {
-                        notifyToast('Login failed!',2)
+                        notifyToast('Login failed!', 2);
                         // setErr('LOGIN FAILED !');
                         dispatch(loginFail());
                     });
             })
             .catch((err) => {
-                notifyToast('Login with google failed!',2)
+                notifyToast('Login with google failed!', 2);
                 dispatch(loginFail());
                 // console.log(err.message);
             });
@@ -207,9 +205,9 @@ function Login() {
                 pauseOnHover
                 theme="colored"
             ></ToastContainer>
-            {isLoading && <Loading isLoading={isLoading} loginLoading={true}/>}
+            {isLoading && <Loading isLoading={isLoading} loginLoading={true} />}
             <div className="login-left">
-                <img className="login-left-img" src={bg_login_page} alt=""  loading='lazy'/>
+                <img className="login-left-img" src={bg_login_page} alt="" loading="lazy" />
             </div>
 
             <div className="login-right">

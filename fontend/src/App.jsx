@@ -14,6 +14,7 @@ import Template from './pages/tempate/Template';
 import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
 import PreView from './components/Preview/PreView';
+import Fade from './components/Fade/Fade';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
@@ -31,18 +32,11 @@ function App() {
     };
     function Layout() {
         return (
-            <div className="app-wapper">
+            <div>
                 <header>
                     <Navbar />
                 </header>
-                <div className="body-main">
-                    <div className="body-main-item">
-                        <Outlet />
-                    </div>
-                    {/* <div className="preview">
-                        <PreView />
-                    </div> */}
-                </div>
+                <Outlet />
             </div>
         );
     }
@@ -64,7 +58,7 @@ function App() {
                     path: '/template/:username',
                     element: (
                         <ProtectRoute>
-                            <Template />
+                            <Fade onTemplate={true} />
                         </ProtectRoute>
                     ),
                 },
@@ -73,7 +67,7 @@ function App() {
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
                             <ProtectRoute>
-                                <Links />
+                                <Fade onLinks={true} />
                             </ProtectRoute>
                         </Suspense>
                     ),

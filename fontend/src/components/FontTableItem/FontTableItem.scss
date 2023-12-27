@@ -1,0 +1,25 @@
+@import '../../base/color';
+.FontTableItem {
+    padding: 10px;
+    display: flex;
+    .FontTableItem-name {
+        text-align: center;
+        padding: 20px 10px;
+        font-size: 18px;
+        width: 100%;
+        cursor: pointer;
+        &:hover {
+            background-color: $text_hover_color;
+            border-radius: 50px;
+        }
+    }
+    .active{
+        background-color: rgb(213, 74, 188);
+        border-radius: 50px;
+
+    }
+    // .unactive{
+    //     background-color: red;
+
+    // }
+}

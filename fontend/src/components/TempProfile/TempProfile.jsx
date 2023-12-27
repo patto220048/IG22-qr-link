@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRef } from 'react';
 import avatarDefault from '../../untils/AvatarLink';
-function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
+function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons ,setPickImg,pickImg}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const [maxLenght, setMaxLenght] = useState(80);
@@ -37,7 +37,6 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                 break;
         }
     };
-    const [pickImg, setPickImg] = useState(false);
     const inputRefUsername = useRef();
     const inputRefDesc = useRef();
 

@@ -6,11 +6,12 @@ import http from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { urlFail, urlStart, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import Alert from '../Alert/Alert';
+import { themeIsloading, themeStart } from '../../redux-toolkit/themeSlice';
 
-function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
+function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange, linkIndex, acticve }) {
     const currentLink = useSelector((state) => state.url.currentUrl);
-
-    const [isSwith, setIsSwitch] = useState(false);
+    // console.log(currentLink)
+    const [isChecked, setIsChecked] = useState(false);
     const [isAlert, setIsAlert] = useState(false);
     const [isChangeTitle, setIsChangeTitle] = useState(false);
     const [isChangeUrl, setIsChangeUrl] = useState(false);
@@ -25,9 +26,24 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
     const onChangeTitle = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
+    const handleCheckboxChange = (linkId, e) => {
+        const updateLink = async () => {
+            try {
+                const res = await http.put(`/link/${linkId}`, {
+                    acticve: !isChecked,
+                });
+                dispatch(urlUpdate(res.data));
+                setIsChecked(!isChecked);
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        updateLink();
+    };
     useEffect(() => {
         const handleClickOutInput = () => {
             const updateLink = async () => {
+                dispatch(urlStart());
                 try {
                     const res = await http.put(`/link/${linkId}`, {
                         urlTitle: values.inputTitle,
@@ -81,6 +97,16 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
     const handleFocused = (e) => {
         setFocused(true);
     };
+    // useEffect(() => {
+    //     const handleClickOutside = () => {
+    //         console.log( switchRef.current.value)
+    //     };
+    //     switchRef.current.
+    // }, []);
+
+    function handleSelect(linkIndex) {
+        console.log(linkIndex);
+    }
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -143,14 +169,18 @@ function LinksItem({ linkUrl, linkTitle, linkThumbnail, linkId, onChange }) {
                             )}
                         </div>
                     </div>
+
                     <div className="LinksItem-switch">
-                        <Switch.Root className="SwitchRoot" id="airplane-mode">
-                            <Switch.Thumb
-                                className="SwitchThumb"
-                                checked={isSwith}
-                                onClick={() => setIsSwitch(!isSwith)}
-                            />
-                        </Switch.Root>
+                        <input
+                            data-state={(acticve ? acticve : isChecked) ? 'checked' : ''}
+                            type="checkbox"
+                            name={`switch` + linkId}
+                            id={`switch` + linkId}
+                            className={`switch` + linkId}
+                            checked={acticve ? acticve : isChecked}
+                            onChange={() => handleCheckboxChange(linkId)}
+                        />
+                        <label htmlFor={`switch` + linkId}>Toggle</label>
                     </div>
                 </div>
                 <ul className="LinksItem-direct">

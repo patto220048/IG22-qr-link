@@ -20,7 +20,15 @@ import IconTable from './IconTable/IconTable';
 import InputUrl from './InputUrl/InputUrl';
 import iconThemes from '../../themes/icon';
 import useRegex from '../../hooks/useRegex';
-import { clearBgImg, clearBgVideo, themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
+import {
+    clearBgImg,
+    clearBgVideo,
+    themeFail,
+    themeStart,
+    themeSuccess,
+    updateTheme,
+} from '../../redux-toolkit/themeSlice';
+import FontTable from '../FontTable/FontTable';
 
 function Dialog_UI({
     openDialog,
@@ -32,6 +40,8 @@ function Dialog_UI({
     pickImgVideo,
     setIsPickImgBg,
     setIsPickImgVideo,
+    isFonts,
+    setIsFonts,
 }) {
     // redux
     const dispatch = useDispatch();
@@ -41,7 +51,7 @@ function Dialog_UI({
     const { groupIcon } = useSelector((state) => state.user.currentUser);
     const isLoading = useSelector((state) => state.icon.loading);
     // upload avatar
-    const [imgUpLoading, setImgUpLoading] = useState();
+    const [imgUpLoading, setImgUpLoading] = useState(false);
     //file default [upload]
     const [resultImg, setResultImg] = useState(null);
     const [avatar, setAvatar] = useState(undefined);
@@ -61,11 +71,16 @@ function Dialog_UI({
     const [resultImgBg, setResultImgBg] = useState(null);
     const [currentBackground, setCurrentBackground] = useState(null);
     const [themeBgUser, setThemeBgUser] = useState({});
-
+    // font
+    const [fontFamily, setFontFamily] = useState({
+        family: '',
+        weight: 0,
+    });
     useEffect(() => {
         const fectchTheme = async () => {
             try {
                 const res = await http.get(`/card/v1/${currentUser._id}`);
+
                 setThemeBgUser(res.data);
             } catch (error) {
                 console.log(error.message);
@@ -189,7 +204,7 @@ function Dialog_UI({
             }
         };
         addIcon();
-    }, [socialIconName, urlIcon,currentUser._id]);
+    }, [socialIconName, urlIcon, currentUser._id]);
     const handleClearIcon = useCallback(() => {
         const iconId = () =>
             groupIcon.map((icon) => {
@@ -343,7 +358,7 @@ function Dialog_UI({
                     setResultVideo(null);
                     setBgVideo(undefined);
                     setIsPickImgVideo(false);
-                    setOpenDialog(false)
+                    setOpenDialog(false);
                     dispatch(clearBgVideo());
                 } catch (error) {
                     console.log(error.message);
@@ -355,41 +370,33 @@ function Dialog_UI({
         },
         [currentTheme?._id, currentVideoBg, themeBgUser?.backgroundVideoName],
     );
+
+    const handleSaveFont = useCallback((font) => {
+        const updateFont = async () => {
+            try {
+                const res = await http.put(`/card/${currentTheme?._id}`, {
+                    font_famify: font.family,
+                    font_weight: font.weight,
+                });
+                setIsFonts(false);
+                console.log(res.data);
+                dispatch(updateTheme(res.data));
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        updateFont();
+    },[currentTheme?._id]);
+
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImgBg || pickImg || pickImgVideo ? (
+                        {pickImgBg || pickImg || pickImgVideo || isFonts ? (
                             <>
-                                {pickImgBg && (
-                                    <>
-                                        <Dialog_file
-                                            setCurrentBackground={setCurrentBackground}
-                                            resultImgBg={resultImgBg}
-                                            setResultImgBg={setResultImgBg}
-                                            themeBgUser={themeBgUser?.backgroundImg}
-                                            bgImage={bgImage}
-                                            setBgImage={setBgImage}
-                                            pickImgBg={pickImgBg}
-                                            isBackground={'background'}
-                                        />
-                                        <div className="dialog-btn-group-bg">
-                                            {themeBgUser?.backgroundImg || resultImgBg ? (
-                                                <button className="dialog-btn" onClick={handleClearImageBg}>
-                                                    Clear
-                                                </button>
-                                            ) : (
-                                                <></>
-                                            )}
-                                            <button className="dialog-btn" onClick={handleAddImageBg}>
-                                                Save changes
-                                            </button>
-                                        </div>
-                                    </>
-                                )}
-                                {pickImg && (
+                                {(pickImg && (
                                     <>
                                         <Dialog_file
                                             avtUser={user?.avtImg}
@@ -416,28 +423,68 @@ function Dialog_UI({
                                             </button>
                                         </div>
                                     </>
-                                )}
-                                {pickImgVideo && (
-                                    <>
-                                        <Dialog_file
-                                            themeBgUserVideo={themeBgUser?.backgroundVideo}
-                                            setCurrentVideoBg={setCurrentVideoBg}
-                                            bgVideo={bgVideo}
-                                            setBgVideo={setBgVideo}
-                                            pickImgVideo={pickImgVideo}
-                                            resultVideo={resultVideo}
-                                            setResultVideo={setResultVideo}
-                                        />
-                                        <div className="dialog-btn-group">
-                                            <button className="dialog-btn" onClick={handleClearVideoBg}>
-                                                Clear
-                                            </button>
-                                            <button className="dialog-btn" onClick={handleAddVideoBg}>
-                                                Save changes
-                                            </button>
-                                        </div>
-                                    </>
-                                )}
+                                )) ||
+                                    (pickImgBg && (
+                                        <>
+                                            <Dialog_file
+                                                setCurrentBackground={setCurrentBackground}
+                                                resultImgBg={resultImgBg}
+                                                setResultImgBg={setResultImgBg}
+                                                themeBgUser={themeBgUser?.backgroundImg}
+                                                bgImage={bgImage}
+                                                setBgImage={setBgImage}
+                                                pickImgBg={pickImgBg}
+                                                isBackground={'background'}
+                                            />
+                                            <div className="dialog-btn-group-bg">
+                                                {themeBgUser?.backgroundImg || resultImgBg ? (
+                                                    <button className="dialog-btn" onClick={handleClearImageBg}>
+                                                        Clear
+                                                    </button>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                                <button className="dialog-btn" onClick={handleAddImageBg}>
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </>
+                                    )) ||
+                                    (pickImgVideo && (
+                                        <>
+                                            <Dialog_file
+                                                themeBgUserVideo={themeBgUser?.backgroundVideo}
+                                                setCurrentVideoBg={setCurrentVideoBg}
+                                                bgVideo={bgVideo}
+                                                setBgVideo={setBgVideo}
+                                                pickImgVideo={pickImgVideo}
+                                                resultVideo={resultVideo}
+                                                setResultVideo={setResultVideo}
+                                            />
+                                            <div className="dialog-btn-group">
+                                                <button className="dialog-btn" onClick={handleClearVideoBg}>
+                                                    Clear
+                                                </button>
+                                                <button className="dialog-btn" onClick={handleAddVideoBg}>
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </>
+                                    )) ||
+                                    (isFonts && (
+                                        <>
+                                            <FontTable
+                                                setIsFonts={setIsFonts}
+                                                setFontFamily={setFontFamily}
+                                                fontFamily={fontFamily}
+                                            />
+                                            <div className="dialog-btn-group">
+                                                <button className="dialog-btn" onClick={()=>handleSaveFont(fontFamily)}>
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </>
+                                    ))}
                             </>
                         ) : (
                             <>
