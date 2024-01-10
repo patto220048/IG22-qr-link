@@ -1,14 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Fonts.scss';
 import Dialog_IU from '../dialog/Dialog_IU';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Chrome } from '@uiw/react-color';
+import { themeFail, themeStart, updateTheme } from '../../redux-toolkit/themeSlice';
+import http from '../../instance/axiosInstance';
 
 function Fonts({ theme }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
+    const [colorFont, setColorFont] = useState('#333333');
     const [isFonts, setIsFonts] = useState(false);
+    const [isPickColorBtn, setIsPickColor] = useState(false)
+    const [currentColorFonts, setCurrentColorFonts] = useState({});
+    const dispatch = useDispatch()
+    const refColorBoxFonts= useRef()
     const handleOpenFonts = () => {
         setIsFonts(true);
     };
+    useEffect(() => {
+        const handleClickOutside = () => {
+            const fetchTheme = async () => {
+                dispatch(themeStart());
+                try {
+                    const res = await http.put(`/card/${theme._id}`, {
+                        font_color : colorFont,
+                    });
+                    setIsPickColor(false);
+                    let timeOutId = setTimeout(async () => {
+                        dispatch(updateTheme(res.data));
+                        setCurrentColorFonts(res.data);
+                    }, 1000);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                } catch (error) {
+                    dispatch(themeFail());
+                    console.log(error.message);
+                }
+            };
+            fetchTheme();
+        };
+        refColorBoxFonts.current?.addEventListener('mouseleave', handleClickOutside);
+        return () => {
+            refColorBoxFonts.current?.removeEventListener('mouseleave', handleClickOutside);
+        };
+    }, [refColorBoxFonts?.current]);
     return (
         <div className="Fonts">
             <dir className="Font-items">
@@ -50,8 +86,28 @@ function Fonts({ theme }) {
                 )}
 
                 <div className="Fonts-color">
-                    <span className="Fonts-title">Color</span>
-                    <span className="Fonts-colorBox"></span>
+                    <h1 className="Fonts-title">Color</h1>
+                    <div className="Fonts-group">
+                        <div className="Fonts-colorBox"
+                        onClick={()=>setIsPickColor(!isPickColorBtn)} 
+                        style={{backgroundColor: `${currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color  }`}}  
+                        ></div>
+                        <input type="text" className="Fonts-input" 
+                        placeholder={currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color}/>
+                    </div>
+
+                    {isPickColorBtn && (
+                        <Chrome
+                            // onMouseLeave={() =>setIsPickColor(false)}
+                            className="colorBox"
+                            ref={refColorBoxFonts}
+                            style={{ marginLeft: 20 }}
+                            color={colorFont}
+                            onChange={(color) => {
+                                setColorFont(color.hex);
+                            }}
+                        />
+                    )}
                 </div>
             </dir>
         </div>

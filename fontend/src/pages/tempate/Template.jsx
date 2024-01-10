@@ -47,7 +47,7 @@ function Template({ setUserIn, setIsLoading, isLoading, theme, icons, user, setV
                 </section>
                 <section className="template-item" id="#button">
                     <h2 className="tempProfile_title">Fonts</h2>
-                    <Fonts  theme={theme}/>
+                    <Fonts  theme={theme} />
                 </section>
             </div>
         </div>
