@@ -16,7 +16,8 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
                 const res = await http.post(`/link/${currentTheme?._id}`, {
                     urlTitle: sortUrl(values.url)?.host,
                     url: values.url,
-                    urlThumbnail: sortUrl(values.url)?.host + '/' + "favicon.ico"
+                    urlThumbnail: sortUrl(values.url)?.host + '/' + "favicon.ico",
+                    urlStyle : true
                 });
                 setIsAddLink(false);
                 const timeOutId = setTimeout(() => dispatch(urlAdd(res.data)), 1000);

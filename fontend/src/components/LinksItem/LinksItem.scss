@@ -80,6 +80,25 @@
                     }
                 }
             }
+            .LinksItem-header{
+                .LinkItem-url-header{
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   gap: 10px;
+                    .input-title-label-header{
+                    }
+                    #inputTitleHeader{
+                        
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                   
+                    }
+                }
+              
+
+            }
             .LinksItem-switch {
                 position: absolute;
                 right: 0;

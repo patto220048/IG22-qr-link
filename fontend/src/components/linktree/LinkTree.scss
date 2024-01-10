@@ -2,6 +2,10 @@
 
 .linktree-link {
     text-decoration: none;
+    .linktree-decs{
+        font-size: 15px;
+        font-weight: 500;
+    }
     .linktree {
         padding: 20px;
         transition: all 0.3s ease;
