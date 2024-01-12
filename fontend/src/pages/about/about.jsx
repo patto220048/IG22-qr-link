@@ -1,6 +1,6 @@
-import './about.scss';
+import './About.scss';
 
-function about() {
+function About() {
     return(
         <div className='about'>
             <div className="about-container">
@@ -55,4 +55,4 @@ function about() {
     )
 }
 
-export default about;
+export default About;
