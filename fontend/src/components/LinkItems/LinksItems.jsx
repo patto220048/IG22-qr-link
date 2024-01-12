@@ -10,29 +10,26 @@ function LinksItems({ onChange }) {
     const currentLink = useSelector((state) => state.url.currentUrl);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const dispatch = useDispatch();
-    const handleAddLink = () => {
-        dispatch(urlStart());
-        const addLink = async () => {
-            try {
-                const res = await http.post(`/link/${currentTheme?._id}`, {
-                    headerStyle: true,
-                });
-                const timeOutId = setTimeout(() => dispatch(urlAdd(res.data)), 1000);
-                return () => {
-                    clearTimeout(timeOutId);
-                };
-            } catch (error) {
-                console.log(error.message);
-                dispatch(urlFail());
-            }
-        };
-        addLink();
-    };
+    // const handleAddLink = () => {
+    //     dispatch(urlStart());
+    //     const addLink = async () => {
+    //         try {
+    //             const res = await http.post(`/link/${currentTheme?._id}`, {
+    //                 headerStyle: true,
+    //             });
+    //             const timeOutId = setTimeout(() => dispatch(urlAdd(res.data)), 1000);
+    //             return () => {
+    //                 clearTimeout(timeOutId);
+    //             };
+    //         } catch (error) {
+    //             console.log(error.message);
+    //             dispatch(urlFail());
+    //         }
+    //     };
+    //     addLink();
+    // };
     return (
         <div className="LinksItems">
-            <button className="LinksItems-btn" onClick={handleAddLink}>
-                Add Header
-            </button>
             {currentLink?.map((link, index) => (
                 <LinksItem
                     onChange={onChange}

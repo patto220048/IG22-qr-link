@@ -4,8 +4,9 @@ import './Alert.scss';
 import http from '../../instance/axiosInstance';
 import { useState } from 'react';
 import { urlDelete } from '../../redux-toolkit/UrlSlice';
+import DetailContact from '../DetailContact/DetailConTact';
 
-function Alert({ setIsAlert, isAlert, linkId }) {
+function Alert({ setIsAlert, isAlert, linkId, isDetail ,setIsDetail}) {
     const dispatch = useDispatch();
     const handleDeleteUrl = () => {
         const deleteUrl = async () => {
@@ -13,7 +14,7 @@ function Alert({ setIsAlert, isAlert, linkId }) {
                 const res = await http.delete(`/link/${linkId}`);
                 if (res.status === 200) {
                     dispatch(urlDelete(linkId));
-                    setIsAlert(false)
+                    setIsAlert(false);
                 }
             } catch (error) {
                 console.log(error.message);
@@ -21,21 +22,57 @@ function Alert({ setIsAlert, isAlert, linkId }) {
         };
         deleteUrl();
     };
+
+    const handleCloseDelete = () => {
+        setIsAlert(false)
+        setIsDetail(false)
+    }
+    const handleCloseDetail = () => {
+        setIsDetail(false)
+        setIsAlert(false)
+    }
     return (
         <div className={`ALert`}>
-            <div className="Alert-head">
-                <h6 className="Alert-title">Delete</h6>
-                <div className="Alert-close-icon" onClick={() => setIsAlert(false)}>
-                    {closeIcon(30, 30)}
-                </div>
-            </div>
-            <p className="Alert-desc">Delete this forever</p>
-            <div className="Alert-btn-group">
-                <button className="Alert-btn cancel" onClick={()=>setIsAlert(false)}>
-                    Cancel
-                </button>
-                <button className="Alert-btn agree" onClick={handleDeleteUrl}>Delete</button>
-            </div>
+            {isAlert || isDetail ?
+                <>
+                    {isAlert && (
+                        <>
+                            <div className="Alert-head">
+                                <h6 className="Alert-title">Delete</h6>
+                                <div className="Alert-close-icon" onClick={handleCloseDelete}>
+                                    {closeIcon(30, 30)}
+                                </div>
+                            </div>
+                            <p className="Alert-desc">Delete this forever</p>
+                            <div className="Alert-btn-group">
+                                <button className="Alert-btn cancel" onClick={handleCloseDelete}>
+                                    Cancel
+                                </button>
+                                <button className="Alert-btn agree" onClick={handleDeleteUrl}>
+                                    Delete
+                                </button>
+                            </div>
+                        </>
+                    )}
+                    {isDetail && (
+                        <>
+                          <div className="Alert-head">
+                                <h6 className="Alert-title">Contact Detail</h6>
+                                <div className="Alert-close-icon" onClick={handleCloseDetail}>
+                                    {closeIcon(30, 30)}
+                                </div>
+                            </div>
+                            <DetailContact/>
+                            <button onClick={handleCloseDetail}>close</button>
+                        </>
+                    )}
+                   
+                </>
+                :
+                <></>
+            }      
+                
+         
         </div>
     );
 }

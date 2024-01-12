@@ -83,8 +83,8 @@ export const closeIcon = (w, h) => (
         <path d="M16 8L8 16M16 16L8 8" stroke="black" strokeWidth="1" strokeLinecap="round" />
     </svg>
 );
-export const plusIcon = (w, h,c) => (
-    <svg width={w} height={h} viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg">
+export const plusIcon = (w, h, c) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M12.0001 4.7998L12 19.1998M19.2 11.9998L4.80005 11.9998"
             stroke={c}
@@ -223,6 +223,17 @@ export const penIcon = (w, h) => (
     <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M13.4487 6.95168L17.0487 10.5517M4.44873 19.5517L8.81472 18.672C9.04649 18.6253 9.25931 18.5111 9.42645 18.3439L19.2001 8.56486C19.6687 8.096 19.6684 7.33602 19.1994 6.86755L17.129 4.79948C16.6602 4.33121 15.9006 4.33153 15.4322 4.80019L5.65749 14.5802C5.49068 14.7471 5.37678 14.9595 5.33003 15.1908L4.44873 19.5517Z"
+            stroke="black"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+);
+export const thumbnailIcon = (w, h) => (
+    <svg width={w} height={h} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M8.1599 15.6002L11.9999 12.0002L14.5599 13.8002L18.1866 10.2002L21.3866 13.2002M2.3999 9.0002V19.8002H15.1999M10.0799 7.8002V7.70996M21.5999 15.2002V5.2002C21.5999 4.64791 21.1522 4.2002 20.5999 4.2002H7.2399C6.68762 4.2002 6.2399 4.64791 6.2399 5.2002V15.2002C6.2399 15.7525 6.68762 16.2002 7.2399 16.2002H20.5999C21.1522 16.2002 21.5999 15.7525 21.5999 15.2002Z"
             stroke="black"
             strokeWidth="1"
             strokeLinecap="round"
