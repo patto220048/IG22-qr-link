@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import './LinksItem.scss';
 import * as Switch from '@radix-ui/react-switch';
-import { penIcon, trashIcon } from '../../svg/icon';
+import { penIcon, thumbnailIcon, trashIcon, userIcon } from '../../svg/icon';
 import http from '../../instance/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { urlFail, urlStart, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import Alert from '../Alert/Alert';
-import { themeIsloading, themeStart } from '../../redux-toolkit/themeSlice';
-
+// import { themeIsloading, themeStart } from '../../redux-toolkit/themeSlice';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 function LinksItem({
     linkUrl,
     linkTitle,
@@ -33,9 +34,9 @@ function LinksItem({
     const inputDescRef = useRef(null);
     const [focused, setFocused] = useState(false);
     const dispatch = useDispatch();
-    const handleOpenAlert = () => {
-        setIsAlert(true);
-    };
+    // detail contact
+    const [isDetail, setIsDetail] = useState(false);
+
     const onChangeTitle = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
@@ -102,53 +103,7 @@ function LinksItem({
                 inputUrLRef.current?.removeEventListener('focusout', handleClickOutside);
             };
         }
-    }, [linkId, values?.inputUrl, values?.inputDesc, inputUrLRef?.current]);
-    useEffect(() => {
-        const handleClickOutside = () => {
-            const updateLink = async () => {
-                try {
-                    const res = await http.put(`/link/${linkId}`, {
-                        url: values.inputUrl,
-                    });
-                    dispatch(urlUpdate(res.data));
-                    setIsChangeUrl(false);
-                } catch (error) {
-                    console.log(error.message);
-                    dispatch(urlFail());
-                }
-            };
-            updateLink();
-        };
-        if (inputUrLRef) {
-            inputUrLRef.current?.addEventListener('focusout', handleClickOutside);
-            return () => {
-                inputUrLRef.current?.removeEventListener('focusout', handleClickOutside);
-            };
-        }
-    }, [linkId, values?.inputUrl, values?.inputDesc, inputUrLRef?.current]);
-    useEffect(() => {
-        const handleClickOutside = () => {
-            const updateLink = async () => {
-                try {
-                    const res = await http.put(`/link/${linkId}`, {
-                        decs: values.inputDesc,
-                    });
-                    dispatch(urlUpdate(res.data));
-                    setIsChangeUrl(false);
-                } catch (error) {
-                    console.log(error.message);
-                    dispatch(urlFail());
-                }
-            };
-            updateLink();
-        };
-        if (inputDescRef) {
-            inputDescRef.current?.addEventListener('focusout', handleClickOutside);
-            return () => {
-                inputDescRef.current?.removeEventListener('focusout', handleClickOutside);
-            };
-        }
-    }, [linkId, values?.inputDesc, inputDescRef?.current]);
+    }, [linkId, values?.inputUrl, inputUrLRef?.current]);
     const handleIsChangeTitle = (e) => {
         e.stopPropagation();
         setIsChangeTitle(true);
@@ -170,46 +125,20 @@ function LinksItem({
     function handleSelect(linkIndex) {
         console.log(linkIndex);
     }
+
+    const handleOpenAlert = () => {
+        setIsAlert(true);
+        setIsDetail(false)
+    };
+    const handleOpenDetail = () => {
+        setIsAlert(false);
+        setIsDetail(true)
+    };
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
             <div className="LinksItem-wapper">
                 <div className="LinksItem-item">
-                    {headerStyle && (
-                        <div className="LinksItem-header">
-                            <div className="LinkItem-url-header">
-                                {
-                                    <>
-                                        <span
-                                            className="input-title-label"
-                                            style={isChangeDesc ? { display: 'none' } : { display: 'block' }}
-                                        >
-                                            {currentLink.decs ? currentLink.decs : linkDesc}
-                                        </span>
-                                        <input
-                                            placeholder='Enter text here...'
-                                            ref={inputDescRef}
-                                            id="inputDesc"
-                                            name="inputDesc"
-                                            type="text"
-                                            autoFocus={true}
-                                            onBlur={handleFocused}
-                                            disabled={isChangeDesc ? false : true}
-                                            onChange={onChangeTitle}
-                                            style={isChangeDesc ? { display: 'block' } : { display: 'none' }}
-                                            defaultValue={currentLink.decs ? currentLink.decs : linkDesc}
-                                            focused={focused.toString()}
-                                        />
-                                    </>
-                                }
-                                {!isChangeDesc && (
-                                    <span className="LinkItem-pen" onClick={handleIsChangeDesc}>
-                                        {penIcon(25, 25)}
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    )}
                     {!headerStyle && (
                         <div className="LinksItem-side">
                             <div className="LinkItem-url">
@@ -286,17 +215,24 @@ function LinksItem({
                 </div>
                 {urlStyle && (
                     <ul className="LinksItem-direct">
-                        <li className="LinksItem-direct-item">1</li>
-                        <li className="LinksItem-direct-item">2</li>
-                        <li className="LinksItem-direct-item">3</li>
-                        <li className="LinksItem-direct-item">4</li>
+                        <Tippy content="Details Contact" placement="top" arrow={true} animation="fade">
+                            <li className="LinksItem-direct-item" onClick={handleOpenDetail}>
+                                {userIcon(25, 25)}
+                            </li>
+                        </Tippy>
+                        <Tippy content="Add Thumbnail" placement="top" arrow={true} animation="fade">
+                            <li className="LinksItem-direct-item">{thumbnailIcon(25, 25)}</li>
+                        </Tippy>
+                        {/* <li className="LinksItem-direct-item">3</li>
+                        <li className="LinksItem-direct-item">4</li> */}
+                        <li className="LinksItem-direct-delete" onClick={handleOpenAlert}>
+                            {trashIcon(25, 25)}
+                        </li>
                     </ul>
                 )}
-                <li className="LinksItem-direct-delete" onClick={handleOpenAlert}>
-                    {trashIcon(25, 25)}
-                </li>
-                <div className="Alert-Delete" data-state={isAlert ? 'open' : 'closed'}>
+                <div className="Alert-Delete" data-state={isAlert || isDetail ? 'open' : 'closed'}>
                     {isAlert && <Alert linkId={linkId} setIsAlert={setIsAlert} isAlert={isAlert} />}
+                    {isDetail && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail} />}
                 </div>
             </div>
         </section>
