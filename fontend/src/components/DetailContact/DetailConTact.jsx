@@ -1,8 +1,26 @@
+import { useEffect, useRef } from 'react';
 import './DetailContact.scss';
 
-function DetailContact() {
+function DetailContact({ setIsDetail, isDetail }) {
+    // const detailContactRef = useRef();
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         // Kiểm tra xem phần tử mà người dùng click có phải là con của targetElement hay không
+    //         if (detailContactRef.current && !detailContactRef.current?.contains(event.target)) {
+    //             setIsDetail(false);
+    //         }
+    //     };
+
+    //     // Thêm sự kiện click vào document khi component được mount
+    //     document.addEventListener('click', handleClickOutside);
+
+    //     // Xóa sự kiện khi component bị unmount
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside);
+    //     };
+    // }, [detailContactRef?.current]);
     return (
-        <section className="DetailContact">
+        <section className="DetailContact" ref={detailContactRef}>
             <span className="DetailContact-title-content">
                 Contact Detail
                 <br />

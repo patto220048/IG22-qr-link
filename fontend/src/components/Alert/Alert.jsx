@@ -25,11 +25,11 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail ,setIsDetail}) {
 
     const handleCloseDelete = () => {
         setIsAlert(false)
-        setIsDetail(false)
+        isDetail && setIsDetail(false)
     }
     const handleCloseDetail = () => {
         setIsDetail(false)
-        setIsAlert(false)
+       isAlert && setIsAlert(false)
     }
     return (
         <div className={`ALert`}>
@@ -62,7 +62,7 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail ,setIsDetail}) {
                                     {closeIcon(30, 30)}
                                 </div>
                             </div>
-                            <DetailContact/>
+                            <DetailContact setIsDetail={setIsDetail} isDetail={isDetail}/>
                             <button onClick={handleCloseDetail}>close</button>
                         </>
                     )}
