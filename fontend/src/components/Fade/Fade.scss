@@ -12,12 +12,11 @@
     .fade-right {
         flex: 0.5;
         background-color: $bg_template;
-        // height: 100%;
         .fade-right-items {
             display: flex;
             position: sticky;
             justify-content: center;
-            top: 16%;
+            top: 17%;
             height: 10px;
         }
     }
@@ -37,8 +36,7 @@
         }
 
         .fade-right {
-            .fade-right-items{
-                
+            .fade-right-items {
             }
             padding-top: 130px;
             width: 100%;

@@ -29,11 +29,6 @@ function DetailContact() {
                 <input type="text" className="DetailContact_items" placeholder="City" />
                 <input type="text" className="DetailContact_items" placeholder="Street Address" />
                 <input type="text" className="DetailContact_items" placeholder="Apartment, etc.." />
-
-
-
-
-
             </form>
         </section>
     );
