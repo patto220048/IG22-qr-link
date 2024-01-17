@@ -25,7 +25,30 @@
            
         }
     }
- 
+    .btn-thumbail{
+        @include btn;
+        width: 100%;
+        padding: 13px;
+        background-color: #8E4EC6;
+        color: $white;
+        font-size: 18px;
+        font-weight: 700;
+        border: 2px solid transparent;
+
+        &:hover{
+            border: 2px solid rgba($color: $black, $alpha: 1.0);
+            background-color: rgba($color:#64249c, $alpha: 1.0);
+
+        }
+        &:focus {
+            border: 2px solid rgba($color: $black, $alpha: 1.0);
+
+        }
+    }
+    .thumbnail-desc{
+        font-weight: 500;
+        font-size: 16px;
+    }
     .Alert-desc {
         opacity: 0.8;
     }

@@ -44,6 +44,7 @@ function LinksItems({ onChange }) {
                     headerStyle={link.headerStyle}
                     urlStyle = {link.urlStyle}
                     linkDesc = {link.decs}
+                    contactStyle = {link.contactStyle}
                 />
             ))}
         </div>

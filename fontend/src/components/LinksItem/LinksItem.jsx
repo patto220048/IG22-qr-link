@@ -20,6 +20,7 @@ function LinksItem({
     headerStyle,
     urlStyle,
     linkDesc,
+    contactStyle
 }) {
     const currentLink = useSelector((state) => state.url.currentUrl);
     // console.log(currentLink)
@@ -36,7 +37,8 @@ function LinksItem({
     const dispatch = useDispatch();
     // detail contact
     const [isDetail, setIsDetail] = useState(false);
-
+    // thumnail
+    const [isThumbnail, setIsThumbnail] = useState(false);
     const onChangeTitle = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
@@ -129,11 +131,19 @@ function LinksItem({
     const handleOpenAlert = () => {
         setIsAlert(true);
         setIsDetail(false)
+        setIsThumbnail(false)
     };
     const handleOpenDetail = () => {
         setIsAlert(false);
         setIsDetail(true)
+        setIsThumbnail(false)
+
     };
+    const handleOpenThumbnail = () => {
+        setIsThumbnail(true)
+        setIsAlert(false);
+        setIsDetail(false)
+    }
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -172,7 +182,7 @@ function LinksItem({
                                 )}
                             </div>
 
-                            <div className="LinkItem-url">
+                       { !contactStyle && <div className="LinkItem-url">
                                 <span
                                     className="LinkItem-link"
                                     style={isChangeUrl ? { display: 'none' } : { display: 'block' }}
@@ -196,7 +206,7 @@ function LinksItem({
                                         {penIcon(25, 25)}
                                     </span>
                                 )}
-                            </div>
+                            </div>}
                         </div>
                     )}
 
@@ -213,15 +223,15 @@ function LinksItem({
                         <label htmlFor={`switch` + linkId}>Toggle</label>
                     </div>
                 </div>
-                {urlStyle && (
+         
                     <ul className="LinksItem-direct">
-                        <Tippy content="Details Contact" placement="top" arrow={true} animation="fade">
-                            <li className="LinksItem-direct-item" onClick={handleOpenDetail}>
-                                {userIcon(25, 25)}
+                      { !urlStyle &&  <Tippy content="Details Contact" placement="top" arrow={true} animation="fade">
+                            <li className={`LinksItem-direct-item ${contactStyle ? "contact_focus": ""}`} onClick={handleOpenDetail}>
+                              {userIcon(25, 25)}
                             </li>
-                        </Tippy>
+                        </Tippy>}
                         <Tippy content="Add Thumbnail" placement="top" arrow={true} animation="fade">
-                            <li className="LinksItem-direct-item">{thumbnailIcon(25, 25)}</li>
+                            <li className="LinksItem-direct-item" onClick={handleOpenThumbnail}>{thumbnailIcon(25, 25)}</li>
                         </Tippy>
                         {/* <li className="LinksItem-direct-item">3</li>
                         <li className="LinksItem-direct-item">4</li> */}
@@ -229,10 +239,11 @@ function LinksItem({
                             {trashIcon(25, 25)}
                         </li>
                     </ul>
-                )}
+               
                 <div className="Alert-Delete" data-state={isAlert || isDetail ? 'open' : 'closed'}>
                     {isAlert && <Alert linkId={linkId} setIsAlert={setIsAlert} isAlert={isAlert} />}
-                    {isDetail && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail} />}
+                    {(isDetail) && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail}/>}
+                    {(isThumbnail) && <Alert linkId={linkId} isThumbnail={isThumbnail} setIsThumbnail={setIsThumbnail}/>}
                 </div>
             </div>
         </section>

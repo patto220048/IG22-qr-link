@@ -34,6 +34,9 @@ function Dialog_content({
     setResultVideo,
     setCurrentVideoBg,
     themeBgUserVideo,
+    thumbnail,
+    setThumbImage,
+    thumbImage
 }) {
     // image processing upload
     const [imgPercent, setImgPercent] = useState(0);
@@ -191,6 +194,23 @@ function Dialog_content({
                             )}
                         </>
                     )}
+                    {thumbnail && 
+                    <>
+                                  <Dialog.Title className="DialogTitle">Add Thumbnail</Dialog.Title>
+                            <fieldset className="Fieldset">
+                                <label className="Label" htmlFor="upload-photo">
+                                    {imgIcon(30, 30)} File/Image
+                                </label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    id="upload-photo"
+                                    onChange={(e) => setThumbImage(e.target.files[0])}
+                                />
+                            </fieldset>
+
+                    </>
+                    }
                 </>
             )}
         </>

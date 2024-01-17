@@ -42,6 +42,7 @@ function Dialog_UI({
     setIsPickImgVideo,
     isFonts,
     setIsFonts,
+    thumbnail,
 }) {
     // redux
     const dispatch = useDispatch();
@@ -76,6 +77,10 @@ function Dialog_UI({
         family: '',
         weight: 0,
     });
+    // thumbnail
+    const [thumbImage, setThumbImage] = useState()
+    const [resultThumb, setResultThumb] = useState(null);
+
     useEffect(() => {
         const fectchTheme = async () => {
             try {
@@ -176,7 +181,6 @@ function Dialog_UI({
     // };
     const hanleClose = (e) => {
         setOpenInputUrl(false);
-        
     };
     const handleAddIcon = useCallback(() => {
         const addIcon = async () => {
@@ -398,7 +402,7 @@ function Dialog_UI({
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImgBg || pickImg || pickImgVideo || isFonts? (
+                        {pickImgBg || pickImg || pickImgVideo || isFonts || thumbnail ? (
                             <>
                                 {pickImg && (
                                     <>
@@ -487,6 +491,31 @@ function Dialog_UI({
                                                 Save changes
                                             </button>
                                         </div>
+                                    </>
+                                )}
+                                {thumbnail && (
+                                    <>
+                                        <Dialog_file
+                                            thumbnail = {thumbnail}
+                                            setThumbImage={setThumbImage}
+                                            thumbImage={thumbImage}
+                                        />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn" >
+                                                Clear
+                                            </button>
+                                            <button className="dialog-btn" >
+                                                Save changes
+                                            </button>
+                                        </div>
+                                        <Dialog.Close asChild className="closeIcon-btn" disabled onClick={hanleClose}>
+                                            {closeIcon(20, 20)}
+                                        </Dialog.Close>
+                                        {thumbnail && (
+                                            <div className="chevron-btn">
+                                                {chevronLeftIcon(20, 20)}
+                                            </div>
+                                        )}
                                     </>
                                 )}
                             </>

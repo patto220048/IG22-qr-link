@@ -155,11 +155,18 @@
             .LinksItem-direct-item {
                 svg {
                     padding: 3px;
+                   
                 }
                 cursor: pointer;
                 :hover {
                     border-radius: 5px;
                     background-color: var(--gray-4);
+                }
+            }
+            .contact_focus{
+                svg {
+                    border: 1px solid blueviolet;
+                    border-radius: 5px;
                 }
             }
             .LinksItem-direct-delete {

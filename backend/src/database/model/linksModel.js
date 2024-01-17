@@ -17,7 +17,7 @@ const LinkModel = new Schema(
         },
         urlTitle: {
             type: String,
-            default: null,
+            default: "Title",
         },
         acticve: {
             type: Boolean,
@@ -28,6 +28,10 @@ const LinkModel = new Schema(
             default: null,
         },
         headerStyle: {
+            type: Boolean,
+            default: false,
+        },
+        contactStyle: {
             type: Boolean,
             default: false,
         },
