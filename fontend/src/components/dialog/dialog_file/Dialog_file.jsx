@@ -41,11 +41,13 @@ function Dialog_content({
     setResultThumb,
     setCurrentThumbnail,
     currentThumbnail,
-    thumbnailUser
+    thumbnailUser,
 }) {
     // image processing upload
     const [imgPercent, setImgPercent] = useState(0);
     const [videoPercent, setVideoPercent] = useState(0);
+    const [thumbnailPercent, setThumbPercent] = useState(0);
+    console.log(thumbnailPercent);
     //upload firebase storage
     const upload = (file, type) => {
         const storage = getStorage(app);
@@ -70,7 +72,7 @@ function Dialog_content({
 
                 type === 'video' && setVideoPercent(Math.round(progress));
 
-                type === 'thumbnail' && setImgPercent(Math.round(progress));
+                type === 'thumbnail' && setThumbPercent(Math.round(progress));
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -134,7 +136,14 @@ function Dialog_content({
     }, [thumbImage]);
     return (
         <>
-            {avatar || avtUser || bgImage || themeBgUser || resultVideo || themeBgUserVideo || resultThumb || thumbnailUser ? (
+            {avatar ||
+            avtUser ||
+            bgImage ||
+            themeBgUser ||
+            resultVideo ||
+            themeBgUserVideo ||
+            resultThumb ||
+            thumbnailUser ? (
                 <UploadImgLoading
                     avtUser={avtUser}
                     resultImg={resultImg}
@@ -145,6 +154,7 @@ function Dialog_content({
                     themeBgUserVideo={themeBgUserVideo}
                     resultThumb={resultThumb}
                     thumbnailUser={thumbnailUser}
+                    thumbnailPercent={thumbnailPercent}
                 />
             ) : (
                 <>
@@ -214,18 +224,30 @@ function Dialog_content({
                     {thumbnail && (
                         <>
                             <Dialog.Title className="DialogTitle">Add Thumbnail</Dialog.Title>
-                            <fieldset className="Fieldset-bg">
-                                <label className="Label" htmlFor="upload-photo">
-                                    {imageUp(50, 50)}
-                                    <h6>Upload your image</h6>
-                                </label>
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="upload-photo"
-                                    onChange={(e) => setThumbImage(e.target.files[0])}
-                                />
-                            </fieldset>
+                            {!thumbnailPercent ? (
+                                <fieldset className="Fieldset-bg">
+                                    <label className="Label" htmlFor="upload-photo">
+                                        {imageUp(50, 50)}
+                                        <h6>Upload your image</h6>
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        id="upload-photo"
+                                        onChange={(e) => setThumbImage(e.target.files[0])}
+                                    />
+                                </fieldset>
+                            ) : (
+                                <>
+                                    <span className="updaloadImg-percent">{thumbnailPercent}%</span>
+                                    <Progress.Root className="ProgressRoot" value={thumbnailPercent}>
+                                        <Progress.Indicator
+                                            className="ProgressIndicator"
+                                            style={{ transform: `translateX(-${100 - thumbnailPercent}%)` }}
+                                        />
+                                    </Progress.Root>
+                                </>
+                            )}
                         </>
                     )}
                 </>
