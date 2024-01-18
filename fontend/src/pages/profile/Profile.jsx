@@ -42,7 +42,7 @@ function Profile() {
                     ]);
                     dispatch(loginSuccess(resultUser.data));
                     dispatch(themeSuccess(resultTheme.data));
-                    dispatch(urlSuccess(resultLinks.data))
+                    dispatch(urlSuccess(resultLinks.data));
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
                     setIcons(resultIcon.data);
@@ -79,7 +79,7 @@ function Profile() {
                             ) : (
                                 <img
                                     className="profile-background"
-                                    src={theme?.backgroundImg}  
+                                    src={theme?.backgroundImg}
                                     alt={theme?.backgroundImg}
                                 />
                             )}
@@ -119,7 +119,14 @@ function Profile() {
                         />
                         <SocialIconList icons={icons} />
                         {currentLink?.map((url, index) => (
-                            <LinkTree title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index} acticve={url.acticve}/>
+                            <LinkTree
+                                title={url.urlTitle}
+                                icon={url.urlThumbnail}
+                                link={url.url}
+                                key={index}
+                                acticve={url.acticve}
+                                thumbnailImage={url.thumbnailImage}
+                            />
                         ))}
                     </div>
                 </>

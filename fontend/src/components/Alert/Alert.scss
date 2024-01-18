@@ -84,6 +84,8 @@
                     opacity: 0.8;
                 }
             }
+         
+
         }
     }
 
@@ -93,7 +95,7 @@
     .Alert-btn-group {
         display: flex;
         justify-content: space-around;
-        width: 100%;
+        width: 91%;
         gap: 10px;
         .Alert-btn {
             border: 1px solid rgba($color: #000000, $alpha: 0.1);
@@ -113,6 +115,23 @@
             color: $white;
             &:hover {
                 background-color: rgba($color: $btn_color_hover, $alpha: 1);
+            }
+        }
+        .save{
+            background-color: $black;
+            color: $white;
+            &:hover {
+                transform: scale(0.98);
+                background-color: rgba($color: $black, $alpha: 0.7);
+            }
+        }
+        
+        .close{
+            border: 1px solid rgba($color: $black, $alpha: 0.5);
+            &:hover {
+                transform: scale(0.98);
+                // background-color: rgba($color: $black, $alpha: 0.7);
+                opacity: 0.8;
             }
         }
     }

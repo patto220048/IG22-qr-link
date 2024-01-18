@@ -10,17 +10,17 @@ function LinkTree(props) {
             <a href={props.link} className="linktree-link" hidden={!props.acticve} target="blank">
                 <p
                     className="linktree-decs"
-                    style={{ color: `${currentTheme.font_color}`, fontFamily: `${currentTheme.font_famify}` }}
+                    style={{ color: `${currentTheme?.font_color}`, fontFamily: `${currentTheme?.font_famify}` }}
                 >
                     {props.decs}
                 </p>
                 <div
                     className="linktree"
                     style={{
-                        borderRadius: `${currentTheme.btn_radius}px`,
+                        borderRadius: `${currentTheme?.btn_radius}px`,
                         boxShadow: `${currentTheme.btn_style?.btn_shadow.horizontal}px ${currentTheme.btn_style?.btn_shadow.vertical}px ${currentTheme.btn_style?.btn_shadow.blur}px ${currentTheme.btn_style?.btn_shadow.spread}px ${currentTheme?.btn_shadow_color}`,
                         width: `${props.preview ? '250px' : '500px'}`,
-                        border: `${currentTheme.btn_border}px solid black`,
+                        border: `${currentTheme?.btn_border}px solid black`,
                         backgroundColor: `${currentTheme?.btn_outline ? 'transparent' : `${currentTheme?.btn_color1}`}`,
                     }}
                     hidden={props.headerStyte ? true : false}
@@ -28,7 +28,7 @@ function LinkTree(props) {
                     <div
                         className="linktree-item"
                         style={{
-                            color: `${currentTheme.btn_fontColor}`,
+                            color: `${currentTheme?.btn_fontColor}`,
                         }}
                     >
                         {props.thumbnailImage ? (
@@ -46,8 +46,8 @@ function LinkTree(props) {
                         <p
                             className="linktree-title"
                             style={{
-                                fontFamily: `${currentTheme.font_famify}`,
-                                fontWeight: `${currentTheme.font_weight}`,
+                                fontFamily: `${currentTheme?.font_famify}`,
+                                fontWeight: `${currentTheme?.font_weight}`,
                             }}
                         >
                             {props.title}

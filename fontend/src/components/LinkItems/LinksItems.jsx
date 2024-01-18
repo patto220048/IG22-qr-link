@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { urlAdd, urlFail, urlStart } from '../../redux-toolkit/UrlSlice';
 import http from '../../instance/axiosInstance';
 
-function LinksItems({ onChange }) {
+function LinksItems({ onChange, user }) {
     // const currentTheme = useSelector((state)=> state.theme.currentTheme)
     const currentLink = useSelector((state) => state.url.currentUrl);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
@@ -32,6 +32,7 @@ function LinksItems({ onChange }) {
         <div className="LinksItems">
             {currentLink?.map((link, index) => (
                 <LinksItem
+                    user={user}
                     onChange={onChange}
                     link={link}
                     linkIndex={index}
@@ -42,9 +43,9 @@ function LinksItems({ onChange }) {
                     acticve={link.acticve}
                     key={index}
                     headerStyle={link.headerStyle}
-                    urlStyle = {link.urlStyle}
-                    linkDesc = {link.decs}
-                    contactStyle = {link.contactStyle}
+                    urlStyle={link.urlStyle}
+                    linkDesc={link.decs}
+                    contactStyle={link.contactStyle}
                 />
             ))}
         </div>

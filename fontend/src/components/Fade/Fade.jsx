@@ -65,7 +65,7 @@ function Fade({ onTemplate, onLinks }) {
                     />
                 )}
                 {/* Links */}
-                {onLinks && <Links />}
+                {onLinks && <Links user={user}/>}
             </div>
             {/* --------------------------------preview----------------------------- */}
             {viewMb ? (

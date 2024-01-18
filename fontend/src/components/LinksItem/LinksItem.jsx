@@ -21,6 +21,7 @@ function LinksItem({
     urlStyle,
     linkDesc,
     contactStyle,
+    user
 }) {
     const currentLink = useSelector((state) => state.url.currentUrl);
     // console.log(currentLink)
@@ -253,7 +254,7 @@ function LinksItem({
 
                 <div className="Alert-Delete" data-state={isAlert || isDetail ? 'open' : 'closed'}>
                     {isAlert && <Alert linkId={linkId} setIsAlert={setIsAlert} isAlert={isAlert} />}
-                    {isDetail && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail} />}
+                    {isDetail && <Alert  linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail} user={user} />}
                     {isThumbnail && (
                         <Alert
                             linkId={linkId}

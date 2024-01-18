@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeIcon } from '../../svg/icon';
 import './Alert.scss';
 import http from '../../instance/axiosInstance';
@@ -6,9 +6,22 @@ import { useCallback, useState } from 'react';
 import { urlDelete, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import DetailContact from '../DetailContact/DetailConTact';
 import Dialog_IU from '../dialog/Dialog_IU';
+import { updateContact, updateData } from '../../redux-toolkit/userSlice';
 
-function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail, setIsThumbnail, linkThumbnail }) {
+function Alert({
+    setIsAlert,
+    isAlert,
+    linkId,
+    isDetail,
+    setIsDetail,
+    isThumbnail,
+    setIsThumbnail,
+    linkThumbnail,
+    user,
+}) {
+    const currentUser = useSelector((state) => state.user.currentUser);
     const dispatch = useDispatch();
+    const [values, setValues] = useState({});
     const [thumbail, setThumbnail] = useState(false);
     const handleDeleteUrl = () => {
         const deleteUrl = async () => {
@@ -31,7 +44,7 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
                     thumbnailImage: null,
                 });
                 if (res.status === 200) {
-                    setIsThumbnail(false)
+                    setIsThumbnail(false);
                     const timeOutId = setTimeout(() => {
                         dispatch(urlUpdate(res.data));
                     }, 500);
@@ -45,7 +58,35 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
         };
         updateUrl();
     }, [linkId]);
-
+    const handleSaveContact = useCallback(() => {
+        const updateUser = async () => {
+            try {
+                const res = await http.put(`/users/${currentUser._id}`, {
+                    firstName: values?.firstName,
+                    lastName: values?.lastName,
+                    organization: values?.organization,
+                    position: values?.position,
+                    phone: values?.phone,
+                    emailWork: values?.emailWork,
+                    state: values?.state,
+                    city: values?.city,
+                    street: values?.street,
+                    apartment: values?.apartment,
+                    country: values?.country,
+                });
+                const timeOutId = setTimeout(() => {
+                    dispatch(updateData(res.data));
+                }, 500);
+                return () => clearTimeout(timeOutId);
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        updateUser();
+    }, [currentUser._id, values]);
+    const onChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
     const handleCloseDelete = () => {
         setIsAlert(false);
         isDetail && setIsDetail(false);
@@ -92,8 +133,20 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
                                     {closeIcon(30, 30)}
                                 </div>
                             </div>
-                            <DetailContact setIsDetail={setIsDetail} isDetail={isDetail} />
-                            <button onClick={handleCloseDetail}>close</button>
+                            <DetailContact
+                                setIsDetail={setIsDetail}
+                                isDetail={isDetail}
+                                onChange={onChange}
+                                user={user}
+                            />
+                            <div className="Alert-btn-group">
+                                <button className="Alert-btn save" onClick={handleSaveContact}>
+                                    Save
+                                </button>
+                                <button className="Alert-btn close" onClick={handleCloseDetail}>
+                                    Close
+                                </button>
+                            </div>
                         </>
                     )}
                     {isThumbnail && (
@@ -104,26 +157,28 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
                                     {closeIcon(30, 30)}
                                 </div>
                             </div>
-                            { linkThumbnail ? 
-                            <>
-                          
-                            <div className='thumbnail-preview'>
-                                <img src={linkThumbnail} alt="" className='thumbnail-img' />
-                                <div className='thumbnail-btn-group'>
-                                    <button className='thumbnail-btn change'  onClick={() => setThumbnail(true)}>Change</button>
-                                    <button className='thumbnail-btn clear' onClick={handleClearThumbnail} >Clear</button>
-                                </div>
-                             </div>   
-                             </>
-                                
-                            :
+                            {linkThumbnail ? (
+                                <>
+                                    <div className="thumbnail-preview">
+                                        <img src={linkThumbnail} alt="" className="thumbnail-img" />
+                                        <div className="thumbnail-btn-group">
+                                            <button className="thumbnail-btn change" onClick={() => setThumbnail(true)}>
+                                                Change
+                                            </button>
+                                            <button className="thumbnail-btn clear" onClick={handleClearThumbnail}>
+                                                Clear
+                                            </button>
+                                        </div>
+                                    </div>
+                                </>
+                            ) : (
                                 <>
                                     <span className="thumbnail-desc">Add your thumbail this link.</span>
                                     <button className="btn-thumbail" onClick={() => setThumbnail(true)}>
                                         Set Thumbnail
                                     </button>
                                 </>
-                            }
+                            )}
                             {thumbail && (
                                 <Dialog_IU
                                     openDialog={thumbail}
