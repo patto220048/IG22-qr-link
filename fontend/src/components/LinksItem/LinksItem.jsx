@@ -20,7 +20,7 @@ function LinksItem({
     headerStyle,
     urlStyle,
     linkDesc,
-    contactStyle
+    contactStyle,
 }) {
     const currentLink = useSelector((state) => state.url.currentUrl);
     // console.log(currentLink)
@@ -130,20 +130,19 @@ function LinksItem({
 
     const handleOpenAlert = () => {
         setIsAlert(true);
-        setIsDetail(false)
-        setIsThumbnail(false)
+        setIsDetail(false);
+        setIsThumbnail(false);
     };
     const handleOpenDetail = () => {
         setIsAlert(false);
-        setIsDetail(true)
-        setIsThumbnail(false)
-
+        setIsDetail(true);
+        setIsThumbnail(false);
     };
     const handleOpenThumbnail = () => {
-        setIsThumbnail(true)
+        setIsThumbnail(true);
         setIsAlert(false);
-        setIsDetail(false)
-    }
+        setIsDetail(false);
+    };
     return (
         <section className="LinksItem">
             <div className="LinksItem-drag-icon"></div>
@@ -182,31 +181,33 @@ function LinksItem({
                                 )}
                             </div>
 
-                       { !contactStyle && <div className="LinkItem-url">
-                                <span
-                                    className="LinkItem-link"
-                                    style={isChangeUrl ? { display: 'none' } : { display: 'block' }}
-                                >
-                                    {currentLink.url ? currentLink.url : linkUrl}
-                                </span>
-                                <input
-                                    ref={inputUrLRef}
-                                    onChange={onChangeTitle}
-                                    onBlur={handleFocused}
-                                    type="text"
-                                    name="inputUrl"
-                                    id="inputUrl"
-                                    disabled={isChangeUrl ? false : true}
-                                    focused={focused.toString()}
-                                    style={isChangeUrl ? { display: 'block' } : { display: 'none' }}
-                                    defaultValue={currentLink.url ? currentLink.url : linkUrl}
-                                />
-                                {!isChangeUrl && (
-                                    <span className="LinkItem-pen" onClick={() => setIsChangeUrl(true)}>
-                                        {penIcon(25, 25)}
+                            {!contactStyle && (
+                                <div className="LinkItem-url">
+                                    <span
+                                        className="LinkItem-link"
+                                        style={isChangeUrl ? { display: 'none' } : { display: 'block' }}
+                                    >
+                                        {currentLink.url ? currentLink.url : linkUrl}
                                     </span>
-                                )}
-                            </div>}
+                                    <input
+                                        ref={inputUrLRef}
+                                        onChange={onChangeTitle}
+                                        onBlur={handleFocused}
+                                        type="text"
+                                        name="inputUrl"
+                                        id="inputUrl"
+                                        disabled={isChangeUrl ? false : true}
+                                        focused={focused.toString()}
+                                        style={isChangeUrl ? { display: 'block' } : { display: 'none' }}
+                                        defaultValue={currentLink.url ? currentLink.url : linkUrl}
+                                    />
+                                    {!isChangeUrl && (
+                                        <span className="LinkItem-pen" onClick={() => setIsChangeUrl(true)}>
+                                            {penIcon(25, 25)}
+                                        </span>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     )}
 
@@ -223,27 +224,44 @@ function LinksItem({
                         <label htmlFor={`switch` + linkId}>Toggle</label>
                     </div>
                 </div>
-         
-                    <ul className="LinksItem-direct">
-                      { !urlStyle &&  <Tippy content="Details Contact" placement="top" arrow={true} animation="fade">
-                            <li className={`LinksItem-direct-item ${contactStyle ? "contact_focus": ""}`} onClick={handleOpenDetail}>
-                              {userIcon(25, 25)}
+
+                <ul className="LinksItem-direct">
+                    {!urlStyle && (
+                        <Tippy content="Details Contact" placement="top" arrow={true} animation="fade">
+                            <li
+                                className={`LinksItem-direct-item ${contactStyle ? 'contact_focus' : ''}`}
+                                onClick={handleOpenDetail}
+                            >
+                                {userIcon(25, 25)}
                             </li>
-                        </Tippy>}
-                        <Tippy content="Add Thumbnail" placement="top" arrow={true} animation="fade">
-                            <li className="LinksItem-direct-item" onClick={handleOpenThumbnail}>{thumbnailIcon(25, 25)}</li>
                         </Tippy>
-                        {/* <li className="LinksItem-direct-item">3</li>
-                        <li className="LinksItem-direct-item">4</li> */}
-                        <li className="LinksItem-direct-delete" onClick={handleOpenAlert}>
-                            {trashIcon(25, 25)}
+                    )}
+                    <Tippy content="Add Thumbnail" placement="top" arrow={true} animation="fade">
+                        <li
+                            className={`LinksItem-direct-item ${linkThumbnail ? 'contact_focus' : ''}`}
+                            onClick={handleOpenThumbnail}
+                        >
+                            {thumbnailIcon(25, 25)}
                         </li>
-                    </ul>
-               
+                    </Tippy>
+                    {/* <li className="LinksItem-direct-item">3</li>
+                        <li className="LinksItem-direct-item">4</li> */}
+                    <li className="LinksItem-direct-delete" onClick={handleOpenAlert}>
+                        {trashIcon(25, 25)}
+                    </li>
+                </ul>
+
                 <div className="Alert-Delete" data-state={isAlert || isDetail ? 'open' : 'closed'}>
                     {isAlert && <Alert linkId={linkId} setIsAlert={setIsAlert} isAlert={isAlert} />}
-                    {(isDetail) && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail}/>}
-                    {(isThumbnail) && <Alert linkId={linkId} isThumbnail={isThumbnail} setIsThumbnail={setIsThumbnail} linkThumbnail={linkThumbnail}/>}
+                    {isDetail && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail} />}
+                    {isThumbnail && (
+                        <Alert
+                            linkId={linkId}
+                            isThumbnail={isThumbnail}
+                            setIsThumbnail={setIsThumbnail}
+                            linkThumbnail={linkThumbnail}
+                        />
+                    )}
                 </div>
             </div>
         </section>

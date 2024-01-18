@@ -571,7 +571,7 @@ function Dialog_UI({
                                         <Dialog.Close asChild className="closeIcon-btn" disabled onClick={hanleClose}>
                                             {closeIcon(20, 20)}
                                         </Dialog.Close>
-                                        {thumbnail && <div className="chevron-btn">{chevronLeftIcon(20, 20)}</div>}
+                                   
                                     </>
                                 )}
                             </>

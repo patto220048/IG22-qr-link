@@ -111,7 +111,7 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
                                 <img src={linkThumbnail} alt="" className='thumbnail-img' />
                                 <div className='thumbnail-btn-group'>
                                     <button className='thumbnail-btn change'  onClick={() => setThumbnail(true)}>Change</button>
-                                    <button className='thumbnail-btn' onClick={handleClearThumbnail} >Clear</button>
+                                    <button className='thumbnail-btn clear' onClick={handleClearThumbnail} >Clear</button>
                                 </div>
                              </div>   
                              </>

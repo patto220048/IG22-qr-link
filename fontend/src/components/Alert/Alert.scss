@@ -1,5 +1,5 @@
-@import "../../base/color";
-@import "../../base/variable";
+@import '../../base/color';
+@import '../../base/variable';
 
 .ALert {
     display: flex;
@@ -7,7 +7,7 @@
     align-items: center;
     gap: 20px;
     position: relative;
-    .Alert-head{
+    .Alert-head {
         display: flex;
         background-color: $text_hover_color;
         width: 100%;
@@ -17,71 +17,76 @@
             padding: 8px;
             font-size: 15px;
         }
-        .Alert-close-icon{
+        .Alert-close-icon {
             position: absolute;
             right: 0;
             cursor: pointer;
-            
-           
         }
     }
-    .btn-thumbail{
+    .btn-thumbail {
         @include btn;
         width: 100%;
         padding: 13px;
-        background-color: #8E4EC6;
+        background-color: #8e4ec6;
         color: $white;
         font-size: 18px;
         font-weight: 700;
         border: 2px solid transparent;
 
-        &:hover{
-            border: 2px solid rgba($color: $black, $alpha: 1.0);
-            background-color: rgba($color:#64249c, $alpha: 1.0);
-
+        &:hover {
+            border: 2px solid rgba($color: $black, $alpha: 1);
+            background-color: rgba($color: #64249c, $alpha: 1);
         }
         &:focus {
-            border: 2px solid rgba($color: $black, $alpha: 1.0);
-
+            border: 2px solid rgba($color: $black, $alpha: 1);
         }
     }
-    .thumbnail-desc{
+    .thumbnail-desc {
         font-weight: 500;
         font-size: 16px;
     }
-    .thumbnail-preview{
+    .thumbnail-preview {
         display: flex;
         justify-content: space-between;
         width: 100%;
         align-items: center;
-        .thumbnail-img{
+        .thumbnail-img {
             width: 150px;
             height: 150px;
             object-fit: cover;
             padding: 10px;
         }
-        .thumbnail-btn-group{
+        .thumbnail-btn-group {
             display: flex;
             flex-direction: column;
             gap: 20px;
             width: 100%;
-            .thumbnail-btn{
+            .thumbnail-btn {
                 @include btn;
                 width: 100%;
                 padding: 15px;
                 font-weight: 800;
                 font-size: 18px;
             }
-            .change{
+            .change {
                 background-color: $black;
                 color: $white;
-                &:hover{
+                &:hover {
+                    transform: scale(0.98);
                     background-color: rgba($color: $black, $alpha: 0.7);
+                }
+            }
+            .clear {
+                border: 1px solid rgba($color: $black, $alpha: 0.5);
+                &:hover {
+                    transform: scale(0.98);
+                    // background-color: rgba($color: $black, $alpha: 0.7);
+                    opacity: 0.8;
                 }
             }
         }
     }
-   
+
     .Alert-desc {
         opacity: 0.8;
     }
@@ -90,29 +95,25 @@
         justify-content: space-around;
         width: 100%;
         gap: 10px;
-        .Alert-btn{
+        .Alert-btn {
             border: 1px solid rgba($color: #000000, $alpha: 0.1);
             @include btn;
             width: 100%;
             padding: 15px 10px;
             font-size: 18px;
-            
-        } 
-        .cancel{    
-            background-color:$white;
-            &:hover{
+        }
+        .cancel {
+            background-color: $white;
+            &:hover {
                 background-color: rgba($color: $text_hover_color, $alpha: 0.7);
             }
         }
-        .agree{
+        .agree {
             background-color: $btn_color;
             color: $white;
-        &:hover{
-            background-color: rgba($color: $btn_color_hover, $alpha: 1);
-        }
+            &:hover {
+                background-color: rgba($color: $btn_color_hover, $alpha: 1);
+            }
         }
     }
 }
-
-
-
