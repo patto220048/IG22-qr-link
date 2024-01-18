@@ -9,7 +9,7 @@ import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
-function Links() {
+function Links({user}) {
     const loading = useSelector((state) => state.url.loading);
     const [isAddLink, setIsAddLink] = useState(false);
     const [values, setValues] = useState('');
@@ -46,7 +46,7 @@ function Links() {
                     )}
                     {isAddLink && <AddLink isAddLink={isAddLink} setIsAddLink={setIsAddLink} onChange={onChange} values={values} setValues={setValues}/>}
                     <section className="Links-left-wapper">
-                        <LinksItems onChange={onChange} />
+                        <LinksItems user={user} onChange={onChange} />
                     </section>
                 </div>
             

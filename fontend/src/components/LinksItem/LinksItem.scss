@@ -80,6 +80,21 @@
                     }
                 }
             }
+            .LinksItem-header {
+                .LinkItem-url-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                    .input-title-label-header {
+                    }
+                    #inputTitleHeader {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+            }
             .LinksItem-switch {
                 position: absolute;
                 right: 0;
@@ -133,8 +148,28 @@
             position: relative;
             display: flex;
             align-items: center;
-            gap: 40px;
+            justify-content: flex-start;
+            text-align: center;
+            gap: 30px;
             width: 100%;
+            margin-top: 20px;
+            .LinksItem-direct-item {
+                svg {
+                    padding: 3px;
+                   
+                }
+                cursor: pointer;
+                :hover {
+                    border-radius: 5px;
+                    background-color: var(--gray-4);
+                }
+            }
+            .contact_focus{
+                svg {
+                    border: 1px solid blueviolet;
+                    border-radius: 5px;
+                }
+            }
             .LinksItem-direct-delete {
                 position: absolute;
                 right: 0;

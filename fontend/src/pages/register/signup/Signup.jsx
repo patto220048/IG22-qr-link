@@ -190,7 +190,7 @@ function Signup() {
                             placeholder="Password"
                             onChange={onChange}
                         />
-                        <p className="valid-err">Password not valid (min "8" character ) </p>
+                        <p className="valid-err">Password not valid (min "8" character and one big character)</p>
                     </div>
                     <div className="signup-input">
                         <input

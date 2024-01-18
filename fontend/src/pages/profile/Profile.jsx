@@ -42,7 +42,7 @@ function Profile() {
                     ]);
                     dispatch(loginSuccess(resultUser.data));
                     dispatch(themeSuccess(resultTheme.data));
-                    dispatch(urlSuccess(resultLinks.data))
+                    dispatch(urlSuccess(resultLinks.data));
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
                     setIcons(resultIcon.data);
@@ -57,79 +57,7 @@ function Profile() {
             }
         };
         fetchData();
-    }, [username, currentUser._id, currentTheme?._id]);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const timeOutId = setTimeout(async () => {
-    //                 const userData = await http.get(`/users/${username}`);
-    //                 setUser(userData.data);
-    //                 dispatch(loginSuccess(userData.data));
-    //                 setIsLoading(false);
-    //             }, 1000);
-    //             return () => {
-    //                 clearTimeout(timeOutId);
-    //             };
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [username]);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const timeOutId = setTimeout(async () => {
-    //                 const iconData = await http.get(`/icon/${currentUser._id}`);
-    //                 setIcons(iconData.data);
-    //                 dispatch(iconSuccess(iconData.data));
-    //                 setIsLoading(false);
-    //             }, 1000);
-    //             return () => {
-    //                 clearTimeout(timeOutId);
-    //             };
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [currentUser._id]);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const timeOutId = setTimeout(async () => {
-    //                 const themeData = await http.get(`/card/v1/${currentUser._id}`);
-    //                 setTheme(themeData.data);
-    //                 dispatch(themeSuccess(themeData.data));
-    //                 setIsLoading(false);
-    //             }, 1000);
-    //             return () => {
-    //                 clearTimeout(timeOutId);
-    //             };
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [currentUser._id]);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const timeOutId = setTimeout(async () => {
-    //                 const linksData = await http.get(`/link/${currentTheme?._id}`);
-    //                 setLinks(linksData.data);
-    //                 dispatch(urlSuccess(linksData.data));
-    //                 setIsLoading(false);
-    //             }, 1000);
-    //             return () => {
-    //                 clearTimeout(timeOutId);
-    //             };
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-    //     fetchData();
-    // }, [theme?._id]);
+    }, [username, currentUser?._id, currentTheme?._id]);
     return (
         <section className="profile">
             {isLoading ? (
@@ -151,7 +79,7 @@ function Profile() {
                             ) : (
                                 <img
                                     className="profile-background"
-                                    src={theme?.backgroundImg}  
+                                    src={theme?.backgroundImg}
                                     alt={theme?.backgroundImg}
                                 />
                             )}
@@ -191,7 +119,14 @@ function Profile() {
                         />
                         <SocialIconList icons={icons} />
                         {currentLink?.map((url, index) => (
-                            <LinkTree title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index} />
+                            <LinkTree
+                                title={url.urlTitle}
+                                icon={url.urlThumbnail}
+                                link={url.url}
+                                key={index}
+                                acticve={url.acticve}
+                                thumbnailImage={url.thumbnailImage}
+                            />
                         ))}
                     </div>
                 </>

@@ -2,7 +2,7 @@ import './Fade.scss';
 import Template from '../../pages/tempate/Template';
 import Links from '../../pages/links/Links';
 import PreView from '../Preview/PreView';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import http from '../../instance/axiosInstance';
 import { useParams } from 'react-router-dom';
@@ -65,7 +65,7 @@ function Fade({ onTemplate, onLinks }) {
                     />
                 )}
                 {/* Links */}
-                {onLinks && <Links/>}
+                {onLinks && <Links user={user}/>}
             </div>
             {/* --------------------------------preview----------------------------- */}
             {viewMb ? (
@@ -94,5 +94,5 @@ function Fade({ onTemplate, onLinks }) {
     );
 }
 
-export default Fade;
+export default memo(Fade);
 <></>;

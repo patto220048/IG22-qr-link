@@ -1,8 +1,14 @@
+@import "./color";
 *{
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
     caret-color: transparent;
+    // box-sizing: border-box  ;
+}
+html{
+    height: 100vh;
+    background-color: $bg_template;
 }
 ul,li{
     list-style-type: none;

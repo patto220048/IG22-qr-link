@@ -92,19 +92,19 @@ const CardModel = new Schema(
         },
         font_weight: {
             type: Number,
-            default: 0,
+            default: 500,
         },
         font_color: {
             type: String,
-            default: null,
+            default: "#333333",
         },
         gadientColorTop: {
             type: String,
-            default: null,
+            default: "#333333",
         },
         gadientColorBot: {
             type: String,
-            default: null,
+            default: "#333333",
         },
     },
     { timestamps: true },

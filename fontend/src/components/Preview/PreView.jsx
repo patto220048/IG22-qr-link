@@ -7,7 +7,7 @@ import Loading from '../dialog/loading/Loading';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 import { memo } from 'react';
 
-function PreView({ userIn, isLoading, theme, icons, user,links }) {
+function PreView({ userIn, isLoading, theme, icons, user, links }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
@@ -46,7 +46,7 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                                     alt={
                                         currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg
                                     }
-                                    loading='lazy'
+                                    loading="lazy"
                                 />
                             )}
                         </>
@@ -109,7 +109,16 @@ function PreView({ userIn, isLoading, theme, icons, user,links }) {
                         <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
 
                         {currentLink?.map((url, index) => (
-                            <LinkTree preview={true} title={url.urlTitle} icon={url.urlThumbnail} link={url.url} key={index} acticve={url.acticve}
+                            <LinkTree
+                                preview={true}
+                                title={url.urlTitle}
+                                icon={url.urlThumbnail}
+                                thumbnailImage={url.thumbnailImage}
+                                link={url.url}
+                                key={index}
+                                acticve={url.acticve}
+                                decs={url.decs}
+                                headerStyte={url.headerStyle}
                             />
                         ))}
                     </section>

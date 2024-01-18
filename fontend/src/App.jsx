@@ -15,6 +15,7 @@ import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
 import PreView from './components/Preview/PreView';
 import Fade from './components/Fade/Fade';
+import About from './pages/about/about';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 
@@ -51,6 +52,14 @@ function App() {
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
                             <Home />
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: '/about',
+                    element: (
+                        <Suspense fallback={<div>Loading....</div>}>
+                            <About />
                         </Suspense>
                     ),
                 },

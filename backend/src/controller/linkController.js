@@ -63,7 +63,7 @@ class LinkController {
                     );
                     res.status(200).json(newLink);
                 } catch (error) {
-                    res.json(handleError(500, error.message));
+                    res.json(handleErorr(500, error.message));
                 }
             } else {
                 res.json(handleErorr(403, 'Oop!!! You just edit only your link.'));

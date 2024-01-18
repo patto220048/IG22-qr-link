@@ -29,6 +29,7 @@ import {
     updateTheme,
 } from '../../redux-toolkit/themeSlice';
 import FontTable from '../FontTable/FontTable';
+import { urlUpdate } from '../../redux-toolkit/UrlSlice';
 
 function Dialog_UI({
     openDialog,
@@ -42,6 +43,10 @@ function Dialog_UI({
     setIsPickImgVideo,
     isFonts,
     setIsFonts,
+    thumbnail,
+    thumbnailUser,
+    linkId,
+    setIsThumbnail,
 }) {
     // redux
     const dispatch = useDispatch();
@@ -76,6 +81,10 @@ function Dialog_UI({
         family: '',
         weight: 0,
     });
+    // thumbnail
+    const [thumbImage, setThumbImage] = useState();
+    const [resultThumb, setResultThumb] = useState(null);
+    const [currentThumbnail, setCurrentThumbnail] = useState();
     useEffect(() => {
         const fectchTheme = async () => {
             try {
@@ -161,10 +170,12 @@ function Dialog_UI({
             deleteObject(desertRef)
                 .then(() => {
                     notifyToast('Clear file successfully', 1);
+                    console("cleared!")
                 })
                 .catch((error) => {
                     notifyToast('Not found file !!', 2);
                     console.log(error.message);
+                 
                 });
         }
     }, []);
@@ -371,32 +382,84 @@ function Dialog_UI({
         [currentTheme?._id, currentVideoBg, themeBgUser?.backgroundVideoName],
     );
 
-    const handleSaveFont = useCallback((font) => {
-        const updateFont = async () => {
+    const handleSaveFont = useCallback(
+        (font) => {
+            const updateFont = async () => {
+                try {
+                    const res = await http.put(`/card/${currentTheme?._id}`, {
+                        font_famify: font.family,
+                        font_weight: font.weight,
+                    });
+                    setIsFonts(false);
+                    console.log(res.data);
+                    dispatch(updateTheme(res.data));
+                } catch (error) {
+                    console.log(error.message);
+                }
+            };
+            updateFont();
+        },
+        [currentTheme?._id],
+    );
+    const handleSaveThumbnail = useCallback(() => {
+        const updateUrl = async () => {
             try {
-                const res = await http.put(`/card/${currentTheme?._id}`, {
-                    font_famify: font.family,
-                    font_weight: font.weight,
+                const res = await http.put(`/link/${linkId}`, {
+                    thumbnailImage: resultThumb?.thumbnail,
                 });
-                setIsFonts(false);
-                console.log(res.data);
-                dispatch(updateTheme(res.data));
+                if (res.status === 200) {
+                    setIsThumbnail(false);
+                    setResultThumb(null);
+                    setThumbImage(undefined);
+                    setOpenDialog(false);
+                    const timeOutId = setTimeout(() => {
+                        dispatch(urlUpdate(res.data));
+                    }, 500);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                }
             } catch (error) {
                 console.log(error.message);
             }
+            
         };
-        updateFont();
-    },[currentTheme?._id]);
-
+        updateUrl();
+    }, [linkId, resultThumb]);
+    const handleClearThumbnail = useCallback(() => {
+        const updateUrl = async () => {
+            try {
+                const res = await http.put(`/link/${linkId}`, {
+                    thumbnailImage: null,
+                });
+                if (res.status === 200) {
+                    setIsThumbnail(false);
+                    setResultThumb(null);
+                    setThumbImage(undefined);
+                    setOpenDialog(false);
+                    const timeOutId = setTimeout(() => {
+                        dispatch(urlUpdate(res.data));
+                    }, 500);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+            currentThumbnail ? deleteFile(currentThumbnail) : deleteFile(thumbnailUser);
+        };
+        updateUrl();
+    }, [linkId,currentThumbnail,thumbnailUser]);
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
                 <Dialog.Overlay className="DialogOverlay">
                     <Dialog.Content className="DialogContent">
                         {/* custom content here */}
-                        {pickImgBg || pickImg || pickImgVideo || isFonts ? (
+                        {pickImgBg || pickImg || pickImgVideo || isFonts || thumbnail ? (
                             <>
-                                {(pickImg && (
+                                {pickImg && (
                                     <>
                                         <Dialog_file
                                             avtUser={user?.avtImg}
@@ -423,68 +486,94 @@ function Dialog_UI({
                                             </button>
                                         </div>
                                     </>
-                                )) ||
-                                    (pickImgBg && (
-                                        <>
-                                            <Dialog_file
-                                                setCurrentBackground={setCurrentBackground}
-                                                resultImgBg={resultImgBg}
-                                                setResultImgBg={setResultImgBg}
-                                                themeBgUser={themeBgUser?.backgroundImg}
-                                                bgImage={bgImage}
-                                                setBgImage={setBgImage}
-                                                pickImgBg={pickImgBg}
-                                                isBackground={'background'}
-                                            />
-                                            <div className="dialog-btn-group-bg">
-                                                {themeBgUser?.backgroundImg || resultImgBg ? (
-                                                    <button className="dialog-btn" onClick={handleClearImageBg}>
-                                                        Clear
-                                                    </button>
-                                                ) : (
-                                                    <></>
-                                                )}
-                                                <button className="dialog-btn" onClick={handleAddImageBg}>
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </>
-                                    )) ||
-                                    (pickImgVideo && (
-                                        <>
-                                            <Dialog_file
-                                                themeBgUserVideo={themeBgUser?.backgroundVideo}
-                                                setCurrentVideoBg={setCurrentVideoBg}
-                                                bgVideo={bgVideo}
-                                                setBgVideo={setBgVideo}
-                                                pickImgVideo={pickImgVideo}
-                                                resultVideo={resultVideo}
-                                                setResultVideo={setResultVideo}
-                                            />
-                                            <div className="dialog-btn-group">
-                                                <button className="dialog-btn" onClick={handleClearVideoBg}>
+                                )}
+                                {pickImgBg && (
+                                    <>
+                                        <Dialog_file
+                                            setCurrentBackground={setCurrentBackground}
+                                            resultImgBg={resultImgBg}
+                                            setResultImgBg={setResultImgBg}
+                                            themeBgUser={themeBgUser?.backgroundImg}
+                                            bgImage={bgImage}
+                                            setBgImage={setBgImage}
+                                            pickImgBg={pickImgBg}
+                                            isBackground={'background'}
+                                        />
+                                        <div className="dialog-btn-group-bg">
+                                            {themeBgUser?.backgroundImg || resultImgBg ? (
+                                                <button className="dialog-btn" onClick={handleClearImageBg}>
                                                     Clear
                                                 </button>
-                                                <button className="dialog-btn" onClick={handleAddVideoBg}>
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </>
-                                    )) ||
-                                    (isFonts && (
-                                        <>
-                                            <FontTable
-                                                setIsFonts={setIsFonts}
-                                                setFontFamily={setFontFamily}
-                                                fontFamily={fontFamily}
-                                            />
-                                            <div className="dialog-btn-group">
-                                                <button className="dialog-btn" onClick={()=>handleSaveFont(fontFamily)}>
-                                                    Save changes
-                                                </button>
-                                            </div>
-                                        </>
-                                    ))}
+                                            ) : (
+                                                <></>
+                                            )}
+                                            <button className="dialog-btn" onClick={handleAddImageBg}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                                {pickImgVideo && (
+                                    <>
+                                        <Dialog_file
+                                            themeBgUserVideo={themeBgUser?.backgroundVideo}
+                                            setCurrentVideoBg={setCurrentVideoBg}
+                                            bgVideo={bgVideo}
+                                            setBgVideo={setBgVideo}
+                                            pickImgVideo={pickImgVideo}
+                                            resultVideo={resultVideo}
+                                            setResultVideo={setResultVideo}
+                                        />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn" onClick={handleClearVideoBg}>
+                                                Clear
+                                            </button>
+                                            <button className="dialog-btn" onClick={handleAddVideoBg}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                                {isFonts && (
+                                    <>
+                                        <FontTable
+                                            setIsFonts={setIsFonts}
+                                            setFontFamily={setFontFamily}
+                                            fontFamily={fontFamily}
+                                        />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn" onClick={() => handleSaveFont(fontFamily)}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
+                                {thumbnail && (
+                                    <>
+                                        <Dialog_file
+                                            thumbnail={thumbnail}
+                                            setThumbImage={setThumbImage}
+                                            thumbImage={thumbImage}
+                                            resultThumb={resultThumb}
+                                            setResultThumb={setResultThumb}
+                                            setCurrentThumbnail={setCurrentThumbnail}
+                                            currentThumbnail={currentThumbnail}
+                                            thumbnailUser={thumbnailUser}
+                                        />
+                                        <div className="dialog-btn-group">
+                                            <button className="dialog-btn" onClick={handleClearThumbnail}>
+                                                Clear
+                                            </button>
+                                            <button className="dialog-btn" onClick={handleSaveThumbnail}>
+                                                Save changes
+                                            </button>
+                                        </div>
+                                        <Dialog.Close asChild className="closeIcon-btn" disabled onClick={hanleClose}>
+                                            {closeIcon(20, 20)}
+                                        </Dialog.Close>
+                                   
+                                    </>
+                                )}
                             </>
                         ) : (
                             <>
