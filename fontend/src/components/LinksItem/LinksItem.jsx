@@ -243,7 +243,7 @@ function LinksItem({
                 <div className="Alert-Delete" data-state={isAlert || isDetail ? 'open' : 'closed'}>
                     {isAlert && <Alert linkId={linkId} setIsAlert={setIsAlert} isAlert={isAlert} />}
                     {(isDetail) && <Alert linkId={linkId} isDetail={isDetail} setIsDetail={setIsDetail}/>}
-                    {(isThumbnail) && <Alert linkId={linkId} isThumbnail={isThumbnail} setIsThumbnail={setIsThumbnail}/>}
+                    {(isThumbnail) && <Alert linkId={linkId} isThumbnail={isThumbnail} setIsThumbnail={setIsThumbnail} linkThumbnail={linkThumbnail}/>}
                 </div>
             </div>
         </section>

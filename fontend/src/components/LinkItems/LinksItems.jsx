@@ -38,7 +38,7 @@ function LinksItems({ onChange }) {
                     linkId={link?._id}
                     linkUrl={link.url}
                     linkTitle={link.urlTitle}
-                    linkThumbnail={link.linkThumbnail}
+                    linkThumbnail={link.thumbnailImage}
                     acticve={link.acticve}
                     key={index}
                     headerStyle={link.headerStyle}

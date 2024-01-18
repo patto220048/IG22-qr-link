@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux';
 import { closeIcon } from '../../svg/icon';
 import './Alert.scss';
 import http from '../../instance/axiosInstance';
-import { useState } from 'react';
-import { urlDelete } from '../../redux-toolkit/UrlSlice';
+import { useCallback, useState } from 'react';
+import { urlDelete, urlUpdate } from '../../redux-toolkit/UrlSlice';
 import DetailContact from '../DetailContact/DetailConTact';
 import Dialog_IU from '../dialog/Dialog_IU';
 
-function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail, setIsThumbnail }) {
+function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail, setIsThumbnail, linkThumbnail }) {
     const dispatch = useDispatch();
     const [thumbail, setThumbnail] = useState(false);
     const handleDeleteUrl = () => {
@@ -24,6 +24,27 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
         };
         deleteUrl();
     };
+    const handleClearThumbnail = useCallback(() => {
+        const updateUrl = async () => {
+            try {
+                const res = await http.put(`/link/${linkId}`, {
+                    thumbnailImage: null,
+                });
+                if (res.status === 200) {
+                    setIsThumbnail(false)
+                    const timeOutId = setTimeout(() => {
+                        dispatch(urlUpdate(res.data));
+                    }, 500);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+        };
+        updateUrl();
+    }, [linkId]);
 
     const handleCloseDelete = () => {
         setIsAlert(false);
@@ -78,17 +99,41 @@ function Alert({ setIsAlert, isAlert, linkId, isDetail, setIsDetail, isThumbnail
                     {isThumbnail && (
                         <>
                             <div className="Alert-head">
-                                <h6 className="Alert-title">Contact Detail</h6>
+                                <h6 className="Alert-title">Add Thumnail</h6>
                                 <div className="Alert-close-icon" onClick={handleCloseThumbnail}>
                                     {closeIcon(30, 30)}
                                 </div>
                             </div>
-                            <span className="thumbnail-desc">Add your thumbail this link.</span>
-                            <button className="btn-thumbail" onClick={() => setThumbnail(true)}>
-                                {' '}
-                                Set Thumbnail
-                            </button>
-                            {thumbail && <Dialog_IU openDialog={thumbail} setOpenDialog={setThumbnail} thumbnail={thumbail}/>}
+                            { linkThumbnail ? 
+                            <>
+                          
+                            <div className='thumbnail-preview'>
+                                <img src={linkThumbnail} alt="" className='thumbnail-img' />
+                                <div className='thumbnail-btn-group'>
+                                    <button className='thumbnail-btn change'  onClick={() => setThumbnail(true)}>Change</button>
+                                    <button className='thumbnail-btn' onClick={handleClearThumbnail} >Clear</button>
+                                </div>
+                             </div>   
+                             </>
+                                
+                            :
+                                <>
+                                    <span className="thumbnail-desc">Add your thumbail this link.</span>
+                                    <button className="btn-thumbail" onClick={() => setThumbnail(true)}>
+                                        Set Thumbnail
+                                    </button>
+                                </>
+                            }
+                            {thumbail && (
+                                <Dialog_IU
+                                    openDialog={thumbail}
+                                    setOpenDialog={setThumbnail}
+                                    thumbnail={thumbail}
+                                    thumbnailUser={linkThumbnail}
+                                    linkId={linkId}
+                                    setIsThumbnail={setIsThumbnail}
+                                />
+                            )}
                         </>
                     )}
                 </>

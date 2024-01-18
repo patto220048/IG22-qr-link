@@ -113,6 +113,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                 preview={true}
                                 title={url.urlTitle}
                                 icon={url.urlThumbnail}
+                                thumbnailImage={url.thumbnailImage}
                                 link={url.url}
                                 key={index}
                                 acticve={url.acticve}

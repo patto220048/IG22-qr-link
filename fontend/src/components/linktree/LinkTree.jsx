@@ -1,5 +1,4 @@
 import './LinkTree.scss';
-import { menuIcon } from '../../svg/icon';
 import { useState, memo } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -32,11 +31,18 @@ function LinkTree(props) {
                             color: `${currentTheme.btn_fontColor}`,
                         }}
                     >
-                        {/* <img
-                            className="linktree-thumb"
-                            src="https://images.unsplash.com/photo-1682685796014-2f342188a635?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
-                            alt=""
-                        /> */}
+                        {props.thumbnailImage ? (
+                            <img
+                                className="linktree-thumb"
+                                src={props.thumbnailImage}
+                                alt=""
+                                loading="lazy"
+                                style={props.thumbnailImage ? { position: 'absolute' } : { position: '' }}
+                            />
+                        ) : (
+                            <></>
+                        )}
+
                         <p
                             className="linktree-title"
                             style={{

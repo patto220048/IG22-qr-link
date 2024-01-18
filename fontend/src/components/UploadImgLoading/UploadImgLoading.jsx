@@ -5,14 +5,21 @@ import { memo } from 'react';
 import AvatarProfile from '../AvatarProfile/AvatarProfile';
 import { useSelector } from 'react-redux';
 import Loading from '../dialog/loading/Loading';
-function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo }) {
+function UploadImg({ imgPercent, resultImg, avtUser, themeBgUser, resultImgBg, resultVideo, themeBgUserVideo,resultThumb,thumbnailUser }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
+    console.log(thumbnailUser)
     return (
         <>
             <section className="updaloadImg">
-                {resultImg || avtUser || resultImgBg || resultVideo || themeBgUserVideo || themeBgUser ? (
+                {resultImg || avtUser || resultImgBg || resultVideo || themeBgUserVideo || themeBgUser || resultThumb || thumbnailUser ? (
                     <>
+                        {resultThumb && (
+                            <img className="updaloadImg-preview" src={resultThumb?.thumbnail} loading="lazy"></img>
+                        )}
+                         {thumbnailUser && (
+                            <img className="updaloadImg-preview" src={thumbnailUser} loading="lazy"></img>
+                        )}
                         {resultImg && (
                             <img className="updaloadImg-preview" src={resultImg?.avatar} loading="lazy"></img>
                         )}

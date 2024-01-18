@@ -49,6 +49,39 @@
         font-weight: 500;
         font-size: 16px;
     }
+    .thumbnail-preview{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+        .thumbnail-img{
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            padding: 10px;
+        }
+        .thumbnail-btn-group{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            .thumbnail-btn{
+                @include btn;
+                width: 100%;
+                padding: 15px;
+                font-weight: 800;
+                font-size: 18px;
+            }
+            .change{
+                background-color: $black;
+                color: $white;
+                &:hover{
+                    background-color: rgba($color: $black, $alpha: 0.7);
+                }
+            }
+        }
+    }
+   
     .Alert-desc {
         opacity: 0.8;
     }

@@ -29,6 +29,7 @@ import {
     updateTheme,
 } from '../../redux-toolkit/themeSlice';
 import FontTable from '../FontTable/FontTable';
+import { urlUpdate } from '../../redux-toolkit/UrlSlice';
 
 function Dialog_UI({
     openDialog,
@@ -43,6 +44,9 @@ function Dialog_UI({
     isFonts,
     setIsFonts,
     thumbnail,
+    thumbnailUser,
+    linkId,
+    setIsThumbnail,
 }) {
     // redux
     const dispatch = useDispatch();
@@ -78,9 +82,9 @@ function Dialog_UI({
         weight: 0,
     });
     // thumbnail
-    const [thumbImage, setThumbImage] = useState()
+    const [thumbImage, setThumbImage] = useState();
     const [resultThumb, setResultThumb] = useState(null);
-
+    const [currentThumbnail, setCurrentThumbnail] = useState();
     useEffect(() => {
         const fectchTheme = async () => {
             try {
@@ -166,10 +170,12 @@ function Dialog_UI({
             deleteObject(desertRef)
                 .then(() => {
                     notifyToast('Clear file successfully', 1);
+                    console("cleared!")
                 })
                 .catch((error) => {
                     notifyToast('Not found file !!', 2);
                     console.log(error.message);
+                 
                 });
         }
     }, []);
@@ -395,7 +401,56 @@ function Dialog_UI({
         },
         [currentTheme?._id],
     );
-
+    const handleSaveThumbnail = useCallback(() => {
+        const updateUrl = async () => {
+            try {
+                const res = await http.put(`/link/${linkId}`, {
+                    thumbnailImage: resultThumb?.thumbnail,
+                });
+                if (res.status === 200) {
+                    setIsThumbnail(false);
+                    setResultThumb(null);
+                    setThumbImage(undefined);
+                    setOpenDialog(false);
+                    const timeOutId = setTimeout(() => {
+                        dispatch(urlUpdate(res.data));
+                    }, 500);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+            
+        };
+        updateUrl();
+    }, [linkId, resultThumb]);
+    const handleClearThumbnail = useCallback(() => {
+        const updateUrl = async () => {
+            try {
+                const res = await http.put(`/link/${linkId}`, {
+                    thumbnailImage: null,
+                });
+                if (res.status === 200) {
+                    setIsThumbnail(false);
+                    setResultThumb(null);
+                    setThumbImage(undefined);
+                    setOpenDialog(false);
+                    const timeOutId = setTimeout(() => {
+                        dispatch(urlUpdate(res.data));
+                    }, 500);
+                    return () => {
+                        clearTimeout(timeOutId);
+                    };
+                }
+            } catch (error) {
+                console.log(error.message);
+            }
+            currentThumbnail ? deleteFile(currentThumbnail) : deleteFile(thumbnailUser);
+        };
+        updateUrl();
+    }, [linkId,currentThumbnail,thumbnailUser]);
     return (
         <Dialog.Root open={openDialog} onOpenChange={setOpenDialog}>
             <Dialog.Portal>
@@ -496,26 +551,27 @@ function Dialog_UI({
                                 {thumbnail && (
                                     <>
                                         <Dialog_file
-                                            thumbnail = {thumbnail}
+                                            thumbnail={thumbnail}
                                             setThumbImage={setThumbImage}
                                             thumbImage={thumbImage}
+                                            resultThumb={resultThumb}
+                                            setResultThumb={setResultThumb}
+                                            setCurrentThumbnail={setCurrentThumbnail}
+                                            currentThumbnail={currentThumbnail}
+                                            thumbnailUser={thumbnailUser}
                                         />
                                         <div className="dialog-btn-group">
-                                            <button className="dialog-btn" >
+                                            <button className="dialog-btn" onClick={handleClearThumbnail}>
                                                 Clear
                                             </button>
-                                            <button className="dialog-btn" >
+                                            <button className="dialog-btn" onClick={handleSaveThumbnail}>
                                                 Save changes
                                             </button>
                                         </div>
                                         <Dialog.Close asChild className="closeIcon-btn" disabled onClick={hanleClose}>
                                             {closeIcon(20, 20)}
                                         </Dialog.Close>
-                                        {thumbnail && (
-                                            <div className="chevron-btn">
-                                                {chevronLeftIcon(20, 20)}
-                                            </div>
-                                        )}
+                                        {thumbnail && <div className="chevron-btn">{chevronLeftIcon(20, 20)}</div>}
                                     </>
                                 )}
                             </>

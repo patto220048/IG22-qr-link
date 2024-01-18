@@ -36,7 +36,12 @@ function Dialog_content({
     themeBgUserVideo,
     thumbnail,
     setThumbImage,
-    thumbImage
+    thumbImage,
+    resultThumb,
+    setResultThumb,
+    setCurrentThumbnail,
+    currentThumbnail,
+    thumbnailUser
 }) {
     // image processing upload
     const [imgPercent, setImgPercent] = useState(0);
@@ -49,6 +54,7 @@ function Dialog_content({
         type === 'avatar' && setCurrentAvatar(fileName);
         type === 'background' && setCurrentBackground(fileName);
         type === 'video' && setCurrentVideoBg(fileName);
+        type === 'thumbnail' && setCurrentThumbnail(fileName);
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
             'state_changed',
@@ -63,6 +69,8 @@ function Dialog_content({
                 type === 'background' && setImgPercent(Math.round(progress));
 
                 type === 'video' && setVideoPercent(Math.round(progress));
+
+                type === 'thumbnail' && setImgPercent(Math.round(progress));
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -103,12 +111,16 @@ function Dialog_content({
                         setResultVideo((pre) => {
                             return { ...pre, [type]: downloadURL };
                         });
+                    thumbImage &&
+                        setResultThumb((pre) => {
+                            return { ...pre, [type]: downloadURL };
+                        });
                 });
             },
         );
     };
     useEffect(() => {
-        avatar && (resultImg ? <></>: upload(avatar, 'avatar'));
+        avatar && (resultImg ? <></> : upload(avatar, 'avatar'));
     }, [avatar]);
 
     useEffect(() => {
@@ -117,9 +129,12 @@ function Dialog_content({
     useEffect(() => {
         bgVideo && (resultVideo ? <></> : upload(bgVideo, 'video'));
     }, [bgVideo]);
+    useEffect(() => {
+        thumbImage && (resultThumb ? <></> : upload(thumbImage, 'thumbnail'));
+    }, [thumbImage]);
     return (
         <>
-            {avatar || avtUser || bgImage || themeBgUser || resultVideo || themeBgUserVideo ? (
+            {avatar || avtUser || bgImage || themeBgUser || resultVideo || themeBgUserVideo || resultThumb || thumbnailUser ? (
                 <UploadImgLoading
                     avtUser={avtUser}
                     resultImg={resultImg}
@@ -128,6 +143,8 @@ function Dialog_content({
                     resultImgBg={resultImgBg}
                     resultVideo={resultVideo}
                     themeBgUserVideo={themeBgUserVideo}
+                    resultThumb={resultThumb}
+                    thumbnailUser={thumbnailUser}
                 />
             ) : (
                 <>
@@ -194,12 +211,13 @@ function Dialog_content({
                             )}
                         </>
                     )}
-                    {thumbnail && 
-                    <>
-                                  <Dialog.Title className="DialogTitle">Add Thumbnail</Dialog.Title>
-                            <fieldset className="Fieldset">
+                    {thumbnail && (
+                        <>
+                            <Dialog.Title className="DialogTitle">Add Thumbnail</Dialog.Title>
+                            <fieldset className="Fieldset-bg">
                                 <label className="Label" htmlFor="upload-photo">
-                                    {imgIcon(30, 30)} File/Image
+                                    {imageUp(50, 50)}
+                                    <h6>Upload your image</h6>
                                 </label>
                                 <input
                                     type="file"
@@ -208,9 +226,8 @@ function Dialog_content({
                                     onChange={(e) => setThumbImage(e.target.files[0])}
                                 />
                             </fieldset>
-
-                    </>
-                    }
+                        </>
+                    )}
                 </>
             )}
         </>

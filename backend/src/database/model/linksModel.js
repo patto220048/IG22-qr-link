@@ -27,6 +27,10 @@ const LinkModel = new Schema(
             type: String,
             default: null,
         },
+        thumbnailImage: {
+            type: String,
+            default: null,
+        },
         headerStyle: {
             type: Boolean,
             default: false,
