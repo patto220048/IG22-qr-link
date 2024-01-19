@@ -124,8 +124,8 @@ function Profile() {
                         <SocialIconList icons={icons} />
                         {currentLink?.map((url, index) => (
                             <LinkTree
-                            setIsContact={setIsContact}
-
+                                setIsContact={setIsContact}
+                                preview={true}
                                 title={url.urlTitle}
                                 icon={url.urlThumbnail}
                                 link={url.url}
