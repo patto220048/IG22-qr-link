@@ -5,7 +5,8 @@ import SocialIconList from '../SocialIconlist/SocialIconList';
 import LinkTree from '../linktree/LinkTree';
 import Loading from '../dialog/loading/Loading';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import PreViewContact from '../PreviewContact/PreviewContact';
 
 function PreView({ userIn, isLoading, theme, icons, user, links }) {
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -13,118 +14,129 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
     const themeLoading = useSelector((state) => state.theme.loading);
     const userLoading = useSelector((state) => state.user.loading);
     const currentLink = useSelector((state) => state.url.currentUrl);
-
+    const [isContact, setIsContact] = useState(false);
     return (
-        <div className="PreView-wapper">
-            {themeLoading || userLoading ? (
-                <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
-            ) : (
-                <>
-                    {currentTheme?.backgroundImg ||
-                    theme?.backgroundImg ||
-                    currentTheme?.backgroundVideo ||
-                    theme?.backgroundVideo ? (
-                        <>
-                            {currentTheme?.backgroundVideo || theme?.backgroundVideo ? (
-                                <video
-                                    className="template-bg"
-                                    type="video/webm"
-                                    loop
-                                    autoPlay
-                                    src={
-                                        currentTheme?.backgroundVideo
-                                            ? currentTheme?.backgroundVideo
-                                            : theme?.backgroundVideo
-                                    }
-                                ></video>
-                            ) : (
-                                <img
-                                    className="template-bg"
-                                    src={
-                                        currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg
-                                    }
-                                    alt={
-                                        currentTheme?.backgroundImg ? currentTheme?.backgroundImg : theme?.backgroundImg
-                                    }
-                                    loading="lazy"
-                                />
-                            )}
-                        </>
-                    ) : (
-                        <>
-                            {currentTheme?.gadientColorBot ||
-                            currentTheme?.gadientColorTop ||
-                            theme?.gadientColorBot ||
-                            theme?.gadientColorTop ? (
-                                <>
-                                    {(currentTheme?.gadientColorBot && currentTheme?.gadientColorTop) ||
-                                    (theme?.gadientColorTop && theme?.gadientColorBot) ? (
-                                        <div
-                                            className="template-bg"
-                                            style={{
-                                                backgroundImage: `linear-gradient(${
-                                                    currentTheme?.gadientColorTop || theme?.gadientColorTop
-                                                },${currentTheme?.gadientColorBot || theme?.gadientColorBot})`,
-                                            }}
-                                        />
-                                    ) : (
-                                        <div
-                                            className="template-bg"
-                                            style={{
-                                                backgroundColor: `${
-                                                    currentTheme?.gadientColorBot ||
-                                                    currentTheme?.gadientColorTop ||
-                                                    theme?.gadientColorBot ||
-                                                    theme?.gadientColorTop
-                                                }`,
-                                                // backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
-                                            }}
-                                        />
-                                    )}
-                                </>
-                            ) : (
-                                <div
-                                    className="template-bg"
-                                    style={{
-                                        backgroundColor: `${
-                                            currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
-                                        }`,
-                                    }}
-                                />
-                            )}
-                        </>
-                    )}
-                    <section className="template-profile">
-                        <AvatarProfile
-                            preview={true}
-                            username={currentUser?.username ? currentUser?.username : user?.username}
-                            usernameTitle={
-                                currentUser?.usernameTitle ? currentUser?.usernameTitle : user?.usernameTitle
-                            }
-                            decs={currentUser?.decs ? currentUser?.decs : user?.decs}
-                            avatar={currentUser?.avtImg ? currentUser?.avtImg : user?.avtImg}
-                            fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
-                        />
+        <>
+            <div className="PreView-wapper">
+                {isContact && (
+                 <PreViewContact setIsContact={setIsContact}/>
+                )}
+                {themeLoading || userLoading ? (
+                    <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
+                ) : (
+                    <>
+                        {currentTheme?.backgroundImg ||
+                        theme?.backgroundImg ||
+                        currentTheme?.backgroundVideo ||
+                        theme?.backgroundVideo ? (
+                            <>
+                                {currentTheme?.backgroundVideo || theme?.backgroundVideo ? (
+                                    <video
+                                        className="template-bg"
+                                        type="video/webm"
+                                        loop
+                                        autoPlay
+                                        src={
+                                            currentTheme?.backgroundVideo
+                                                ? currentTheme?.backgroundVideo
+                                                : theme?.backgroundVideo
+                                        }
+                                    ></video>
+                                ) : (
+                                    <img
+                                        className="template-bg"
+                                        src={
+                                            currentTheme?.backgroundImg
+                                                ? currentTheme?.backgroundImg
+                                                : theme?.backgroundImg
+                                        }
+                                        alt={
+                                            currentTheme?.backgroundImg
+                                                ? currentTheme?.backgroundImg
+                                                : theme?.backgroundImg
+                                        }
+                                        loading="lazy"
+                                    />
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                {currentTheme?.gadientColorBot ||
+                                currentTheme?.gadientColorTop ||
+                                theme?.gadientColorBot ||
+                                theme?.gadientColorTop ? (
+                                    <>
+                                        {(currentTheme?.gadientColorBot && currentTheme?.gadientColorTop) ||
+                                        (theme?.gadientColorTop && theme?.gadientColorBot) ? (
+                                            <div
+                                                className="template-bg"
+                                                style={{
+                                                    backgroundImage: `linear-gradient(${
+                                                        currentTheme?.gadientColorTop || theme?.gadientColorTop
+                                                    },${currentTheme?.gadientColorBot || theme?.gadientColorBot})`,
+                                                }}
+                                            />
+                                        ) : (
+                                            <div
+                                                className="template-bg"
+                                                style={{
+                                                    backgroundColor: `${
+                                                        currentTheme?.gadientColorBot ||
+                                                        currentTheme?.gadientColorTop ||
+                                                        theme?.gadientColorBot ||
+                                                        theme?.gadientColorTop
+                                                    }`,
+                                                    // backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
+                                                }}
+                                            />
+                                        )}
+                                    </>
+                                ) : (
+                                    <div
+                                        className="template-bg"
+                                        style={{
+                                            backgroundColor: `${
+                                                currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
+                                            }`,
+                                        }}
+                                    />
+                                )}
+                            </>
+                        )}
 
-                        <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
-
-                        {currentLink?.map((url, index) => (
-                            <LinkTree
+                        <section className="template-profile">
+                            <AvatarProfile
                                 preview={true}
-                                title={url.urlTitle}
-                                icon={url.urlThumbnail}
-                                thumbnailImage={url.thumbnailImage}
-                                link={url.url}
-                                key={index}
-                                acticve={url.acticve}
-                                decs={url.decs}
-                                headerStyte={url.headerStyle}
+                                username={currentUser?.username ? currentUser?.username : user?.username}
+                                usernameTitle={
+                                    currentUser?.usernameTitle ? currentUser?.usernameTitle : user?.usernameTitle
+                                }
+                                decs={currentUser?.decs ? currentUser?.decs : user?.decs}
+                                avatar={currentUser?.avtImg ? currentUser?.avtImg : user?.avtImg}
+                                fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
                             />
-                        ))}
-                    </section>
-                </>
-            )}
-        </div>
+
+                            <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
+
+                            {currentLink?.map((url, index) => (
+                                <LinkTree
+                                    setIsContact={setIsContact}
+                                    preview={true}
+                                    title={url.urlTitle}
+                                    icon={url.urlThumbnail}
+                                    thumbnailImage={url.thumbnailImage}
+                                    link={url.url}
+                                    key={index}
+                                    acticve={url.acticve}
+                                    decs={url.decs}
+                                    headerStyte={url.headerStyle}
+                                />
+                            ))}
+                        </section>
+                    </>
+                )}
+            </div>
+        </>
     );
 }
 

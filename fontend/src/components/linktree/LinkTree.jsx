@@ -4,10 +4,12 @@ import { useSelector } from 'react-redux';
 
 function LinkTree(props) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-
+    const handleOpenContact = ()=>{
+        !props.link && props.setIsContact(true);
+    }
     return (
         <>
-            <a href={props.link} className="linktree-link" hidden={!props.acticve} target="blank">
+            <a href={props.link} className="linktree-link" hidden={!props.acticve} target="blank" onClick={handleOpenContact}>
                 <p
                     className="linktree-decs"
                     style={{ color: `${currentTheme?.font_color}`, fontFamily: `${currentTheme?.font_famify}` }}
