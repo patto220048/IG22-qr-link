@@ -12,6 +12,8 @@
     height: 660px;
     border-radius: 60px;
     position: relative;
+    z-index: 999;
+
     .template-bg {
         border-radius: 40px;
         width: 330px;
@@ -24,7 +26,7 @@
         flex-direction: column;
         align-items: center;
         gap: 20px;
-        .template-icon{
+        .template-icon {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,19 +36,19 @@
         }
     }
 }
+
 @media only screen and (max-width: 768px) {
-    .PreView-wapper{
-    // width: none;
+    .PreView-wapper {
+        // width: none;
         width: 100%;
         height: calc(100vh + 50px);
         border: none;
         border-radius: 0;
-        .template-bg{
+        .template-bg {
             width: 100%;
-            height:  calc(100vh + 100px);
+            height: calc(100vh + 100px);
             border-radius: 0;
             background-color: $text_hover_color;
-
         }
         .template-profile {
             padding-top: 60px;
