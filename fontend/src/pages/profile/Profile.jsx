@@ -13,6 +13,7 @@ import { themeSuccess, updateTheme } from '../../redux-toolkit/themeSlice';
 import { loginSuccess, updateData } from '../../redux-toolkit/userSlice';
 import { urlSuccess } from '../../redux-toolkit/UrlSlice';
 import { iconSuccess } from '../../redux-toolkit/iconSlice';
+import PreViewContact from '../../components/PreviewContact/PreviewContact';
 function Profile() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
@@ -20,6 +21,8 @@ function Profile() {
     const [user, setUser] = useState({});
     const [theme, setTheme] = useState({});
     const [icons, setIcons] = useState([]);
+    const [isContact, setIsContact] = useState(false);
+
     // const [links, setLinks] = useState()
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch();
@@ -60,6 +63,7 @@ function Profile() {
     }, [username, currentUser?._id, currentTheme?._id]);
     return (
         <section className="profile">
+            {isContact && <PreViewContact setIsContact={setIsContact} />}
             {isLoading ? (
                 <Loading isLoading={isLoading} profileLoading={true} />
             ) : (
@@ -120,6 +124,8 @@ function Profile() {
                         <SocialIconList icons={icons} />
                         {currentLink?.map((url, index) => (
                             <LinkTree
+                            setIsContact={setIsContact}
+
                                 title={url.urlTitle}
                                 icon={url.urlThumbnail}
                                 link={url.url}

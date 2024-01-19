@@ -19,7 +19,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
         <>
             <div className="PreView-wapper">
                 {isContact && (
-                 <PreViewContact setIsContact={setIsContact}/>
+                     <PreViewContact setIsContact={setIsContact}/>
                 )}
                 {themeLoading || userLoading ? (
                     <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
