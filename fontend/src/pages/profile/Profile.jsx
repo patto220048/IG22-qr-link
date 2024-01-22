@@ -32,17 +32,17 @@ function Profile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const userData = await http.get(`/users/${username}`);
+                const themeData = await http.get(`/card/v1/${currentUser?._id}`);
+                const iconData = await http.get(`/icon/${currentUser?._id}`);
+                const linksData = await http.get(`/link/${currentTheme?._id}`);
+                const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
+                    userData,
+                    themeData,
+                    iconData,
+                    linksData,
+                ]);
                 const timeOutId = setTimeout(async () => {
-                    const userData = await http.get(`/users/${username}`);
-                    const themeData = await http.get(`/card/v1/${currentUser?._id}`);
-                    const iconData = await http.get(`/icon/${currentUser?._id}`);
-                    const linksData = await http.get(`/link/${currentTheme?._id}`);
-                    const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
-                        userData,
-                        themeData,
-                        iconData,
-                        linksData,
-                    ]);
                     dispatch(loginSuccess(resultUser.data));
                     dispatch(themeSuccess(resultTheme.data));
                     dispatch(urlSuccess(resultLinks.data));
@@ -51,7 +51,7 @@ function Profile() {
                     setIcons(resultIcon.data);
                     // setLinks(resultLinks.data);
                     setIsLoading(false);
-                }, 1000);
+                }, 500);
                 return () => {
                     clearTimeout(timeOutId);
                 };
@@ -63,7 +63,7 @@ function Profile() {
     }, [username, currentUser?._id, currentTheme?._id]);
     return (
         <section className="profile">
-            {isContact && <PreViewContact setIsContact={setIsContact} />}
+            {isContact && <PreViewContact setIsContact={setIsContact} preview={false} window={true} />}
             {isLoading ? (
                 <Loading isLoading={isLoading} profileLoading={true} />
             ) : (
@@ -85,6 +85,7 @@ function Profile() {
                                     className="profile-background"
                                     src={theme?.backgroundImg}
                                     alt={theme?.backgroundImg}
+                                    loading="lazy"
                                 />
                             )}
                         </>
@@ -124,8 +125,10 @@ function Profile() {
                         <SocialIconList icons={icons} />
                         {currentLink?.map((url, index) => (
                             <LinkTree
+                                preview={false}
+                                window={true}
+                                isMobile={true}
                                 setIsContact={setIsContact}
-                                preview={true}
                                 title={url.urlTitle}
                                 icon={url.urlThumbnail}
                                 link={url.url}

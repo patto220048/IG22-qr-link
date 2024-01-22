@@ -1,15 +1,23 @@
 import './LinkTree.scss';
 import { useState, memo } from 'react';
 import { useSelector } from 'react-redux';
+import { menuIcon } from '../../svg/icon';
 
 function LinkTree(props) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-    const handleOpenContact = ()=>{
+    const handleOpenContact = () => {
         !props.link && props.setIsContact(true);
-    }
+    };
+
     return (
         <>
-            <a href={props.link} className="linktree-link" hidden={!props.acticve} target="blank" onClick={handleOpenContact}>
+            <a
+                href={props.link}
+                className="linktree-link"
+                hidden={!props.acticve}
+                target="blank"
+                onClick={handleOpenContact}
+            >
                 <p
                     className="linktree-decs"
                     style={{ color: `${currentTheme?.font_color}`, fontFamily: `${currentTheme?.font_famify}` }}
@@ -19,9 +27,9 @@ function LinkTree(props) {
                 <div
                     className="linktree"
                     style={{
+                        width: `${props.preview ? '250px' : '500px'}`,
                         borderRadius: `${currentTheme?.btn_radius}px`,
                         boxShadow: `${currentTheme.btn_style?.btn_shadow.horizontal}px ${currentTheme.btn_style?.btn_shadow.vertical}px ${currentTheme.btn_style?.btn_shadow.blur}px ${currentTheme.btn_style?.btn_shadow.spread}px ${currentTheme?.btn_shadow_color}`,
-                        width: `${props.preview ? '250px' : '500px'}`,
                         border: `${currentTheme?.btn_border}px solid black`,
                         backgroundColor: `${currentTheme?.btn_outline ? 'transparent' : `${currentTheme?.btn_color1}`}`,
                     }}
@@ -56,7 +64,7 @@ function LinkTree(props) {
                         </p>
 
                         <link rel="shortcut icon" href={props.icon} />
-                        {/* <span className="linktree-icon_menu">{menuIcon()}</span> */}
+                        <span className="linktree-icon_menu">{menuIcon(25,25)}</span>
                     </div>
                 </div>
             </a>

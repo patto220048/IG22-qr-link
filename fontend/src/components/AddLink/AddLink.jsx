@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { urlAdd, urlFail, urlStart, urlSuccess } from '../../redux-toolkit/UrlSlice';
 import { sortUrl } from '../../untils/sortUrl';
 import contactSvg from '../../assets/contact_svg.svg';
-function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
+function AddLink({ setIsAddLink, isAddLink, onChange, values }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const dispatch = useDispatch();
     const handleAddLink = () => {
@@ -16,8 +16,8 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
                 const res = await http.post(`/link/${currentTheme?._id}`, {
                     urlTitle: sortUrl(values.url)?.host,
                     url: values.url,
-                    urlThumbnail: sortUrl(values.url)?.host + '/' + "favicon.ico",
-                    urlStyle : true
+                    urlThumbnail: sortUrl(values.url)?.host + '/' + 'favicon.ico',
+                    urlStyle: true,
                 });
                 setIsAddLink(false);
                 const timeOutId = setTimeout(() => dispatch(urlAdd(res.data)), 1000);
@@ -49,7 +49,7 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
             }
         };
         addLink();
-    }
+    };
     return (
         <div className={'AddLink '}>
             <div className="AddLink-wapper">
@@ -74,12 +74,18 @@ function AddLink({ setIsAddLink, isAddLink , onChange, values}) {
                             ADD
                         </button>
                     </div>
-                    <span className='line'></span>
-                        <h4>More option</h4>
+                    <span className="line"></span>
+                    <h4>More option</h4>
                     <section className="AddLink-content_option">
-                        <li className='AddLink-content_items'>  
-                            <img loading='lazy' src={contactSvg} alt="" className='contactSvg' onClick={handleAddDetailContact}/>
-                            <span className='contact-desc'>Details Contact</span>
+                        <li className="AddLink-content_items">
+                            <img
+                                loading="lazy"
+                                src={contactSvg}
+                                alt=""
+                                className="contactSvg"
+                                onClick={handleAddDetailContact}
+                            />
+                            <span className="contact-desc">Details Contact</span>
                         </li>
                     </section>
                 </div>
