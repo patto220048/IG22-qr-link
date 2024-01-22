@@ -122,21 +122,23 @@ function Profile() {
                             avatar={user.avtImg}
                             fontColor={theme?.font_color}
                         />
-                        <SocialIconList icons={icons} />
-                        {currentLink?.map((url, index) => (
-                            <LinkTree
-                                preview={false}
-                                window={true}
-                                isMobile={true}
-                                setIsContact={setIsContact}
-                                title={url.urlTitle}
-                                icon={url.urlThumbnail}
-                                link={url.url}
-                                key={index}
-                                acticve={url.acticve}
-                                thumbnailImage={url.thumbnailImage}
-                            />
-                        ))}
+                        <div className="profile-info-items">
+                            <SocialIconList icons={icons} />
+                            {currentLink?.map((url, index) => (
+                                <LinkTree
+                                    preview={false}
+                                    window={true}
+                                    isMobile={true}
+                                    setIsContact={setIsContact}
+                                    title={url.urlTitle}
+                                    icon={url.urlThumbnail}
+                                    link={url.url}
+                                    key={index}
+                                    acticve={url.acticve}
+                                    thumbnailImage={url.thumbnailImage}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </>
             )}
