@@ -56,7 +56,7 @@
 //mobile browser
 @media only screen and (max-width: 768px) {
     .linktree {
-        width: 80%;
+        max-width: 280px;
         padding: 12px;
         .linktree-link {
             .linktree-item {

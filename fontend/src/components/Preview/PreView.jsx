@@ -18,9 +18,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
     return (
         <>
             <div className="PreView-wapper">
-                {isContact && (
-                     <PreViewContact setIsContact={setIsContact}/>
-                )}
+                {isContact && <PreViewContact setIsContact={setIsContact} preview={true} window={false} />}
                 {themeLoading || userLoading ? (
                     <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
                 ) : (
@@ -120,8 +118,10 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
 
                             {currentLink?.map((url, index) => (
                                 <LinkTree
-                                    setIsContact={setIsContact}
+                                    window={false}
                                     preview={true}
+                                    isMobile={false}
+                                    setIsContact={setIsContact}
                                     title={url.urlTitle}
                                     icon={url.urlThumbnail}
                                     thumbnailImage={url.thumbnailImage}
