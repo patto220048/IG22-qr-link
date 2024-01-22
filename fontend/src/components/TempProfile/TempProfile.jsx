@@ -55,7 +55,7 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons ,set
                     setIsLoading(false);
                     const timeOutId = setTimeout(async () => {
                         dispatch(updateData(res.data));
-                    }, 2000);
+                    }, 1000);
                     // notifyToast('Update',3,timeOutId)
                     return () => {
                         clearTimeout(timeOutId);
