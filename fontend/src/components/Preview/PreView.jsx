@@ -30,6 +30,9 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                             <>
                                 {currentTheme?.backgroundVideo || theme?.backgroundVideo ? (
                                     <video
+                                        style={
+                                            currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
+                                        }
                                         className="template-bg"
                                         type="video/webm"
                                         loop
@@ -43,6 +46,9 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                 ) : (
                                     <img
                                         className="template-bg"
+                                        style={
+                                            currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
+                                        }
                                         src={
                                             currentTheme?.backgroundImg
                                                 ? currentTheme?.backgroundImg
@@ -68,35 +74,77 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         (theme?.gadientColorTop && theme?.gadientColorBot) ? (
                                             <div
                                                 className="template-bg"
-                                                style={{
-                                                    backgroundImage: `linear-gradient(${
-                                                        currentTheme?.gadientColorTop || theme?.gadientColorTop
-                                                    },${currentTheme?.gadientColorBot || theme?.gadientColorBot})`,
-                                                }}
+                                                style={
+                                                    currentLink?.length > 4 === true
+                                                        ? {
+                                                             
+                                                              backgroundImage: `linear-gradient(${
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorTop
+                                                              },${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  theme?.gadientColorBot
+                                                              })`,
+                                                          }
+                                                        : {
+                                                     
+                                                              backgroundImage: `linear-gradient(${
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorTop
+                                                              },${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  theme?.gadientColorBot
+                                                              })`,
+                                                          }
+                                                }
                                             />
                                         ) : (
                                             <div
                                                 className="template-bg"
-                                                style={{
-                                                    backgroundColor: `${
-                                                        currentTheme?.gadientColorBot ||
-                                                        currentTheme?.gadientColorTop ||
-                                                        theme?.gadientColorBot ||
-                                                        theme?.gadientColorTop
-                                                    }`,
+                                                style={
+                                                    currentLink?.length > 4 === true
+                                                        ? {
+                                                         
+                                                              backgroundColor: `${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorBot ||
+                                                                  theme?.gadientColorTop
+                                                              }`,
+                                                          }
+                                                        : {
+                                                      
+                                                              backgroundColor: `${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorBot ||
+                                                                  theme?.gadientColorTop
+                                                              }`,
+                                                          }
+
                                                     // backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
-                                                }}
+                                                }
                                             />
                                         )}
                                     </>
                                 ) : (
                                     <div
                                         className="template-bg"
-                                        style={{
-                                            backgroundColor: `${
-                                                currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
-                                            }`,
-                                        }}
+                                        style={
+                                            currentLink?.length > 4 === true
+                                                ? {
+                                               
+                                                      backgroundColor: `${
+                                                          currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
+                                                      }`,
+                                                  }
+                                                : {
+                                          
+                                                      backgroundColor: `${
+                                                          currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
+                                                      }`,
+                                                  }
+                                        }
                                     />
                                 )}
                             </>
@@ -113,25 +161,26 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                 avatar={currentUser?.avtImg ? currentUser?.avtImg : user?.avtImg}
                                 fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
                             />
+                            <div className="template-info-items">
+                                <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
 
-                            <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
-
-                            {currentLink?.map((url, index) => (
-                                <LinkTree
-                                    window={false}
-                                    preview={true}
-                                    isMobile={false}
-                                    setIsContact={setIsContact}
-                                    title={url.urlTitle}
-                                    icon={url.urlThumbnail}
-                                    thumbnailImage={url.thumbnailImage}
-                                    link={url.url}
-                                    key={index}
-                                    acticve={url.acticve}
-                                    decs={url.decs}
-                                    headerStyte={url.headerStyle}
-                                />
-                            ))}
+                                {currentLink?.map((url, index) => (
+                                    <LinkTree
+                                        window={false}
+                                        preview={true}
+                                        isMobile={false}
+                                        setIsContact={setIsContact}
+                                        title={url.urlTitle}
+                                        icon={url.urlThumbnail}
+                                        thumbnailImage={url.thumbnailImage}
+                                        link={url.url}
+                                        key={index}
+                                        acticve={url.acticve}
+                                        decs={url.decs}
+                                        headerStyte={url.headerStyle}
+                                    />
+                                ))}
+                            </div>
                         </section>
                     </>
                 )}
