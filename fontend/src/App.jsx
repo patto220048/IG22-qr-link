@@ -3,6 +3,8 @@ import Navbar from './layouts/nav/Navbar';
 import { Navigate, Outlet, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
+import Cookies from 'js-cookie';
+
 import Footer from './layouts/footer/Footer';
 import { lazy, Suspense, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -16,14 +18,63 @@ import Newpass from './pages/register/newPass/NewPass';
 import PreView from './components/Preview/PreView';
 import Fade from './components/Fade/Fade';
 import About from './pages/about/about';
+import http from './instance/axiosInstance';
+import axios from 'axios';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
-
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    const [user, setUser] = useState();
+    // const [user, setUser] = useState();
+    http.interceptors.request.use(
+        (config) => {
+            const token = Cookies.get('access_token');
+            if (token) {
+                config.headers.Authorization = `${token}`;
+            }
+            return config;
+        },
+        (error) => {
+            return Promise.reject(error);
+        },
+    );
 
-    //
+    http.interceptors.response.use(
+        (response) =>response,
+        async (error) => {
+            onsole.log(error);
+            const originalRequest = error.config;
+            // If the error is due to an expired token, attempt to refresh it
+            if (error.response && error.response.data.status === 401 && !originalRequest._retry) {
+                originalRequest._retry = true;
+                try {
+                    // Replace the following line with your actual endpoint for refreshing the token
+                    const refreshResponse = await http.post('/auth/refresh-token', {
+                        // Include any necessary data for refreshing the token
+                        token: currentUser.refreshToken,
+                    });
+                    console.log(refreshResponse);
+                    const newToken = refreshResponse.data.accessToken;
+
+                    // Update the cookie with the new token
+                    Cookies.set('access_token1', newToken, { expires: 3 }); // Set the expiration as needed
+
+                    // Update the original request headers with the new token
+                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
+
+                    // Retry the original request
+                    return axios(originalRequest);
+                } catch (refreshError) {
+                    // Handle token refresh failure, e.g., redirect to login
+                    console.error('Token refresh failed:', refreshError);
+
+                    // You might want to redirect to the login page or handle the failure in another way
+                }
+            }
+
+            return Promise.reject(error);
+        },
+    );
+
     // protect page
     const ProtectRoute = ({ children }) => {
         if (!currentUser) {
