@@ -16,6 +16,7 @@ export const urlSlice = createSlice({
         urlSuccess: (state, action) => {
             state.loading = false;
             state.error = false;
+
             state.currentUrl = [...action.payload];
         },
         urlFail: (state) => {
@@ -41,23 +42,21 @@ export const urlSlice = createSlice({
         },
         urlUpdate: (state, action) => {
             state.loading = false;
-            state.error = false;    
-            state.currentUrl.map((url)=>{
-                if(url._id === action.payload._id)
-                {
-                    url.urlTitle = action.payload.urlTitle
-                    url.url = action.payload.url    
-                    url.urlThumbnail= action.payload.urlThumbnail
-                    url.acticve = action.payload.acticve
-                    url.thumbnailImage = action.payload.thumbnailImage
-                    
+            state.error = false;
+            state.currentUrl.map((url) => {
+                if (url._id === action.payload._id) {
+                    url.urlTitle = action.payload.urlTitle;
+                    url.url = action.payload.url;
+                    url.urlThumbnail = action.payload.urlThumbnail;
+                    url.acticve = action.payload.acticve;
+                    url.thumbnailImage = action.payload.thumbnailImage;
                 }
-            })
-        }
+            });
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { urlStart, urlSuccess, urlFail, urlAdd, urlDelete,urlUpdate } = urlSlice.actions;
+export const { urlStart, urlSuccess, urlFail, urlAdd, urlDelete, urlUpdate } = urlSlice.actions;
 
 export default urlSlice.reducer;

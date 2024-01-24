@@ -21,7 +21,7 @@ function Fade({ onTemplate, onLinks }) {
     const [links, setLinks] = useState([]);
     let { username } = useParams();
     const [viewMb, setViewMb] = useState(false);
-    const dispatch=useDispatch()
+    const dispatch = useDispatch();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -35,12 +35,12 @@ function Fade({ onTemplate, onLinks }) {
                     iconData,
                     linkData,
                 ]);
-                setUser(resultUser.data);
-                setTheme(resultTheme.data);
-                setIcons(resultIcon.data);
-                setLinks(resultLinks.data);
-                dispatch(themeSuccess(resultTheme.data))
-                dispatch(urlSuccess(resultLinks.data))
+                user && setUser(resultUser.data);
+                theme && setTheme(resultTheme.data);
+                icons && setIcons(resultIcon.data);
+                links && setLinks(resultLinks.data);
+                theme && dispatch(themeSuccess(resultTheme.data));
+                links && dispatch(urlSuccess(resultLinks.data));
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -65,19 +65,19 @@ function Fade({ onTemplate, onLinks }) {
                     />
                 )}
                 {/* Links */}
-                {onLinks && <Links user={user}/>}
+                {onLinks && <Links user={user} />}
             </div>
             {/* --------------------------------preview----------------------------- */}
             {viewMb ? (
                 <div className="fade-right" style={{ display: 'block' }}>
                     <div className="fade-right-items">
-                    <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} links={links} />
+                        <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} links={links} />
                     </div>
                 </div>
             ) : (
                 <div className="fade-right">
                     <div className="fade-right-items">
-                        <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} links={links}/>
+                        <PreView isLoading={isLoading} theme={theme} icons={icons} user={user} links={links} />
                     </div>
                 </div>
             )}

@@ -24,12 +24,12 @@ const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
-    // const [user, setUser] = useState();
+    const [user, setUser] = useState();
     http.interceptors.request.use(
         (config) => {
             const token = Cookies.get('access_token');
             if (token) {
-                config.headers.Authorization = `${token}`;
+                config.headers.Authorization = `Bearer ${token}`;
             }
             return config;
         },
@@ -39,12 +39,12 @@ function App() {
     );
 
     http.interceptors.response.use(
-        (response) =>response,
+        (response) => response,
         async (error) => {
-            onsole.log(error);
+            console.log(error);
             const originalRequest = error.config;
             // If the error is due to an expired token, attempt to refresh it
-            if (error.response && error.response.data.status === 401 && !originalRequest._retry) {
+            if (error.response && error.response.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
                 try {
                     // Replace the following line with your actual endpoint for refreshing the token
