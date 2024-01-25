@@ -13,7 +13,7 @@ function SocialIconItem({ iconName, iconUrl, iconTheme, commu }) {
                 </a>
             ) : (
                 iconTheme
-            )}  
+            )}      
         </div>
     );
 }       
