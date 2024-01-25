@@ -1,7 +1,7 @@
-import bg1 from '../assets/img/bg/1-1.jpg';
-import bg2 from '../assets/img/bg/1-2.jpg';
-import bg3 from '../assets/img/bg/1-3.jpg';
-import bg5 from '../assets/img/bg/9.gif';
+// import bg1 from '../assets/img/bg/1-1.jpg';
+// import bg2 from '../assets/img/bg/1-2.jpg';
+// import bg3 from '../assets/img/bg/1-3.jpg';
+// import bg5 from '../assets/img/bg/9.gif';
 
 
 const themes = [
@@ -72,6 +72,26 @@ const themes = [
     },
     {
         bg_img: "https://firebasestorage.googleapis.com/v0/b/qr-link-34a7e.appspot.com/o/theme%2F4-2.jpg?alt=media&token=a13110b5-31da-4e2f-bace-ef287016540c&_gl=1*u02egp*_ga*NTcxOTUzNjQyLjE2OTcxNjgzNDc.*_ga_CW55HF8NVT*MTY5ODk3NTczNC41LjEuMTY5ODk3NTkxMS4zMy4wLjA.",
+        bg_opacity: 0.7,
+        bnt_radius: 25,
+        btn_color:"",
+        btn_type:"",
+        font_color:"#333333",
+        font_family:""
+
+    },
+    {
+        bg_img: "https://tranhdecors.com/wp-content/uploads/edd/2023/11/Banner-chuc-tet-Nguyen-Dan-2024.jpg",
+        bg_opacity: 0.7,
+        bnt_radius: 25,
+        btn_color:"",
+        btn_type:"",
+        font_color:"#333333",
+        font_family:""
+
+    },
+    {
+        bg_img: "https://tranhdecors.com/wp-content/uploads/edd/2023/11/Banner-chuc-tet-Nguyen-Dan-2024.jpg",
         bg_opacity: 0.7,
         bnt_radius: 25,
         btn_color:"",

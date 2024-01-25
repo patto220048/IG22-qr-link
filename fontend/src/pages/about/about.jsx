@@ -5,7 +5,7 @@ function About() {
     return (
         <>
             <section className="section_all bg-light" id="about">
-                <div className="container">
+                <div className="container-about">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="section_title_all text-center">
