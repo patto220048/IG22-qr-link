@@ -99,7 +99,7 @@ function CommunityItem({ user }) {
                     fontColor={theme?.font_color}
                 />
                 <div className="template-icon">
-                    <SocialIconList icons={user?.groupIcon} />
+                    <SocialIconList icons={user?.groupIcon} commu={true}/>
                 </div>
                 <div className="template-info-items">
                     {urls?.length > 0  ? (

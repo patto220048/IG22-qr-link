@@ -10,14 +10,14 @@ function LinkTree(props) {
     };
 
     return (
-        <div >
+        <div>
             <a
                 href={props.link}
                 className="linktree-link"
                 hidden={!props.acticve}
                 target="blank"
                 onClick={handleOpenContact}
-                
+                style={props.commu ? {pointerEvents : 'none'}:""}
             >
                 <p
                     className="linktree-decs"
@@ -71,8 +71,8 @@ function LinkTree(props) {
                         <p
                             className="linktree-title"
                             style={{
-                                fontFamily: `${currentTheme?.font_famify || props.theme?.font_famify   }`,
-                                fontWeight: `${currentTheme?.font_weight || props.theme?.font_weigh }`,
+                                fontFamily: `${currentTheme?.font_famify || props.theme?.font_famify}`,
+                                fontWeight: `${currentTheme?.font_weight || props.theme?.font_weigh}`,
                             }}
                         >
                             {props.title}
