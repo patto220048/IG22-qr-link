@@ -39,7 +39,7 @@ function Navbar() {
     const handleSignOut = async () => {
         try {
             const res = await http.post('/auth/logout', { token: currentUser.refreshToken });
-            console.log(res.status)
+            console.log(res.status);
             if (res.status == 200) {
                 navigate('/register/login');
                 localStorage.clear();
@@ -53,21 +53,23 @@ function Navbar() {
         setIsMobile(!isMobile);
     };
 
-    const handleActive= () => {
-        setActive(true)
-    }
+    const handleActive = () => {
+        setActive(true);
+    };
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 <h2 className="logo">
                     <NavLink to={'/'}>
-                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'}  loading='lazy'/>
+                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'} loading="lazy" />
                     </NavLink>
                 </h2>
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
                     {!currentUser && (
                         <NavLink to={'/'} style={{ color: '#696d61' }}>
-                            <li className={`nav-link_items ` + (active ? "active" : "") } onClick={handleActive}>Home</li>
+                            <li className={`nav-link_items ` + (active ? 'active' : '')} onClick={handleActive}>
+                                Home
+                            </li>
                         </NavLink>
                     )}
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
@@ -77,8 +79,12 @@ function Navbar() {
                         <li className="nav-link_items">Links</li>
                     </NavLink>
                     {/* <li className="nav-link_items">Create QR</li> */}
-                    <li className="nav-link_items">Community</li>
-                    <li className="nav-link_items">About</li>
+                    <NavLink to={`/community`} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">Community</li>
+                    </NavLink>
+                    <NavLink to={`/about`} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">About</li>
+                    </NavLink>
                 </ul>
                 {/* ----------------------------------------nav mobile-------------------------------------------- */}
                 {isMobile && (
@@ -100,9 +106,13 @@ function Navbar() {
                         </NavLink>
 
                         {/* <li className="nav-link-mobile_items qr1">Create QR</li> */}
-                        <li className="nav-link-mobile_items commuity">Community</li>
+                        <NavLink to={`/community`} style={{ color: '#696d61' }}>
+                            <li className="nav-link-mobile_items commuity">Community</li>
+                        </NavLink>
 
-                        <li className="nav-link-mobile_items about1">About</li>
+                        <NavLink to={`/about`} style={{ color: '#696d61' }}>
+                            <li className="nav-link_items">About</li>
+                        </NavLink>
                     </ul>
                 )}
                 {!currentUser ? (
@@ -117,10 +127,17 @@ function Navbar() {
                 ) : (
                     <div className="nav-user">
                         <ul className="nav-user-option">
-                            <button className="nav-user-btn" onClick={()=>alert("申し訳ありませんが、この機能はまだ開発されていません未開発の機能!!")}>Buy Card</button>
+                            <button
+                                className="nav-user-btn"
+                                onClick={() =>
+                                    alert('申し訳ありませんが、この機能はまだ開発されていません未開発の機能!!')
+                                }
+                            >
+                                Buy Card
+                            </button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
-                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg}  loading='lazy' />
+                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} loading="lazy" />
                         </div>
                     </div>
                 )}
