@@ -72,7 +72,7 @@ function App() {
                     ),
                 },
                 {
-                    path: `links`,
+                    path: `/links`,
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
                             <ProtectRoute>

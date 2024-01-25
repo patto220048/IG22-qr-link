@@ -391,7 +391,6 @@ function Dialog_UI({
                         font_weight: font.weight,
                     });
                     setIsFonts(false);
-                    console.log(res.data);
                     dispatch(updateTheme(res.data));
                 } catch (error) {
                     console.log(error.message);

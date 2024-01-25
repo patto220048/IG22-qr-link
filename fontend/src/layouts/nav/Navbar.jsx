@@ -76,7 +76,7 @@ function Navbar() {
                     <NavLink to={`/links`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Links</li>
                     </NavLink>
-                    <li className="nav-link_items">Create QR</li>
+                    {/* <li className="nav-link_items">Create QR</li> */}
                     <li className="nav-link_items">Community</li>
                     <li className="nav-link_items">About</li>
                 </ul>
@@ -99,7 +99,7 @@ function Navbar() {
                             <li className="nav-link-mobile_items link1">Links</li>
                         </NavLink>
 
-                        <li className="nav-link-mobile_items qr1">Create QR</li>
+                        {/* <li className="nav-link-mobile_items qr1">Create QR</li> */}
                         <li className="nav-link-mobile_items commuity">Community</li>
 
                         <li className="nav-link-mobile_items about1">About</li>
@@ -117,7 +117,7 @@ function Navbar() {
                 ) : (
                     <div className="nav-user">
                         <ul className="nav-user-option">
-                            <button className="nav-user-btn">Buy Card</button>
+                            <button className="nav-user-btn" onClick={()=>alert("申し訳ありませんが、この機能はまだ開発されていません未開発の機能!!")}>Buy Card</button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
                             <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg}  loading='lazy' />
