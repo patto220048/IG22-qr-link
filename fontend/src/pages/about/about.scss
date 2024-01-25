@@ -1,4 +1,9 @@
 
+.title {
+    font-size: 50px;
+    font-weight: 900;
+    margin-bottom: 50px;
+}
 
 .section_all {
     position: relative;
@@ -59,4 +64,20 @@
 
 .about_content_box_all {
     padding: 28px;
+}
+
+
+.member-group{
+    display: flex;
+    width: 100%;
+}
+
+.img-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.card {
+    
 }
