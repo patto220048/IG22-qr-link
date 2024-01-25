@@ -111,7 +111,7 @@ function Navbar() {
                         </NavLink>
 
                         <NavLink to={`/about`} style={{ color: '#696d61' }}>
-                            <li className="nav-link_items">About</li>
+                            <li className="nav-link-mobile_items about1 ">About</li>
                         </NavLink>
                     </ul>
                 )}

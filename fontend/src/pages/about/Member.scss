@@ -1,0 +1,34 @@
+.Member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: black;
+    .Member-avt {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid #333333;
+        padding: 2px;
+    }
+    .Member-desc{
+        font-size: 22px;
+        font-weight: 700;
+    }
+}
+@media only screen and (max-width: 768px){
+    .Member{
+        .Member-avt{
+            width: 60px;
+            height: 60px;
+        }
+        .Member-name{
+            font-size: 10px;
+        }
+        .Member-desc{
+        font-size: 12px;
+
+        }
+    }
+}
