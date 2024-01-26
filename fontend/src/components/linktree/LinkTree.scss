@@ -2,10 +2,11 @@
 
 .linktree-link {
     text-decoration: none;
-    padding-bottom:10px ;
+    // padding-bottom:10px ;
     .linktree-decs{
         font-size: 15px;
         font-weight: 500;
+        // background-color: transparent;
     }
     .linktree {
         padding: 20px;
@@ -31,8 +32,8 @@
             }
             .linktree-thumb{
                
-                width: 35px;
-                height: 35px;
+                width: 45px;
+                height: 45px;
                 object-fit: cover;
                 border-radius: 5px;
             }

@@ -35,7 +35,7 @@ function Profile() {
                 const userData = await http.get(`/users/${username}`);
                 const themeData = await http.get(`/card/v1/${currentUser?._id}`);
                 const iconData = await http.get(`/icon/${currentUser?._id}`);
-                const linksData = await http.get(`/link/${currentTheme?._id}`);
+                const linksData = await http.get(`/link/${currentUser?._id}`);
                 const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
                     userData,
                     themeData,

@@ -8,66 +8,136 @@ function LinkTree(props) {
     const handleOpenContact = () => {
         !props.link && props.setIsContact(true);
     };
-
     return (
         <>
-            <a
-                href={props.link}
-                className="linktree-link"
-                hidden={!props.acticve}
-                target="blank"
-                onClick={handleOpenContact}
-            >
-                <p
-                    className="linktree-decs"
-                    style={{ color: `${currentTheme?.font_color}`, fontFamily: `${currentTheme?.font_famify}` }}
+            {props.commu ? (
+                <a
+                    href={props.link}
+                    className="linktree-link"
+                    hidden={!props.acticve}
+                    target="blank"
+                    onClick={handleOpenContact}
+                    style={props.commu ? { pointerEvents: 'none' } : { pointerEvents: '' }}
                 >
-                    {props.decs}
-                </p>
-                <div
-                    className="linktree"
-                    style={{
-                        width: `${props.preview ? '250px' : '500px'}`,
-                        borderRadius: `${currentTheme?.btn_radius}px`,
-                        boxShadow: `${currentTheme.btn_style?.btn_shadow.horizontal}px ${currentTheme.btn_style?.btn_shadow.vertical}px ${currentTheme.btn_style?.btn_shadow.blur}px ${currentTheme.btn_style?.btn_shadow.spread}px ${currentTheme?.btn_shadow_color}`,
-                        border: `${currentTheme?.btn_border}px solid black`,
-                        backgroundColor: `${currentTheme?.btn_outline ? 'transparent' : `${currentTheme?.btn_color1}`}`,
-                    }}
-                    hidden={props.headerStyte ? true : false}
-                >
-                    <div
-                        className="linktree-item"
+                    <p
+                        className="linktree-decs"
                         style={{
-                            color: `${currentTheme?.btn_fontColor}`,
+                            color: `${props.theme?.font_color}`,
+                            fontFamily: `${props.theme?.font_famify}`,
                         }}
                     >
-                        {props.thumbnailImage ? (
-                            <img
-                                className="linktree-thumb"
-                                src={props.thumbnailImage}
-                                alt=""
-                                loading="lazy"
-                                style={props.thumbnailImage ? { position: 'absolute' } : { position: '' }}
-                            />
-                        ) : (
-                            <></>
-                        )}
-
-                        <p
-                            className="linktree-title"
+                        {props.decs}
+                    </p>
+                    <div
+                        className="linktree"
+                        style={{
+                            width: `${props.preview ? '250px' : '500px'}`,
+                            borderRadius: `${props.theme?.btn_radius}px`,
+                            boxShadow: `${props.theme?.btn_style?.btn_shadow.horizontal}px ${props.theme?.btn_style?.btn_shadow.vertical}px ${props.theme?.btn_style?.btn_shadow.blur}px ${props.theme?.btn_style?.btn_shadow.spread}px ${props.theme?.btn_shadow_color}`,
+                            border: `${props.theme?.btn_border}px solid black`,
+                            backgroundColor: `${
+                                props.theme?.btn_outline ? 'transparent' : `${props.theme?.btn_color1}`
+                            }`,
+                        }}
+                        hidden={props.headerStyte ? true : false}
+                    >
+                        <div
+                            className="linktree-item"
                             style={{
-                                fontFamily: `${currentTheme?.font_famify}`,
-                                fontWeight: `${currentTheme?.font_weight}`,
+                                color: `${props.theme?.btn_fontColor} `,
                             }}
                         >
-                            {props.title}
-                        </p>
+                            {props.thumbnailImage ? (
+                                <img
+                                    className="linktree-thumb"
+                                    src={props.thumbnailImage}
+                                    alt=""
+                                    loading="lazy"
+                                    style={props.thumbnailImage ? { position: 'absolute' } : { position: '' }}
+                                />
+                            ) : (
+                                <></>
+                            )}
 
-                        <link rel="shortcut icon" href={props.icon} />
-                        <span className="linktree-icon_menu">{menuIcon(25,25)}</span>
+                            <p
+                                className="linktree-title"
+                                style={{
+                                    fontFamily: `${props.theme?.font_famify}`,
+                                    fontWeight: `${props.theme?.font_weigh}`,
+                                }}
+                            >
+                                {props.title}
+                            </p>
+
+                            <link rel="shortcut icon" href={props.icon} />
+                            <span className="linktree-icon_menu">{menuIcon(25, 25)}</span>
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            ) : (
+                <a
+                    href={props.link}
+                    className="linktree-link"
+                    hidden={!props.acticve}
+                    target="blank"
+                    onClick={handleOpenContact}
+                >
+                    <p
+                        className="linktree-decs"
+                        style={{
+                            color: `${currentTheme?.font_color}`,
+                            fontFamily: `${currentTheme?.font_famify}`,
+                        }}
+                    >
+                        {props.decs}
+                    </p>
+                    <div
+                        className="linktree"
+                        style={{
+                            width: `${props.preview ? '250px' : '500px'}`,
+                            borderRadius: `${currentTheme?.btn_radius}px`,
+                            boxShadow: `${currentTheme.btn_style?.btn_shadow.horizontal}px ${currentTheme.btn_style?.btn_shadow.vertical}px ${currentTheme.btn_style?.btn_shadow.blur}px ${currentTheme.btn_style?.btn_shadow.spread}px ${currentTheme?.btn_shadow_color}`,
+                            border: `${currentTheme?.btn_border}px solid black`,
+                            backgroundColor: `${
+                                currentTheme?.btn_outline ? 'transparent' : `${currentTheme?.btn_color1}`
+                            }`,
+                        }}
+                        hidden={props.headerStyte ? true : false}
+                    >
+                        <div
+                            className="linktree-item"
+                            style={{
+                                color: `${currentTheme?.btn_fontColor} `,
+                            }}
+                        >
+                            {props.thumbnailImage ? (
+                                <img
+                                    className="linktree-thumb"
+                                    src={props.thumbnailImage}
+                                    alt=""
+                                    loading="lazy"
+                                    style={props.thumbnailImage ? { position: 'absolute' } : { position: '' }}
+                                />
+                            ) : (
+                                <></>
+                            )}
+
+                            <p
+                                className="linktree-title"
+                                style={{
+                                    fontFamily: `${currentTheme?.font_famify}`,
+                                    fontWeight: `${currentTheme?.font_weight}`,
+                                }}
+                            >
+                                {props.title}
+                            </p>
+
+                            <link rel="shortcut icon" href={props.icon} />
+                            <span className="linktree-icon_menu">{menuIcon(25, 25)}</span>
+                        </div>
+                    </div>
+                </a>
+            )}
         </>
     );
 }

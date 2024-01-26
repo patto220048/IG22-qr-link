@@ -16,9 +16,10 @@ import Newpass from './pages/register/newPass/NewPass';
 import PreView from './components/Preview/PreView';
 import Fade from './components/Fade/Fade';
 import About from './pages/about/about';
+// import Community from './pages/community/Community';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
-
+const Community = lazy(() => import('./pages/community/Community'));
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState();
@@ -72,12 +73,20 @@ function App() {
                     ),
                 },
                 {
-                    path: `links`,
+                    path: `/links`,
                     element: (
                         <Suspense fallback={<div>Loading....</div>}>
                             <ProtectRoute>
                                 <Fade onLinks={true} />
                             </ProtectRoute>
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: '/community',
+                    element: (
+                        <Suspense fallback={<div>Loading....</div>}>
+                            <Community />
                         </Suspense>
                     ),
                 },

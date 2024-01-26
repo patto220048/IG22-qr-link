@@ -42,21 +42,29 @@ function Dialog_content({
     setCurrentThumbnail,
     currentThumbnail,
     thumbnailUser,
+    notifyToast,
 }) {
     // image processing upload
     const [imgPercent, setImgPercent] = useState(0);
     const [videoPercent, setVideoPercent] = useState(0);
     const [thumbnailPercent, setThumbPercent] = useState(0);
-    console.log(thumbnailPercent);
     //upload firebase storage
     const upload = (file, type) => {
+        const maxFileSize = 5 * 1024 * 1024; // 2MB
+
+        if (file.size > maxFileSize) {
+            console.error('File size exceeds the maximum allowed size (5MB).');
+            return alert('File size exceeds the maximum allowed size (5MB).');
+        }
         const storage = getStorage(app);
         const fileName = new Date().getTime() + file?.name;
         const storageRef = ref(storage, fileName);
+
         type === 'avatar' && setCurrentAvatar(fileName);
         type === 'background' && setCurrentBackground(fileName);
         type === 'video' && setCurrentVideoBg(fileName);
         type === 'thumbnail' && setCurrentThumbnail(fileName);
+
         const uploadTask = uploadBytesResumable(storageRef, file);
         uploadTask.on(
             'state_changed',

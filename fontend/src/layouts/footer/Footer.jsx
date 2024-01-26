@@ -36,9 +36,9 @@ function Footer() {
                       
                         <span>Copyright © 2023 PNxD Team</span>
                         <span>All rights reserved</span>
-                        <div className="footer-input">
+                        {/* <div className="footer-input">
                             <input type="text" placeholder="Enter your email" />
-                        </div>
+                        </div> */}
                         <ul className="footer-icon">
                             <img className="footer-icon_items" src={facbook} alt="" />
                             <img className="footer-icon_items" src={github} alt="" />
@@ -53,7 +53,7 @@ function Footer() {
                     title="DMCA.com Protection Status"
                     className="dmca-badge"
                 >
-                    {' '}
+                
                     <img
                         src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-06.png?ID=fafeccb4-7a66-40db-8ed3-03436b38dfbe"
                         alt="DMCA.com Protection Status"

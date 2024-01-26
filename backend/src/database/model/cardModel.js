@@ -28,7 +28,7 @@ const CardModel = new Schema(
         },
         bgColor: {
             type: String,
-            default: null,
+            default:"FFFFFF",
         },
         backgroundOpacity: {
             type: String,

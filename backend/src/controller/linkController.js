@@ -25,23 +25,15 @@ class LinkController {
         }
     }
     //get links
-    async getLinks(req, res) {
-        const cardId = req.params.cardId;
+    async getLinks(req, res, next) {
+        const userId = req.params.userId;
         try {
-            const card = await Card.findById(cardId);
-            if (card){
-                try {
-                    const getLinks = await Link.find({ cardId: card._id });
-                    res.status(200).json(getLinks);
-                } catch (error) {
-                    res.json(handleErorr(500, error.message));
-                }
+            try {
+                const getLinks = userId && await Link.find({ userId: userId });
+                return res.status(200).json(getLinks);
+            } catch (error) {
+                res.json(handleErorr(500, error.message));
             }
-            else{
-                res.json(handleErorr(500,"Card not found!"));
-
-            }
-          
         } catch (error) {
             res.json(handleErorr(500, error.message));
         }

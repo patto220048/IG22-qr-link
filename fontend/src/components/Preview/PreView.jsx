@@ -166,6 +166,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
 
                                 {currentLink?.map((url, index) => (
                                     <LinkTree
+                                        cummu={false}
                                         window={false}
                                         preview={true}
                                         isMobile={false}
