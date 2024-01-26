@@ -7,6 +7,7 @@ import Loading from '../dialog/loading/Loading';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
 import { memo, useState } from 'react';
 import PreViewContact from '../PreviewContact/PreviewContact';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function PreView({ userIn, isLoading, theme, icons, user, links }) {
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -37,7 +38,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         type="video/webm"
                                         loop
                                         autoPlay
-                                        muted 
+                                        muted
                                         src={
                                             currentTheme?.backgroundVideo
                                                 ? currentTheme?.backgroundVideo
@@ -45,21 +46,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         }
                                     ></video>
                                 ) : (
-                                    // <LazyLoadImage
-                                    //     className="template-bg"
-                                    //     src={
-                                    //         currentTheme?.backgroundImg
-                                    //             ? currentTheme?.backgroundImg
-                                    //             : theme?.backgroundImg
-                                    //     }
-                                    //     effect="blur"
-                                    //     alt={
-                                    //         currentTheme?.backgroundImg
-                                    //             ? currentTheme?.backgroundImg
-                                    //             : theme?.backgroundImg
-                                    //     }
-                                    // />
-                                    <img
+                                    <LazyLoadImage
                                         className="template-bg"
                                         style={
                                             currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
@@ -69,13 +56,30 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                 ? currentTheme?.backgroundImg
                                                 : theme?.backgroundImg
                                         }
+                                        effect="blur"
                                         alt={
                                             currentTheme?.backgroundImg
                                                 ? currentTheme?.backgroundImg
                                                 : theme?.backgroundImg
                                         }
-                                        loading="lazy"
                                     />
+                                    // <img
+                                    //     className="template-bg"
+                                    //     style={
+                                    //         currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
+                                    //     }
+                                    //     src={
+                                    //         currentTheme?.backgroundImg
+                                    //             ? currentTheme?.backgroundImg
+                                    //             : theme?.backgroundImg
+                                    //     }
+                                    //     alt={
+                                    //         currentTheme?.backgroundImg
+                                    //             ? currentTheme?.backgroundImg
+                                    //             : theme?.backgroundImg
+                                    //     }
+                                    //     loading="lazy"
+                                    // />
                                 )}
                             </>
                         ) : (
@@ -92,6 +96,8 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                 style={
                                                     currentLink?.length > 4 === true
                                                         ? {
+                                                              height: '100vh',
+
                                                               backgroundImage: `linear-gradient(${
                                                                   currentTheme?.gadientColorTop ||
                                                                   theme?.gadientColorTop
@@ -101,6 +107,8 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                               })`,
                                                           }
                                                         : {
+                                                              height: '100%',
+
                                                               backgroundImage: `linear-gradient(${
                                                                   currentTheme?.gadientColorTop ||
                                                                   theme?.gadientColorTop
@@ -117,6 +125,8 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                 style={
                                                     currentLink?.length > 4 === true
                                                         ? {
+                                                              height: '100vh',
+
                                                               backgroundColor: `${
                                                                   currentTheme?.gadientColorBot ||
                                                                   currentTheme?.gadientColorTop ||
@@ -125,6 +135,8 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                               }`,
                                                           }
                                                         : {
+                                                              height: '100%',
+
                                                               backgroundColor: `${
                                                                   currentTheme?.gadientColorBot ||
                                                                   currentTheme?.gadientColorTop ||
@@ -144,11 +156,14 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         style={
                                             currentLink?.length > 4 === true
                                                 ? {
+                                                      height: '100vh',
                                                       backgroundColor: `${
                                                           currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
                                                       }`,
                                                   }
                                                 : {
+                                                      height: '100%',
+
                                                       backgroundColor: `${
                                                           currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
                                                       }`,

@@ -50,7 +50,7 @@ function Dialog_content({
     const [thumbnailPercent, setThumbPercent] = useState(0);
     //upload firebase storage
     const upload = (file, type) => {
-        const maxFileSize = 5 * 1024 * 1024; // 2MB
+        const maxFileSize = 6 * 1024 * 1024; // 2MB
 
         if (file.size > maxFileSize) {
             console.error('File size exceeds the maximum allowed size (5MB).');

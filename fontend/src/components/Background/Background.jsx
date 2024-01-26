@@ -59,8 +59,10 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
                         backgroundVideoName:null,
                     });
                     setIsPickColor(false);
+                    window.location.reload(true);
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
+
                     }, 1000);
                     return () => {
                         clearTimeout(timeOutId);
@@ -91,6 +93,8 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
                         backgroundVideoName:null
                     });
                     setIsGardientTop(false);
+                    window.location.reload(true);
+
                     console.log(res.data);
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
@@ -124,6 +128,8 @@ function Background({ cardId, theme, setViewMb,setPickImg}) {
                         backgroundVideoName:null
                     });
                     setIsGardientBot(false);
+                    window.location.reload(true);
+
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
                     }, 1000);
