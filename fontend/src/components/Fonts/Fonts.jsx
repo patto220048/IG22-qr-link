@@ -8,7 +8,7 @@ import http from '../../instance/axiosInstance';
 
 function Fonts({ theme }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
-    const [colorFont, setColorFont] = useState('#333333');
+    const [colorFont, setColorFont] = useState('#FFFFFF');
     const [isFonts, setIsFonts] = useState(false);
     const [isPickColorBtn, setIsPickColor] = useState(false)
     const [currentColorFonts, setCurrentColorFonts] = useState({});

@@ -96,7 +96,7 @@ const CardModel = new Schema(
         },
         font_color: {
             type: String,
-            default: "#333333",
+            default: "#ffffff",
         },
         gadientColorTop: {
             type: String,
