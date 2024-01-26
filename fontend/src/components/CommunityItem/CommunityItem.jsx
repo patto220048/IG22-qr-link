@@ -43,6 +43,7 @@ function CommunityItem({ user }) {
                             type="video/webm"
                             loop
                             autoPlay
+                            muted 
                             src={theme?.backgroundVideo}
                         ></video>
                     ) : (
