@@ -44,6 +44,20 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         }
                                     ></video>
                                 ) : (
+                                    // <LazyLoadImage
+                                    //     className="template-bg"
+                                    //     src={
+                                    //         currentTheme?.backgroundImg
+                                    //             ? currentTheme?.backgroundImg
+                                    //             : theme?.backgroundImg
+                                    //     }
+                                    //     effect="blur"
+                                    //     alt={
+                                    //         currentTheme?.backgroundImg
+                                    //             ? currentTheme?.backgroundImg
+                                    //             : theme?.backgroundImg
+                                    //     }
+                                    // />
                                     <img
                                         className="template-bg"
                                         style={
@@ -77,7 +91,6 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                 style={
                                                     currentLink?.length > 4 === true
                                                         ? {
-                                                             
                                                               backgroundImage: `linear-gradient(${
                                                                   currentTheme?.gadientColorTop ||
                                                                   theme?.gadientColorTop
@@ -87,7 +100,6 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                               })`,
                                                           }
                                                         : {
-                                                     
                                                               backgroundImage: `linear-gradient(${
                                                                   currentTheme?.gadientColorTop ||
                                                                   theme?.gadientColorTop
@@ -104,7 +116,6 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                 style={
                                                     currentLink?.length > 4 === true
                                                         ? {
-                                                         
                                                               backgroundColor: `${
                                                                   currentTheme?.gadientColorBot ||
                                                                   currentTheme?.gadientColorTop ||
@@ -113,7 +124,6 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                                               }`,
                                                           }
                                                         : {
-                                                      
                                                               backgroundColor: `${
                                                                   currentTheme?.gadientColorBot ||
                                                                   currentTheme?.gadientColorTop ||
@@ -133,13 +143,11 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         style={
                                             currentLink?.length > 4 === true
                                                 ? {
-                                               
                                                       backgroundColor: `${
                                                           currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
                                                       }`,
                                                   }
                                                 : {
-                                          
                                                       backgroundColor: `${
                                                           currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
                                                       }`,
@@ -162,7 +170,10 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                 fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
                             />
                             <div className="template-info-items">
-                                <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} commu={false} />
+                                <SocialIconList
+                                    icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons}
+                                    commu={false}
+                                />
 
                                 {currentLink?.map((url, index) => (
                                     <LinkTree

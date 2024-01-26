@@ -5,7 +5,7 @@ class UserController {
     //get all user
     async getUsers(req, res) {
         try {
-            const users = await User.find();
+            const users = await User.aggregate([{$sample:{size: 12}}])
             res.status(200).json(users);
         } catch (error) {
             res.json(handleError(500, error.message));

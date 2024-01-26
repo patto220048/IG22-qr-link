@@ -92,7 +92,7 @@ const CardModel = new Schema(
         },
         font_weight: {
             type: Number,
-            default: 500,
+            default: 700,
         },
         font_color: {
             type: String,

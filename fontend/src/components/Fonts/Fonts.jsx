@@ -72,7 +72,7 @@ function Fonts({ theme }) {
                                 }`,
                             }}
                         >
-                            {currentTheme.font_famify ? currentTheme.font_famify : theme.font_famify}
+                            {currentTheme.font_famify ? currentTheme.font_famify : theme.font_famify || <span style={{fontFamily:"Inner"}}>Inner</span>}
                         </span>
                     </button>
                 </div>
