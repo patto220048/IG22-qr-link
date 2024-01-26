@@ -37,6 +37,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                         type="video/webm"
                                         loop
                                         autoPlay
+                                        muted 
                                         src={
                                             currentTheme?.backgroundVideo
                                                 ? currentTheme?.backgroundVideo
