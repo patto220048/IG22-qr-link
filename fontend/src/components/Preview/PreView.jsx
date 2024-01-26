@@ -162,7 +162,7 @@ function PreView({ userIn, isLoading, theme, icons, user, links }) {
                                 fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
                             />
                             <div className="template-info-items">
-                                <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
+                                <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} commu={false} />
 
                                 {currentLink?.map((url, index) => (
                                     <LinkTree

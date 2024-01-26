@@ -10,7 +10,7 @@ function LinkTree(props) {
     };
     return (
         <>
-            {props.commu ? (
+            {props?.commu ? (
                 <a
                     href={props.link}
                     className="linktree-link"

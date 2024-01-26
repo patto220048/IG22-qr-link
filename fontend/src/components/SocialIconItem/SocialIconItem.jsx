@@ -6,7 +6,7 @@ function SocialIconItem({ iconName, iconUrl, iconTheme, commu }) {
     return (
         <div className="socialIconItem">
             {!iconTheme ? (
-                <a href={iconUrl} target="blank" style={commu ? { pointerEvents: 'none' } : ''}>
+                <a href={iconUrl} target="blank" style={commu ? { pointerEvents: 'none' } : { pointerEvents: '' }}>
                     {iconSvgs.map(
                         (iconSvg, index) => iconSvg.iconName === iconName && <span key={index}>{iconSvg.icon}</span>,
                     )}
