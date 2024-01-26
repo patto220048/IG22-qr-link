@@ -21,11 +21,8 @@ function About() {
                     </p>
                     <h2 className="about_heading text-capitalize font-weight-bold mt-4 fw-bolder">What Set Us Apart</h2>
                     <p className="text-muted mt-3">Do not lose your information.</p>
-                    <br />
                     <p className="text-muted mt-3">You can check anytime on the web</p>
-                    <br />
                     <p className="text-muted mt-3">Contents can be edited.</p>
-                    <br />
                     <h2 className="about_heading text-capitalize font-weight-bold mt-4 fw-bolder">Unique Design</h2>
                     <p className="text-muted mt-3">There are many styles and colors to choose from</p>
                     <p className="text-muted mt-3">Freely set personal information, SNS link, etc...</p>
@@ -43,18 +40,19 @@ function About() {
                 <h2 className="About-title">Team Member</h2>
                 <div className="About-group">
                     <Member
+                        // job2={"Backend Leader"}
                         link={'https://www.facebook.com/Hoonvn/'}
                         name={'HUU PHAT'}
                         img={
-                            'https://scontent-nrt1-1.xx.fbcdn.net/v/t39.30808-6/260661638_927868901201648_5970155211689145139_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=ujMeeGc90MAAX__zrUW&_nc_ht=scontent-nrt1-1.xx&oh=00_AfDWbdpj9bqD4uJ7N6z4VCCuMvAScBlOau56yC_EBg8QOA&oe=65B74D87'
+                            'https://firebasestorage.googleapis.com/v0/b/qr-link-34a7e.appspot.com/o/avatar%2Fmyimg.jpg?alt=media&token=4f5c8b26-7a00-4298-90fa-1f017e9fd4ca'
                         }
-                        job={'Project Manager'}
+                        job={'Backend Leader'}
                     />
                     <Member
                         link={'#'}
                         name={'XIE XIE'}
                         img={
-                            'https://scontent-nrt1-1.xx.fbcdn.net/v/t39.30808-6/307158447_1134362604097988_1118604667491892605_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=blrWTh6wpeUAX8TJ5z0&_nc_ht=scontent-nrt1-1.xx&oh=00_AfDooT0lYE0u3p2wmmMv2R4BW3TcTr-i9kfytl1yO53Ciw&oe=65B7179E'
+                            'https://firebasestorage.googleapis.com/v0/b/qr-link-34a7e.appspot.com/o/avatar%2F422651842_1572735166795275_2020067857013685496_n.jpg?alt=media&token=8c04ebf2-1384-4910-abe5-97dc96bd22b2'
                         }
                         job={'Designer'}
                     />
@@ -62,7 +60,7 @@ function About() {
                         link={'#'}
                         name={'THIEN NHAN'}
                         img={
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY5xhkK_WqPskjNfqOnimTxJm17IpQodAquw&usqp=CAU'
+                            'https://firebasestorage.googleapis.com/v0/b/qr-link-34a7e.appspot.com/o/avatar%2Fnhan.jpg?alt=media&token=8de1f8f2-7044-4c09-af8a-e312d81f2809'
                         }
                         job={'Frontend Leader'}
                     />
@@ -70,7 +68,7 @@ function About() {
                         link={'#'}
                         name={'TRUNG DUNG'}
                         img={
-                            'https://scontent-nrt1-1.xx.fbcdn.net/v/t1.18169-9/23659278_1897028463947926_3804028324062442734_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=be3454&_nc_ohc=QpG5UB36j60AX9Ow7vu&_nc_oc=AQnMzgzWH6SWWB7fTeDSbCsVx485EEfoO_eGv4MkyUMVLVxctM7SaXETMg0pTluH5Hs&_nc_ht=scontent-nrt1-1.xx&oh=00_AfAlr7n5Ef789R3KJrmGcAds0Ewhwo2Fn8pBg54n0UZSIA&oe=65D91B6B'
+                            'https://firebasestorage.googleapis.com/v0/b/qr-link-34a7e.appspot.com/o/avatar%2F420182385_938503747937687_1170841713981671870_n.jpg?alt=media&token=7f144d8e-2df6-4644-a474-945495ad4574'
                         }
                         job={'Tester'}
                     />

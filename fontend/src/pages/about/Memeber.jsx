@@ -6,6 +6,7 @@ function Member(props) {
             <img className="Member-avt" src={props.img} alt={props.img} />
             <h5 className="Member-name">{props.name}</h5>
             <p className="Member-desc">{props.job}</p>
+            <p className="Member-desc">{props.job2}</p>
         </a>
     );
 }

@@ -5,11 +5,11 @@ import SocialIconList from '../SocialIconlist/SocialIconList';
 import LinkTree from '../linktree/LinkTree';
 import './CommunityItem.scss';
 import http from '../../instance/axiosInstance';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 function CommunityItem({ user }) {
     const [theme, setTheme] = useState({});
     const [urls, setUrls] = useState([]);
-    
- 
+
     useEffect(() => {
         const fectchTheme = async () => {
             try {
@@ -46,12 +46,19 @@ function CommunityItem({ user }) {
                             src={theme?.backgroundVideo}
                         ></video>
                     ) : (
-                        <img
+                        <LazyLoadImage
                             className="template-bg"
                             src={theme?.backgroundImg}
+                            effect="blur"
                             alt={theme?.backgroundImg}
-                            loading="lazy"
                         />
+
+                        // <img
+                        //     className="template-bg"
+                        //     src={theme?.backgroundImg}
+                        //     alt={theme?.backgroundImg}
+                        //     loading="lazy"
+                        // />
                     )}
                 </>
             ) : (
@@ -89,7 +96,7 @@ function CommunityItem({ user }) {
                 </>
             )}
 
-            <div className="template-profile" aria-disabled ={true}>
+            <div className="template-profile" aria-disabled={true}>
                 <AvatarProfile
                     preview={true}
                     usernameTitle={user.usernameTitle}
@@ -99,26 +106,28 @@ function CommunityItem({ user }) {
                     fontColor={theme?.font_color}
                 />
                 <div className="template-icon">
-                    <SocialIconList icons={user?.groupIcon} commu={true}/>
+                    <SocialIconList icons={user?.groupIcon} commu={true} />
                 </div>
                 <div className="template-info-items">
-                    {urls?.length > 0  ? (
-                        urls?.map((url, index) => (
-                            url.cardId === theme?._id &&
-                            <LinkTree
-                                commu = {true}
-                                key={index}
-                                theme={theme}
-                                preview={true}
-                                title={url.urlTitle}
-                                icon={url.urlThumbnail}
-                                thumbnailImage={url.thumbnailImage}
-                                link={url.url}
-                                acticve={url.acticve}
-                                decs={url.decs}
-                                headerStyte={url.headerStyle}
-                            />
-                        ))
+                    {urls?.length > 0 ? (
+                        urls?.map(
+                            (url, index) =>
+                                url.cardId === theme?._id && (
+                                    <LinkTree
+                                        commu={true}
+                                        key={index}
+                                        theme={theme}
+                                        preview={true}
+                                        title={url.urlTitle}
+                                        icon={url.urlThumbnail}
+                                        thumbnailImage={url.thumbnailImage}
+                                        link={url.url}
+                                        acticve={url.acticve}
+                                        decs={url.decs}
+                                        headerStyte={url.headerStyle}
+                                    />
+                                ),
+                        )
                     ) : (
                         <></>
                     )}

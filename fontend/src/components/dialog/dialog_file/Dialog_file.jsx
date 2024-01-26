@@ -47,7 +47,6 @@ function Dialog_content({
     const [imgPercent, setImgPercent] = useState(0);
     const [videoPercent, setVideoPercent] = useState(0);
     const [thumbnailPercent, setThumbPercent] = useState(0);
-    console.log(thumbnailPercent);
     //upload firebase storage
     const upload = (file, type) => {
         const storage = getStorage(app);

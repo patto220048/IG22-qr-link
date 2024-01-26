@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CommunityItem from '../CommunityItem/CommunityItem';
 import './CommunityList.scss';
 import http from '../../instance/axiosInstance';
+import Footer from '../../layouts/footer/Footer';
 
 function CommunityList() {
     const [users, setUsers] = useState([]);
@@ -18,11 +19,15 @@ function CommunityList() {
     }, []);
 
     return (
+        <>
+    
         <div className="CommunityList">
             {users.map((user)=>(
                 <CommunityItem key={user._id} user={user}/>
             ))}
         </div>
+            <Footer/>
+        </>
     );
 }
 
