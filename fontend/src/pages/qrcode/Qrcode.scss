@@ -1,0 +1,74 @@
+@import "../../base/variable";
+@import "../../base/color";
+.qrcode {
+    padding-top: 180px;
+    text-align: center;
+
+    .qrcode-title {
+        text-align: center;
+        font-size: 50px;
+        font-weight: 900;
+        margin-bottom: 50px;
+    }
+    .qrcode-wapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .qrcode-input {
+            // margin-left: 200px;
+            display: flex;
+            gap: 30px;
+            // transform: translateX(100px);
+            // position: fixed;
+
+            .input-value {
+                width: 600px;
+                height: 40px;
+                border-radius: 15px;
+                padding: 5px 10px;
+                border: 0;
+                font-size: 16px;
+                font-weight: 700;
+                border: 2px solid transparent;
+                &:focus {
+                border: 2px solid rgba($color: $black, $alpha: 1);
+                }
+                &:hover{
+                border: 2px solid rgba($color: $black, $alpha: 1);
+
+                }
+            }
+            .btn-make-qr{
+                @include btn;
+                width: 20%;
+                background-color: $black;
+                color: $white;
+            }
+        }
+        .qrcode-item {
+            .qr{
+                // transform: translateX(-100px);
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px){
+    .qrcode{
+        .qrcode-wapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            .qrcode-input {
+                // margin-left: 20;
+                margin: 0 auto;
+    
+                .input-value{
+                    width: 400px;
+                }
+            }
+        }
+      
+    }
+}
