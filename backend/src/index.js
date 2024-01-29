@@ -6,7 +6,7 @@ import db from './database/index.js'
 import * as dotenv from 'dotenv';
 import cors from "cors"
 dotenv.config()
-const port = 4000 || process.env.PORT
+const PORT = process.env.PORT || 8000
 const app = express();
 
 // setting read file json 
@@ -25,4 +25,4 @@ db.connect()
 //route
 route(app)
 //app
-app.listen(port, () => console.log(`Listening on port ${port} : ${process.env.HOST}:${port}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT} : ${process.env.HOST}:${PORT} : mode ${NODE_ENV}`));
