@@ -16,6 +16,7 @@ import Newpass from './pages/register/newPass/NewPass';
 import PreView from './components/Preview/PreView';
 import Fade from './components/Fade/Fade';
 import About from './pages/about/about';
+import Loading from './pages/loading/Loading';
 // import Community from './pages/community/Community';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
@@ -51,7 +52,7 @@ function App() {
                 {
                     path: '/',
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
+                        <Suspense fallback={<div><Loading/></div>}>
                             <Home />
                         </Suspense>
                     ),
@@ -59,7 +60,7 @@ function App() {
                 {
                     path: '/about',
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
+                        <Suspense fallback={<div><Loading/></div>}>
                             <About />
                         </Suspense>
                     ),
@@ -75,7 +76,7 @@ function App() {
                 {
                     path: `/links`,
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
+                        <Suspense fallback={<div><Loading/></div>}>
                             <ProtectRoute>
                                 <Fade onLinks={true} />
                             </ProtectRoute>
@@ -85,7 +86,7 @@ function App() {
                 {
                     path: '/community',
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
+                        <Suspense fallback={<div><Loading/></div>}>
                             <Community />
                         </Suspense>
                     ),
@@ -95,7 +96,7 @@ function App() {
         {
             path: `profile/:username`,
             element: (
-                <Suspense fallback={<div>Loading....</div>}>
+                <Suspense fallback={<div><Loading/></div>}>
                     <Profile />
                 </Suspense>
             ),
