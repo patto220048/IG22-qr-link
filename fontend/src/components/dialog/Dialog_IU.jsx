@@ -88,15 +88,16 @@ function Dialog_UI({
     useEffect(() => {
         const fectchTheme = async () => {
             try {
-                const res = await http.get(`/card/v1/${currentUser._id}`);
-
+                const res = await http.get(`/card/v1/${currentUser?._id}`,{
+                    headers: {authorization : 'Bearer ' + currentUser.accsessToken}
+                });
                 setThemeBgUser(res.data);
             } catch (error) {
-                console.log(error.message);
+                console.log(error);
             }
         };
         fectchTheme();
-    }, [currentUser._id]);
+    }, [currentUser]);
     // handle save database
     const handleAddAvt = useCallback(
         (e) => {

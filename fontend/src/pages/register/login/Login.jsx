@@ -149,7 +149,7 @@ function Login() {
                 notifyToast(error.message, 2);
                 dispatch(loginFail());
             }
-        }, 1500);
+        }, 1000);
         return () => {
             clearTimeout(timeOutId);
         };
@@ -166,7 +166,6 @@ function Login() {
         dispatch(loginStart());
         signInWithPopup(auth, providerGG)
             .then((result) => {
-                console.log(result);
                 http.post('/auth/google', {
                     username: result.user.displayName,
                     email: result.user.email,

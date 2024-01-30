@@ -22,6 +22,8 @@ function Theme({
     themeFontColor,
     themeFontFamily,
 }) {
+    const currentUser = useSelector((state) => state.user.currentUser);
+
     const dispatch = useDispatch();
     const handleTheme = () => {
         const fetchTheme = async () => {
@@ -41,7 +43,9 @@ function Theme({
                     gadientColorTop:null,
                     gadientColorBot:null,
 
-                });
+                },
+                {headers: { headers: {authorization : 'Bearer ' + currentUser.accsessToken} }}
+                );
                 const timeoutId = setTimeout(async () => {
                     // setThemeInstance(res.data);
                     dispatch(updateTheme(res.data));

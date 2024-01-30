@@ -11,7 +11,7 @@ import Card from '../database/model/cardModel.js';
 import { v4 as uuidv4 } from 'uuid';
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '1m',
+        expiresIn: '10m',
     });
 };
 const generateRefeshToken = (user) => {
@@ -46,7 +46,7 @@ class authController {
                 }
             } catch (error) {
                 res.json(handleError(500, error.message));
-            }
+            }       
         });
     }
     async login(req, res) {
@@ -83,10 +83,11 @@ class authController {
             // }
             const { password, ...other } = setRefreshToken._doc;
             // set cookie
-            res.cookie('access_token', 'Bearer ' + accsessToken, {
-                // httpOnly: true,
-                path: '/',
-            })
+            res
+            // .cookie('access_token', 'Bearer ' + accsessToken, {
+            //     // httpOnly: true,
+            //     path: '/',
+            // })
                 .status(200)
                 .json({ ...other });
         } catch (error) {
@@ -107,7 +108,9 @@ class authController {
             );
             // user not have -> token invalid!!
             if (user != null) {
-                res.clearCookie('access_token').status(200).json('Logged out successfully !!');
+                res
+                // .clearCookie('access_token')
+                .status(200).json('Logged out successfully !!');
             } else {
                 res.json(handleError(404, 'Token not valid !!'));
             }
@@ -141,8 +144,8 @@ class authController {
                     const { password, ...other } = newUser._doc;
 
                     return res.status(200).json({
-                        other,
-                        accessToken: newAccessToken,
+                        ...other,
+                        accsessToken: newAccessToken,
                         refreshToken: newRefreshToken,
                     });
                 } catch (error) {

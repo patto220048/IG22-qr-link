@@ -39,11 +39,10 @@ function Navbar() {
     const handleSignOut = async () => {
         try {
             const res = await http.post('/auth/logout', { token: currentUser.refreshToken });
-            console.log(res.status)
             if (res.status == 200) {
                 navigate('/register/login');
-                localStorage.clear();
                 dispatch(logout());
+                // localStorage.clear()                     
             }
         } catch (error) {
             console.log(error.message);
@@ -53,21 +52,23 @@ function Navbar() {
         setIsMobile(!isMobile);
     };
 
-    const handleActive= () => {
-        setActive(true)
-    }
+    const handleActive = () => {
+        setActive(true);
+    };
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 <h2 className="logo">
                     <NavLink to={'/'}>
-                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'}  loading='lazy'/>
+                        <img className="navbar-logo" src={navLogo} alt={'super-card-logo'} loading="lazy" />
                     </NavLink>
                 </h2>
                 <ul className="nav-link" style={currentUser ? { width: '100%' } : { flex: '1' }}>
                     {!currentUser && (
                         <NavLink to={'/'} style={{ color: '#696d61' }}>
-                            <li className={`nav-link_items ` + (active ? "active" : "") } onClick={handleActive}>Home</li>
+                            <li className={`nav-link_items ` + (active ? 'active' : '')} onClick={handleActive}>
+                                Home
+                            </li>
                         </NavLink>
                     )}
                     <NavLink to={`/template/${currentUser.username}`} style={{ color: '#696d61' }}>
@@ -120,7 +121,7 @@ function Navbar() {
                             <button className="nav-user-btn">Buy Card</button>
                         </ul>
                         <div className="avatar" onClick={handleOpenMenu}>
-                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg}  loading='lazy' />
+                            <img src={currentUser.avtImg || avatarDefault} alt={currentUser.avtImg} loading="lazy" />
                         </div>
                     </div>
                 )}

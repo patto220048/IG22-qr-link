@@ -4,10 +4,10 @@ import { Navigate, Outlet, Route, RouterProvider, createBrowserRouter } from 're
 import Login from './pages/register/login/Login';
 import Signup from './pages/register/signup/Signup';
 import Cookies from 'js-cookie';
-
+// import jwtDecode from 'jwt-decode';
 import Footer from './layouts/footer/Footer';
 import { lazy, Suspense, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // const secure = window.location.protocol === 'https'
 // import cookies from "js-cookie";
 //lazy loading
@@ -20,60 +20,80 @@ import Fade from './components/Fade/Fade';
 import About from './pages/about/about';
 import http from './instance/axiosInstance';
 import axios from 'axios';
+import { updateData } from './redux-toolkit/userSlice';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState();
-    http.interceptors.request.use(
-        (config) => {
-            const token = Cookies.get('access_token');
-            if (token) {
-                config.headers.Authorization = `Bearer ${token}`;
-            }
-            return config;
-        },
-        (error) => {
-            return Promise.reject(error);
-        },
-    );
-
-    http.interceptors.response.use(
-        (response) => response,
-        async (error) => {
+    const dispatch = useDispatch()
+    const refreshToken = async () => {
+        try {
+            const res = await http.post('/auth/refresh-token', {
+                // Include any necessary data for refreshing the token
+                token: currentUser.refreshToken,
+            });
+            console.log(res.status)
+            dispatch(updateData(res.data))
+        } catch (error) {
             console.log(error);
-            const originalRequest = error.config;
-            // If the error is due to an expired token, attempt to refresh it
-            if (error.response && error.response.status === 401 && !originalRequest._retry) {
-                originalRequest._retry = true;
-                try {
-                    // Replace the following line with your actual endpoint for refreshing the token
-                    const refreshResponse = await http.post('/auth/refresh-token', {
-                        // Include any necessary data for refreshing the token
-                        token: currentUser.refreshToken,
-                    });
-                    console.log(refreshResponse);
-                    const newToken = refreshResponse.data.accessToken;
+        }
+    };
+    // http.interceptors.request.use(
+    //     async (config) => {
+    //         let currentDate = new Date();
+    //         console.log(config)
+    //         // const decodeToken = jwtDecode(currentUser.accsessToken)
+    //         // console.log(decodeToken)
+    //     },
+    //     (error) => {
+    //         return Promise.reject(error);
+    //     },
+    // );
 
-                    // Update the cookie with the new token
-                    Cookies.set('access_token1', newToken, { expires: 3 }); // Set the expiration as needed
+    // http.interceptors.response.use(
+    //     (response) => response,
+    //     async (error) => {
+    //         console.log(error);
+    //         const originalRequest = error.config;
+    //         console.log(originalRequest);
+    //         // If the error is due to an expired token, attempt to refresh it
+    //         if (error.response && error.response.status === 403 && originalRequest._retry) {
+    //             originalRequest._retry = true;
+    //             try {
+    //                 // Replace the following line with your actual endpoint for refreshing the token
+    //                 // const refreshResponse = await http.post(
+    //                 //     '/auth/refresh-token',
+    //                 //     {
+    //                 //         // Include any necessary data for refreshing the token
+    //                 //         token: currentUser.refreshToken
+    //                 //     },
+    //                 //     {
+    //                 //         headers: { authorization: 'Bearer ' + currentUser.accsessToken },
+    //                 //     },
+    //                 // );
+    //                 // const newToken = refreshResponse.data.accessToken;
+    //                 // console.log(refreshResponse);
 
-                    // Update the original request headers with the new token
-                    originalRequest.headers.Authorization = `Bearer ${newToken}`;
+    //                 // Update the cookie with the new token
+    //                 // Cookies.set('access_token', newToken, { expires: 3 }); // Set the expiration as needed
 
-                    // Retry the original request
-                    return axios(originalRequest);
-                } catch (refreshError) {
-                    // Handle token refresh failure, e.g., redirect to login
-                    console.error('Token refresh failed:', refreshError);
+    //                 // Update the original request headers with the new token
+    //                 originalRequest.headers.authorization = `Bearer2 ${newToken}`;
 
-                    // You might want to redirect to the login page or handle the failure in another way
-                }
-            }
+    //                 // Retry the original request
+    //                 return axios(originalRequest);
+    //             } catch (refreshError) {
+    //                 // Handle token refresh failure, e.g., redirect to login
+    //                 console.error('Token refresh failed:', refreshError);
 
-            return Promise.reject(error);
-        },
-    );
+    //                 // You might want to redirect to the login page or handle the failure in another way
+    //             }
+    //         }
+
+    //         return Promise.reject(error);
+    //     },
+    // );
 
     // protect page
     const ProtectRoute = ({ children }) => {
