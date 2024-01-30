@@ -1,0 +1,88 @@
+@import '../../base/variable';
+@import '../../base/color';
+.qrcode {
+    padding-top: 180px;
+    text-align: center;
+
+    .qrcode-title {
+        text-align: center;
+        font-size: 50px;
+        font-weight: 900;
+        margin-bottom: 50px;
+    }
+    .qrcode-wapper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 100px;
+        .qrcode-input {
+            // margin-left: 200px;
+            display: flex;
+            gap: 30px;
+            // transform: translateX(100px);
+            // position: fixed;
+
+            .input-value {
+                width: 400px;
+                // width: 100%;
+                height: 40px;
+                border-radius: 15px;
+                padding: 5px 10px;
+                border: 0;
+                font-size: 16px;
+                font-weight: 700;
+                border: 2px solid transparent;
+                &:focus {
+                    border: 2px solid rgba($color: $black, $alpha: 1);
+                }
+                &:hover {
+                    border: 2px solid rgba($color: $black, $alpha: 1);
+                }
+            }
+            .btn-make-qr {
+                @include btn;
+                width: 20%;
+                background-color: $black;
+                color: $white;
+            }
+        }
+        .qr-card {
+            background-color: black;
+            width: 500px;
+            height: 300px;
+            border-radius: 50px;
+            position: relative;
+        }
+
+        .qr {
+            // position: absolute;
+            // bottom: 0;
+            // right: 0;
+            // padding: 30px;
+            // transform: translateX(-100px);
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .qrcode {
+        .qrcode-wapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            .qrcode-input {
+                .input-value {
+                    width: 300px;
+                }
+            }
+            .qr-card {
+                background-color: black;
+                width: 250px;
+                height: 50px;
+                border-radius: 50px;
+                // position: relative;
+            }
+        }
+    }
+}

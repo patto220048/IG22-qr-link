@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 function FontTable({ setIsFonts, setFontFamily, fontFamily }) {
     const [query, setQuery] = useState('');
-
+    const [active, setActive] = useState();
     return (
         <div className="FontTable">
             <h2 className="FontTable-title">Seclect Font</h2>
@@ -21,14 +21,18 @@ function FontTable({ setIsFonts, setFontFamily, fontFamily }) {
                     {fontClassics
                         .filter((fontClassic) => fontClassic.fontFamily.toLowerCase().includes(query))
                         .map((fontClassic, index) => (
-                            <FontTableItem
-                                setFontFamily={setFontFamily}
-                                setIsFonts={setIsFonts}
-                                key={fontClassic.id}
-                                fontClassicName={fontClassic.fontFamily}
-                                fontWeight={fontClassic.fontWeight}
-                                index={index}
-                            />
+                            <>  
+                                <FontTableItem
+                                    active={active}
+                                    setActive={setActive}
+                                    setFontFamily={setFontFamily}
+                                    setIsFonts={setIsFonts}
+                                    key={fontClassic.id}
+                                    fontClassicName={fontClassic.fontFamily}
+                                    fontWeight={fontClassic.fontWeight}
+                                    index={index}
+                                />
+                            </>
                         ))}
                 </div>
             </div>
