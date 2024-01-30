@@ -23,8 +23,8 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontCol
                             style={{
                                 fontSize: `${preview ? '20px' : '30px'}`,
                                 color: `${fontColor}`,
-                                fontFamily: `${theme.font_famify}`,
-                                fontWeight: `${theme.font_weight}`,
+                                fontFamily: `${theme?.font_famify}`,
+                                fontWeight: `${theme?.font_weight}`,
                             }}
                         >
                             @{usernameTitle ? usernameTitle : username}
@@ -34,8 +34,8 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontCol
                             style={{
                                 fontSize: `${preview ? '14px' : '20px'}`,
                                 color: `${fontColor}`,
-                                fontFamily: `${theme.font_famify}`,
-                                fontWeight: `${theme.font_weight}`,
+                                fontFamily: `${theme?.font_famify}`,
+                                fontWeight: `${theme?.font_weight}`,
                             }}
                         >
                             {decs}
@@ -56,8 +56,8 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontCol
                             style={{
                                 fontSize: `${preview ? '20px' : '30px'}`,
                                 color: `${fontColor}`,
-                                fontFamily: `${currentTheme.font_famify}`,
-                                fontWeight: `${currentTheme.font_weight}`,
+                                fontFamily: `${currentTheme?.font_famify}`,
+                                fontWeight: `${currentTheme?.font_weight}`,
                             }}
                         >
                             @{usernameTitle ? usernameTitle : username}
@@ -67,8 +67,8 @@ function AvatarProfile({ usernameTitle, decs, avatar, username, preview, fontCol
                             style={{
                                 fontSize: `${preview ? '14px' : '20px'}`,
                                 color: `${fontColor}`,
-                                fontFamily: `${currentTheme.font_famify}`,
-                                fontWeight: `${currentTheme.font_weight}`,
+                                fontFamily: `${currentTheme?.font_famify}`,
+                                fontWeight: `${currentTheme?.font_weight}`,
                             }}
                         >
                             {decs}
