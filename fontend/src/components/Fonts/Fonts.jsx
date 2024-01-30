@@ -12,6 +12,7 @@ function Fonts({ theme }) {
     const [isFonts, setIsFonts] = useState(false);
     const [isPickColorBtn, setIsPickColor] = useState(false)
     const [currentColorFonts, setCurrentColorFonts] = useState({});
+    const [inputColor, setInputColor] = useState("")
     const dispatch = useDispatch()
     const refColorBoxFonts= useRef()
     const handleOpenFonts = () => {
@@ -23,7 +24,7 @@ function Fonts({ theme }) {
                 dispatch(themeStart());
                 try {
                     const res = await http.put(`/card/${theme._id}`, {
-                        font_color : colorFont,
+                        font_color : colorFont ,
                     });
                     setIsPickColor(false);
                     let timeOutId = setTimeout(async () => {
@@ -72,7 +73,7 @@ function Fonts({ theme }) {
                                 }`,
                             }}
                         >
-                            {currentTheme.font_famify ? currentTheme.font_famify : theme.font_famify || <span style={{fontFamily:"Inner"}}>Inner</span>}
+                            {currentTheme.font_famify ? currentTheme.font_famify : theme.font_famify}
                         </span>
                     </button>
                 </div>
@@ -93,6 +94,7 @@ function Fonts({ theme }) {
                         style={{backgroundColor: `${currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color  }`}}  
                         ></div>
                         <input type="text" className="Fonts-input" 
+                        onChange={(e)=>setInputColor(e.target.value)}
                         placeholder={currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color}/>
                     </div>
 
