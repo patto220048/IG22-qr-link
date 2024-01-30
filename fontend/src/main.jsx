@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './base/_gobal.scss';
+import './base/_font.scss'
 // react query
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 //redux-toolkit

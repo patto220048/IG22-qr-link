@@ -99,6 +99,9 @@ function CommunityItem({ user }) {
 
             <div className="template-profile" aria-disabled={true}>
                 <AvatarProfile
+                    user={user}
+                    commu={true}
+                    theme={theme}
                     preview={true}
                     usernameTitle={user.usernameTitle}
                     decs={user.decs}

@@ -10,21 +10,48 @@ function Fonts({ theme }) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [colorFont, setColorFont] = useState('#FFFFFF');
     const [isFonts, setIsFonts] = useState(false);
-    const [isPickColorBtn, setIsPickColor] = useState(false)
+    const [isPickColorBtn, setIsPickColor] = useState(false);
     const [currentColorFonts, setCurrentColorFonts] = useState({});
-    const [inputColor, setInputColor] = useState("")
-    const dispatch = useDispatch()
-    const refColorBoxFonts= useRef()
+    const [inputColor, setInputColor] = useState('');
+    const dispatch = useDispatch();
+    const refColorBoxFonts = useRef();
     const handleOpenFonts = () => {
         setIsFonts(true);
     };
+    const [onfucos, setOnFocus] = useState(true);
+    // const handleOutFocus = () => {
+    //     addEventListener("focusout", (e) => {
+    //         if (inputColor?.length > 5){
+    //             const fetchTheme = async () => {
+    //                 dispatch(themeStart());
+    //                 try {
+    //                     const res = await http.put(`/card/${theme._id}`, {
+    //                         font_color: inputColor,
+    //                     });
+    //                     setIsPickColor(false);
+    //                     let timeOutId = setTimeout(async () => {
+    //                         dispatch(updateTheme(res.data));
+    //                         setCurrentColorFonts(res.data);
+    //                     }, 1000);
+    //                     return () => {
+    //                         clearTimeout(timeOutId);
+    //                     };
+    //                 } catch (error) {
+    //                     dispatch(themeFail());
+    //                     console.log(error.message);
+    //                 }
+    //             };
+    //             fetchTheme();
+    //         }
+    //     });
+    // }
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
                 dispatch(themeStart());
                 try {
                     const res = await http.put(`/card/${theme._id}`, {
-                        font_color : colorFont ,
+                        font_color: colorFont,
                     });
                     setIsPickColor(false);
                     let timeOutId = setTimeout(async () => {
@@ -89,13 +116,25 @@ function Fonts({ theme }) {
                 <div className="Fonts-color">
                     <h1 className="Fonts-title">Color</h1>
                     <div className="Fonts-group">
-                        <div className="Fonts-colorBox"
-                        onClick={()=>setIsPickColor(!isPickColorBtn)} 
-                        style={{backgroundColor: `${currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color  }`}}  
+                        <div
+                            className="Fonts-colorBox"
+                            onClick={() => setIsPickColor(!isPickColorBtn)}
+                            style={{
+                                backgroundColor: `${
+                                    currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color
+                                }`,
+                            }}
                         ></div>
-                        <input type="text" className="Fonts-input" 
-                        onChange={(e)=>setInputColor(e.target.value)}
-                        placeholder={currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color}/>
+                        <input
+                            type="text"
+                            className="Fonts-input"
+                            onChange={(e) => setInputColor(e.target.value)}
+                            // onFocus={handleOutFocus}
+                            maxLength={7}
+                            placeholder={
+                                currentColorFonts?.font_color ? currentColorFonts?.font_color : theme?.font_color
+                            }
+                        />
                     </div>
 
                     {isPickColorBtn && (
