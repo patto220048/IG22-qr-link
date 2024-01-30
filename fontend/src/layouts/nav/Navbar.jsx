@@ -82,6 +82,9 @@ function Navbar() {
                     <NavLink to={`/community`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">Community</li>
                     </NavLink>
+                    <NavLink to={`/qrcode`} style={{ color: '#696d61' }}>
+                        <li className="nav-link_items">QR Code</li>
+                    </NavLink>
                     <NavLink to={`/about`} style={{ color: '#696d61' }}>
                         <li className="nav-link_items">About</li>
                     </NavLink>
@@ -109,7 +112,9 @@ function Navbar() {
                         <NavLink to={`/community`} style={{ color: '#696d61' }}>
                             <li className="nav-link-mobile_items commuity">Community</li>
                         </NavLink>
-
+                        <NavLink to={`/qrcode`} style={{ color: '#696d61' }}>
+                            <li className="nav-link-mobile_items qr1">QR Code</li>
+                        </NavLink>
                         <NavLink to={`/about`} style={{ color: '#696d61' }}>
                             <li className="nav-link-mobile_items about1 ">About</li>
                         </NavLink>

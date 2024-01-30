@@ -5,18 +5,25 @@
     .FontTableItem-name {
         text-align: center;
         padding: 20px 10px;
-        font-size: 18px;
+        font-size: 25px;
         width: 100%;
         cursor: pointer;
+        transition:all 0.3s linear; 
+        
         &:hover {
-            background-color: $text_hover_color;
+            background-color: var(--gray-4);
             border-radius: 50px;
+            // transform: scale(1.0);
         }
+       
     }
     .active{
-        background-color: rgb(213, 74, 188);
+        background-color: #E7ACD0;
         border-radius: 50px;
-
+        &:hover {
+            background-color: #E7ACD0;
+            border-radius: 50px;
+        }
     }
     // .unactive{
     //     background-color: red;

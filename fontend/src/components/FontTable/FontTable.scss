@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 10px;
     .FontTable-title {
+        padding: 5px;
     }
     .FontSearch {
         border: 1px solid rgba($color: $black, $alpha: 0.2);
@@ -26,6 +27,11 @@
     .FontTable-wapper {
         height: 300px;
         overflow: scroll;
+        .FontTable-items{
+            .FontTable-type{
+                padding: 5px 0;
+            }
+        }
         &::-webkit-scrollbar {
             display: none;
         }
