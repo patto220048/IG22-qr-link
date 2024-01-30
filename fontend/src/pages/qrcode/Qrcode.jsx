@@ -17,18 +17,17 @@ function Qrcode() {
                         className="input-value"
                         onChange={(e) => setValue(e.target.value)}
                         placeholder="Enter your link ..."
+                        required="true"
                     />
                     {/* <button className="btn-make-qr" onClick={handleMakeqr}>
                         Make QR
                     </button> */}
                 </div>
+                <h3>Your QrCode</h3>
+                {/* <div className='qr-card'>
 
-                <QRCode
-                    className="qr"
-                    size={200}
-                    value={value}
-                    viewBox={`0 0 256 256`}
-                />
+                </div> */}
+                <QRCode className="qr" size={180} value={value} viewBox={`0 0 256 256`} />
             </div>
         </div>
     );
