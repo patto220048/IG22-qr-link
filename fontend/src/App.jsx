@@ -15,9 +15,10 @@ import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
 import PreView from './components/Preview/PreView';
 import Fade from './components/Fade/Fade';
-import About from './pages/about/about';
+import About from './pages/about/About';
 import Loading from './pages/loading/Loading';
 import Qrcode from './pages/qrcode/Qrcode';
+
 // import Community from './pages/community/Community';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
