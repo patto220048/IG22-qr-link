@@ -1,0 +1,115 @@
+@import '../../base/color';
+@import '../../base/variable';
+
+.fade-wapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    // padding-top: 140px;
+    .fade-left {
+        flex: 1;
+    }
+    .fade-right {
+        flex: 0.5;
+        background-color: $bg_template;
+        .fade-right-items {
+            display: flex;
+            position: sticky;
+            justify-content: center;
+            top: 17%;
+            height: 10px;
+        }
+    }
+    .review-btn {
+        display: none;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .fade-wapper {
+        display: block;
+        position: relative;
+
+        .fade-left {
+            .template-item {
+                width: 100%;
+            }
+        }
+
+        .fade-right {
+            .fade-right-items {
+            }
+            padding-top: 130px;
+            width: 100%;
+            // background-color: aqua;
+            z-index: 9999;
+            display: none;
+            position: fixed;
+            // position: absolute;
+            width: 100%;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            background-color: rgba($color: $black, $alpha: 0.4);
+            height: 100%;
+            margin: 0 auto;
+            animation: fadeIn 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+        .review-btn {
+            z-index: 99999;
+            display: block;
+            position: fixed;
+            bottom: -1.5%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+            // top: 10%;
+            @include btn;
+            // padding: 10px;
+            background-color: $black;
+            color: $white;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 10px;
+            // animation: tilt-shaking 100ms;
+            // animation: 3s ease-in 4s infinite reverse both running tilt-shaking;
+        }
+        .close {
+            background-color: var(--gray-6);
+            margin-bottom: 15px;
+            border-radius: 50%;
+            animation: none;
+        }
+    }
+}
+//table
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        top: 0%;
+    }
+    to {
+        opacity: 1;
+        top: 40%;
+    }
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(2deg);
+    }
+    50% {
+        transform: rotate(0eg);
+    }
+    75% {
+        transform: rotate(-2deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

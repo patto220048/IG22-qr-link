@@ -2,35 +2,56 @@ import { useEffect, useState } from 'react';
 import LinkTree from '../../components/linktree/LinkTree';
 import './Profile.scss';
 import AvatarProfile from '../../components/AvatarProfile/AvatarProfile';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/dialog/loading/Loading';
-import { useQuery } from 'react-query';
+// import { useQuery } from 'react-query';
 import http from '../../instance/axiosInstance';
 import SocialIconList from '../../components//SocialIconlist/SocialIconList';
-import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
+// import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
+import { themeSuccess, updateTheme } from '../../redux-toolkit/themeSlice';
+import { loginSuccess, updateData } from '../../redux-toolkit/userSlice';
+import { urlSuccess } from '../../redux-toolkit/UrlSlice';
+import { iconSuccess } from '../../redux-toolkit/iconSlice';
+import PreViewContact from '../../components/PreviewContact/PreviewContact';
 function Profile() {
-    // const currentUser = useSelector((state) => state.user.currentUser);
-    // const currentTheme = useSelector((state) => state.theme.currentTheme);
+    const currentUser = useSelector((state) => state.user.currentUser);
+    const currentTheme = useSelector((state) => state.theme.currentTheme);
+    const currentLink = useSelector((state) => state.url.currentUrl);
     const [user, setUser] = useState({});
     const [theme, setTheme] = useState({});
     const [icons, setIcons] = useState([]);
+    const [isContact, setIsContact] = useState(false);
+
+    // const [links, setLinks] = useState()
     const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch();
     let { username } = useParams();
+
     //fetch user
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const userData = await http.get(`/users/${username}`);
+                const themeData = await http.get(`/card/v1/${currentUser?._id}`);
+                const iconData = await http.get(`/icon/${currentUser?._id}`);
+                const linksData = await http.get(`/link/${currentUser?._id}`);
+                const [resultUser, resultTheme, resultIcon, resultLinks] = await Promise.all([
+                    userData,
+                    themeData,
+                    iconData,
+                    linksData,
+                ]);
                 const timeOutId = setTimeout(async () => {
-                    const userData = await http.get(`/users/${username}`);
-                    const themeData = await http.get(`/card/v1/${user._id}`);
-                    const iconData = await http.get(`/icon/${user._id}`);
-                    const [resultUser, resultTheme, resultIcon] = await Promise.all([userData, themeData, iconData]);
+                    dispatch(loginSuccess(resultUser.data));
+                    dispatch(themeSuccess(resultTheme.data));
+                    dispatch(urlSuccess(resultLinks.data));
                     setUser(resultUser.data);
                     setTheme(resultTheme.data);
                     setIcons(resultIcon.data);
+                    // setLinks(resultLinks.data);
                     setIsLoading(false);
-                }, 1000);
+                }, 500);
                 return () => {
                     clearTimeout(timeOutId);
                 };
@@ -39,15 +60,15 @@ function Profile() {
             }
         };
         fetchData();
-    }, [username, user._id]);
-
+    }, [username, currentUser?._id, currentTheme?._id]);
     return (
         <section className="profile">
+            {isContact && <PreViewContact setIsContact={setIsContact} preview={false} window={true} />}
             {isLoading ? (
-                <Loading isLoading={isLoading} />
+                <Loading isLoading={isLoading} profileLoading={true} />
             ) : (
                 <>
-                    {theme?.backgroundVideo ? (
+                    {theme?.backgroundVideo || theme?.backgroundImg ? (
                         <>
                             {theme?.backgroundVideo ? (
                                 <>
@@ -60,7 +81,12 @@ function Profile() {
                                     ></video>
                                 </>
                             ) : (
-                                <img className="profile-background" src={theme?.backgroundImg} alt="" />
+                                <img
+                                    className="profile-background"
+                                    src={theme?.backgroundImg}
+                                    alt={theme?.backgroundImg}
+                                    loading="lazy"
+                                />
                             )}
                         </>
                     ) : (
@@ -96,14 +122,24 @@ function Profile() {
                             avatar={user.avtImg}
                             fontColor={theme?.font_color}
                         />
-                        <SocialIconList icons={icons} />
-                        <LinkTree title={'Facebook'} icon={facebookIcon(35, 35)} link="https://www.facebook.com/" />
-                        <LinkTree title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
-                        <LinkTree title={'Instagram'} icon={instagramIcon(35, 35)} />
+                        <div className="profile-info-items">
+                            <SocialIconList icons={icons} />
+                            {currentLink?.map((url, index) => (
+                                <LinkTree
+                                    preview={false}
+                                    window={true}
+                                    isMobile={true}
+                                    setIsContact={setIsContact}
+                                    title={url.urlTitle}
+                                    icon={url.urlThumbnail}
+                                    link={url.url}
+                                    key={index}
+                                    acticve={url.acticve}
+                                    thumbnailImage={url.thumbnailImage}
+                                />
+                            ))}
+                        </div>
                     </div>
-                    {/* <div className="profile-logo">
-                <img src="../../../src/assets/img/logo2.png" alt="" />
-            </div> */}
                 </>
             )}
         </section>

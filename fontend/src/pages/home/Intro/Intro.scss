@@ -43,7 +43,7 @@
                 text-align: center;
             }
         }
-        
+
         // .intro-img {
         //     display: flex;
         //     flex-direction: column;
@@ -83,15 +83,18 @@
         background-color: black;
         color: white;
         @include btn;
-        padding: 20px 50px;
+        padding: 20px 30px;
+        border-radius: 15px;
+        font-size: 18px;
         // justify-content: center;
     }
 }
 
 // For mobile
-@media only screen and (min-width: 375px)  and (max-width: 789px) {
+@media only screen and (min-width: 375px) and (max-width: 789px) {
     .intro {
         .intro-container {
+            gap: 35px;
             .intro-group {
                 .intro-img {
                     img {
@@ -100,22 +103,24 @@
                         margin-top: 40px;
                     }
                 }
-                
+
                 p {
-                    font-size: 10px;
+                    font-size: 18px;
                     text-align: center;
                 }
             }
 
             .intro-text {
                 font-size: 35px;
-                line-height: 1.1;
+                line-height: 1.3;
                 padding: 8px;
+                text-align: center;
             }
             .intro-decs {
-                 font-size: 14px;
-                 line-height: 1.5;
-                 padding-left: 9px;
+                font-size: 14px;
+                line-height: 1.5;
+                padding-left: 9px;
+                text-align: center;
             }
             .intro-button {
                 font-size: 10px;
@@ -124,13 +129,11 @@
     }
 }
 
-
 // For tablets
 
 @media only screen and (min-width: 955px) {
     .intro {
         .intro-container {
-
             .intro-group {
                 .intro-img {
                     .img {
@@ -142,7 +145,7 @@
             }
             .intro-text {
                 font-size: clamp(60px, 8vmin, 56px);
-                font-family: "Link Sans", "Arial Black", Arial, sans-serif;
+                font-family: 'Link Sans', 'Arial Black', Arial, sans-serif;
             }
             .intro-decs {
                 font-size: 30px;
@@ -153,4 +156,3 @@
         }
     }
 }
-

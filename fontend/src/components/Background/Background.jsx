@@ -12,7 +12,7 @@ import BgVideo from '../BgIVideo/BgVideo';
 import { alertCricleIcon } from '../../svg/icon';
 import Dialog_UI from '../dialog/Dialog_IU';
 import { ToastContainer, toast } from 'react-toastify';
-function Background({ cardId, theme }) {
+function Background({ cardId, theme, setViewMb,setPickImg}) {
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const [hex, setHex] = useState('#333333');
     const [hexGadientTop, setHexGadientTop] = useState('#333333');
@@ -31,7 +31,6 @@ function Background({ cardId, theme }) {
     const [openGadient, setopenGadient] = useState(false);
     const inputRef = useRef();
     const notifyToast = (message, type) => {
-        console.log(type);
         switch (type) {
             case 1:
                 toast.success('🦄 ' + message);
@@ -56,10 +55,14 @@ function Background({ cardId, theme }) {
                         gadientColorTop: null,
                         gadientColorBot: null,
                         backgroundVideo: null,
+                        backgroundImgName:null,
+                        backgroundVideoName:null,
                     });
                     setIsPickColor(false);
+                    window.location.reload(true);
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
+
                     }, 1000);
                     return () => {
                         clearTimeout(timeOutId);
@@ -75,7 +78,7 @@ function Background({ cardId, theme }) {
         return () => {
             refColorBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refColorBox?.current]);
+    }, [refColorBox?.current,hex]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -86,8 +89,12 @@ function Background({ cardId, theme }) {
                         bgColor: null,
                         backgroundImg: null,
                         backgroundVideo: null,
+                        backgroundImgName:null,
+                        backgroundVideoName:null
                     });
                     setIsGardientTop(false);
+                    window.location.reload(true);
+
                     console.log(res.data);
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
@@ -106,7 +113,7 @@ function Background({ cardId, theme }) {
         return () => {
             refGadientTopBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refGadientTopBox?.current]);
+    }, [refGadientTopBox?.current,hexGadientTop]);
     useEffect(() => {
         const handleClickOutside = () => {
             const fetchTheme = async () => {
@@ -116,9 +123,13 @@ function Background({ cardId, theme }) {
                         gadientColorBot: hexGadientBot,
                         backgroundImg: null,
                         bgColor: null,
-                        backgroundVideo: null
+                        backgroundVideo: null,
+                        backgroundImgName:null,
+                        backgroundVideoName:null
                     });
                     setIsGardientBot(false);
+                    window.location.reload(true);
+
                     let timeOutId = setTimeout(async () => {
                         dispatch(updateTheme(res.data));
                     }, 1000);
@@ -136,7 +147,7 @@ function Background({ cardId, theme }) {
         return () => {
             refGadientBotBox.current?.removeEventListener('mouseleave', handleClickOutside);
         };
-    }, [refGadientBotBox?.current]);
+    }, [refGadientBotBox?.current,hexGadientBot]);
 
     const handlePickColor = (e) => {
         e.stopPropagation();
@@ -166,35 +177,6 @@ function Background({ cardId, theme }) {
         setIsPickImgBg(true);
         setIsPickImgVideo(false);
     };
-
-    // useEffect(() => {
-    //     const handleClickOutside = () => {
-    //         const fetchTheme = async () => {
-    //             dispatch(themeStart());
-    //             try {
-    //                 const res = await http.put(`/card/${cardId}`, {
-    //                     bgColor: inputColor,
-    //                     backgroundImg: null,
-    //                 });
-    //                 setIsPickColor(false);
-    //                 let timeOutId = setTimeout(async () => {
-    //                     dispatch(updateTheme(res.data));
-    //                 }, 1000);
-    //                 return () => {
-    //                     clearTimeout(timeOutId);
-    //                 };
-    //             } catch (error) {
-    //                 dispatch(themeFail());
-    //                 console.log(error.message);
-    //             }
-    //         };
-    //         fetchTheme();
-    //     };
-    //     inputRef.current?.addEventListener('mouseleave', handleClickOutside);
-    //     return () => {
-    //         inputRef.current?.removeEventListener('mouseleave', handleClickOutside);
-    //     };
-    // }, [inputRef.current]);
     return (
         <div className="bgTheme" id="background">
             <ToastContainer
@@ -212,8 +194,20 @@ function Background({ cardId, theme }) {
             <div className="bgTheme-items">
                 <BgColor openColor={openColor} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
                 <BgGadient setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgImage setIsPickImg={setIsPickImgBg} setopenGadient={setopenGadient} setOpenColor={setOpenColor} />
-                <BgVideo setIsPickImgVideo={setIsPickImgVideo} setOpenColor={setOpenColor} setopenGadient={setopenGadient} />
+                <BgImage
+                    setIsPickImg={setIsPickImgBg}
+                    setopenGadient={setopenGadient}
+                    setOpenColor={setOpenColor}
+                    setViewMb={setViewMb}
+                    setPickImg={setPickImg}
+                />
+                <BgVideo
+                    setIsPickImgVideo={setIsPickImgVideo}
+                    setOpenColor={setOpenColor}
+                    setopenGadient={setopenGadient}
+                    setPickImg={setPickImg}
+
+                />
             </div>
 
             {openColor && (

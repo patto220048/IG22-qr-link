@@ -30,3 +30,11 @@
         transform: translate(-50%, -50%);
     }
 }
+@media only screen and (max-width: 768px) {
+    .BgVideo{
+        .BgVideo-item{
+            width: 120px;
+            height: 200px;
+        }
+    }
+}

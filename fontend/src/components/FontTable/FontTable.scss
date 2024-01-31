@@ -1,0 +1,39 @@
+@import '../../base/color';
+
+.FontTable {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .FontTable-title {
+        padding: 5px;
+    }
+    .FontSearch {
+        border: 1px solid rgba($color: $black, $alpha: 0.2);
+        border-radius: 15px;
+        height: 40px;
+        padding-left: 20px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 16px;
+        font-weight: 500;
+        &:hover {
+            border: 1px solid rgba($color: $black, $alpha: 0.5);
+        }
+        &:focus {
+            border: 1px solid rgba($color: $black, $alpha: 0.5);
+        }
+    }
+    .FontTable-wapper {
+        height: 300px;
+        overflow: scroll;
+        .FontTable-items{
+            .FontTable-type{
+                padding: 5px 0;
+            }
+        }
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

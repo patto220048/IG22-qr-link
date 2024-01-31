@@ -13,12 +13,19 @@ const Home = lazy(() => import('./pages/home/Home'));
 import Template from './pages/tempate/Template';
 import ResetPass from './pages/register/resetPass/ResetPass';
 import Newpass from './pages/register/newPass/NewPass';
+import PreView from './components/Preview/PreView';
+import Fade from './components/Fade/Fade';
+import About from './pages/about/about';
+import Loading from './pages/loading/Loading';
+import Qrcode from './pages/qrcode/Qrcode';
+// import Community from './pages/community/Community';
 const Links = lazy(() => import('./pages/links/Links'));
 const Profile = lazy(() => import('./pages/profile/Profile'));
-
+const Community = lazy(() => import('./pages/community/Community'));
 function App() {
     const currentUser = useSelector((state) => state.user.currentUser);
     const [user, setUser] = useState();
+
     //
     // protect page
     const ProtectRoute = ({ children }) => {
@@ -46,8 +53,16 @@ function App() {
                 {
                     path: '/',
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
+                        <Suspense fallback={<div><Loading/></div>}>
                             <Home />
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: '/about',
+                    element: (
+                        <Suspense fallback={<div><Loading/></div>}>
+                            <About />
                         </Suspense>
                     ),
                 },
@@ -55,26 +70,42 @@ function App() {
                     path: '/template/:username',
                     element: (
                         <ProtectRoute>
-                            <Template />
+                            <Fade onTemplate={true} />
                         </ProtectRoute>
                     ),
                 },
                 {
-                    path: `links`,
+                    path: `/links`,
                     element: (
-                        <Suspense fallback={<div>Loading....</div>}>
+                        <Suspense fallback={<div><Loading/></div>}>
                             <ProtectRoute>
-                                <Links />
+                                <Fade onLinks={true} />
                             </ProtectRoute>
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: '/community',
+                    element: (
+                        <Suspense fallback={<div><Loading/></div>}>
+                            <Community />
+                        </Suspense>
+                    ),
+                },
+                {
+                    path: '/qrcode',
+                    element: (
+                        <Suspense fallback={<div><Loading/></div>}>
+                            <Qrcode />
                         </Suspense>
                     ),
                 },
             ],
         },
         {
-            path: `profile/user/:username`,
+            path: `profile/:username`,
             element: (
-                <Suspense fallback={<div>Loading....</div>}>
+                <Suspense fallback={<div><Loading/></div>}>
                     <Profile />
                 </Suspense>
             ),
@@ -82,6 +113,10 @@ function App() {
         {
             path: 'register/login',
             element: <Login />,
+        },
+        {
+            path: 'register/signup/:username',
+            element: <Signup />,
         },
         {
             path: 'register/signup',

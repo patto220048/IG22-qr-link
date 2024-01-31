@@ -67,8 +67,6 @@ function Theme({
                             <LazyLoadImage
                                 src={themeBg}
                                 className="theme-img"
-                                width={160}
-                                height={260}
                                 alt={themeBg}
                                 placeholdersrc={PlaceholderImage}
                                 effect="blur"

@@ -34,12 +34,14 @@
             }
 
             .card-btn {
+                // margin-left: 160px;
                 text-align: center;
                 padding: 20px;
                 border-radius: 25px;
                 background-color: black;
                 font-weight: 600;
                 width: 20%;
+                font-size: 14px;
                 cursor: pointer;
                 a {
                     text-decoration: none;
@@ -57,19 +59,28 @@
 }
 @media only screen and (max-width: 768px) {
     .card {
+        height: 100vh;
         .card-container {
             .card-left {
-                flex: 0;
-                margin-left: 10px;
+                display: none;
             }
             .card-right {
+                align-items: center;
                 .card-text {
-                    font-size: 50px;
+                    padding-left: 0;
+                    font-size: 43px;
+                    padding-left: 160px;
+                    text-align: center;
+                    // padding-left: none;
+                    padding: 10px;
                 }
                 .card-desc {
+                    text-align: left;
+                    font-size: 20px;
+                    padding: 18px;
                 }
                 .card-btn {
-                    padding: 10px;
+                    padding: 18px;
                     width: 50%;
                 }
             }

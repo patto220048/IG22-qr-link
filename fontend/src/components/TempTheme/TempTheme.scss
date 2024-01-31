@@ -4,15 +4,27 @@
 .tempTheme {
     background-color: $white;
     border-radius: 25px;
-    width: 60%;
+    width: 70%;
     display: flex;
-    
+
     .tempTheme-items {
-       display: grid;
-       width: 100%;
-       grid-template-columns: 1fr 1fr 1fr;
-       justify-items: center;
-       padding: 40px;
-       gap: 20px;
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        padding: 40px;
+        gap: 20px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .tempTheme {
+        width: 95%;
+        .tempTheme-items {
+            grid-template-columns: 1fr 1fr;
+            padding: 0px;
+            width: 100%;
+            gap: 25px;
+            padding: 20px;
+        }
     }
 }

@@ -2,6 +2,8 @@ import './Footer.scss';
 import facbook from '../../assets/facebook1.svg';
 import github from '../../assets/github.svg';
 import twitter from '../../assets/twitter.svg';
+import navLogo from '../../assets/img/main-logo.png';
+
 function Footer() {
     return (
         <div className="footer">
@@ -27,12 +29,16 @@ function Footer() {
                 </div>
                 <div className="footer-right">
                     <div className="footer-info">
-                        <h1 className="footer-logo">Logo</h1>
+                        <div className="footer-logo-group">
+                            <img src={navLogo} className="footer-logo"></img>
+                            <p className='footer-logo-sub' >UPPER-CARD</p>
+                        </div>
+                      
                         <span>Copyright © 2023 PNxD Team</span>
                         <span>All rights reserved</span>
-                        <div className="footer-input">
+                        {/* <div className="footer-input">
                             <input type="text" placeholder="Enter your email" />
-                        </div>
+                        </div> */}
                         <ul className="footer-icon">
                             <img className="footer-icon_items" src={facbook} alt="" />
                             <img className="footer-icon_items" src={github} alt="" />
@@ -47,7 +53,7 @@ function Footer() {
                     title="DMCA.com Protection Status"
                     className="dmca-badge"
                 >
-                    {' '}
+                
                     <img
                         src="https://images.dmca.com/Badges/dmca-badge-w100-5x1-06.png?ID=fafeccb4-7a66-40db-8ed3-03436b38dfbe"
                         alt="DMCA.com Protection Status"

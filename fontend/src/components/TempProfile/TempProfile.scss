@@ -5,7 +5,7 @@
     flex-direction: column;
     background-color: $white;
     border-radius: 25px;
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     .tempProfile-item {
         display: flex;
@@ -99,4 +99,27 @@
             }
         }
     }
+}
+@media only screen and (max-width: 768px) {
+ .tempProfile{
+    width: 95%;
+    .tempProfile-item{
+        padding: 20px;
+        justify-content: space-between;
+        gap: 10px;
+
+        .tempProfile-btn{
+            .tempProfile-btn {
+
+            }
+            .pickup{
+                font-size: 13px;
+            }
+            .remove{
+                font-size: 13px;
+
+            }
+        }
+    } 
+ }
 }

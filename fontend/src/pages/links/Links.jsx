@@ -9,7 +9,7 @@ import Loading from '../../components/dialog/loading/Loading';
 import http from '../../instance/axiosInstance';
 import { themeSuccess } from '../../redux-toolkit/themeSlice';
 
-function Links() {
+function Links({user}) {
     const loading = useSelector((state) => state.url.loading);
     const [isAddLink, setIsAddLink] = useState(false);
     const [values, setValues] = useState('');
@@ -21,20 +21,19 @@ function Links() {
         setIsAddLink(true);
     };
     const dispatch = useDispatch()
-    useEffect(()=>{
-        const fecthTheme = async() =>{
-            try {
-               const res = await http.get(`/card/v1/${currentUser._id}`) 
-               dispatch(themeSuccess(res.data))
-            } catch (error) {
-                console.log(error.message);
-            }
-        }
-        fecthTheme()
-    },[currentUser._id])
+    // useEffect(()=>{
+    //     const fecthTheme = async() =>{
+    //         try {
+    //            const res = await http.get(`/card/v1/${currentUser?._id}`) 
+    //            dispatch(themeSuccess(res.data))
+    //         } catch (error) {
+    //             console.log(error.message);
+    //         }
+    //     }
+    //     fecthTheme()
+    // },[currentUser?._id])
     return (
         <div className="Links">
-            <div className="Links-left">
                 <div className="Links-contents">
                     {!isAddLink && (
                         <button className="Links-left-btn" onClick={handleAddLink}>
@@ -47,14 +46,10 @@ function Links() {
                     )}
                     {isAddLink && <AddLink isAddLink={isAddLink} setIsAddLink={setIsAddLink} onChange={onChange} values={values} setValues={setValues}/>}
                     <section className="Links-left-wapper">
-                        <LinksItems onChange={onChange} />
+                        <LinksItems user={user} onChange={onChange} />
                     </section>
                 </div>
-            </div>
-            {/* preview */}
-            <div className="Links-right">
-                <PreView  />
-            </div>
+            
         </div>
     );
 }

@@ -1,0 +1,96 @@
+@import '../../base/color';
+.Fonts {
+    background-color: $white;
+    border-radius: 25px;
+    width: 70%;
+    padding: 20px 0;
+    .Font-items {
+        .Fonts-select {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 10px 20px;
+            .Fonts-title {
+                font-size: 20px;
+                font-weight: 400;
+            }
+            .Fonts-btn {
+                width: 100%;
+                background-color: $white;
+                height: 80px;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding: 10px;
+                gap: 20px;
+                border: 1px solid rgba($color: black, $alpha: 0.1);
+                box-shadow: 5px 2px 33px -5px rgba(0, 0, 0, 0.16);
+                -webkit-box-shadow: 6px 3px 33px 1px rgba(0, 0, 0, 0.16);
+                -moz-box-shadow: 6px 3px 33px 1px rgba(0, 0, 0, 0.16);
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                .Font {
+                    background-color: antiquewhite;
+                    padding: 15px;
+                    border-radius: 10px;
+                    font-size: 20px;
+                    border: 1px solid transparent;
+
+                }
+                .Font-name {
+                    font-size: 28px;
+                    font-weight: 700;
+                    
+                }
+                &:hover{
+                    background-color: var(--gray-2);
+                    transform: scale(0.99);
+                    .Font{
+                        background-color: $white;
+                        border: 1px solid rgba($color: black, $alpha: 0.1);
+
+                    }
+
+                }
+            }
+        }
+        .Fonts-color {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 10px 25px;
+            .Fonts-group {
+                display: flex;
+                gap: 20px;
+                .Fonts-colorBox {
+                    width: 60px;
+                    height: 40px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    border: 1px solid rgba($color: $black, $alpha: 0.2);
+                }
+                .Fonts-input {
+                    width: 20%;
+                    border: 1px solid rgba($color: $black, $alpha: 0.2);
+                    border-radius: 5px;
+                    padding: 10px;
+                    font-size: 18px;
+                    &:hover {
+                        // transform: scale(0.98);
+                        border: 1px solid rgba($color: $black, $alpha: 1);
+                    }
+                    &:focus {
+                        border: 1px solid rgba($color: red, $alpha: 1);
+                        transform: scale(0.98);
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .Fonts {
+        width: 95%;
+    }
+}

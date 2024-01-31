@@ -5,16 +5,21 @@ import SocialIconList from '../SocialIconlist/SocialIconList';
 import LinkTree from '../linktree/LinkTree';
 import Loading from '../dialog/loading/Loading';
 import { facebookIcon, instagramIcon, youtubeIcon } from '../../svg/social';
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import PreViewContact from '../PreviewContact/PreviewContact';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-function PreView({ userIn, isLoading, theme, icons, user }) {
+function PreView({ userIn, isLoading, theme, icons, user, links }) {
     const currentUser = useSelector((state) => state.user.currentUser);
     const currentTheme = useSelector((state) => state.theme.currentTheme);
     const themeLoading = useSelector((state) => state.theme.loading);
     const userLoading = useSelector((state) => state.user.loading);
+    const currentLink = useSelector((state) => state.url.currentUrl);
+    const [isContact, setIsContact] = useState(false);
     return (
-        <div className="PreView">
+        <>
             <div className="PreView-wapper">
+                {isContact && <PreViewContact setIsContact={setIsContact} preview={true} window={false} />}
                 {themeLoading || userLoading ? (
                     <Loading isLoading={themeLoading || userLoading} templateLoading={true} />
                 ) : (
@@ -26,10 +31,14 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                             <>
                                 {currentTheme?.backgroundVideo || theme?.backgroundVideo ? (
                                     <video
+                                        style={
+                                            currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
+                                        }
                                         className="template-bg"
                                         type="video/webm"
                                         loop
                                         autoPlay
+                                        muted
                                         src={
                                             currentTheme?.backgroundVideo
                                                 ? currentTheme?.backgroundVideo
@@ -37,25 +46,46 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                                         }
                                     ></video>
                                 ) : (
-                                    <img
+                                    <LazyLoadImage
                                         className="template-bg"
+                                        style={
+                                            currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
+                                        }
                                         src={
                                             currentTheme?.backgroundImg
                                                 ? currentTheme?.backgroundImg
                                                 : theme?.backgroundImg
                                         }
+                                        effect="blur"
                                         alt={
                                             currentTheme?.backgroundImg
                                                 ? currentTheme?.backgroundImg
                                                 : theme?.backgroundImg
                                         }
                                     />
+                                    // <img
+                                    //     className="template-bg"
+                                    //     style={
+                                    //         currentLink?.length > 4 === true ? { height: '100vh' } : { height: '100%' }
+                                    //     }
+                                    //     src={
+                                    //         currentTheme?.backgroundImg
+                                    //             ? currentTheme?.backgroundImg
+                                    //             : theme?.backgroundImg
+                                    //     }
+                                    //     alt={
+                                    //         currentTheme?.backgroundImg
+                                    //             ? currentTheme?.backgroundImg
+                                    //             : theme?.backgroundImg
+                                    //     }
+                                    //     loading="lazy"
+                                    // />
                                 )}
                             </>
                         ) : (
                             <>
-                                {currentTheme.gadientColorBot ||
-                                currentTheme.gadientColorTop ||
+                                {currentTheme?.gadientColorBot ||
+                                currentTheme?.gadientColorTop ||
                                 theme?.gadientColorBot ||
                                 theme?.gadientColorTop ? (
                                     <>
@@ -63,39 +93,87 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                                         (theme?.gadientColorTop && theme?.gadientColorBot) ? (
                                             <div
                                                 className="template-bg"
-                                                style={{
-                                                    backgroundImage: `linear-gradient(${
-                                                        currentTheme.gadientColorTop || theme?.gadientColorTop
-                                                    },${currentTheme.gadientColorBot || theme?.gadientColorBot})`,
-                                                }}
+                                                style={
+                                                    currentLink?.length > 4 === true
+                                                        ? {
+                                                              height: '100vh',
+
+                                                              backgroundImage: `linear-gradient(${
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorTop
+                                                              },${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  theme?.gadientColorBot
+                                                              })`,
+                                                          }
+                                                        : {
+                                                              height: '100%',
+
+                                                              backgroundImage: `linear-gradient(${
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorTop
+                                                              },${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  theme?.gadientColorBot
+                                                              })`,
+                                                          }
+                                                }
                                             />
                                         ) : (
                                             <div
                                                 className="template-bg"
-                                                style={{
-                                                    backgroundColor: `${
-                                                        currentTheme.gadientColorBot ||
-                                                        currentTheme.gadientColorTop ||
-                                                        theme?.gadientColorBot ||
-                                                        theme?.gadientColorTop
-                                                    }`,
+                                                style={
+                                                    currentLink?.length > 4 === true
+                                                        ? {
+                                                              height: '100vh',
+
+                                                              backgroundColor: `${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorBot ||
+                                                                  theme?.gadientColorTop
+                                                              }`,
+                                                          }
+                                                        : {
+                                                              height: '100%',
+
+                                                              backgroundColor: `${
+                                                                  currentTheme?.gadientColorBot ||
+                                                                  currentTheme?.gadientColorTop ||
+                                                                  theme?.gadientColorBot ||
+                                                                  theme?.gadientColorTop
+                                                              }`,
+                                                          }
+
                                                     // backgroundImage:`linear-gradient(${currentTheme.gadientColorTop || theme?.gadientColorTop },${currentTheme.gadientColorBot || theme?.gadientColorTop  })`
-                                                }}
+                                                }
                                             />
                                         )}
                                     </>
                                 ) : (
                                     <div
                                         className="template-bg"
-                                        style={{
-                                            backgroundColor: `${
-                                                currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
-                                            }`,
-                                        }}
+                                        style={
+                                            currentLink?.length > 4 === true
+                                                ? {
+                                                      height: '100vh',
+                                                      backgroundColor: `${
+                                                          currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
+                                                      }`,
+                                                  }
+                                                : {
+                                                      height: '100%',
+
+                                                      backgroundColor: `${
+                                                          currentTheme?.bgColor ? currentTheme?.bgColor : theme?.bgColor
+                                                      }`,
+                                                  }
+                                        }
                                     />
                                 )}
                             </>
                         )}
+
                         <section className="template-profile">
                             <AvatarProfile
                                 preview={true}
@@ -107,22 +185,35 @@ function PreView({ userIn, isLoading, theme, icons, user }) {
                                 avatar={currentUser?.avtImg ? currentUser?.avtImg : user?.avtImg}
                                 fontColor={theme?.fontColor ? theme?.fontColor : currentTheme?.font_color}
                             />
+                            <div className="template-info-items">
+                                <SocialIconList
+                                    icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons}
+                                    commu={false}
+                                />
 
-                            <SocialIconList icons={currentUser?.groupIcon ? currentUser?.groupIcon : icons} />
-
-                            <LinkTree
-                                preview={true}
-                                title={'Facebook'}
-                                icon={facebookIcon(35, 35)}
-                                link="https://www.facebook.com/"
-                            />
-                            <LinkTree preview={true} title={'Youtube'} icon={youtubeIcon(35, 35)} link="" />
-                            <LinkTree preview={true} title={'Instagram'} icon={instagramIcon(35, 35)} />
+                                {currentLink?.map((url, index) => (
+                                    <LinkTree
+                                        cummu={false}
+                                        window={false}
+                                        preview={true}
+                                        isMobile={false}
+                                        setIsContact={setIsContact}
+                                        title={url.urlTitle}
+                                        icon={url.urlThumbnail}
+                                        thumbnailImage={url.thumbnailImage}
+                                        link={url.url}
+                                        key={index}
+                                        acticve={url.acticve}
+                                        decs={url.decs}
+                                        headerStyte={url.headerStyle}
+                                    />
+                                ))}
+                            </div>
                         </section>
                     </>
                 )}
             </div>
-        </div>
+        </>
     );
 }
 

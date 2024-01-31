@@ -11,7 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRef } from 'react';
 import avatarDefault from '../../untils/AvatarLink';
-function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
+function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons ,setPickImg,pickImg}) {
     const dispatch = useDispatch();
     const currentUser = useSelector((state) => state.user.currentUser);
     const [maxLenght, setMaxLenght] = useState(80);
@@ -37,7 +37,6 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                 break;
         }
     };
-    const [pickImg, setPickImg] = useState(false);
     const inputRefUsername = useRef();
     const inputRefDesc = useRef();
 
@@ -56,7 +55,7 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                     setIsLoading(false);
                     const timeOutId = setTimeout(async () => {
                         dispatch(updateData(res.data));
-                    }, 2000);
+                    }, 1000);
                     // notifyToast('Update',3,timeOutId)
                     return () => {
                         clearTimeout(timeOutId);
@@ -152,7 +151,7 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                 theme="dark"
             ></ToastContainer>
             <div className="tempProfile-item">
-                <img className="tempProfile_img" src={user?.avtImg || avatarDefault} alt="" />
+                <img className="tempProfile_img" src={user?.avtImg || avatarDefault} alt=""  loading='lazy' />
                 <div className="tempProfile-btn">
                     <button className="tempProfile-btn_item pickup" onClick={handleOnPickImg}>
                         Pick Image
@@ -163,6 +162,7 @@ function TempProfile({ setIcon, setIsLoading, isLoading, theme, user, icons }) {
                 </div>
                 <div>
                     <Dialog_UI
+                        theme ={theme}
                         openDialog={openDialog}
                         setOpenDialog={setOpenDialog}
                         pickImg={pickImg}

@@ -11,7 +11,7 @@ import Card from '../database/model/cardModel.js';
 import { v4 as uuidv4 } from 'uuid';
 const generateAccessToken = (user) => {
     return jwt.sign({ id: user._id, admin: user.admin, customer: user.customer }, process.env.JWT_ACCESS_KEY, {
-        expiresIn: '2h',
+        expiresIn: '5h',
     });
 };
 const generateRefeshToken = (user) => {
@@ -186,7 +186,7 @@ class authController {
                         }
                     }
                     const { password, ...other } = newUser._doc;
-                    res.status(200).json({ other, Message: 'Send mail reset passwrod successfull' });
+                    res.status(200).json({ status:200, Message: 'Send mail reset passwrod successfull' });
                 } catch (error) {
                     res.json(handleError(500, error.message));
                 }

@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
+    background-color: $white;
     .login-left{
         // border-right: 0.1px solid rgba($color: $black, $alpha: 0.3);
         .login-left-img{
@@ -23,6 +23,10 @@
         gap: 20px;
         .login-title {
             text-align: center;
+            padding-bottom: 10px;
+            h1{
+                padding-bottom:10px ;
+            }
         }
         .form-group {
             display: flex;
@@ -114,6 +118,24 @@
         .login-protected {
             font-size: 13px;
             opacity: 0.7;
+            text-align: center;
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .login{
+        .login-left{
+            display: none;
+        }
+        .login-right{
+            .form-group{
+                .login-input{
+                    width: 100%;
+                    input{
+                        width: 90%;
+                    }
+                }
+            }
         }
     }
 }

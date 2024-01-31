@@ -1,5 +1,7 @@
 @import '../../../base/color';
 .signup {
+    background-color: $white;
+    height: 100vh;
     .signup-container {
         height: 800px;
         display: flex;
@@ -7,9 +9,12 @@
         justify-content: center;
         align-items: center;
         gap: 20px;
-
         .signup-title {
             text-align: center;
+            padding-bottom: 10px;
+            h1{
+                padding-bottom:10px ;
+            }
         }
         .form-group {
             display: flex;
@@ -28,7 +33,7 @@
                 flex-direction: column;
                 gap: 10px;
                 width: 100%;
-                // position: relative;
+                position: relative;
                 input {
                     background-color: $text_hover_color;
                     width: 600px;
@@ -53,12 +58,14 @@
                     color: red;
                     display: none;
                 }
-                .username{
-                    position: relative;
-                    // display: flex;
-                 
-                    .username-input{
-                        max-width:481px;
+                .username {
+                    //    justify-content: space-;
+                    gap: 2px;
+                    display: flex;
+                    .username-input {
+                        width: 100%;
+                         
+                    }
                     }
                     label {
                         // display: block;
@@ -68,10 +75,14 @@
                         // position: absolute;
                         background-color: $text_hover_color;
                         padding: 15px;
-                        // border-radius: 5px;
+                        border-radius: 5px;
+                        width: 35%;
+                        
                     }
+                    &:invalid[focused='true'] ~ p {
+                        display: block;
                 }
-               
+            
             }
             .signup-btn {
                 width: 100%;
@@ -92,30 +103,51 @@
             font-size: 15px;
             font-weight: 500;
         }
-        .login-btn-google{
+        .login-btn-google {
             width: 100%;
-        //    width: 300px;
-           height: 50px;
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           gap: 10px;
-           border-radius: 25px;
-           background-color: $white;
-           border: 1px solid rgba($color: $black, $alpha: 0.3);
-           font-size: 15px;
-           font-weight: 600;
-           transition: all 0.5s ease;
-           cursor: pointer;
-            &:hover{
-                background-color:$text_hover_color;
+            //    width: 300px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 25px;
+            background-color: $white;
+            border: 1px solid rgba($color: $black, $alpha: 0.3);
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            &:hover {
+                background-color: $text_hover_color;
                 border: 1px solid rgba($color: $black, $alpha: 0.7);
-                
             }
         }
         .signup-protected {
             font-size: 13px;
             opacity: 0.7;
+            text-align: center;
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .signup {
+        .signup-container {
+            height: 100vh;
+            .form-group {
+                width: 95%;
+                .signup-input {
+                    width: 100%;
+                    input {
+                        width: 91%;
+                    }
+                    .username label {
+                        padding: 10px;
+                        border-radius: 5px;
+                    }
+                }
+
+            }
         }
     }
 }

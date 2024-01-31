@@ -8,9 +8,30 @@ import Loading from '../../../components/dialog/loading/Loading';
 
 import bg_login from '../../../assets/img/bg_login.jpg';
 import http from '../../../instance/axiosInstance';
+import { ToastContainer, toast } from 'react-toastify';
 
 function ResetPass() {
     const dispatch = useDispatch();
+    // notification
+    const notifyToast = (message, type, time) => {
+        switch (type) {
+            case 1:
+                toast.success('🦄 ' + message);
+                break;
+            case 2:
+                toast.error('Opps!! ' + message);
+                break;
+            case 3:
+                toast.promise(time, {
+                    pending: `${message} pending`,
+                    success: `${message} resolved 👌`,
+                    error: `${message}  rejected 🤯`,
+                });
+                break;
+            default:
+                break;
+        }
+    };
     // const [isLoading, setIsLoading] = useState(true);
 
     const [err, setErr] = useState('');
@@ -34,7 +55,7 @@ function ResetPass() {
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
-    }, []);
+    }, [err]);
     // refresh token
 
     //sumbit form
@@ -42,32 +63,39 @@ function ResetPass() {
         e.preventDefault();
         // e.stopPropagation();
         dispatch(loginStart());
-        try {
-            //valid email
-            const emailValid = validateEmail(values.email);
-            if (emailValid === true) {
-                const res = await http.post(`/auth/reset-pass`, {
-                    email: values.email,
-                });
-                console.log(res.data);
-                //dispatch
-                dispatch(loginSuccess(res.data.Message));
-                if (res.data.status === 404) {
-                    setErr(res.data.message);
-                    dispatch(loginFail());
-                } else if (res.data.status === 403) {
-                    setErr(res.data.message);
-                    dispatch(loginFail());
+        const timeOutId = setTimeout(async()=>{
+            try {
+                //valid email
+                const emailValid = validateEmail(values.email);
+                if (emailValid === true) {
+                    const res = await http.post(`/auth/reset-pass`, {
+                        email: values.email,
+                    });
+                    //dispatch
+                    if (res.data.status === 200) {
+                        dispatch(loginSuccess(res.data.Message));
+                        notifyToast(res.data.Message, 1);
+                    } else if (res.data.status === 404) {
+                        // setErr(res.data.message);
+                        notifyToast(res.data.message, 2);
+                        dispatch(loginFail());
+                    } else if (res.data.status === 403) {
+                        notifyToast(res.data.message, 2);
+                        dispatch(loginFail());
+                    }
                 } else {
-                    console.log('Check your email ');
+                    notifyToast('Oops! Email is not correct! Please try again.', 2);
+                    // setErr('Oops! Email is not correct! Please try again.');
+                    dispatch(loginFail());
                 }
-            } else {
-                setErr('Oops! Email is not correct! Please try again.');
+            } catch (error) {
+                notifyToast(error.message, 2);
+                // setErr(error.message);
                 dispatch(loginFail());
             }
-        } catch (error) {
-            setErr(error.message);
-            dispatch(loginFail());
+        },1500)
+        return () => {
+            clearTimeout(timeOutId);
         }
     };
 
@@ -79,7 +107,19 @@ function ResetPass() {
     };
     return (
         <div className="resetPass" style={{ backgroundImage: `url(${bg_login})` }}>
-            {isLoading && <Loading isLoading={isLoading} />}
+            <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+            ></ToastContainer>
+            {isLoading && <Loading isLoading={isLoading} resetPassLoading = {true}/>}
             <div className="resetPass-container">
                 <div className="resetPass-title">
                     <h1>Reset password</h1>

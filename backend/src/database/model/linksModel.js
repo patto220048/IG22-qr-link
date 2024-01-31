@@ -5,33 +5,50 @@ const Schema = mongoose.Schema;
 const LinkModel = new Schema(
     {
         cardId: {
-            type: String, 
-            require: true, 
+            type: String,
         },
         userId: {
-            type: String, 
+            type: String,
             require: true,
         },
-        url:{
-            type:String,
-            require: true, 
-            
-        },  
-        urlTitle:{
+        url: {
             type: String,
-            default:null
-
+            require: true,
         },
-        acticve:{
+        urlTitle: {
+            type: String,
+            default: "Title",
+        },
+        acticve: {
             type: Boolean,
             default: false,
         },
-        urlThumbnail:{
+        urlThumbnail: {
             type: String,
-            default:null
-
+            default: null,
+        },
+        thumbnailImage: {
+            type: String,
+            default: null,
+        },
+        headerStyle: {
+            type: Boolean,
+            default: false,
+        },
+        contactStyle: {
+            type: Boolean,
+            default: false,
+        },
+        urlStyle : {
+            type: Boolean,
+            default: false,
+        },
+        decs: {
+            type: String,
+            default: null,
         }
     
+
     },
     { timestamps: true },
 );

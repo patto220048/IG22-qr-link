@@ -12,7 +12,7 @@ router.get('/v1/:id', userController.getUserById)
 // edit user
 router.put('/:id', userVerify.verifyUser, userController.editUser)
 // delete user
-router.delete('/:id', userVerify.verifyUser, userController.deteleUser)
+router.delete('/:id', userVerify.verifyUser,userVerify.verifyAdmin, userController.deteleUser)
 // delete all user
 router.delete('/', userController.deteleAllUser)
 

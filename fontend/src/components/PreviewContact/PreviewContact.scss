@@ -1,0 +1,92 @@
+@import '../../base/color';
+@import '../../base/variable';
+
+.PreView-contact {
+    background-color: $text_hover_color;
+    width: 330px;
+    border-top-right-radius: 40px;
+    border-top-left-radius: 40px;
+
+    height: 620px;
+    position: absolute;
+    bottom: 0;
+    z-index: 999;
+    animation: fade 500ms cubic-bezier(0.075, 0.82, 0.165, 1);
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    .PreView-contact-head {
+        background-color: $text_hover_color;
+        display: flex;
+        max-width: 330px;
+        width: 100%;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        z-index: 0;
+        padding: 10px 0px;
+
+        border-bottom: 1px solid rgba($color: $black, $alpha: 0.1);
+
+        .PreView-contact-close {
+            position: absolute;
+            right: 20px;
+            top: 8px;
+            // border-radius: 50px;
+            // background-color: var(--gray-6);
+            svg {
+                &:hover {
+                    transform: scale(1.1);
+                    border-radius: 50px;
+                    background-color: var(--gray-4);
+                }
+            }
+        }
+    }
+    .PreView-contact-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 10px;
+        .PreView-contact-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            gap: 10px;
+
+            // align-items: center;
+            .PreView-contact-items {
+                gap: 5px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
+@keyframes fade {
+    from {
+        height: 0px;
+    }
+    to {
+        height: 620px, 735px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .PreView-contact {
+        width: 100%;
+        height: 620px;
+        max-width: 620px;
+        .PreView-contact-head {
+            max-width: none;
+        }
+        .PreView-contact-body{
+            .PreView-contact-group{
+                margin-left: 20%;
+            }
+        }
+    }
+    
+}

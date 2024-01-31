@@ -49,6 +49,8 @@ export const urlSlice = createSlice({
                     url.url = action.payload.url    
                     url.urlThumbnail= action.payload.urlThumbnail
                     url.acticve = action.payload.acticve
+                    url.thumbnailImage = action.payload.thumbnailImage
+                    
                 }
             })
         }
