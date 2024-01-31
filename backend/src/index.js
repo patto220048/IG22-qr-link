@@ -25,4 +25,4 @@ db.connect()
 //route
 route(app)
 //app
-app.listen(PORT, () => console.log(`Listening on port ${PORT} : ${process.env.HOST}:${PORT} : mode ${NODE_ENV}`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT} : ${process.env.HOST}:${PORT} : mode ${process.env.NODE_ENV }`));

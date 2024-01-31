@@ -7,8 +7,8 @@ services:
       - 4000:4000
     container_name: api-sv
     environment:
-      - CLIENT_URL_ORIGIN=http://super-card.online
-      - NOVE_ENV='development'
+      - CLIENT_URL_ORIGIN=http://localhost:5173
+      - NODE_ENV='development'
       - PORT=4000
     networks:
       - super-card-net
@@ -21,9 +21,11 @@ services:
     ports:
       - 5173:5173
     container_name: bio-app-fontend
+    environment:
+      - VITE_URL_API=http://localhost:4000/api
     networks:
       - super-card-net
-     expose:
+    expose:
       - 5173
     
 networks:

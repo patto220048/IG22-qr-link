@@ -6,10 +6,10 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN npm run build
-
 RUN rm -rf ./src
+
+COPY . .
 
 EXPOSE 5173
 
-CMD ["npm","run","dev"]
+CMD ["npm","run","build"]
