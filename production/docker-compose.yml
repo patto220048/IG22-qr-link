@@ -23,6 +23,7 @@ services:
     container_name: bio-app-fontend
     environment:
       - VITE_URL_API=http://localhost:4000/api
+    
     networks:
       - super-card-net
     expose:
