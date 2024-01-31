@@ -1,0 +1,15 @@
+FROM node:21
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+RUN rm -rf ./src
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm","run","build"]

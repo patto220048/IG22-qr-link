@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    container_name: api-sv
+    environment:
+      - CLIENT_URL_ORIGIN=http://localhost:5173
+      - NODE_ENV='development'
+      - PORT=4000
+    networks:
+      - super-card-net
+    expose:
+      - 4000
+  bio_app:
+    build:
+      context: ../fontend
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    container_name: bio-app-fontend
+    environment:
+      - VITE_URL_API=http://localhost:4000/api
+    networks:
+      - super-card-net
+    expose:
+      - 5173
+    
+networks:
+  super-card-net:
+    driver: bridge
