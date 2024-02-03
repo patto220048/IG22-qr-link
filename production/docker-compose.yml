@@ -7,29 +7,22 @@ services:
       - 4000:4000
     container_name: api-sv
     environment:
-
-      - CLIENT_URL_ORIGIN=http://localhost:5173
+      - CLIENT_URL_ORIGIN=http://localhost
       - NODE_ENV='development'
       - PORT=4000
     networks:
       - super-card-net
     expose:
       - 4000
-
-  bio_app:
-    build:
-      context: ../fontend
-      dockerfile: Dockerfile
+  nginx:
+    image: nginx:1.19-alpine
     ports:
-      - 5173:5173
-    container_name: bio-app-fontend
-    environment:
-      - VITE_URL_API=http://localhost:4000/api
-    
+      - 80:80
     networks:
       - super-card-net
-    expose:
-      - 5173
+    volumes:
+      - ../fontend/dist:/usr/share/nginx/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
 networks:
   super-card-net:
     driver: bridge

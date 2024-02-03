@@ -3,7 +3,7 @@ import LinkTree from '../../components/linktree/LinkTree';
 import './Profile.scss';
 import AvatarProfile from '../../components/AvatarProfile/AvatarProfile';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loading from '../../components/dialog/loading/Loading';
 // import { useQuery } from 'react-query';
 import http from '../../instance/axiosInstance';
@@ -139,6 +139,9 @@ function Profile() {
                                 />
                             ))}
                         </div>
+                        <Link to={"/"}>
+                        <button className='profile-btn-connect'>Make your link now?</button>
+                        </Link>
                     </div>
                 </>
             )}
