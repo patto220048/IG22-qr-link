@@ -7,7 +7,7 @@ services:
       - 4000:4000
     container_name: api-sv-prod
     environment:
-      - CLIENT_URL_ORIGIN=https://super-card.online
+      - CLIENT_URL_ORIGIN=http://super-card.online
       - NODE_ENV='production'
       - PORT=4000
     networks:
