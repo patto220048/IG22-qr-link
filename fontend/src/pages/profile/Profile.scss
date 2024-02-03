@@ -1,3 +1,5 @@
+@import "../../base/variable";
+
 .profile {
     // justify-content: space-between;
     // background-repeat: round;
@@ -26,6 +28,17 @@
             flex-direction: column;
             align-items: center;
             gap: 30px;
+        }
+        .profile-btn-connect{
+            @include btn;
+            transform: translateY(100px);
+            padding: 12px 15px;
+            font-size: 12px;
+            font-weight: 800;
+            background-color: transparent;
+            &:hover{
+
+            }
         }
     }
     .profile-logo {
